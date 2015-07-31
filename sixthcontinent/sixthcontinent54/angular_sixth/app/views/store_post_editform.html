@@ -1,0 +1,13 @@
+<div class="testata-right-section">
+    <form name="edit-post">
+        <span data-ng-bind="editpostErrorMsg"></span>
+        <textarea rows="12" cols="15" class="editpostbox" placeholder="{{i18n.store.type_post}}" data-ng-model='post.store_post_desc'></textarea>
+        <div class="pull-right btn-container">
+            <a class="button" href= "javascript:void(0);" data-ng-click="saveUpdatePost(postIndx)" data-ng-bind="i18n.store.editing_finished"></a>
+            <a class="button" href= "javascript:void(0);" data-ng-click="cancelPost(postIndx)" data-ng-bind="i18n.store.cancel"></a>
+        </div>
+    </form>
+</div>
+<div data-ng-show="{{updatePostInProcess}}" style="text-align: center;">
+    <img src="app/assets/images/ajax-loader.gif" alt="posting..." />
+</div>  

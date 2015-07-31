@@ -1,0 +1,138 @@
+<div class="total-counter">
+<!--     <div class="inner-language">
+            <a class="mob_toggle" data-ng-click="showFlag($event)"></a>
+            <a ng-class="{'activeLang': activeLanguage == 'en'}" href="javascript:void(0)" data-ng-click="changeLanguage('en')">
+                <img src="app/assets/images/english.png" alt="{{i18n.dashboard.english}}" title="{{i18n.dashboard.english}}" />
+            </a>
+            <a ng-class="{'activeLang': activeLanguage == 'it'}" href="javascript:void(0)" data-ng-click="changeLanguage('it')" >
+                <img src="app/assets/images/italy.png" alt="{{i18n.dashboard.italy}}" title="{{i18n.dashboard.italian}}" />
+            </a>
+    </div> -->
+    <div class="titleCouter">
+        <div class="blueFont" data-ng-bind="i18n.mission.total_economy"></div>
+        <div class="contatore">
+            <div ng-repeat="item in totalEconomyShifted track by $index"  class="digitCounter" id="counter_{{$index}}">
+			<span data-ng-bind="item"></span>
+			<span class="title-count-line"></span>
+			</div>
+            <div class="digitCounter">$</div>
+        </div>
+    </div>
+</div>
+
+<div class="navbar hidden-print navbar-default box main" role="navigation">
+    <div class="logo"> <a href="#/"><img src="app/assets/images/logo.png"></a></div>
+    <div class="header-right-sec" >
+        <div class="user-action pull-right menu-right-hidden-xs menu-left-hidden-xs">
+            <div class="text-counter">
+                <span class="header-value" data-ng-if="currentUser.creditAndIncome.totalIncome != ''" title=" {{currentUser.creditAndIncome.totalIncome | currency:'&euro;'}}"> {{currentUser.creditAndIncome.totalIncome | currency:'&euro;'}}</span>
+                <span class="header-value" data-ng-hide="currentUser.creditAndIncome.totalIncome" title="{{0.00  | currency:'&euro;'}}">{{0.00  | currency:'&euro;'}}</span>
+                <span class="reddito">
+                <a title="{{currentUser.basicProfile.firstname + ' ' +currentUser.basicProfile.lastname}}" data-ng-href="#/timeline/{{currentUser.id}}" my-refresh>
+                {{(currentUser.basicProfile.firstname + ' ' +currentUser.basicProfile.lastname).length>26?((currentUser.basicProfile.firstname + ' ' +currentUser.basicProfile.lastname) | limitTo: 22)+'...':(currentUser.basicProfile.firstname + ' ' +currentUser.basicProfile.lastname)}}
+                </a></span> 
+                
+            </div>
+            <div class="dropdown username pull-left" > 
+                <a class="dropdown-toggle dropdown-hover" data-toggle="dropdown" href="javascript:void(0)">
+                    <span class="media margin-none"> 
+						<span class="pull-left border-right" ng-if="currentUser.basicProfile">
+							<img ng-if="currentUser.basicProfile.profile_img.thumb == ''" data-ng-src="app/assets/images/profile.jpg" alt="Profile">
+							<img ng-if="currentUser.basicProfile.profile_img.thumb != ''" data-ng-src="{{currentUser.basicProfile.profile_img.thumb}}" alt="Profile">
+						</span> 
+						<span class="header-arrow border-right">
+							<img alt="" src="app/assets/images/header-arrow.png">
+						</span>
+                    </span> 
+                </a>
+                <ul class="dropdown-menu" ng-click="hidemainmenu = false" ng-init="hoverInit()">
+                    <li><a href="#/" data-ng-bind="i18n.dashboard.title"></a></li>
+                    <li><a href="#/momosy" data-ng-bind="i18n.header_menu.momosy"></a></li>
+                    <li><a href="#/incoming" data-ng-bind="i18n.header_menu.incoming"></a></li>
+                    <li><a href="#/shop_affiliation/{{currentUser.id}}/4"data-ng-bind="i18n.header_menu.shops" ></a></li>
+                    <!-- changed the link path from #/about to #/profiles as content same now-->
+                    <li><a href="#/profiles" data-ng-bind="i18n.dashboard.profile"></a></li>
+
+                    <li ng-if="currentUser.basicProfile.citizen_profile == 1"><a href="#/edit/citizen/1" data-ng-bind="i18n.dashboard.edit_profile"></a></li>
+                    <li ng-if="currentUser.basicProfile.broker_profile.broker_profile_exists == 1 && currentUser.basicProfile.citizen_profile == 0"><a href="#/edit/broker/2" data-ng-bind="i18n.dashboard.edit_profile"></a></li>
+                    <li><a href="#/message" data-ng-bind="i18n.dashboard.messages"></a></li>
+                    <li><a href="#/club" data-ng-bind="i18n.dashboard.clubs"></a></li>
+                    <li><a href="#/changepassword" data-ng-bind="i18n.dashboard.change_password"></a></li>
+                    <li>
+                    <!-- <li><a href="#/shop/create">{{i18n.dashboard.create_shop}}</a></li> -->
+                    <li><a href="#/shop" data-ng-bind="i18n.dashboard.manage_shops"></a></li>
+                    </li>
+                    <!--<li>
+                    <ul ng-if="currentUser.basicProfile.broker_profile.broker_profile_exists == 0">
+                    <li style="display:none"><a href="#/createbrokerprofile">{{i18n.dashboard.create_brocker_btn}}</a></li>
+                    </ul>
+                    </li>-->
+
+                    <li><a href="javascript:void(0)" onclick="Logout()" data-ng-click="logout()" data-ng-bind="i18n.dashboard.logout"></a></li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    <div id="header-search" data-ng-controller="ProfileController">
+            <form action="" autocomplete="on">
+            <input id="search" name="search" type="text" placeholder="{{i18n.dashboard.search_frnd_placeholder}}"  data-ng-model="searchFrind" data-ng-blur="clearList('blank')">
+            <div class="header-top-search-field-panel" data-ng-show="showList">
+                <ul class="header-top-search-field" >
+                    <span ng-show="albloader"><img titile="" alt="" src="app/assets/images/proceed.gif"></span>
+                    <li data-ng-repeat="user in userList" data-ng-if="user.id != currentUser.id">
+                    <a data-ng-if="user.type == 'U'" data-ng-click="clearList((user.firstname + ' ' + user.last_name));" href="#/viewfriend/{{user.id}}" ><div class="search-field-img">
+                        <img data-ng-if="user.thumb_path == ''" src="app/assets/images/dummy32X32.jpg" alt="Profile">
+                        <img data-ng-if="user.thumb_path != ''" data-ng-src="{{user.thumb_path}}" width="40" height="40">
+                        </div>
+                        <div class="search-filed-text-section">
+                        <span class="search-field-name" data-ng-if="user.firstname !=''" data-ng-bind="user.firstname">
+                        </span>
+                        <span class="search-field-name" data-ng-if="user.last_name !='' && user.last_name != null" data-ng-bind="' '+user.last_name">
+                        </span>
+                        <span class="search-type" data-ng-bind="i18n.header_menu.search_user"></span> 
+                        </div>
+                    </a>
+                    <a data-ng-if="user.type == 'G'" data-ng-click="clearList(user.name);" href="#/club/view/{{user.id}}/{{user.status}}" ><div class="search-field-img">
+                        <img data-ng-if="user.thumb_path == ''" src="app/assets/images/club-list-list-thumb.png" alt="Club" >
+                        <img data-ng-if="user.thumb_path != ''" data-ng-src="{{user.thumb_path}}" width="40" height="40">
+                        </div>
+                        <div class="search-filed-text-section">
+                        <span class="search-field-name" data-ng-bind="user.name">
+                        </span> 
+                        <span class="search-type" data-ng-bind="i18n.header_menu.search_club"></span>
+                        </div>
+                    </a>
+                    <a data-ng-if="user.type == 'S'" data-ng-click="clearList(user.name);" href="#/shop/view/{{user.id}}" ><div class="search-field-img">
+                        <img data-ng-if="user.thumb_path == ''" src="app/assets/images/citizen3.jpg" alt="Shop" >
+                        <img data-ng-if="user.thumb_path != ''" data-ng-src="{{user.thumb_path}}" width="40" height="40">
+                        </div>
+                        <div class="search-filed-text-section">
+                        <span class="search-field-name" data-ng-bind="user.name">
+                        </span> 
+                        <span class="search-type" data-ng-bind="i18n.header_menu.search_shop"></span>
+                        </div>
+                    </a>
+                    </li>
+                </ul>
+                <div class="all-search-link"><a href="#/search/{{searchFrind}}/profiles" data-ng-bind="searchFrind"></a>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="common-error-in-app" data-ng-bind="i18n.dashboard.common_error" data-ng-show="showCommonError"></div>
+<script>
+$('.dropdown-toggle').hover(function() {
+    $('.dropdown-menu').show();
+});
+
+$('div').click(function() {
+    $('.dropdown-menu').hide();
+});
+
+$('.dropdown').hover(function() {
+
+}, function() {
+    $('.dropdown-menu').hide();
+});
+</script>

@@ -1,0 +1,50 @@
+ <div class="col-2-layout">
+ <!-- Content START -->
+  <div id="content" class="container-right-fluid-page">
+    <!-- <div class="layout-app">  -->
+    <div class="innerAll">
+      <div class="row">
+        <div class="col-lg-8 col-md-8">
+          <div class="inner-container">
+        <friend-Cover-Profile-Panel></friend-Cover-Profile-Panel>
+            <div class="profile-about clearfix">
+                <div class="profile-about-left"> <span class="profile-icons about-icon"></span> <span class="profile-view-title" data-ng-bind="i18n.friends.about"></span> </div>
+                <div class="profile-about-right">
+                  <ul>
+                    <li> <span class="profile-icons home-icon"></span> <span data-ng-bind="i18n.friends.livesin"></span>
+                      <span ng-if="friendProfile.user_info.city == '' || friendProfile.user_info.city === null"><p>-</p></span>
+                      <p data-ng-bind="friendProfile.user_info.city"></p>
+                    </li>
+                    <li> <span class="profile-icons location-icon"></span> <span data-ng-bind="i18n.friends.from"></span>
+                      <span ng-if="friendProfile.user_info.city_born == '' || friendProfile.user_info.city_born === null"><p>-</p></span>
+                      <p data-ng-bind="friendProfile.user_info.city_born"></p>
+                    </li>
+                    <li> <span class="profile-icons profession-icon"></span> <span data-ng-bind="i18n.friends.profession"></span>
+                    <p>
+                      <p ng-if="friendProfile.user_info.jobDetails.length >= 1" ng-repeat="job in friendProfile.user_info.jobDetails |orderBy:'-id' |limitTo: 1"
+                      data-ng-bind="job.title"  >
+                      </p>
+                      <span ng-if="friendProfile.user_info.jobDetails.length == 0"><p>-</p></span>
+                    </p>
+                    </li>
+                    <li> <span class="profile-icons relation-icon"></span> <span data-ng-bind="i18n.friends.relation"></span>
+                      <span ng-if="friendProfile.user_info.relationship == ' ' || friendProfile.user_info.relationship === null"><p>-</p></span>
+                      <p data-ng-bind="friendProfile.user_info.relationship"></p>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+		<friend-profile-post-form ng-if="friendProfile.is_friend ==1"></friend-profile-post-form>
+        <div class="tab-pane1">
+			<friend-profile-post-list> </friend-profile-post-list>
+		</div>
+        </div>
+      </div>
+        <div class="col-lg-4 col-md-4">
+        	<profile-Right-Panel></profile-Right-Panel>
+        </div>
+      </div>
+    </div>
+  </div>  
+<div class="clearfix"></div>
+</div>

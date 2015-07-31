@@ -1,0 +1,49 @@
+<div class="container-fluid">	
+    <div class="register-sixth-continent-form-section">
+       <div  class="innerAll">
+            <div class="row">
+                <div class="inner-container" style="margin-top: 51px">
+                    <div class="inner-container">
+                        <!--store details section-->
+                        <div class="store-details-section">
+                            <storeprofilehome></storeprofilehome> 
+                        </div>
+                        
+                        <div class="album-section-container-top">
+                            <div class="album-online">
+                                <span class="album-status"><img titile="" alt="" src="app/assets/images/album.png"></span>{{i18n.store.shop_albums}}
+                            </div>
+                            <ul class="album-action-message"> 
+                                <li class="last button-default"><a href="#/blshop/info/{{storeMainId}}" data-ng-bind="i18n.store.back_to_shop"></a></li>
+                            </ul>
+                        </div>
+                        <div class="album-option-container" infinite-scroll="loadMore()" infinite-scroll-distance="3">
+                            <div class="ng-hide" style="text-align:center" ng-show="albloader"><img title="" alt="" src="app/assets/images/proceed.gif"></div>
+                            <ul class="album-option" ng-if="listAlbum.length">
+                                <li data-ng-repeat="item in listAlbum">
+                                    <a href="javascript:void(0)">
+                                        <div ng-if="!item.album_featured_image" class="album-option-img" ng-click="redirectUrl(item.id, item.album_name)">
+                                            <span style="background-image:url('app/assets/images/album-empty.jpg');"></span>
+                                        </div>
+                                        <div ng-if="item.album_featured_image" class="album-option-img" ng-click="redirectUrl(item.id, item.album_name)">
+                                            <span style="background-image:url('{{item.album_featured_image}}');"></span>
+                                         </div>
+                                        <div class="album-option-heading"><span ng-click="redirectUrl(item.id, item.album_name)" data-ng-bind="item.album_name"></span>
+			                </div>
+                                         <div class="album-option-sub" ng-click="redirectUrl(item.id, item.album_name)">{{item.media_in_album}} {{i18n.store.album.photos}}</div>
+                                    </a>
+                                </li>	
+                            </ul>
+                            <div class="ng-hide" style="text-align:center" ng-show="listload"><img titile="" alt="" src="app/assets/images/proceed.gif"></div>
+                            <div class="store-dp-album-option ng-hide" ng-if="!listAlbum.length" ng-show="noAlbums" data-ng-bind="i18n.friends.no_album">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+
+</div>

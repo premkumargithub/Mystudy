@@ -1,0 +1,82 @@
+<div class="col-2-layout">
+<div id="content" class="container-right-fluid-page" data-ng-controller="FriendProfile">
+    <div class="innerAll">
+        <div class="row">
+            <div class="col-lg-8 col-md-8">
+            <div class="inner-container club-inner-section">
+                <friend-Cover-Profile-Panel></friend-Cover-Profile-Panel>
+                <article class="social-project">
+                    <div class="social-heading">
+                        <span class="clubtitle1" data-ng-bind="i18n.clubs.title"></span>
+                    </div>
+                    <div ng-if="totalItems==0" style="text-align: center;" data-ng-bind="i18n.clubs.no_result"></div>
+                    <div class="club-pagi-section" ng-if="totalItems!=0">
+                        <div class="club-pagi-section1">
+                        <div class="viewtype-text" data-ng-bind="i18n.clubs.visualization"></div>
+                        <ul class="visualizzazione">
+                            <li class="{{gridActive}}"><a href="javascript:void(0);"  data-ng-click="changeView('grid')" class="table-icon"></a></li>
+                            <li class="{{listActive}}"><a href="javascript:void(0);" data-ng-click="changeView('list')" class="list-icon"></a>
+                            </li>
+                        </ul>
+                        </div>
+                        <div class="club-pagi-section2">
+                        <div class="viewtype-text" data-ng-bind="i18n.clubs.result_per_page"></div>
+                            <ul>
+                                <li><span ng-class="{active: itemsPerPage == firstPage}">
+                                <a href="javascript:void(0)" ng-click="setPage(firstPage)" data-ng-bind="firstPage"></a></span></li>
+                                <li> -<span ng-class="{active: itemsPerPage == 2*firstPage}">
+                                <a href="javascript:void(0)" ng-click="setPage(2*firstPage)" data-ng-bind="(2*firstPage)"></a></span></li>
+                                <li> -<span ng-class="{active: itemsPerPage == 4*firstPage}">
+                                <a href="javascript:void(0)" ng-click="setPage(4*firstPage)" data-ng-bind="4*firstPage"></a></span></li>
+                                <li> -<span ng-class="{active: itemsPerPage == 8*firstPage}">
+                                <a href="javascript:void(0)" ng-click="setPage(8*firstPage)" data-ng-bind="8*firstPage"></a></li>
+                            </ul>
+                        </div>
+                        <div class="club-pagi-section3">
+                            <tr>
+                            <th colspan="12" class="text-right" data-ng-if="pagination === true ">
+                            <div class="pagination ">
+                            <ul class="pagination mb10 store-paginate">
+                            <li class="prev nav-arrow" ng-class="prevPageDisabled()">
+                            <a href ng-click="prevPage()">&#60;</a>
+                            </li>
+                            <li ng-repeat="n in range"
+                            ng-class="{active: n == currentPage, 'seeview': $index+1 == currentPage+1 || $index+1 == currentPage+2 || $index+1 == currentPage-1 || $index+1 == currentPage-2 || $index+1 == currentPage || $last}">
+                            <a href ng-click="changePageMore(n)" data-ng-bind="n"></a>
+                            </li>
+                            <li class="next nav-arrow" ng-class="nextPageDisabled()">
+                            <a href ng-click="nextPage()">&#62;</a>
+                            </li>
+                            </ul>
+                            </div>
+                            </th>
+                            </tr>
+                        </div>
+                    </div>
+                    <!--<div class="wrap-select">
+                        
+                    </div> -->
+                    <span class="errorMsg" data-ng-bind="message"></span>
+                    <div>
+                    <div data-ng-show="isLoading" style="text-align: center;">
+                        <img src="app/assets/images/proceed.gif" alt="loading..." />
+                    </div>
+                    <group-grid-friend data-ng-show="gridActive == 'active'"></group-grid-friend>
+                    <group-list-friend data-ng-show="listActive == 'active'"></group-list-friend>
+                    
+                    </div>
+                    <!--<div style="text-align: center;" data-ng-show="noContent" ng-if="!userGroupList.length">
+                        <strong>{{i18n.friends.no_result_found}}</strong>
+                    </div>-->
+                </article>
+            </div>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <!--<club-Notification-Panel></club-Notification-Panel>-->
+                <profile-Right-Panel></profile-Right-Panel>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+</div>

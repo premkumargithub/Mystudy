@@ -1,0 +1,54 @@
+<!---broker profile container start-->
+<div class="friend-profile-container">		
+	<div class="timeline-cover">
+		<div class="widget">
+			<div class="widget-body padding-none margin-none">
+				<div class="innerAll"> <i class="fa fa-quote-left text-muted pull-left fa-fw"></i>
+					<p class="lead margin-none" ng-bind="i18n.profile.about.broker_profile_details.title"></p>
+				</div>
+				<div style="text-align:right; margin:0 10px 10px 0;"><a href="#/edit/broker/2" style="font-size: 14px;" class="button-default ng-binding" ng-bind="i18n.profile.about.broker_profile_details.edit_broker"> </a></div>
+			</div>
+		</div>
+	</div>
+	<div data-ng-show="brokerProfileLoader">
+		<show-progress></show-progress>
+	</div>
+	<div class="form-container" data-ng-hide="brokerProfileLoader">
+		<ul>
+			<li>
+				<span ng-bind="i18n.profile.about.broker_profile_details.phone"></span>
+				<span class="friend-detail" ng-bind="brokerProfile.phone"></span>
+			</li>
+			<li>
+				<span ng-bind="i18n.profile.about.broker_profile_details.vat_number"></span>
+				<span class="friend-detail" ng-bind="brokerProfile.vat_number"></span>
+			</li>
+			<li>
+				<span ng-bind="i18n.profile.about.broker_profile_details.fiscal_code"></span>
+				<span class="friend-detail" ng-bind="brokerProfile.fiscal_code"></span>
+			</li>
+			<li>
+				<span ng-bind="i18n.profile.about.broker_profile_details.iban"></span>
+				<span class="friend-detail" ng-bind="brokerProfile.iban"></span>
+			</li>
+			<li>
+				<span ng-bind="i18n.profile.about.broker_profile_details.map_place"></span>
+				<span class="friend-detail" ng-bind="brokerProfile.map_place"></span>
+			</li>
+			
+			
+			
+			<li style="display:none;">
+				<span ng-bind="i18n.profile.about.broker_profile_details.latitude"></span>
+				<span class="friend-detail" ng-bind="brokerProfile.latitude"></span>
+
+			</li>
+			<li style="display:none;">
+				<span ng-bind="i18n.profile.about.broker_profile_details.longitude"></span>
+				<span class="friend-detail" ng-bind="brokerProfile.longitude"></span>
+
+			</li>
+		</ul>
+	</div>
+</div>	
+<!---broker profile container end-->

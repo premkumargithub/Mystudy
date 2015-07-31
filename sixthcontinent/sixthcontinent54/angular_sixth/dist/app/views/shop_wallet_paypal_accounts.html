@@ -1,0 +1,56 @@
+<div class="wallettable-responsive">
+  <span ng-class="msgClass" class="text-center" data-ng-bind="message"></span>
+  <table class="table">
+    <thead>
+      <tr>
+        <th class="first-row" data-ng-bind="i18n.store.wallet.select_lbl"></th>
+        <th class="sec-row" data-ng-bind="i18n.store.wallet.paypal_lbl"></th>
+        <th class="third-row" data-ng-bind="i18n.store.wallet.holder_lbl"></th>
+        <th class="fourth-row" data-ng-bind="i18n.store.wallet.register_date_lbl"></th>
+        <th class="fifth-row"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-ng-hide="isInProgress" data-ng-repeat="account in paypalAccountList | paginationFilter: currentPage*itemsPerPage | limitTo: itemsPerPage ">
+        <td data-title="{{i18n.store.wallet.select_lbl}}">
+          <input type="radio" name="accountList" data-ng-click="selectThisAccount($index)" ng-checked="selectedAccount[$index]" data-ng-hide="inProcess[$index]" />
+          <show-progress data-ng-show="inProcess[$index]"></show-progress>
+        </td>
+        <td data-title="{{i18n.store.wallet.paypal_lbl}}">
+          <span class="card-type" data-ng-bind=""></span> 
+          <!-- <span data-ng-bind="i18n.store.wallet.end_up_lbl"></span> -->
+          <span data-ng-bind="account.account_id"></span>
+        </td>
+        <td data-title="{{i18n.store.wallet.holder_lbl}}">
+          <span data-ng-bind="account.first_name + ' ' + account.last_name"></span> 
+        </td>
+        <td data-title="{{i18n.store.wallet.register_date_lbl}}">
+          <span data-ng-bind="account.registered_date.date | dateFormat"></span>
+        </td>
+        <td data-title="">
+          <button  data-ng-hide="inDelete[$index]" data-ng-bind="i18n.store.wallet.remove_lbl" data-ng-click="confirmClick() && deleteAccount($index)"  confirm-click></button>
+          <show-progress data-ng-show="inDelete[$index]"></show-progress>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="club-pagi-section3">
+    <div data-ng-show="isInProgress"><show-progress></show-progress></div>
+    <div class="pagination " data-ng-if="pagination === true ">
+      <ul class="pagination mb10 ">
+        <li class="prev nav-arrow" ng-class="prevPaypalPageDisabled()">
+          <a href="javascript:void(0);" ng-if="prevPaypalPageDisabled() == 'disabled'">&#60;</a>
+          <a href="javascript:void(0);" ng-if="prevPaypalPageDisabled() != 'disabled'" ng-click="prevPaypalPage()">&#60;</a>
+        </li>
+        <li ng-repeat="n in range"
+            ng-class="{active: n == currentPage, 'seeview': $index+1 == currentPage+1 || $index+1 == currentPage+2 || $index+1 == currentPage-1 || $index+1 == currentPage-2 || $index+1 == currentPage || $last}">
+            <a href ng-click="changePaypalPageMore(n)" ng-bind="n"></a>
+          </li>
+        <li class="next nav-arrow" ng-class="nextPaypalPageDisabled()">
+          <a href="javascript:void(0)" ng-if="nextPaypalPageDisabled() == 'disabled'" >&#62;</a>
+          <a href="javascript:void(0)" ng-if="nextPaypalPageDisabled() != 'disabled'" ng-click="nextPaypalPage()">&#62;</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

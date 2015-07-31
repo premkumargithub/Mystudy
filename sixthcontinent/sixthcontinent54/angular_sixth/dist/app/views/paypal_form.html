@@ -1,0 +1,70 @@
+<!-- paypal register form start-->
+<div class="create-album paypal-register">
+    <h4><span ng-bind="i18n.Campaign_work.paypal_varify.form_title"></span></h4>
+    <span ng-class="paypalErrCls" ng-bind="paypalErrMsg" class="error-mess-paypal"></span>
+    <form name="paypalForm" ng-submit="submitPaypalForm(paypal)" novalidate>
+        <ul>
+            <li>
+                <div class="createclub-label">
+                <span ng-bind="i18n.Campaign_work.paypal_varify.first_name"></span>
+                </div>
+                <div class="createclub-input">
+                <input id="" name="firstname" ng-model="paypal.fname" type="text" class="form-control bg-gray"  ng-keypress="paypalForm.firstname.$setViewValue(paypal.fname)" 
+                ng-class="{'has-error':(paypalForm.firstname.$error.required && paypalForm.firstname.$invalid && paypalForm.firstname.$dirty)}" required />
+
+                <span class="text-red" ng-show="((paypalForm.firstname.$error && paypalForm.firstname.$dirty && paypalForm.firstname.$invalid)||(paypalForm.$submitted))" ng-bind="i18n.Campaign_work.paypal_varify.enter_first_name"></span>
+                </div>
+            </li>
+            <li>
+                
+                <div class="createclub-label">
+                <span ng-bind="i18n.Campaign_work.paypal_varify.last_name"></span>
+                </div>
+                <div class="createclub-input">
+                <input id="" name="lastname" type="text" class="form-control bg-gray" ng-model="paypal.lname" ng-keypress="paypalForm.lastname.$setViewValue(paypal.lname)" ng-class="{'has-error': (paypalForm.lastname.$invalid && paypalForm.lastname.$error.required && paypalForm.lastname.$dirty)}"  required/>
+                <span class="text-red" ng-show="(paypalForm.lastname.$dirty && paypalForm.lastname.$invalid && paypalForm.lastname.$error.required)||(paypalForm.$submitted)" ng-bind="i18n.Campaign_work.paypal_varify.enter_last_name"></span>
+
+                </div>
+            </li>
+            <li>
+                <div class="createclub-label">
+                <span ng-bind="i18n.Campaign_work.paypal_varify.email"></span>
+                </div>
+                <div class="createclub-input">
+                <input id="" name="email" ng-model="paypal.email" type="email" ng-keypress="paypalForm.email.$setViewValue(paypal.email);checkEmail(paypal.email);" ng-pattern="/^[A-Za-z0-9._-]+@[A-Za-z]+\.[A-Za-z.]{2,5}$/" class="form-control bg-gray" ng-class="{'has-error': ((paypalForm.email.$invalid && paypalForm.email.$error.required && paypalForm.email.$dirty) || paypalForm.email.$error.pattern) && visited } " required/>
+                <span class="text-red" ng-show="(paypalForm.email.$dirty && !checkEmail(paypal.email))" ng-bind="i18n.Campaign_work.paypal_varify.valid_email"></span>
+                </div>
+            </li>
+            <li>
+                <div class="createclub-label">
+                <span ng-bind="i18n.Campaign_work.paypal_varify.phone_number"></span>
+                </div>
+                <div class="createclub-input">
+                <input id="" name="phoneNumber" maxlength="15" ng-model="paypal.pnumber" ng-keypress="paypalForm.phoneNumber.$setViewValue(paypal.pnumber); checkPno(paypal.pnumber);"   type="text" class="form-control bg-gray" ng-class="{'has-error': (paypalForm.pnumber.$dirty && checkPno(paypal.pnumber))}" />
+
+                <span class="text-red" ng-show="paypalForm.phoneNumber.$dirty && !checkPno(paypal.pnumber)" ng-bind="i18n.Campaign_work.paypal_varify.phone_message"></span>
+                </div>
+            </li>
+            <!-- <li>
+                <div class="createclub-label">
+                <span ng-bind="i18n.Campaign_work.paypal_varify.paypal_id"></span>
+                </div>
+                <div class="createclub-input">
+                <input id="" name="accountid" ng-model="paypal.accountid" type="text" class="form-control bg-gray" />
+                </div>
+            </li> -->
+            <li ng-hide="inProgress">
+                <button type="submit" class="btn btn-primary" ng-disabled="paypalForm.$invalid">
+                    <span ng-bind="i18n.Campaign_work.paypal_varify.submit"></span>
+                </button>
+                <button type="button" ng-click="closeForm();" class="btn btn-primary">
+                    <span ng-bind="i18n.Campaign_work.paypal_varify.reset"></span>
+                </button>
+            </li>
+            <li ng-show="inProgress">
+                <show-progress></show-progress>
+            </li>
+        </ul>
+    </form>
+</div>
+<!-- paypal register form end-->

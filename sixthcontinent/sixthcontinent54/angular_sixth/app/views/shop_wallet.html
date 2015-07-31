@@ -1,0 +1,61 @@
+<div class="col-2-layout">
+  <div class="container-right-fluid-page" id="content">
+    <div ng-show="isLoadingCard" class="loader-container">
+      <show-progress></show-progress>
+    </div>
+    <div ng-hide="isLoadingCard" class="innerAll">
+      <div class="row">
+        <div class="col-lg-8 col-md-8">
+          <div class="inner-container">
+            <div class="login-error" style="text-align: center; color: red;" data-ng-show="uploadProfileerror" data-ng-bind="uploadProfileErrorMsg">
+            </div>
+            <!--store details section-->
+            <div class="store-details-section">
+              <storeprofile></storeprofile> 
+            </div>
+            <!---new wallet start-->
+			     <div class="clr"></div>
+              <div class="transaction-container shop-wallet shop-wallet-container">
+              <div class="section-heading">
+                <span class="trans-heading" data-ng-bind="i18n.store.wallet.shop_wallet"></span></div>
+                <div class="transaction-content">
+                  <shop-wallet-tab></shop-wallet-tab>
+                  <div class="wallet-tab-content">
+                  <div class="subs-sucess" data-ng-show="sucessPay" data-ng-bind="i18n.store_wallet.pay_congrates"></div>
+                  <div class="subs-sucess" data-ng-show="sucessPayError" data-ng-bind="i18n.Campaign_work.error_occur"></div>
+                  <!--view Content Start -->
+                  <div data-ng-if="currentTab == 1">
+                    <shop-wallet-sale ></shop-wallet-sale>
+                  </div>
+                  <div data-ng-if="currentTab == 2">
+                      <shop-wallet-shopping-card></shop-wallet-shopping-card>
+                  </div>
+                  <div data-ng-if="currentTab == 3">
+                      <shop-wallet-coupon></shop-wallet-coupon>
+                  </div>
+                  <div data-ng-if="currentTab == 4">
+                      <shop-wallet-history></shop-wallet-history>
+                  </div>
+                  <div data-ng-if="currentTab == 5">
+                      <shop-wallet-sale-history></shop-wallet-sale-history>
+                  </div>
+                  <div data-ng-if="currentTab == 6">
+                    <shop-wallet-payment ></shop-wallet-payment>
+                  </div>
+                  <!--view Content ends -->
+                  </div>
+                </div>
+                
+            </div>
+            <!---new wallet end-->
+             </div>
+          </div> 
+          <div class="col-lg-4 col-md-4"> 
+            <profile-Right-Panel></profile-Right-Panel>
+          </div>
+       
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>  

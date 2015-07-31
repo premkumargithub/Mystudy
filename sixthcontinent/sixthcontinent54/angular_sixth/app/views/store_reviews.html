@@ -1,0 +1,45 @@
+<div class="col-2-layout">
+    <div class="container-right-fluid-page" id="content">
+        <div class="innerAll">
+            <div class="row">
+                <div class="col-lg-8 col-md-8">
+                    <div class="inner-container">
+                        <form class="invite-user gruop-bar-form" >
+                            <div class="login-error" style="text-align: center; color: red;" data-ng-show="uploadProfileerror" data-ng-bind="uploadProfileErrorMsg">
+                            </div>
+                        </form>
+                        <!--store details section-->
+                        <div class="store-details-section">
+                            <storeprofile></storeprofile> 
+                        </div>
+
+                   
+                        <div class="form-container" data-ng-controller="ShopReviewController"> 
+                            <div class="store-details-section consumer-review">                   
+                                <h4 ng-bind="i18n.store.consumer_review"></h4> 
+                                <div class="filter">
+                                    <div class="label">{{i18n.store.friend_filter}} <span class="friend-logo"></span><span class="count" ng-bind="frcount"></span></div>
+                                    <div class="input-container select-box" ng-class="{active:friends != null}">
+                                        <select class="form-control" ng-class="{disable: friendlist.length == 0}" data-ng-model="friends" ng-change="frndVal()">
+                                            <option value="" data-ng-bind="i18n.store.see_reviews"></option>
+                                            <option value="all" data-ng-bind="i18n.store.show_all_friends_post" ng-if="friendlist.length > 0"></option>
+                                            <option value="{{frnd.id}}" data-ng-repeat="frnd in friendlist">{{frnd.first_name+' '+frnd.last_name}}</option>
+                                            </select>
+                                    </div>
+                                </div>
+                                <allconsumer></allconsumer>
+                            </div>          
+                        </div>          
+                    </div>
+                </div>
+                <!-- Edit store form start from here-->
+                <div class="col-lg-4 col-md-4">
+                    <!-- Edit store form start from here-->
+                    <profile-Right-Panel></profile-Right-Panel>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+
+</div>

@@ -1,0 +1,65 @@
+<div class="col-2-layout">
+    <div class="container-right-fluid-page" id="content">
+        <div class="innerAll">
+            <div class="row">
+                <div class="col-lg-8 col-md-8">
+                    <div class="inner-container">
+                        <form class="invite-user gruop-bar-form" >
+                            <div class="login-error" style="text-align: center; color: red;" data-ng-show="uploadProfileerror" data-ng-bind="uploadProfileErrorMsg">
+                            </div>
+                        </form>
+                        <!--store details section-->
+                        <div class="store-details-section">
+                            <storeprofile></storeprofile> 
+                        </div>
+
+                   
+                        <div data-ng-controller="ShopFollowersController"> 
+                            <div class="store-details-section shop-follow" infinite-scroll="loadMore()" infinite-scroll-distance="3">          
+                                 
+                                <div class="friends-list-container">
+
+                                <div class="friend-list-top clearfix">
+                                    <div class="friend-list-title">
+                                    <span ng-bind="i18n.store.shop_follow"></span> 
+                                    </div>
+                                </div>    
+                                <div class="friend-list-content">
+                                    <div class="friend-cont-listing">
+                                        <ul class="clearfix" ng-if="storeFollowersDetail.length > 0">
+                                            <li data-ng-repeat="item in storeFollowersDetail">
+                                                <div class="friend-listing-img">
+                                                    <a ng-if="item.profile_image_thumb == ''" href="#/viewfriend/{{item.id}}" style="background-image:url(app/assets/images/prof-pic.jpg);" title="{{item.first_name}} {{item.last_name}}"></a>
+                                                    <a ng-if="item.profile_image_thumb != ''" href="#/viewfriend/{{item.id}}" style="background-image:url({{item.profile_image_thumb}});" title="{{item.first_name}} {{item.last_name}}"></a>
+                                                </div>
+                                                <div class="friend-listing-desc">
+                                                    <div class="friend-listing-desc-title">
+                                                        <a href="#/viewfriend/{{item.id}}">
+                                                            <span data-ng-bind="item.first_name + ' ' + item.last_name "><span></a>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <div class="loader-container" data-ng-show="storeLoading">
+                                                    <img src="app/assets/images/ajax-loader.gif" alt="{{i18n.friends.loading}}..." />
+                                                </div>
+                                                <div class="clearfix" ng-if="storeFollowersDetail.length < 1" data-ng-bind="i18n.store.result_not_found"  >
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>          
+                        </div>          
+                    </div>
+                </div>
+                <!-- Edit store form start from here-->
+                <div class="col-lg-4 col-md-4">
+                    <!-- Edit store form start from here-->
+                    <profile-Right-Panel></profile-Right-Panel>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+
+</div>

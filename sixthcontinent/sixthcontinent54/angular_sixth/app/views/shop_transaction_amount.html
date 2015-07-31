@@ -1,0 +1,78 @@
+<!--Transaction Start-->
+<div class="transaction-wrapper transaction-process" >
+    <div class="transaction-main-heading" ng-bind="i18n.shop_transaction.transaction_lbl"></div>
+    <span class="shopTranErrCls" ng-bind="errorMsg"></span>
+    <div ng-if="transactionObject != ''">
+        <div class="transaction-id-section" data-ng-hide="requestSending">
+            <div class="selectcustomer-subtitle">
+                <span ng-bind="i18n.shop_transaction.transaction_id_listlbl"></span>
+                <span ng-bind="transactionObject.id"></span>
+            </div>
+            <div class="selectcustomer-date">
+                <span ng-bind="i18n.shop_transaction.transaction_date_listlbl"></span>
+                <span ng-bind="transactionObject.date | txnPrgsDate"></span>
+            </div>
+        </div>
+        <div class="transaction-content" data-ng-hide="requestSending">
+            <form name="paymentForm" ng-submit="payAmount(paymentForm.$valid)" novalidate>
+            <div class="transaction-listing">
+                <ul class="clearfix">
+                    <li>
+                        <div class="trans-processlist-title" ng-bind="i18n.shop_transaction.shop_lbl"></div>
+                        <div class="trans-processlist-wrapper">
+                            <div class="trans-process-left">
+                                <img data-ng-hide="transactionObject.shop_id.shop_thumbnail_img" ng-src="app/assets/images/transaction-product.jpg">
+                                <img data-ng-show="transactionObject.shop_id.shop_thumbnail_img" ng-src="{{transactionObject.shop_id.shop_thumbnail_img}}">
+                            </div>
+                            <div class="trans-process-right">
+                                <div class="trans-process-title" ng-bind="transactionObject.shop_id.name"></div>
+                                <div class="trans-process-subtitle"  ng-bind="transactionObject.shop_id._id">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="trans-processlist-title" ng-bind="i18n.shop_transaction.customer_lbl"></div>
+                        <div class="trans-processlist-wrapper">
+                            <div class="trans-process-left">
+                                <img data-ng-hide="transactionObject.citizen_id.user_thumbnail_image" ng-src="app/assets/images/profile-image.jpg">
+                                <img data-ng-show="transactionObject.citizen_id.user_thumbnail_image" ng-src="{{transactionObject.citizen_id.user_thumbnail_image}}">
+                            </div>
+                            <div class="trans-process-right">
+                                <div class="trans-process-title">
+                                    <span ng-bind="transactionObject.citizen_id.name"></span> 
+                                </div>
+                                <div class="trans-process-subtitle" ng-bind="transactionObject.citizen_id._id"></div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="trans-enter-amount">
+                    <div class="trans-amount-head" ng-bind="i18n.shop_transaction.amount_lbl"></div>
+                    <div class="trans-amount-input">
+                            <input type="text" name="payamount" id="payamount" placeholder="{{i18n.shop_transaction.amount}}" ng-keypress="visited=true" ng-blur="visited = true" ng-model="creditAmount.amount" focus-me='true' ng-class="{ 'has-error' : ((paymentForm.payamount.$dirty && paymentForm.payamount.$invalid&&paymentForm.payamount.$error.required)||(paymentFormSubmitted &&!creditAmount.amount) || (paymentForm.payamount.$error.pattern && visited))}" ng-pattern="/^\d{0,4}(\d\.\d?|\.\d)?\d?$/" required/>
+                            <span>&euro;</span> 
+                            <div ng-show="(paymentForm.payamount.$dirty && paymentForm.payamount.$invalid&&paymentForm.payamount.$error.required)||(paymentFormSubmitted &&!creditAmount.amount) || (paymentForm.payamount.$error.pattern && visited)" class="text-red" ng-bind="i18n.shop_transaction.decimal_number_only">
+                            </div>
+                    </div>
+                </div>
+            </div>
+            <div class="transaction-buttons" data-ng-hide="payRequest || approveReq">
+                <button type="submit" ng-bind="i18n.shop_transaction.go_lbl" ng-disabled="!creditAmount.amount"></button>
+                <a href="javascript:void(0);"  ng-click="cancelTransaction()" ng-bind="i18n.shop_transaction.cancel_lbl" ></a>
+                <a href="javascript:void(0);" ng-click="back();" ng-bind="i18n.shop_transaction.back_lbl"></a>
+            </div>
+            <div class="transaction-loader" data-ng-show="payRequest || approveReq">
+                <show-progress></show-progress>
+            </div>
+        </div>
+        </form>
+    </div>
+    <div ng-if="transactionObject == '' && requestSending==false">
+        <span ng-bind="i18n.shop_transaction.no_transaction"></span>
+    </div>
+    <div class="transaction-loader" data-ng-show="requestSending">
+        <show-progress></show-progress>
+    </div>
+</div>
+    <!--Transaction End--> 

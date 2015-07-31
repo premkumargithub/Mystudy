@@ -1,0 +1,137 @@
+<!--new citizen profile -->
+
+<div data-ng-hide="citizenProfileLoader">
+  <div data-ng-controller="UserController">
+    <div class="profile-about clearfix">
+      <div class="profile-about-left"> <span class="profile-icons about-icon"></span> <span class="profile-view-title" data-ng-bind="i18n.friends.about"></span> </div>
+      <div class="profile-about-right">
+        <ul>
+          <li> <span class="profile-icons home-icon"></span> <span data-ng-bind="i18n.friends.livesin"></span> <span ng-if="fullCitizenProfile.city == '' || fullCitizenProfile.city === null">
+            <center>
+              -
+            </center>
+            </span>
+            <p data-ng-bind="fullCitizenProfile.city"></p>
+          </li>
+          <li> <span class="profile-icons location-icon"></span> <span data-ng-bind="i18n.friends.from"></span> <span ng-if="fullCitizenProfile.baisc_profile_info.city_born == '' || fullCitizenProfile.baisc_profile_info.city_born === null">
+            <center>
+              -
+            </center>
+            </span>
+            <p data-ng-bind="fullCitizenProfile.baisc_profile_info.city_born"></p>
+          </li>
+          <li> <span class="profile-icons profession-icon"></span> <span data-ng-bind="i18n.friends.profession"></span>
+            <p>
+            
+            <p ng-if="fullCitizenProfile.baisc_profile_info.jobDetails.length >= 1" ng-repeat="job in fullCitizenProfile.baisc_profile_info.jobDetails | orderBy:'-end_date.date' |limitTo: 1" data-ng-bind="job.title"> </p>
+            <span ng-if="fullCitizenProfile.baisc_profile_info.jobDetails.length == 0">
+            <center>
+              -
+            </center>
+            </span>
+            </p>
+          </li>
+          <li> <span class="profile-icons relation-icon"></span> <span data-ng-bind="i18n.friends.relation"></span> <span ng-if="fullCitizenProfile.baisc_profile_info.relationship == '' || fullCitizenProfile.baisc_profile_info.relationship === null">
+            <center>
+              -
+            </center>
+            </span>
+            <p data-ng-bind="fullCitizenProfile.baisc_profile_info.relationship"></p>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="profile-connection">
+      <div class="connection-top"> <span class="profile-icons connection-icon"></span> <span class="profile-view-title" data-ng-bind="i18n.friends.connection"></span> </div>
+      <div class="connection-content">
+        <ul>
+          <li> <span class="profile-icons friend-icon"></span>
+            <p class="connection-name" data-ng-bind="i18n.left_menu.friends"></p>
+            <p class="connection-count" data-ng-bind="totalCounts.friends"></p>
+          </li>
+          <li> <span class="profile-icons follower-icon"></span>
+            <p class="connection-name" data-ng-bind="i18n.left_menu.follower"> </p>
+            <p class="connection-count" data-ng-bind="totalCounts.followers"></p>
+          </li>
+          <li> <span class="profile-icons following-icon"></span>
+            <p class="connection-name" data-ng-bind="i18n.followers.followings"></p>
+            <p class="connection-count" data-ng-bind="totalCounts.followings"></p>
+          </li>
+          <li> <span class="profile-icons social-icon"></span>
+            <p class="connection-name" data-ng-bind="i18n.left_menu.social_projects"></p>
+            <p class="connection-count" data-ng-bind="totalCounts.social_projects"></p>
+          </li>
+          <li> <span class="profile-icons citizen-icon"></span>
+            <p class="connection-name" data-ng-bind="i18n.followers.citizen_connected"></p>
+            <p class="connection-count" data-ng-bind="totalCounts.citizen_affiliates"></p>
+          </li>
+          <li> <span class="profile-icons club-icon"></span>
+            <p class="connection-name" data-ng-bind="i18n.followers.clubs_created"></p>
+            <p class="connection-count" data-ng-bind="totalCounts.clubs"></p>
+          </li>
+          <li> <span class="profile-icons affiliate-icon"></span>
+            <p class="connection-name" data-ng-bind="i18n.followers.shops_affiliated"></p>
+            <p class="connection-count" data-ng-bind="totalCounts.shop_affiliates"></p>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="profile-aboutme">
+      <div class="aboutme-top"> <span class="profile-icons aboutme-icon"></span> <span class="profile-view-title" data-ng-bind="i18n.friends.about_me"></span> </div>
+      <div class="aboutme-content" data-ng-bind="fullCitizenProfile.baisc_profile_info.about_me"></div>
+    </div>
+    <div class="profile-work-experience clearfix">
+      <div class="profile-work-left">
+        <div class="work-left-top"> <span class="profile-icons work-icon"></span> <span class="profile-view-title" data-ng-bind="i18n.friends.work_expe"></span> </div>
+        <!-- for personal-->
+        <div class="work-left-bottom">
+          <div class="work-left-content" ng-repeat="job in fullCitizenProfile.baisc_profile_info.jobDetails | orderBy:'-end_date.date'">
+            <div class="work-title1" data-ng-bind="job.company"></div>
+            <div class="work-title2" data-ng-bind="job.title"></div>
+            <div class="work-title3"><span data-ng-if="(job.start_date.date.substring(5,7)-1) >= 09" data-ng-bind="months[job.start_date.date.substring(5,7)-1].name + ' '+ job.start_date.date.substring(0,4)"></span>
+              <span data-ng-if="(job.start_date.date.substring(5,7)-1) < 09" data-ng-bind="months[job.start_date.date.substring(6,7)-1].name + ' '+ job.start_date.date.substring(0,4)"></span>
+              <span ng-if="job.currently_working == true"> - <span ng-bind="i18n.profile.edit_profile.till_present"></span></span>
+              <span ng-if="job.currently_working == false && (job.end_date.date.substring(5,7)-1) >= 09" data-ng-bind="'-' + months[job.end_date.date.substring(5,7)-1].name + ' '+ job.end_date.date.substring(0,4)"> </span>
+              <span ng-if="job.currently_working == false  && (job.end_date.date.substring(5,7)-1) < 09" data-ng-bind="'-' + months[job.end_date.date.substring(6,7)-1].name + ' '+ job.end_date.date.substring(0,4)"> </span>
+              </div>
+            <div class="work-title3" data-ng-bind="job.description"></div>
+          </div>
+        </div>
+        <!-- end experience for personal detail--> 
+      </div>
+    </div>
+    <div class="profile-work-experience clearfix">
+      <div class="profile-work-left" >
+        <div class="work-right-top"> <span class="profile-icons studio-icon"></span> <span class="profile-view-title" data-ng-bind="i18n.friends.study"></span> </div>
+        <div class="work-right-bottom" >
+          <div class="work-right-content" ng-repeat="edu in fullCitizenProfile.baisc_profile_info.educationDetail | orderBy : '-end_date'">
+            <div class="work-title1" data-ng-bind="edu.school"></div>
+            <div class="work-title2" data-ng-bind="edu.degree + ' , (' + edu.grade + ' )'"></div>
+            <div class="work-title2" data-ng-bind="edu.field_of_study"></div>
+            <div class="work-title3">{{edu.start_date.substring(0,4)}} 
+              -<span ng-if="edu.currently_attending == true" data-ng-bind="i18n.profile.edit_profile.till_present"> </span> <span ng-if="edu.currently_attending == false"> {{edu.end_date.substring(0,4)}}</span> </div>
+            <div class="work-title2" data-ng-bind="edu.activities"></div>
+            <div class="work-title3" data-ng-bind="edu.description"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="profile-album">
+      <div class="profile-album-top"> <span class="profile-icons album-icon"></span> <span class="profile-view-title" data-ng-bind="i18n.friends.photo_albums"></span> </div>
+      <div class="profile-album-content"> <span ng-show="noalbumimages" data-ng-bind="i18n.friends.no_album"></span>
+        <ul class="clearfix">
+          <li data-ng-repeat="useralbum in userlatestalbum">
+            <div ng-if="useralbum.featured_media_path != ''">
+              <div class="album-img"> <a href="#/album"> <span style="background-image:url('{{useralbum.featured_media_path}}');"></span> </a> </div>
+              <div class="album-title" data-ng-bind="useralbum.album_name"></div>
+              <div class="album-count" data-ng-bind="useralbum.media_in_album + ' ' + i18n.friends.photo "></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div data-ng-show="citizenProfileLoader"> <img src="app/assets/images/proceed.gif" > </div>
+
+<!-- end for new citizen profile -->

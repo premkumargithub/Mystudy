@@ -1,0 +1,30 @@
+<div class="col-2-layout">
+    <div id="content" class="container-right-fluid-page">
+        <div class="innerAll">
+		<div class="row">
+			<div class="col-lg-8 col-md-8">
+			<div class="inner-container">
+				<div ng-hide="groupPostDetailLoading" class="loader-container">
+					<img src="app/assets/images/proceed.gif" alt="loading..." />
+				</div>
+				<div ng-show="groupPostDetailLoading" class="group-post-comment postlogged">
+					<div class="group-section-container">
+						<article class="group-article">
+						<div class="bacheca">
+						<div data-ng-controller="GroupDetailNotiController">
+							<group-post-list></group-post-list>
+						</div>
+						</div>
+						</article>
+					</div>
+				</div>
+			</div>
+			</div>
+	        <div class="col-lg-4 col-md-4">
+	            <profile-Right-Panel></profile-Right-Panel>
+	        </div>
+		</div>
+		</div>
+	</div>
+</div>
+<!-- <a href="#/club/5453133b92a8cca3178b4587/post/54eaf4606afe1ded1998593d"> Open Post club</a> -->

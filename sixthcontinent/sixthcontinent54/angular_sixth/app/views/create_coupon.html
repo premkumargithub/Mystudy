@@ -1,0 +1,223 @@
+<p data-ng-show= "showErrorDp" class="text-red text-center">
+    <span data-ng-bind="i18n.coupon.no_allow_coupon"></span> 
+ </p>
+
+<div class="cre-camp-list-heading coupon-heading">
+<span data-ng-bind="i18n.Campaign_listing.active_coupon"></span>
+</div>
+<div class="cre-camp-listing tab-responsive wallettable-responsive">
+    <table class="table">
+        <thead class="tran-history-heading">
+            <tr>
+                <th class="first-th" data-ng-bind="i18n.Campaign_listing.coupon_value"></th>
+                <th class="sec-th" data-ng-bind="i18n.Campaign_listing.promotion_date"></th>
+                <th class="third-th" data-ng-bind="i18n.Campaign_listing.utilization"></th>
+                <th class="four-th" data-ng-bind="i18n.Campaign_listing.number_sent"></th>
+                <th class="five-th" data-ng-bind="i18n.Campaign_listing.exp_date"></th>
+            </tr>
+        </thead>
+        <tbody>
+			<tr data-ng-repeat ="coupon in offerlistingObject">
+				<td data-title="{{i18n.Campaign_listing.coupon_value}}" class="table-blue"><span data-ng-bind="(coupon.value +'&euro;' )"></span></td>
+				<td data-title="{{i18n.Campaign_listing.promotion_date}}"><span data-ng-bind="coupon.start_date | date:'dd-MM-yyyy'"></span></td>
+				<td data-title="{{i18n.Campaign_listing.utilization}}"><span data-ng-bind="(coupon.discount + '%')"></span></td>
+				<td data-title="{{i18n.Campaign_listing.number_sent}}" class="table-blue"><span data-ng-bind="coupon.to_avail"></span></td>
+				<td data-title="{{i18n.Campaign_listing.exp_date}}" class="table-left" ><span data-ng-bind="coupon.end_date | date:'dd-MM-yyyy'"></span></td>
+			</tr>
+        </tbody>
+    </table>
+    <span data-ng-show = "couponListingLoader" class="listing-loader">
+        <img title="" alt="" src="app/assets/images/proceed.gif" >
+    </span> 
+    <span data-ng-show="showCouponListMsg" class="listing-mess"> 
+    <span data-ng-bind="i18n.Campaign_listing.coupon_no"></span>
+    </span>  
+</div>
+<div class="coup-slogan" data-ng-bind="i18n.coupon.profit"></div>
+    <form name="couponFrom" onkeypress="return event.keyCode != 13;" data-ng-submit="createCoupon(createCoupon.$valid)" novalidate>
+        <div class="value-coupon">
+            <div class="value-coupon-content">
+                <div class="vlaue-coupon-heading" data-ng-bind="i18n.coupon.coupon_value"></div>
+                <div class="vlaue-coupon-description" data-ng-bind="i18n.coupon.discount_coupon">
+                </div>
+            </div>
+        <div class="value-coupon-type">
+            <ul class="radio-input-block">
+        		<li><input type="radio"  id="radio1" class="css-checkbox" ng-model="coupon.couponValue" value="5" />
+                    <label for="radio1" class="css-label radGroup2">&euro;5</label>
+                </li>
+        		<li>
+                    <input type="radio"  id="radio2" class="css-checkbox" ng-model="coupon.couponValue" value="10"/><label for="radio2" class="css-label radGroup2">&euro;10</label>
+                </li>
+        		<li>
+                    <input type="radio"  id="radio3" class="css-checkbox" ng-model="coupon.couponValue" value="15" />
+                    <label for="radio3" class="css-label radGroup2">&euro;15</label>
+                </li>
+        		<li>
+                    <input type="radio" id="radio4" class="css-checkbox" ng-model="coupon.couponValue" value="20" />
+                    <label for="radio4" class="css-label radGroup2">&euro;20</label></li>
+        		<li>
+                    <input type="radio"  id="radio5" class="css-checkbox" ng-model="coupon.couponValue" value="50" />
+                    <label for="radio5" class="css-label radGroup2">&euro;50</label>
+                </li>
+        		<li>
+                    <input type="radio"  id="radio6" class="css-checkbox" ng-model="coupon.couponValue" value="100" />
+                    <label for="radio6" class="css-label radGroup2">&euro;100</label>
+                </li>
+        	</ul>
+            <div ng-show="(formSubmitted && !coupon.couponValue)" class="text-red error-copoun"><span data-ng-bind="i18n.Campaign_work.select_value"></span></div>
+        </div>
+            <div class="clr"></div>
+        </div>
+        <div>
+            <div class="quality-quantity">
+                <div class="quality-quantity-heading" data-ng-bind="i18n.coupon.quantity"></div>
+                    <div class="quality-quantity-desc" data-ng-bind="i18n.coupon.purchase">
+                    	
+                    </div>
+                    <div class="quantity-details-outer">
+                        <div class="quantity-details">
+        					<span class="coupon-quanitiy">
+        						<span class="coupon-quanitiy-text" data-ng-bind="i18n.coupon.coupon_quantity"></span>
+        						<span class="coupon-quanitiy-list-value">
+        		                    <ul class="radio-input-block">
+        								<li>
+                                            <input type="radio" id="radio7" class="css-checkbox" ng-model="coupon.couponQuantity" value="200" /><label for="radio7" class="css-label radGroup2">200</label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" id="radio8" class="css-checkbox"  ng-model="coupon.couponQuantity" value="500"/><label for="radio8" class="css-label radGroup2">500</label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" id="radio9" class="css-checkbox"  ng-model="coupon.couponQuantity" value="1000"/><label for="radio9" class="css-label radGroup2">1000</label>
+                                        </li>
+        		                    </ul>
+                                    <div ng-show="(formSubmitted && !coupon.couponQuantity)" class="text-red error-copoun"><span data-ng-bind="i18n.Campaign_work.select_quantity"></span></div>
+        	                    </span>
+                            </span>
+                        </div>
+                            <date-Picker></date-Picker> 
+                    </div>
+            </div>
+            <div class="allowance-section">
+                <div class="allowance-section-heading" data-ng-bind="i18n.coupon.type"></div>
+                <div class="allowance-section-desc" data-ng-bind="i18n.coupon.sub_title">
+                </div>
+                <div class="allowance-section-list">
+                    <div class="checkbox-btn">
+                        <input type="radio"  id="chk1" ng-model="coupon.discountValue" value="50" class="css-checkbox" />
+                        <label for="chk1" class="css-label radGroup1">
+                            <span data-ng-bind="i18n.coupon.check1"></span>
+                            <span class="checkbox-text-dif">50%</span> 
+                            <span data-ng-bind="i18n.coupon.check11"></span>
+                        </label>
+                    </div>
+                    <div class="checkbox-btn">
+                        <input type="radio" id="chk2" ng-model="coupon.discountValue" value="30" class="css-checkbox" />
+                        <label for="chk2" class="css-label radGroup1">
+                            <span data-ng-bind="i18n.coupon.check2"></span>
+                            <span class="checkbox-text-dif">30%</span> 
+                            <span data-ng-bind="i18n.coupon.check22"></span>
+                        </label>
+                    </div>
+                    <div class="checkbox-btn">
+                        <input id="chk3" type="radio" ng-model="coupon.discountValue" value="10"class="css-checkbox" />
+                        <label for="chk3" class="css-label radGroup1">
+                            <span data-ng-bind="i18n.coupon.check3"></span> 
+                            <span class="checkbox-text-dif">10%</span>
+                        <span data-ng-bind="i18n.coupon.check33"></span>
+                        </label>
+                    </div>
+                </div>
+                <div ng-show="(formSubmitted && !coupon.discountValue)" class="text-red error-copoun"><span data-ng-bind="i18n.Campaign_work.select_discount"></span></div>
+            </div>
+            <div class="tag-target-section">
+                <div class="tag-target-heading" data-ng-bind="i18n.coupon.tag"></div>
+                <div class="tag-target-desc" data-ng-bind="i18n.coupon.keywords">
+                	 
+                </div>
+        	    <div class="tag-target-grid">
+        	        <div class="tag-col tag-col1">
+        	            <div class="col-heading" data-ng-bind="i18n.coupon.tag_keywords"></div>
+                        <div class="coupon-add-input">
+                            <input type="text" placeholder="Add Tag" ng-model="tagkeywords" id="categoryKeyword"  ng-keydown="keywordKeyDown($event)"/>
+                            <div class="coupon-add-list" data-ng-if="keywords.length != 0">
+                                <ul>
+                                    <li ng-repeat="keyword in keywords"  ng-click="storeKeyword(keyword)" ng-mouseover="$parent.keywordIndex=$index" ng-class="{active : keywordIndex===$index}">
+                                        <span data-ng-bind="keyword.name"></span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    <div class="keywords-tag" data-ng-show="keywordList.length">
+                        <div class="second-input keyword-load-img">
+                            <img class="loadicn" src="app/assets/images/proceed.gif" data-ng-show="showCatKeyLoading">
+                            </div>
+        		        <ul>
+        		             <li ng-repeat="keyword in keywordList track by $index">
+                                <span class="tagName" data-ng-bind="keyword.name"></span>
+                                    <span class="closeBtn" ><b class="fa fa-times cross" data-ng-click="removeKeyword($index)"></b></span>
+                            </li> 
+        		        </ul>
+        	        </div>
+                    
+        	        </div>
+        		    <div class="tag-col tag-col2">
+        				    <div class="col-heading"><span data-ng-bind="i18n.coupon.list"></span> <!-- <a href="#" data-ng-bind="i18n.coupon.open_list"></a> --></div><div class="coupon-add-input">
+                            <input type="text" placeholder="Add Tag" id="searchTagFriend"  ng-keydown="keyUpDownControl($event)" data-ng-model="friendName" data-ng-blur="lostFormFocus()"/>
+                            <div class="coupon-add-list" data-ng-show="showFriendList">
+                                <ul>
+                                  <li data-ng-repeat="friend in friends" data-ng-click="selectFriend(friend)" mouseover="$parent.friendTaggIndex=$index" ng-class="{active : friendTaggIndex===$index}">
+                                        <a href>
+                                            <img alt="" src="{{friend.user_info.profile_image_thumb}}" data-ng-if="friend.user_info.profile_image_thumb != null  && friend.user_info.profile_image_thumb != ''" width="" height=""/>
+                                             <img src="app/assets/images/dummy32X32.jpg" data-ng-if="friend.user_info.profile_image_thumb == null || friend.user_info.profile_image_thumb == ''">
+                                             <span ng-bind="friend.user_info.first_name + ' '+ friend.user_info.last_name"> </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <span ng-show="showSearchLoader" class="ng-hide"><img titile="" alt="" src="app/assets/images/proceed.gif"></span>
+                            </div>
+                        </div>
+
+        					<div class="keywords-tag" ng-if="storedFriend.length != 0">
+        		                <ul>
+        		                    <li data-ng-repeat="tags in storedFriend"><span ng-bind="tags.user_info.first_name + ' '+ tags.user_info.last_name"></span>
+                                     <span class="remove-tag-btn" data-ng-click="removeTagFriend($index)"><img titile="" alt="" src="app/assets/images/grey-close-icon.png"></span></li>
+        		                </ul>
+        		            </div>
+                            
+        		    </div>
+
+        		    <div class="tag-col tag-col3">
+                        <div>
+            		        <div class="col-heading" data-ng-bind="i18n.coupon.target_cate"></div>
+                            <div class="checkbox-block" id="checkl">
+                                <span class="coupon-checkbox" ng-repeat="targetsex in sex">
+                                    <input type='checkbox' 
+                                    ng-checked="checkedSex.indexOf(targetsex.dbvalue) != -1" ng-click="toggleCheck(targetsex.dbvalue)"/>
+                                    <span  data-ng-bind="targetsex.value"></span>
+                                </span>
+                                <!-- <span class="coupon-checkbox">
+                                    <input type="checkbox"  ng-model="coupon.targetValue"  ng-true-value="women">
+                                    <span  data-ng-bind="i18n.coupon.women"></span>
+                                </span> -->
+                            </div>
+                        </div>
+                       
+        		    </div>
+                </div>
+        	    <div class="confirmation-section">
+        	        <input data-ng-hide = "hideButton" class="btn-confirm" type="submit" value="{{i18n.coupon.Confirm}}"/>
+        	            <p data-ng-show = "showMesge">
+        	            	<span data-ng-bind="i18n.coupon.message" class="grey-mess"> </span>
+                            <span data-ng-bind="i18n.coupon.msge2"></span>
+                            <span data-ng-bind="i18n.coupon.msge3" class="grey-mess"> </span> 
+                            <span data-ng-bind="i18n.coupon.msge4"></span>
+        	            </p>
+                        
+                        <p data-ng-show = "errorMesg">
+                          <span class="text-red" data-ng-bind="i18n.dashboard.common_error"></span>
+                        </p>
+                        <div data-ng-show="showLoader" style="text-align:center"><img titile="" alt="" src="app/assets/images/proceed.gif"></div>
+        	    </div>
+            </div>
+        </div>
+    </form>

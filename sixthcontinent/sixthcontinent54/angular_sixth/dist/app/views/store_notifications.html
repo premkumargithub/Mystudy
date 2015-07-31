@@ -1,0 +1,17 @@
+<aside data-ng-controller="ProfileNotiController">
+<div class="notifications-section">
+  <ul class="clearfix">
+     <li class="noti-listing all-noti" ng-class="{'active' : scopeVar }" ng-mouseleave ="NotificationOut()">
+        <all-Notification-Panel></all-Notification-Panel>
+    </li>
+     <li class="msg-noti noti-listing" ng-class="{'active' : scopeVar1 }" ng-mouseleave ="NotificationMessageOut()" >
+        <message-notification></message-notification>
+    </li>
+     <li class="request-noti noti-listing" ng-class="{'active' : scopeVar2 }" ng-mouseleave ="NotificationFriendOut()">
+       <all-Notification-Friend-Panel></all-Notification-Friend-Panel> 
+     </li>
+  </ul>
+</div> 
+    <top-Link></top-Link>
+    <right-Link></right-Link>
+</aside>

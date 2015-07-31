@@ -1,0 +1,36 @@
+<div class="col-2-layout">
+    <div class="container-right-fluid-page" id="content">
+        <div class="innerAll">
+            <div class="row">
+                <div class="col-lg-8 col-md-8">
+                    <div class="inner-container">
+                        <form class="invite-user gruop-bar-form" >
+                            <div class="login-error" style="text-align: center; color: red;" data-ng-show="uploadProfileerror" data-ng-bind="uploadProfileErrorMsg">
+                            </div>
+                        </form>
+                        <!--store details section-->
+                        <div class="store-details-section">
+                            <storeprofile></storeprofile> 
+                        </div>
+                        <div class="friend-profile-container">
+                            <div ng-if="step == 1"><shop-transaction-customer></shop-transaction-customer></div>
+                        	<div ng-if="step == 2"><shop-transaction-amount></shop-transaction-amount></div>
+                        	<div ng-if="step == 3"><shop-transaction-progress></shop-transaction-progress></div>
+                        	<div ng-if="step == 4"><shop-transaction-confirm></shop-transaction-confirm></div>
+                        	<div ng-if="step == 5"><shop-transaction-cancel></shop-transaction-cancel></div>
+                            <div ng-if="step == 6"><shop-transaction-detail></shop-transaction-detail></div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Edit store form start from here-->
+
+                <div class="col-lg-4 col-md-4">
+                    <!-- Edit store form start from here-->
+                    <profile-Right-Panel></profile-Right-Panel>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>

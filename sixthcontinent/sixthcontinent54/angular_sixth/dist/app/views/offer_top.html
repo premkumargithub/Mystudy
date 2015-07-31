@@ -1,0 +1,147 @@
+<div class="offer-top">
+	<div class="offer-search">
+		<input class="search-input" placeholder="{{i18n.offer_shoppingcard.search_input}}" ng-model="searchText" ngsearchtext="search(searchText);" data-ng-keydown="fireSearch($event);" /><input class="map-input" placeholder="{{i18n.offer_shoppingcard.map_input}}" id="pac-input"/>
+		<!-- Search box suggestion list
+		<div class="search-input-list" data-ng-show="searchResult">
+			<ul>
+				<li>hello</li>
+				<li>hello</li>
+				<li>hello</li>
+				<li>hello</li>
+				<li>hello</li>
+				<li>hello</li>
+			</ul>
+		</div> -->
+	</div>
+	<div class="offer-filter clearfix">
+		<div class="left-section">
+			<div class="label-name" data-ng-bind="i18n.offer_shoppingcard.filter_head"></div>
+			<div class="offer-tab">
+				<div class="tabs">
+					<select ng-model="selectedcat" ng-options="category.category_name for category in categories track by category.id" data-ng-change="changeCat();">
+						<option ng-selected="selected" value="">{{i18n.shop_affiliation.detail.category}}</option>
+				 	</select><span class="{{filterme}}" data-ng-click="filterChange()" data-ng-bind="i18n.offer_shoppingcard.filter_me"></span>
+				</div>
+				
+				<div class="label-name" data-ng-bind="i18n.offer_shoppingcard.type"></div>
+				<div class="off-type-select"><select data-ng-model="offerDropdownVal" data-ng-options="act for act in offerDropdown" data-ng-change="OfferChange();"></select></div>
+				
+				<div class="tab-details">
+					<div class="label-name" data-ng-bind="i18n.offer_shoppingcard.order_head"></div>
+					
+					<div class="list">
+						<input type="radio" data-ng-click="Sorting('_id')" id="radio01" name="radio" checked />
+						<label for="radio01"><span class="radio-button"></span><span data-ng-bind="i18n.offer_shoppingcard.order_recent"></span></label>
+					</div>
+
+					<div class="list">
+						<input type="radio" data-ng-click="Sorting('value')" id="radio02" name="radio" />
+						<label for="radio02"><span class="radio-button"></span><span data-ng-bind="i18n.offer_shoppingcard.order_price"></span></label>
+					</div>
+					
+					<div class="list">
+						<input type="radio" data-ng-click="Sorting('discount')" id="radio03" name="radio" />
+						<label for="radio03"><span class="radio-button"></span><span data-ng-bind="i18n.offer_shoppingcard.order_saving"></span></label>
+					</div>
+					
+					<div class="list">
+						<input type="radio" data-ng-click="Sorting('end_date')" id="radio04" name="radio" />
+						<label for="radio04"><span class="radio-button"></span><span data-ng-bind="i18n.offer_shoppingcard.order_expire"></span></label>
+					</div>
+					
+					<div class="list">
+						<input type="radio" data-ng-click="Sorting('shop_id.average_anonymous_rating')" id="radio05" name="radio" />
+						<label for="radio05"><span class="radio-button"></span><span data-ng-bind="i18n.offer_shoppingcard.order_rating"></span></label>
+					</div>
+					
+					<!-- <div class="list">
+						<input type="radio" id="radio06" name="radio" />
+						<label for="radio06"><span class="radio-button"></span><span data-ng-bind="i18n.offer_shoppingcard.order_shop_me"></span></label>
+					</div>
+					<div class="list">
+						<input type="radio" id="radio07" name="radio" />
+						<label for="radio07"><span class="radio-button"></span><span data-ng-bind="i18n.offer_shoppingcard.order_shop_frd"></span></label>
+					</div> -->
+				</div>
+			</div>
+		</div>
+		<div class="right-section">
+			<div class="offer-map-canvas-container">
+					<div id="map-canvas"></div>
+			</div>
+			
+			<div class="progress-box" ng-app>
+				<div class="progress-label" data-ng-bind="i18n.offer_shoppingcard.slider_head"></div>
+				<div class="progress-bar progress-bar-slider">
+					<input class="progress-slider" type="range" min="0" max="100" ng-model="selectedRange">
+					<div class="inner" ng-style="{ width: selectedRange + '%' || '0%' }"></div>
+					<span class="pro-tick0">0</span>
+					<span class="pro-tick50">50</span>
+					<span class="pro-tick100">100</span>
+				</div>
+				<div class="percentage-cur">
+					<span class="num">
+						<span class="value" data-ng-bind="selectedRange"></span> Km
+					</span>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<div class="offer-pagi-section clearfix">
+	<div class="offer-pagi-section1">
+		<div class="viewtype-text" data-ng-bind="i18n.clubs.visualization"></div>
+		<ul class="visualizzazione">
+			<li class="{{gridActive}}"><a href="javascript:void(0)" data-ng-click="changeView('grid')" class="table-icon" title="{{i18n.store.list_view}}"></a></li>
+			<li class="{{listActive}}"><a href="javascript:void(0);" data-ng-click="changeView('list')" class="list-icon" title="{{i18n.store.grid_view}}"></a></li>
+		</ul>
+	</div>
+	
+	<div class="offer-pagi-section2">
+		<tr>
+			<th colspan="12" class="text-right">
+				<div class="pagination ">
+					<ul class="pagination mb10 offer-paginate">
+						<li ng-class="prevPageDisabled()" class="nav-arrow nav-arrow-left">
+							<a href ng-click="prevPage()"></a>
+						</li>
+						<li ng-repeat="n in range"
+						ng-class="{active: n == currentPage, 'seeview': $index+1 == currentPage+1 || $index+1 == currentPage+2 || $index+1 == currentPage-1 || $index+1 == currentPage-2 || $index+1 == currentPage || $last}">
+						<a href ng-click="changePageMore(n)" data-ng-bind="n"></a>
+						</li>
+						<li ng-class="nextPageDisabled()" class="nav-arrow nav-arrow-right">
+							<a href ng-click="nextPage()"></a>
+						</li>
+					</ul>
+				</div>
+			</th>
+		</tr>
+	</div>
+
+	<div class="offer-pagi-section3">
+		<div class="viewtype-text" data-ng-bind="i18n.clubs.result_per_page"></div>
+		<ul>
+			<li>
+				<span ng-class="{active: itemsPerPage == firstPage}">
+					<a href="javascript:void(0)" ng-click="setPage(firstPage)" data-ng-bind="firstPage"></a>
+				</span>
+			</li>
+			<li> -
+				<span ng-class="{active: itemsPerPage == 2*firstPage}">
+					<a href="javascript:void(0)" ng-click="setPage(2*firstPage)" data-ng-bind="2 * firstPage"></a>
+				</span>
+			</li>
+			<li> -
+				<span ng-class="{active: itemsPerPage == 4*firstPage}">
+					<a href="javascript:void(0)" ng-click="setPage(4*firstPage)" data-ng-bind="4 * firstPage"></a>
+				</span>
+			</li>
+			<li> -
+				<span ng-class="{active: itemsPerPage == 8*firstPage}">
+					<a href="javascript:void(0)" ng-click="setPage(8*firstPage)" data-ng-bind="8 * firstPage"></a>
+				</span>  
+			</li>
+		</ul>
+	</div>
+</div>

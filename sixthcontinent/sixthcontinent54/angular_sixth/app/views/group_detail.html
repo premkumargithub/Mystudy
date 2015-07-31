@@ -1,0 +1,35 @@
+<div class="row">
+    <div ng-hide="groupDetailLoading" class="loader-container">
+        <img src="app/assets/images/proceed.gif" alt="loading..." />
+    </div>
+    <div ng-show="groupDetailLoading" class="col-lg-8 col-md-8">
+        <div class="inner-container group-post-comment">
+        <group-Cover-Profile-Panel></group-Cover-Profile-Panel>
+    <div class="group-section-container" ng-show="aboutsection">
+            <!-- Edit group form end here -->
+            <article class="group-article">
+                <div class="bacheca">
+                <div data-ng-controller="GroupPostController">
+                    <div class="post-reply" data-ng-show="groupDetail.is_member">
+                        <group-post-form></group-post-form>
+                    </div>
+                    <group-post-list></group-post-list>
+                </div>
+                </div>
+                <div class="project" data-role="tile" data-ng-show="{{noContent}}">
+                    <strong ng-bind="i18n.group.details.no_result">...</strong>
+                </div>
+                <div data-ng-show="isLoading" style="text-align: center;">
+                    <img src="app/assets/images/ajax-loader.gif" alt="loading..." />
+                </div>
+            </article>
+            <!--artical section with comment and reply section -->
+        </div>
+        </div>
+    </div>
+        <div class="col-lg-4 col-md-4">
+            <!--<club-Specific-Notification-Panel></club-Specific-Notification-Panel>-->
+            <profile-Right-Panel></profile-Right-Panel>
+        </div>
+    </div>
+</div>

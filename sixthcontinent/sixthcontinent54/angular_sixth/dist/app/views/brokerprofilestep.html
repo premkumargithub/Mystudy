@@ -1,0 +1,147 @@
+
+<!-- Main Container Fluid -->
+
+<div class="container-fluid register-sixth-container"> 
+
+	<!--register sixth continent-->
+	<div class="map-img-cont shop-step-two">
+	<div class="broker-sixth-one-step">
+		<div class="register-sixth-continent-form-section">
+			<!--register left panel-->
+			<div class="register-sixth-one-step-section">
+			<!-- <div class="register-one-step-change-world">{{i18n.broker.title}}</div> -->
+				<!--ticker-->
+				<div class="titleCouter">
+					<div style="margin-left:0px;text-shadow:0 1px 1px #969696" class="blueFont">
+						<span data-ng-bind="i18n.broker.broker_add_title"></span>
+					</div>
+					<div class="contatore">
+						<div ng-repeat="item in totalEconomyShifted track by $index" class="digitCounter">		<span data-ng-bind="item"></span>
+					   </div>
+					<!-- <div style="background-position: 0px -0px; " class="digitCounter"></div>
+					<div style="background-position: 0px -0px; " class="digitCounter"></div>
+					<div style="background-position: 0px -0px;  margin-right:5px; " class="digitCounter"></div>
+					<div style="background-position: 0px -0px; " class="digitCounter"></div>
+					<div style="background-position: 0px -75px; " class="digitCounter"></div>
+					<div style="background-position: 0px -151px;  margin-right:5px; " class="digitCounter"></div>
+					<div style="background-position: 0px -227px; " class="digitCounter"></div>
+					<div style="background-position: 0px -303px; " class="digitCounter"></div>
+					<div style="background-position: 0px -454px;  margin-right:5px; " class="digitCounter"></div> -->
+					<div class="symbolEuro">$</div>
+					<br>
+					<br>
+					</div>
+				</div>
+				<!--ticker-->
+				
+				<div class="register-one-step-change-dei">
+					<span data-ng-bind="i18n.broker.register_title"></span>
+				</div>
+				
+			</div>
+			<!--register left panel-->
+			
+			<div class="register-sixth-continent-one-step">
+			
+				<div class="register-sixth-one-step-num register-sixth-one-step-active">
+					<ul>
+						<li>
+							<span data-ng-bind="i18n.broker.one"></span> 
+							<p data-ng-bind="i18n.broker.step_one"></p>
+						</li>
+						<li class="active-one-step">
+							<span data-ng-bind="i18n.broker.two"></span> 
+							<p data-ng-bind="i18n.broker.step_two"></p>
+						</li>
+					</ul>
+				</div>
+				
+                    <form name="user" data-ng-submit="registerMultiProfile()" class="broker-create-form">
+					<ul class="register-sixth-one-step-field">
+						<li>
+							<div class="register-sixth-one-step-half">
+								<input type="number" value="" placeholder="{{i18n.broker.phone}}" ng-model="user.phone" required/>
+							</div>
+							
+							<div class="register-sixth-two-step-half">
+								<input type="text" value="" placeholder="{{i18n.broker.vat_number}}" ng-model="user.vat" />
+							</div>
+						</li>
+						
+						<li>
+							<div class="register-sixth-one-step-full">
+								<input type="text" value="" placeholder="{{i18n.broker.fiscal_code}}" ng-model="user.fiscal" required/>
+							</div>
+						</li>
+
+						<li>
+							<div class="register-sixth-one-step-full">
+								<input type="text" value="" placeholder="{{i18n.broker.iban}}" ng-model="user.iban" required/>
+							</div>
+						</li>
+
+						<li>
+							<div class="register-sixth-one-step-full">
+								<input type="text" value="" id="mapplace" placeholder="{{i18n.broker.map_place}}" ng-model="user.place" required readonly/>
+							</div>
+						</li>
+
+						<li style="display:none;">
+							<div class="register-sixth-one-step-full">
+								<input type="text" id="lat" value="" placeholder="{{i18n.broker.latitude}}" ng-model="user.lat" required readonly/>
+							</div>
+						</li>
+
+						<li style="display:none;">
+							<div class="register-sixth-one-step-full">
+								<input type="text" id="lon" value="" placeholder="{{i18n.broker.longitude}}" ng-model="user.lon" required readonly/>
+							</div>
+						</li>
+						<li>
+							<div class="register-sixth-one-step-full">
+									<input type="hidden" id="brokerparentid" value="" placeholder="{{i18n.broker.broker_parent_id}}" ng-model="user.broker_parent_id" ng-update-hidden  />
+							</div>
+						</li>
+						
+					</ul>
+					
+					<div class="location-map">
+					<autocomplete-map></autocomplete-map>
+					</div>
+					<div class="register-sixth-one-step-full">
+						<div class="register-sixth-select-terms">
+							<input type="checkbox" ng-model="user.terms">
+							<span data-ng-bind="i18n.broker.terms_conditions"></span>
+						</div>
+					</div>
+					
+					<div class="register-sixth-one-step-button">
+						<div class="resigter-one-step-button-right"><input type="submit" name="" data-ng-hide="brokerloader" value="{{i18n.store.submit}}" /></div>
+						<span class="ng-hide" data-ng-show="brokerloader"><img title="" alt="" src="app/assets/images/ajax-loader.gif"></span>
+					</div>
+					
+				</form>
+				<p class="reg-error-msg" data-ng-bind="brokerMsg"></p>
+			</div>		
+		</div>	
+	</div>
+</div>
+	<!--register sixth continent-->	
+	
+	<!--footer-->
+	<footer-logout></footer-logout>
+<!--footer-->
+
+ <!-- Footer -->
+  <div id="footer" class="hidden-print"> 
+    
+    <!--  Copyright Line -->
+    <div class="copy">&copy; 2012 - 2014 - <a href="http://www.mosaicpro.biz" data-ng-bind="i18n.footer.MosaicPro"></a><span data-ng-bind="i18n.footer.all_rights"></span><a href="http://themeforest.net/?ref=mosaicpro" target="_blank" data-ng-bind="i18n.footer.social_admin_template"></a><span data-ng-bind="i18n.footer.social_current_version"></span><a target="_blank" href="../assets/../../CHANGELOG.txt?v=v2.0.0-rc8" data-ng-bind="i18n.footer.change_log"></a>
+	</div>
+    <!--  End Copyright Line --> 
+    
+  </div>
+  <!-- // Footer END --> 
+  
+</div>
+<!-- // Main Container Fluid END --> 

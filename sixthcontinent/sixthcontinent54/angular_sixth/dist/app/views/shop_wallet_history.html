@@ -1,0 +1,84 @@
+<div class="wallet-tab-content shopwallet-historicalsale shopwallet-historical">
+  <div ng-show="loadingShopHistory" class="loader-container">
+  <img src="app/assets/images/proceed.gif" alt="" title="loading..." />
+  </div>
+  <div ng-hide="loadingShopHistory">
+  <form name="historySearchForm" ng-submit="searchCitizen()">
+  <div class="wallet-search-block">
+    <div class="search-box">
+      <label data-ng-bind="i18n.store.wallet.history.title"></label>
+      <div class="search-main-wrap">
+        <input type="text" placeholder="{{i18n.store.wallet.history.search}}" ng-model="searchText" />
+        <button><i class="fa fa-search"></i></button>
+      </div>
+    </div>
+    <div class="date-from">
+      <label data-ng-bind="i18n.store.wallet.history.from_date"></label>
+      <input type="text" ng-model="fromDate" class="dateInput" readonly placeholder="dd-mm-yy"/>
+    </div>
+    <div class="date-from">
+      <label data-ng-bind="i18n.store.wallet.history.to_date"></label>
+      <input type="text" ng-model="toDate" class="dateInput" readonly placeholder="dd-mm-yy"/>
+    </div>
+    <div class="coupondate-submit">
+    <button type="submit" class="submit-coupon" title="Search"><i class="fa fa-check"></i></button>
+    <a href="javascript:void(0)" title="Clear" ng-click="clearSearch()"><i class="fa fa-times"></i></a>
+    </div>
+  </div>
+  </form>
+  <div ng-show="searchStart" class="loader-container">
+    <img src="app/assets/images/proceed.gif" alt="" title="loading..." />
+  </div>
+  <div ng-if="totalHitory > 0">
+  <div class="trans-detail table-wallet wallettable-responsive">
+  <table width="100%" border="1">
+  	<thead>
+      <tr>
+        <th scope="col" ng-click="predicate = 'date'; reverse=!reverse">
+          <span ng-bind="i18n.store.wallet.history.txn_date"></span>
+          <i class="fa fa-caret-down" ng-if="reverse == true"></i>
+          <i class="fa fa-caret-up" ng-if="reverse == false"></i>
+        </th>
+        <th scope="col"><span ng-bind="i18n.store.wallet.history.amount"></span></th>
+        <th scope="col" class="tLeft"><span ng-bind="i18n.store.wallet.history.description"></span></th>
+        <th scope="col"><span ng-bind="i18n.store.wallet.history.card_no"></span></th>
+        <th scope="col"><span ng-bind="i18n.store.wallet.history.citizen_id"></span></th>
+      </tr>        
+    </thead>
+    <tbody>
+      <tr data-ng-repeat="record in shopWalletHistories | orderBy:predicate:reverse">
+        <td data-title="{{i18n.store.wallet.history.txn_date}}"><label data-ng-bind="record.date | date:'dd-MM-yy'"></label></td>
+        <td ng-if="(record.discount_details.type)._id === '551ce49e2aa8f00f20d93293'" data-title="{{i18n.store.wallet.history.amount}}<"><a href data-ng-bind="'+ '+(record.discount_details.amount | number : 2) + '&euro;'"></a></td>
+        <td ng-if="(record.discount_details.type)._id !== '551ce49e2aa8f00f20d93293'" data-title="{{i18n.store.wallet.history.amount}}<"><a href data-ng-bind="'- '+(record.discount_details.amount | number :2)+ '&euro;'"></a></td>
+        <td data-title="{{i18n.store.wallet.history.description}}"><label data-ng-bind="record.discount_details.type.name"></label></td>
+        <td data-title="{{i18n.store.wallet.history.card_no}}"><label data-ng-bind="record.discount_details.card_id.card_no"></label></td>
+        <td data-title="{{i18n.store.wallet.history.citizen_id}}"><label data-ng-bind="(record.citizen_id)._id"></label></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="wallet-downld-tool">
+    <button class="download-cust" data-ng-click="downloadHistoryCsvFile(shopWalletHistories)">
+    <span data-ng-bind="i18n.store.wallet.history.download_excel"></span><i class="fa fa-download"></i></button>
+  </div>
+  <div class="club-pagi-section3" ng-if="totalHitory > itemsPerPage">
+    <div class="pagination ">
+      <ul class="pagination mb10 ">
+        <li class="prev nav-arrow" ng-show="currentPage-1 > 0">
+          <a href="" ng-click="prevPage()">&lt;</a>
+        </li>
+        <li data-ng-show="n==1 || n==range.length || (n <= currentPage+2 && n >= currentPage-2)"data-ng-repeat="n in range" ng-class="{active: n == currentPage }" class="num-index">
+          <a href="" ng-click="changePageMore(n)" ng-bind="n"></a>
+        </li>
+        <li class="next nav-arrow" ng-show="currentPage < range.length">
+          <a href="" ng-click="nextPage()">&gt;</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  </div>
+  <div ng-if="!totalHitory" class="history-result">
+  <div data-ng-bind="i18n.store.wallet.history.no_record_found" class="wallet-noresult"></div>
+  </div>
+  </div>
+</div>

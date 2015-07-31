@@ -1,0 +1,182 @@
+<div class="col-2-layout">
+    <div class="container-right-fluid-page" id="content" data-ng-controller="DeatilStoreController">
+        <div ng-show="storeLoading" class="loader-container">
+            <img src="app/assets/images/ajax-loader.gif" alt="loading..." />
+        </div>
+        <div ng-hide="storeLoading" class="innerAll">
+            <div class="row">
+                <div class="col-lg-8 col-md-8">
+                    <div class="inner-container club-inner-section">
+                        <form class="invite-user gruop-bar-form" >
+                            <div class="login-error" style="text-align: center; color: red;" data-ng-show="uploadProfileerror" data-ng-bind="uploadProfileErrorMsg">
+                            </div>
+                        </form>
+                        <!--store details section-->
+                        <div class="store-details-section">
+                            <storeprofile></storeprofile> 
+                            <form class="invite-user gruop-bar-form" data-ng-show="timelineActive" data-ng-if="timelineActive1 == false && showEditForm == false">
+                                <div ng-include src="'app/views/autocomplete.html'"></div>
+                            </form>
+                            <!--store profile section-->
+                            
+                            <!-- Show the latest images -->
+                            <div class="store-top-wrapper clearfix">
+                             <div class="srore-top-section">
+                                <div class="store-top-left">
+                                  <div class="store-top-left1">
+                                   <span data-ng-bind="i18n.shop_affiliation.detail.street"></span>
+                                   <div class="pot-sale-add">
+                                    {{store.sale_address}} <span ng-if="store.sale_city">, {{store.sale_city}}</span> <span ng-if="store.sale_province">({{store.sale_province}})</span>
+                                    </div>
+                                  </div>
+                                  <div class="store-top-left2">
+                                   <span data-ng-bind="i18n.shop_affiliation.detail.email_address"></span>
+                                     {{store.sale_email}}
+                                  </div>
+                                  <div class="store-top-left3">
+                                   <span data-ng-bind="i18n.shop_affiliation.detail.phone_number"></span>
+                                    {{store.sale_phone_number}}
+                                  </div>
+                                </div>
+                                <div class="store-top-right">
+                                <span data-ng-bind="i18n.shop_affiliation.detail.description"></span>
+                                <p data-ng-bind="store.description"></p>
+                                </div>
+                                </div>
+                             <div class="srore-top-section" data-ng-if="storelatest">
+								 <ul>
+									<li data-ng-repeat="item in storelatest">
+									 <a href="{{item.media_path}}" class="fancybox"><img data-ng-src="{{item.thumb_path}}" width="87" height="87" class="media-object"/></a>
+									</li>
+								</ul>
+							 </div>
+                            </div>
+                            <!-- end show latest images -->
+                            <!--store profile section-->
+
+                            <!--store album section-->
+                            <div data-ng-controller="StorePostController" ng-if="timelineActive == false && showEditForm == false" >
+                                <!-- place for store post form -->
+                                <store-post-form></store-post-form>
+                                <!--<ul class="store-dp-album-option" data-ng-hide="storeDetail.is_allowed == '1' || storeDetail.owner_id == currentUser.id">
+                                    <li class="alert alert-info">{{i18n.store.post_not_allowed}}</li>
+                                </ul>-->
+                                <!--store profile section-->
+                                <!--store comment view section-->
+                                <store-post-list></store-post-list>
+                                <!--store comment view section-->
+                            </div>
+                        </div>
+                        <div class="form-container" data-ng-show="showEditForm">
+                            <form method="POST" action="" data-ng-submit="updateStore()">
+                                <div class="login-error" style="text-align: center; color: red;" data-ng-show="createGroupError" data-ng-bind="createStoreErrorMgs"></div>
+                                <ul>
+                                    <li>
+                                        <span ng-bind="i18n.store.business_name"></span>
+                                        <input type="text" class="form-control bg-gray" ng-model="store.business_name" required/>
+                                    </li>
+                                    <li>
+                                        <span data-ng-bind="i18n.store.legal_status"></span>
+                                        <input type="text" class="form-control bg-gray" ng-model="store.legal_status" required/>
+                                    </li>
+                                    <li>
+                                        <span data-ng-bind="i18n.store.business_type"></span>
+                                        <input type="text" class="form-control bg-gray" ng-model="store.business_type" required/>
+                                    </li>
+                                    <li>
+                                        <span data-ng-bind="i18n.store.phone"></span>
+                                        <input type="text" class="form-control bg-gray" ng-model="store.phone" required/>
+                                    </li>
+                                    <li>
+                                        <span data-ng-bind="i18n.store.email"></span>
+                                        <input type="email" class="form-control bg-gray" ng-model="store.email" required/>
+                                    </li>
+                                    <li>
+                                        <span data-ng-bind="i18n.store.business_country"></span>
+                                        <select data-ng-model="store.business_country" data-ng-options="key as value for (key,value) in countryList">
+                                            <option value="{{key}}">{{value}}</option>
+                                        </select>
+                                    </li>
+                                    <li>
+                                        <span data-ng-bind="i18n.store.business_region"></span>
+                                        <input type="text" class="form-control bg-gray" ng-model="store.business_region" required/>
+                                    </li>
+                                    <li>
+                                        <span data-ng-bind="i18n.store.business_city"></span>
+                                        <input type="text" class="form-control bg-gray" ng-model="store.business_city" required/>
+                                    </li>
+                                    <li>
+                                        <span data-ng-bind="i18n.store.business_address"></span>
+                                        <input type="text" class="form-control bg-gray" ng-model="store.business_address" required/>
+                                    </li>
+                                    <li>
+                                        <span data-ng-bind="i18n.store.zip"></span>
+                                        <input type="text" class="form-control bg-gray" ng-model="store.zip" required/>
+                                    </li>
+                                    <li>
+                                        <span data-ng-bind="i18n.store.province"></span>
+                                        <input type="text" class="form-control bg-gray" ng-model="store.province" required/>
+                                    </li>
+                                    <li>
+                                        <span data-ng-bind="i18n.store.vat_number"></span>
+                                        <input type="text" class="form-control bg-gray" ng-model="store.vat_number" required/>
+                                    </li>
+                                    <li>
+                                        <span data-ng-bind="i18n.store.iban"></span>
+                                        <input type="text" class="form-control bg-gray" ng-model="store.iban" required/>
+                                    </li>
+                                    <li>
+                                        <span data-ng-bind="i18n.store.description">{{}}</span>
+                                        <textarea class="form-control bg-gray" ng-model="store.description" required></textarea>
+                                    </li>
+                                    <li>
+                                        <span data-ng-bind="i18n.store.allow_post"></span>
+                                        <input type="checkbox" class="form-control bg-gray" ng-model="store.is_allowed" ng-true-value="1" ng-false-value="0" ng-checked="1"/>
+                                    </li>
+                                    <li>
+                                        <span data-ng-bind="i18n.store.map_place"></span>
+                                        <input type="text" id="mapplace" class="form-control bg-gray" ng-model="store.map_place" required readonly/>
+                                        <input type="hidden" class="form-control bg-gray" ng-model="store.parent_store_id" required/>
+                                    </li>
+                                    <li style="display:none;">
+                                        <span data-ng-bind="i18n.store.latitude"></span>
+                                        <input type="text" class="form-control bg-gray" id="latitude" ng-model="store.latitude" value="" required readonly/>
+                                    </li>
+                                    <li style="display:none;">
+                                        <span data-ng-bind="i18n.store.longitude"></span>
+                                        <input type="text" class="form-control bg-gray" id="longitude" ng-model="store.longitude" value="" required readonly/>
+                                    </li>
+                                    <li>
+                                        <div style="width: 68.66%; margin-left: 235px;">
+                                            <!-- <map></map> -->
+                                            <autocomplete-map></autocomplete-map>
+                                        </div>
+                                    </li>
+                                    <div data-ng-show="createStoreLoader" style="text-align: center;">
+                                        <img src="app/assets/images/ajax-loader.gif" alt="loading..." />
+                                    </div>
+                                    <div ng-show="updateStart" class="loader-container">
+                                        <img src="app/assets/images/ajax-loader.gif" alt="loading..." />
+                                    </div>
+                                    <button data-ng-hide="updateStart" type="submit" class="btn btn-primary">{{i18n.store.update_shop}} <i class="fa fa-fw fa-plus"></i>
+                                    </button>
+                                    <button data-ng-hide="updateStart" class="btn btn-primary" ng-click="cancelEdit()">{{i18n.store.cancel}} <i class="fa fa-fw fa-times"></i></button>
+                                    </li>
+                                </ul>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- Edit store form start from here-->
+
+                <div class="col-lg-4 col-md-4">
+                    <!-- Edit store form start from here-->
+                    <profile-Right-Panel></profile-Right-Panel>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+
+</div>

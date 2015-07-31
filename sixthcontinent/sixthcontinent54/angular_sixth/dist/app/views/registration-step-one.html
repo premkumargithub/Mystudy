@@ -1,0 +1,107 @@
+<div class="container-fluid register-sixth-container"> 
+
+    <!--register sixth continent-->
+	<div class="map-img-cont">
+    <div class="register-sixth-one-step">
+        <div class="register-sixth-continent-form-section">
+            <div class="register-sixth-continent-one-step clearfix">
+                <div class="register-sixth-one-step-num">
+                    <ul>
+                        <li><span data-ng-bind="i18n.register.one"></span> <p data-ng-bind="i18n.register.active_step"></p></li>
+                        <li class="active-one-step"><span data-ng-bind="i18n.register.two"></span> <p data-ng-bind="i18n.register.active_step" ></p></li>
+                    </ul>
+                </div>
+                
+                <form name="user" data-ng-submit="registration('')">
+                    <ul class="register-sixth-one-step-field">
+                        <li>
+                            <div class="register-sixth-one-step-half">
+                                <input type="email" data-ng-model="user.userEmail" placeholder="{{i18n.register.email}}" title="{{i18n.register.email}}"required/>
+                            </div>
+
+                            <div class="register-sixth-two-step-half">
+                                <input type="password" value="" data-ng-model="user.userPassword" placeholder="{{i18n.register.password}}" data-ng-minlength="6" title="{{i18n.register.password}}" required/>
+                            </div>
+                        </li>
+
+                        <li>
+
+                            <div class="register-sixth-one-step-half">
+                                <input type="text" value="" placeholder="{{i18n.register.first_name}}" data-ng-model="user.firstName" 
+                                       title="{{i18n.register.first_name}}firstname" required/>
+                            </div>
+
+                            <div class="register-sixth-two-step-half">
+                                <input type="text" value="" placeholder="{{i18n.register.last_name}}" title="{{i18n.register.last_name}}lastname" data-ng-model="user.lastName" required/>
+                            </div>
+                        </li>
+                        <li class="calender-gender">
+                            <div class="register-sixth-one-step-half">
+                                <div class="register-sixth-select-month">
+                                    <select data-ng-model="user.month" data-ng-options="month.name for month in months" ng-change="monthChange();" required>
+                                        <option value="" data-ng-bind="i18n.register.month"></option>
+                                    </select>
+                                </div>
+
+                                <div class="register-sixth-select-month register-sixth-day">
+                                    <select data-ng-model="user.day" data-ng-options="day for day in days" required>
+                                        <option value="" data-ng-bind="i18n.register.day"></option>
+                                    </select>
+                                </div>
+
+                                <div class="register-sixth-select-month register-sixth-year">
+                                    <select data-ng-model="user.year" data-ng-options="year for year in years" required>
+                                        <option value="" data-ng-bind="i18n.register.year"></option>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="register-sixth-two-step-half">
+                                <div class="register-sixth-select-gender">
+                                    <select data-ng-model="user.gender">
+                                        <option value="" data-ng-bind="i18n.register.gender"></option>
+                                        <option value="m" data-ng-bind="i18n.register.male"></option>
+                                        <option value="f" data-ng-bind="i18n.register.female"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </li>
+                        <!--Referral id is currently hide by client-->
+                        <li style="display:none;">
+                            <div class="register-sixth-one-step-full">
+                                <div class="register-sixth-one-step-select-referral-id">
+                                    <input type="text" value="" data-ng-model="referralId" placeholder="{{i18n.register.referral_id}}" style="width:100%" ng-class="{'readyonlyRef': isreferralId}" />
+                                </div>
+                            </div>
+                        </li>					
+                        <li>
+                            <div class="register-sixth-one-step-full">
+                                <div class="register-sixth-one-step-select-country">
+                                    <select ng-model="user.country" ng-options="country.country for country in countries" title="{{i18n.register.select_country}}" required>
+                                        <option value="" data-ng-bind="i18n.register.country"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </li>
+
+
+                    </ul>
+                    <div class="text-red fl" data-ng-bind="signUpSuccessMsg"></div>
+                    <div class="register-sixth-one-step-button">
+                        <div class="resigter-one-step-button-right"><input type="submit" data-ng-show="showLoading" name=""  value="{{i18n.register.next_step}}" /></div>
+                        <img data-ng-hide="showLoading"src="app/assets/images/ajax-loader.gif">
+                    </div>
+            </div>
+
+            </form>
+        </div>		
+    </div>	
+	</div>
+</div>
+<!--register sixth continent-->	
+
+<!--footer-->
+<footer-logout></footer-logout>
+<!--footer-->
+<div ng-include="app / views / footer.html"></div>  
+</div>

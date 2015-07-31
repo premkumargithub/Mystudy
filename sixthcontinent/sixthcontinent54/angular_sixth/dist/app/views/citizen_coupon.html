@@ -1,0 +1,111 @@
+<div style="text-align:center" ng-show="citizenCouponLoader">
+  <img titile="" alt="" src="app/assets/images/proceed.gif">
+</div>
+
+<div ng-hide="citizenCouponLoader">
+<div ng-hide="noCitizenCouponFound">
+<form name="couponSearchForm" ng-submit="searchCoupons()">
+<div class="wallet-search-block transaction-tab-content">
+  <div class="search-box">
+  <input id="textname" type="text" name="textname" ng-model="searchText" placeholder="{{i18n.citizen_wallet.search}}" />
+  <button><i class="fa fa-search"></i></button>
+  <div ng-hide="true" class="text-red coupon-search-mess" data-ng-bind="i18n.citizen_wallet.enter_shop_keywords"></div>  
+  </div>
+    <!-- <div class="date-from">
+    <label ng-bind= "i18n.citizen_wallet.from"></label>
+    <input id="fromdate" type="text" name="fromdate" ng-model="fromDate" class="dateInput" readonly />
+    <div ng-hide="true" class="text-red coupon-search-mess" data-ng-bind="i18n.citizen_wallet.start_date"></div>
+    </div>                      
+    <div class="date-from">
+    <label ng-bind= "i18n.citizen_wallet.to"></label>
+    <input id="todate" type="text" name="todate" ng-model="toDate" class="dateInput" readonly />
+    <div ng-hide="true" class="text-red coupon-search-mess" data-ng-bind="i18n.citizen_wallet.end_date"></div> 
+    </div> -->
+    <div class="datepicker-section">
+      <date-Picker></date-Picker> 
+    </div>
+  <div class="search-box-buttons">
+  <button type="submit" class="submit-coupon" title="Search"><i class="fa fa-check"></i></button>
+  <a href="javascript:void(0)" title="Clear" ng-click="clearSearch()"><i class="fa fa-times"></i></a>
+  </div>
+  </div>
+  </form>
+<div ng-show="totalCoupon != 0">
+<div class="wallet-coupon">
+	<div class="heading"><span ng-bind="i18n.citizen_wallet.coupon_discount"></span> <span class="value">({{shopCoupons.my_wallet_coupons_count.result[0].count}})</span></div>
+</div>
+<div style="text-align:center" ng-show="loadingCitizenCouon">
+  <img titile="" alt="" src="app/assets/images/proceed.gif">
+</div>
+<div class="coup-table wallettable-responsive citizenwallet-coupon">
+  <table width="100%" border="1">
+  	<thead>
+      <tr>
+        <th scope="col" class="text-sec">
+          <span ng-bind="i18n.citizen_wallet.amount"></span>
+        </th>
+        <th scope="col" class="text-sec">
+          <span ng-bind="i18n.citizen_wallet.pays_up_to"></span>
+        </th>
+        <th scope="col" class="tLeft">
+          <span ng-bind="i18n.citizen_wallet.shop"></span>
+        </th>
+        <th scope="col"> 
+          <span ng-bind="i18n.citizen_wallet.coupon_rating"></span>
+        </th>
+        <th scope="col">
+          <span ng-bind="i18n.citizen_wallet.balance"></span>
+        </th>
+        <th scope="col" style="cursor:pointer" ng-click="predicate = 'to_date'; reverse=!reverse">
+          <span ng-bind="i18n.citizen_wallet.deadline"></span>
+          <i class="fa fa-caret-down" ng-if="reverse == true"></i>
+          <i class="fa fa-caret-up" ng-if="reverse == false"></i>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-ng-repeat="coupon in shopCoupons.my_wallet_coupons.result | orderBy:predicate:reverse">
+        <td class="no-bod" data-title="{{i18n.citizen_wallet.amount}}"><div class="coup-price"><span ng-bind="((coupon.credit?coupon.credit:0)| currency:'&euro;')"></span></div></td>
+        <td class="no-bod" data-title="{{i18n.citizen_wallet.pays_up_to}}"><div class="coup-price"><span ng-bind="((coupon.discount?coupon.discount:0))+'%'"></span></div></td>
+        <td class="tLeft" data-title="{{i18n.citizen_wallet.shop}}"><a href="#/shop/view/{{coupon.shop_id._id}}" class="name"><span ng-bind="coupon.shop_id.name"></span></a>
+          <p class="text-sec"><span ng-bind="coupon.shop_id.address_l2+' '+coupon.shop_id.city.cityname+' '+coupon.shop_id.country.countryname"></span></p>
+        </td>
+        <td data-title="{{i18n.citizen_wallet.coupon_rating}}">
+          <div class="view-ratings">
+            <ul>
+              <li data-ng-repeat="i in ratingConvert(coupon.shop_id.average_anonymous_rating)"></li>
+              <li class="halfStar" ng-if="coupon.shop_id.average_anonymous_rating && ((coupon.shop_id.average_anonymous_rating - convertToInt(coupon.shop_id.average_anonymous_rating)) > 0)"></li>
+               <li class="emptyStar" data-ng-repeat="i in ratingConvert(coupon.shop_id.average_anonymous_rating, 5)"></li>
+            </ul>
+          </div>
+        </td>
+        <td data-title="{{i18n.citizen_wallet.balance}}"><a href=""><span ng-bind="((coupon.balance?(coupon.balance | number : 2):(00))| currency:'&euro;')"</a></td>
+        <td class="last-cell" data-title="{{i18n.citizen_wallet.deadline}}"><span ng-bind="coupon.to_date | date:'dd-MM-yy'"></span></td>
+      </tr>  
+    </tbody>
+  </table>
+  <div class="coupon-card-pagi-container" ng-if="shopCoupons.my_wallet_coupons_count.result[0].count > itemsPerPage">
+        <div>
+          <ul class="pagination store-paginate">
+              <li class="prev nav-arrow" ng-show="currentPage-1 > 0">
+                <a href="" ng-click="prevPage()">&lt;</a>
+              </li>
+              <li data-ng-show="n==1 || n==range.length || (n <= currentPage+2 && n >= currentPage-2)"data-ng-repeat="n in range" ng-class="{active: n == currentPage }" class="num-index">
+                <a href="" ng-click="changePageMore(n)" ng-bind="n"></a>
+              </li>
+              <li class="next nav-arrow" ng-show="currentPage < range.length">
+                <a href="" ng-click="nextPage()">&gt;</a>
+              </li>
+          </ul>
+        </div>
+      </div>
+</div>
+</div>
+<div ng-show="totalCoupon == 0" class="wallat-result">
+<span data-ng-bind="i18n.citizen_wallet.no_coupon_available"></span>
+</div>
+</div>
+<div ng-show="noCitizenCouponFound">
+<span data-ng-bind="i18n.citizen_wallet.no_coupon_available"></span>
+</div>
+</div>

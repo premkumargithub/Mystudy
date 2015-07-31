@@ -1,0 +1,283 @@
+<div class="col-2-layout">
+    <div class="container-right-fluid-page" id="content">
+        <div ng-show="storeLoading" class="loader-container">
+            <img src="app/assets/images/ajax-loader.gif" alt="loading..." />
+        </div>
+        <div ng-hide="storeLoading" class="innerAll">
+            <div class="row">
+                <div class="col-lg-8 col-md-8">
+                    <div class="inner-container">
+                        <form class="invite-user gruop-bar-form" >
+                            <div class="login-error" style="text-align: center; color: red;" data-ng-show="uploadProfileerror" data-ng-bind="uploadProfileErrorMsg">
+                            </div>
+                        </form>
+                        <!--store details section-->
+                        <div class="store-details-section">
+                            <storeprofile></storeprofile> 
+                        </div>
+
+        <div class="form-container data-store-form shopdetail-store-form">
+            <div class="form-one" ng-if="store.owner_id == currentUser.id">
+            <div class="form-heading" data-ng-bind="i18n.shop_affiliation.shop_register"></div>
+            <ul class="clearfix">
+                <li><div class="label-title" data-ng-bind="i18n.shop_affiliation.detail.store_name">
+                </div>
+                    <input type="text" class="form-control bg-gray" 
+                     value="{{store.name}}" readonly/>
+                </li>
+                <li class="two-inputs">
+                    <div class="first-input">
+                    <div class="label-title" data-ng-bind="i18n.store.business_name">
+                    </div>
+                    <input type="text" class="form-control bg-gray"  value="{{store.business_name}}" readonly/>
+                 </div>
+                 <div class="second-input">
+                    <div class="label-title" data-ng-bind="i18n.shop_affiliation.detail.legal_form"></div>
+                    <input type="text" class="form-control bg-gray"  value="{{store.legal_status}}" readonly/>
+                </div>
+                </li>
+                <li class="two-inputs">
+                    <div class="first-input">
+                    <div class="label-title" data-ng-bind="i18n.store.vat_number"></div>    
+                    <input type="text" class="form-control bg-gray"  value="{{store.vat_number}}" readonly/>
+                    </div>
+                    <div class="second-input">
+                    <div class="label-title" data-ng-bind="i18n.store.fiscal_code"></div>    
+                    <input type="text" class="form-control bg-gray"  value="{{store.fiscal_code}}" readonly/>
+                    </div>   
+                </li>
+                <li class="two-inputs">
+                    <div class="first-input">
+                    <div class="label-title" data-ng-bind="i18n.shop_affiliation.detail.email_address"></div>    
+                    <input type="email" class="form-control bg-gray"  value="{{store.email}}" readonly />
+                </div>
+                <div class="second-input">
+                    <div class="label-title" data-ng-bind="i18n.shop_affiliation.detail.phone_number"></div>
+                    <input type="text"  class="form-control bg-gray" value="{{store.phone}}" readonly/>
+                </div>
+                </li>
+                <li>
+                    <div class="label-title" data-ng-bind="i18n.shop_affiliation.detail.iban_code"></div>
+                    <input type="text" class="form-control bg-gray" value="{{store.iban}}" readonly/>
+                </li>
+                <li class="form-subheading" data-ng-bind="i18n.shop_affiliation.detail.registered_office_label"></li>
+                <li class="two-inputs">
+                    <div class="first-input">
+                    <div class="label-title" data-ng-bind="i18n.shop_affiliation.detail.country"></div>   
+                    <input type="text" class="form-control bg-gray"  value="{{store.business_country}}" readonly/>  
+                    </div>
+                    <div class="second-input">
+                    <div class="label-title" data-ng-bind="i18n.shop_affiliation.detail.detail_region"></div>    
+                    <input type="text" class="form-control bg-gray"  value="{{store.business_region}}" readonly/>
+                </div>
+                </li>
+                <li class="three-inputs">
+                    <div class="two-inputs">
+                    <div class="first-input clearfix">
+                    <div class="label-title" data-ng-bind="i18n.shop_affiliation.detail.city"></div>    
+                    <input type="text" class="form-control bg-gray input-one" value="{{store.business_city}}" readonly/>
+                    </div>
+                    <div class="second-input clearfix">
+                    <div class="input-two">
+                    <div class="label-title" data-ng-bind="i18n.shop_affiliation.detail.prov"></div>    
+                    <input type="text" class="form-control bg-gray" value="{{store.province}}" readonly/>
+                    </div>
+                    <div class="input-three">
+                    <div class="label-title" data-ng-bind="i18n.shop_affiliation.detail.cap"></div>    
+                    <input type="text" class="form-control bg-gray" value="{{store.zip}}" readonly/>
+                    </div>
+                    </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="label-title" data-ng-bind="i18n.store.address"></div>
+                    <input type="text" class="form-control bg-gray" value="{{store.business_address}}" readonly/>       
+                </li>
+                </ul>
+                </div>
+                    
+                <div class="form-two">
+                <div class="form-heading" data-ng-bind="i18n.shop_affiliation.detail.sale_point_label"></div>
+                <ul class="clearfix">
+                <li class="two-inputs">
+                    <div class="first-input">
+                    <div class="label-title" data-ng-bind="i18n.shop_affiliation.detail.country"></div>    
+                    <input type="text" class="form-control bg-gray" value="{{store.sale_country}}" readonly/>  
+                    </div>
+                    <div class="second-input">
+                    <div class="label-title" data-ng-bind="i18n.shop_affiliation.detail.detail_region"></div>    
+                    <input type="text" class="form-control bg-gray" value="{{store.sale_region}}" readonly/>
+                </div>
+                </li>
+                <li class="three-inputs">
+                    <div class="two-inputs">
+                    <div class="first-input clearfix">
+                    <div class="label-title" data-ng-bind="i18n.shop_affiliation.detail.city"></div>    
+                    <input type="text" class="form-control bg-gray input-one" 
+                    value="{{store.sale_city}}" readonly/>
+                    </div>
+                    <div class="second-input clearfix">
+                    <div class="input-two">
+                    <div class="label-title" data-ng-bind="i18n.shop_affiliation.detail.prov"></div>    
+                    <input type="text" class="form-control bg-gray" value="{{store.sale_province}}" readonly/>
+                    </div>
+                    <div class="input-three">
+                    <div class="label-title" data-ng-bind="i18n.shop_affiliation.detail.cap"></div>    
+                    <input type="text"  class="form-control bg-gray input-three" value="{{store.sale_zip}}" readonly/>   
+                    </div>
+                    </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="label-title" data-ng-bind="i18n.store.address"></div>  
+                    <input type="text" class="form-control bg-gray" Street Address ng-model="store.sale_address" readonly/>     
+                </li> 
+                <li class="two-inputs">
+                    <div class="first-input">
+                    <div class="label-title" data-ng-bind="i18n.shop_affiliation.detail.email_address"></div>    
+                    <input type="email" class="form-control bg-gray" value="{{store.sale_email}}" readonly/>
+                    </div>
+                    <div class="second-input">
+                    <div class="label-title" data-ng-bind="i18n.shop_affiliation.detail.phone_number"></div>    
+                    <input type="text"  class="form-control bg-gray" value="{{store.sale_phone_number}}" readonly/>
+                </div>
+                </li>
+                 <li class="two-inputs">
+                    <div class="first-input">
+                    <div class="label-title" data-ng-bind="i18n.shop_affiliation.detail.category"></div>    
+                    <input type="text" class="form-control bg-gray" value="{{store.categoryName}}" readonly />
+                    </div>
+                    <div class="second-input">
+                     <div class="label-title" data-ng-bind="i18n.shop_affiliation.detail.sub_category"></div>
+                    <input type="text"  class="form-control bg-gray" value="{{store.categorySubName}}" readonly/>
+                </div>
+                </li>
+                <li>
+                    <div class="label-title" data-ng-bind="i18n.shop_affiliation.detail.description"></div>
+                    <textarea class="form-control bg-gray" value="{{store.description}}" readonly>{{store.description}}</textarea>    
+                </li>
+                 <li>
+                    <div class="label-title" data-ng-bind="i18n.store.location"></div>
+                    <input type="text" class="form-control bg-gray"  value="{{store.sale_map}}" readonly />     
+                </li>
+                 <li>
+                    <div id="map-canvas-second" style="height:300px;"></div>  
+                </li>
+                </ul>
+                </div>
+                
+                <div class="form-three" ng-if="store.owner_id == currentUser.id">
+                <div class="form-heading" data-ng-bind="i18n.shop_affiliation.detail.legal_data_label"></div>
+                <ul class="clearfix">
+                <li class="two-inputs full-width-input">
+                    <div class="label-title" data-ng-bind="i18n.store.fiscal_code"></div>
+                    <input type="text" class="form-control bg-gray first-input" value="{{store.repres_fiscal_code}}" readonly/>   
+                </li>
+                <li class="two-inputs">
+                    <div class="first-input">
+                    <div class="label-title" data-ng-bind="i18n.shop_affiliation.detail.name"></div>    
+                    <input type="email" class="form-control bg-gray" value="{{store.repres_first_name}}" readonly />
+                    </div>
+                    <div class="second-input">
+                    <div class="label-title" data-ng-bind="i18n.shop_affiliation.detail.last_name"></div>    
+                    <input type="text"  class="form-control bg-gray" value="{{store.repres_last_name}}" readonly />
+                </div>
+                </li>
+                <li class="four-inputs">
+                    <div class="two-inputs">
+                    <div class="first-input clearfix">
+                    <div class="label-title" data-ng-bind="i18n.shop_affiliation.detail.birth_place"></div>    
+                    <input type="text" class="form-control bg-gray"  value="{{store.repres_place_of_birth}}" readonly/>
+                    </div>
+                    <div class="second-input clearfix">
+                    <div class="label-title" data-ng-bind="i18n.shop_affiliation.detail.dob_label"></div>    
+                    <input type="text" class="form-control bg-gray"  value="{{store.repres_dob | dateFormat}}" readonly/>
+                    </div>
+                    </div>
+                </li>
+                <li class="two-inputs">
+                    <div class="first-input">
+                    <div class="label-title" data-ng-bind="i18n.shop_affiliation.detail.email_address"></div>    
+                    <input type="email" class="form-control bg-gray" value="{{store.repres_email}}" readonly />
+                    </div>
+                    <div class="second-input">
+                    <div class="label-title" data-ng-bind="i18n.shop_affiliation.detail.phone_number"></div>    
+                    <input type="text"  class="form-control bg-gray" value="{{store.repres_phone_number}}" readonly/>
+                </div>
+                </li>
+                <li class="form-subheading" data-ng-bind="i18n.store.residence"></li>
+                <li class="two-inputs">
+                    <div class="first-input">
+                    <div class="label-title" data-ng-bind="i18n.store.address"></div>    
+                    <input type="text" class="form-control bg-gray" value="{{store.repres_address}}" readonly/>
+                    </div>
+                    <div class="second-input">
+                    <div class="label-title" data-ng-bind="i18n.shop_affiliation.detail.prov">
+                    </div>    
+                    <input type="text" class="form-control bg-gray" value="{{store.repres_province}}" readonly/>
+                </div>
+                </li>
+                <li class="two-inputs">
+                    <div class="first-input">
+                    <div class="label-title" data-ng-bind="i18n.shop_affiliation.detail.city"></div>    
+                    <input type="text" class="form-control bg-gray" value="{{store.repres_city}}" readonly/>
+                    </div>
+                    <div class="second-input">
+                    <div class="label-title" data-ng-bind="i18n.shop_affiliation.detail.cap">
+                    </div>    
+                    <input type="text"  class="form-control bg-gray" value="{{store.repres_zip}}" readonly/>
+                    </div>  
+                </li>
+                </ul>
+                </div>  
+                <ul>
+                <li>
+                <div data-ng-show="createStoreLoader" style="text-align: center;">
+                    <img src="app/assets/images/ajax-loader.gif" alt="loading..." />
+                </div>
+                    <div class="text-red display-block-inline fr"  data-ng-show="createStoreError" data-ng-bind="createStoreErrorMgs"></div>
+                </li>
+            </ul>
+            </div> 
+            <div class="store-top-wrapper clearfix">
+                             <div class="srore-top-section">
+                                <div class="store-top-left">
+                                  <div class="store-top-left1">
+                                   <span data-ng-bind="i18n.shop_affiliation.detail.street"></span>
+                                    {{store.sale_address}}
+                                  </div>
+                                  <div class="store-top-left2">
+                                   <span data-ng-bind="i18n.shop_affiliation.detail.email_address"></span>
+                                     {{store.sale_email}}
+                                  </div>
+                                  <div class="store-top-left3">
+                                   <span data-ng-bind="i18n.shop_affiliation.detail.phone_number"></span>
+                                    {{store.sale_phone_number}}
+                                  </div>
+                                </div>
+                                <div class="store-top-right">
+                                <span data-ng-bind="i18n.shop_affiliation.detail.description"></span>
+                                <p>{{store.description}}</p>
+                                </div>
+                                </div>
+                             <div class="srore-top-section">
+								<ul>
+									<li data-ng-repeat="item in storelatest">
+									 <a href="{{item.media_path}}" class="fancybox"><img data-ng-src="{{item.thumb_path}}" width="87" height="87" class="media-object"/></a>
+									</li>
+								</ul>
+							</div>
+            </div>
+            </div>
+                </div>
+                <!-- Edit store form start from here--> 
+                <div class="col-lg-4 col-md-4">
+                    <!-- Edit store form start from here-->
+                    <profile-Right-Panel></profile-Right-Panel>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+
+</div>

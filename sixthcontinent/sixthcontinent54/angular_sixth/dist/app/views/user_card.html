@@ -1,0 +1,102 @@
+<div id="content" class="container-right-fluid-page">
+	<!-- <div class="layout-app">  -->
+	<div class="innerAll">
+		<div class="row">
+			<div class="col-lg-9 col-md-9">
+
+				<!--This directive will set the time line  image on alubum pic-->
+				<user-Cover-Profile-Panel></user-Cover-Profile-Panel>
+				<!-- <user-Cover-Profile-Panel></user-Cover-Profile-Panel> -->
+				<div ng-show="friendViewLoader" class="loader-container">
+					<img src="app/assets/images/ajax-loader.gif" alt="loading..." />
+				</div>	
+				<!--store details section-->
+				<div class="store-details-section" data-ng-hide="friendViewLoader">
+					<!--store profile section-->
+					<div class="store-dp-section friends-view-container">
+
+					</div>
+					<!--store profile section-->
+					<div class="friend-profile-container">		
+						<div class="timeline-cover">
+							<div class="widget">
+								<div class="widget-body padding-none margin-none">
+									<div class="innerAll"> <i class="fa fa-quote-left text-muted pull-left fa-fw"></i>
+										<p class="lead margin-none" ng-bind="i18n.profile.wallet.title"></p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-container">
+							<ul class="wallet-list">
+								<li>
+									<span ng-bind="i18n.profile.wallet.total_credit"></span>
+									<span class="friend-detail">€ {{(( currentUser.creditAndIncome.totalCredit| number:2 ).toString().replace(',',' '))}} </span>
+								</li>
+								<li>
+									<span ng-bidn="i18n.profile.wallet.total_income"></span>
+									<span class="friend-detail"> € {{(( currentUser.creditAndIncome.totalIncomeShow| number:2 ).toString().replace(',',' '))}}</span>
+								</li>
+							</ul>
+						</div>
+					</div>	
+					<!---basic profile container end-->
+					<div data-ng-controller="UserController">
+						<div data-ng-if="profileType == 2">
+							<user-broker-profile></user-broker-profile>
+						</div>
+						<div data-ng-if="profileType == 1">
+							<user-citizen-profile></user-citizen-profile>
+						</div>
+					</div>
+
+					<div style="margin-top:20px;"data-ng-if="currentUser.broker_profile == 1" class="friends-list-container" ng-controller="ShopAffiliatedkForBroker">
+					<div class="friend-list-top clearfix">
+					<div class="friend-list-title">
+					<span><img  src="app/assets/images/album.png" alt="" titile=""/></span> 
+					Billing Affiliation 
+					<div class="top-total">
+						<span>Tot:  € {{incomeTax.total*shopAffiliate.length}}.00</span><br>
+						<span>Incomig - Tax:  € {{incomeTax.total*shopAffiliate.length-(incomeTax.tax*incomeTax.total*shopAffiliate.length/100)}}</span>
+					</div>
+					</div>
+					</div>
+					<div class="friend-list-content">
+					<div class="friend-cont-listing">
+					<ul class="clearfix" ng-show="shopAffiliate.length" infinite-scroll="loadMore()" infinite-scroll-distance="3">
+					<li data-ng-repeat="item in shopAffiliate">
+					<div class="friend-listing-img">
+					<a ng-if="item.profile_image_thumb != ''" href="#/shop/view/{{item.id}}" style="background-image:url({{item.profile_image_thumb}});"  title="{{item.business_name}}"></a>
+					<a ng-if="item.profile_image_thumb == ''" href="#/shop/view/{{item.id}}" style="background-image:url(app/assets/images/default_group.jpg);"   title="{{item.business_name}}"></a>
+					</div>
+					<div class="friend-listing-desc">
+					<div class="friend-listing-desc-title">
+					<a href="#/shop/view/{{item.id}}">Nome: {{item.name}}</a><br>
+					<a href="#/shop/view/{{item.id}}">Tot:  € {{incomeTax.total}}.00</a><br>
+					<a href="#/shop/view/{{item.id}}">Incomig - Tax:  € {{incomeTax.total-(incomeTax.tax*incomeTax.total/100)}}</a><br>
+					<a href="#/shop/view/{{item.id}}">Creato a: {{item.created_at.date | date:'MM-dd-yyyy HH:MM:ss'}}</a>
+					</div>
+					</div>
+					</li>
+					</ul>
+					<div class="loader-container" data-ng-show="followersLoader">
+					<img src="app/assets/images/ajax-loader.gif" alt="loading..." />
+					</div>
+					<div class="clearfix" ng-show="!shopAffiliate.length && resultNotFound"  ng-bind="i18n.followers.no_result">
+					</div>
+					</div>
+					</div>
+					</div>
+
+
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-3">
+				<profile-Right-Panel></profile-Right-Panel>
+			</div>	
+		</div>
+	</div>
+</div>
+<!-- // Content END -->
+
+<div class="clearfix"></div>

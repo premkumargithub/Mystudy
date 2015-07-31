@@ -1,0 +1,59 @@
+<div class="col-2-layout">
+<!-- Content START -->
+<div id="content" class="container-right-fluid-page">
+    <div class="innerAll">
+    <div class="row">
+        <div class="col-lg-8 col-md-8">
+        <div class="inner-container">
+            <div class="friends-list-container">
+                <div class="friend-list-top clearfix">
+                <div class="friend-list-title">
+                    <span><img  src="app/assets/images/album.png" alt="" titile=""/></span> 
+                    <span data-ng-bind="i18n.profile.right_panel.top_revenue_shop"></span>
+                </div>
+                <div class="friend-list-search">
+                    <span><input type="text" ng-model="shopSearch" placeholder="Search"></span>
+                </div>
+            </div>
+            <div class="friend-list-content">
+                <div class="friend-cont-listing">
+                    <ul class="clearfix" ng-show="topShopPerRevenue.length">
+                        <li data-ng-repeat="item in topShopPerRevenue | filter:shopSearch">
+                          <div class="friend-listing-img">
+                          <a ng-if="item.profile_image_thumb != ''" href="#/shop/view/{{item.id}}" style="background-image:url({{item.profile_image_thumb}});"  title="{{item.name}}"></a>
+                          <a ng-if="item.profile_image_thumb == ''" href="#/shop/view/{{item.id}}" style="background-image:url(app/assets/images/grid-viewstore.jpg);"   title="{{item.name}}"></a>
+                          </div>
+                          <div class="friend-listing-desc">
+                            <div class="friend-listing-desc-title">
+                              <div data-ng-bind="i18n.profile.right_panel.position_number + ' : ' + ($index + 1)"></div>
+                              <a href="#/shop/view/{{item.id}}" data-ng-bind="item.name"></a>
+                              <div>
+                                <span data-ng-bind="i18n.profile.right_panel.revenue"></span> : {{item.revenue | currency:'&euro;'}}
+                              </div>
+                              <div>
+                                  <span data-ng-bind="i18n.profile.right_panel.bussines_name"></span>
+                                  <a href="#/shop/view/{{item.id}}" data-ng-bind="item.business_name"></a>
+                              </div>
+
+                            </div>
+                          </div>
+                        </li>
+                    </ul>
+                  <div class="loader-container" data-ng-show="topShopPerRevenueLoader">
+                    <img src="app/assets/images/ajax-loader.gif" alt="{{i18n.friends.loading}}..." />
+                  </div>
+                  <div class="clearfix" ng-show="resultNotFound" data-ng-bind="i18n.friends.no_result_for"></div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4">
+            <profile-Right-Panel></profile-Right-Panel>
+        </div>
+    </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+</div>

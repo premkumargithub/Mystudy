@@ -1,0 +1,75 @@
+<div class="col-2-layout">
+    <div id="content" class="container-right-fluid-page">
+        <div class="innerAll">
+            <div class="row">
+                <div class="col-lg-8 col-md-8">
+                    <div class="inner-container club-inner-section">
+                    	<storeprofile></storeprofile>
+                        <div class="transaction-container report-clients-section">
+							<div class="section-heading">
+								<span class="report-img"></span><span class="trans-text" data-ng-bind="i18n.store.shop_report"></span></div>
+								<div class="transaction-content">
+									<div class="transaction-tab-con">
+									<!--Report and stats Content Start -->
+										<div class="report-detail-section">
+										<div class="report-small-text"><span>Map View</span></div>
+													<div class="map-container-report"> 
+													<!--<input id="pac-input" class="controls" type="text" placeholder="Search Box">-->
+													<div class="map-loader ng-hide" ng-show="maploader"><img src="app/assets/images/proceed.gif"/></div>
+													<input id="pac-input" class="controls" type="text"    placeholder="{{i18n.store.position_insert}}">
+    												<div id="map-canvas"></div>
+												</div>
+												<div class="total-user-num"><span>{{i18n.store.users_view}}:</span> <span data-ng-bind="reportlist.length"></span></div>
+													<div class="tab-container">
+														<ul class="tab-list">
+															<li ng-class="{'active': activeClassFirst == 'active'}" ng-click="pageinit();reportTransactionTab(1)">{{i18n.store.users_purchase}}</li>
+															<li ng-click="pageinit();reportTransactionTab(2)" ng-class="{'active': activeClassSecond == 'active'}">{{i18n.store.users_transaction}}</li>
+														</ul>
+													</div>	
+													<div class="report-static-tabs">
+														<div class="map-loader ng-hide" ng-show="maploader"><img src="app/assets/images/proceed.gif"/></div>
+										<div class="report-small-text"><span>List View </span><span>({{reportlist.length}})</span></div>
+														<div class="tab-list-view">
+															<ul class="clearfix">
+																<li data-ng-repeat = "report in reportlist | paginationFilter: currentPage*itemsPerPage | limitTo: itemsPerPage"><div class="list-Img"><a href="#/viewfriend/{{report.citizen_id._id}}">
+																	<img data-ng-if="!report.citizen_id.user_thumbnail_image" width="62px" height="62px"  src="app/assets/images/prof-pic.jpg" alt="" titile=""/>
+																	<img data-ng-if="report.citizen_id.user_thumbnail_image" width="62px" height="62px"  src="{{report.citizen_id.user_thumbnail_image}}" alt="" titile=""/></a></div><div class="list-name"><a href="#/viewfriend/{{report.citizen_id._id}}"><span class="name-head" data-ng-bind="report.citizen_id.name"></a></span><span class="name-detail" data-ng-bind="report.citizen_id.address_l2"></span></div><div class="price">{{report.transaction_value}} euro</div></li>
+															</ul>
+														</div>
+				
+														<div ng-if="reportlist.length < 1" class="" data-ng-bind="i18n.store.result_not_found"></div>
+														
+							                                <div class="club-pagi-section3 text-center" data-ng-if="pagination === true ">
+							                                    <div class="pagination ">
+							                                        <ul class="pagination mb10">
+							                                          <li ng-class="prevPageDisabled()" class="nav-arrow nav-arrow-left">
+							                                            <a href ng-click="prevPage()"></a>
+							                                          </li>
+							                                          <li data-ng-show="n==0 || n==(totalsize.length-1) || (n <= currentPage+2 && n >= currentPage-2)" ng-repeat="n in range()"
+							                                            ng-class="{active: n == currentPage}">
+							                                            <a href ng-click="setPage(n)">{{n+1}}</a>
+							                                          </li>
+							                                          <li ng-class="nextPageDisabled()" class="nav-arrow nav-arrow-right">
+							                                            <a href ng-click="nextPage()"></a>
+							                                          </li>
+							                                        </ul>
+							                                    </div>
+							                                </div>
+							                        
+													</div>
+										</div>
+										
+									<!--Report and stats Content ends -->
+									</div>
+								</div>
+						</div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <profile-Right-Panel></profile-Right-Panel>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>

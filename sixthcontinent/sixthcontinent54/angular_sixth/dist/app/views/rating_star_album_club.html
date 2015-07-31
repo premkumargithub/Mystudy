@@ -1,0 +1,39 @@
+<div class="album-sec-right">    
+	<div class="album-user-votes-give">
+			<div class="disable-rating-album" data-ng-show="waitRateResponse"></div>
+			<span class="rate-post" ng-if="albumDetails.current_user_rate == 0" data-ng-bind="i18n.profile_post.rate_album"> </span>
+	    	<span class="rate-post" ng-if="albumDetails.current_user_rate > 0" data-ng-click="removeAlbumRating(albumId)">
+	    	<a href data-ng-bind="i18n.profile_post.remove_rating"></a>
+	    	</span>
+			<rating value="albumDetails.current_user_rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar" changes="rateThisAlbum(value, albumId, type)" class="ratings-block"></rating>
+	</div>
+	<div class="average-ratings">
+		<span class="total-votes"><span data-ng-bind="albumDetails.no_of_votes"></span>
+			<a href data-ng-click="findPeopleRate(albumId, type, albumDetails.no_of_votes)"> 
+			 <span data-ng-if="albumDetails.no_of_votes > 1" data-ng-bind="i18n.profile_post.votes"></span><span data-ng-if="albumDetails.no_of_votes <= 1" data-ng-bind="i18n.profile_post.vote"></span></a>
+		</span>
+		<span class="votes-star">
+			<ul>
+				<li data-ng-repeat="rating in averageRating(albumDetails.avg_rate) track by $index">
+					<span ng-class="albumDetails.avg_rate % 1 == 0 ? 'votes-avg' : ($last ? (albumDetails.avg_rate % 1 > 0.5 ? 'votes-avg' : 'half-avg' ):'votes-avg')"></span>
+				</li>
+					<li ng-repeat="blank in blankStar(albumDetails.avg_rate) track by $index"><span class="votes-blank"/>
+				</li>
+			</ul>
+		</span>
+	</div>
+	<div class="clr"></div>
+</div>
+ <!--
+<div class="rating-section">
+	<div class="disable-rating" data-ng-show="waitRateResponse"></div>
+    <rating value="item.current_user_rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar" changes="rateAlbum(value, item.id, 'user_profile_album', $index)" class="ratings-block"></rating>     
+        
+    <span class="rate-post" ng-if="item.current_user_rate == 0"><a href data-ng-bind="i18n.profile_post.rate_post"></a></span><span class="rate-post" ng-if="item.current_user_rate > 0" data-ng-click="removeAlbumRating(item.id, $indx, 'user_profile_album')"><a href data-ng-bind="i18n.profile_post.remove_rating"></a> </span>
+</div>
+<div class="average-ratings" >
+    <span class="total-votes"><span data-ng-bind="item.no_of_votes"></span> <a href  data-ng-click="findPeopleRate(item.id,'', item.no_of_votes)" data-ng-bind="i18n.profile_post.votes"> </a></span><span class="votes-star"><ul><li data-ng-repeat="rating in averageRating(item.avg_rate) track by $index"><span class="votes-avg" /></li>
+     <li ng-repeat="blank in blankStar(item.avg_rate) track by $index"><span class="votes-blank"/></li></ul></span>
+</div>
+<div class="clr"></div> -->
+

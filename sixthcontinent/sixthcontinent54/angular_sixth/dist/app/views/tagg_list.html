@@ -1,0 +1,36 @@
+<div class="searched-tagg-layout" ng-show="allTaggs.length">
+<ul class="searched-tagg" >
+    <li data-ng-repeat="user in allTaggs" data-ng-if="user.id != currentUser.id">
+    <a data-ng-if="user.type == 'U'" ng-click="tagUser(user)"><div class="search-field-img">
+        <img data-ng-if="user.thumb_path == ''" src="app/assets/images/dummy32X32.jpg" alt="Profile">
+        <img data-ng-if="user.thumb_path != ''" data-ng-src="{{user.thumb_path}}" width="40" height="40">
+        </div>
+        <div class="search-filed-text-section">
+            <span class="search-field-name">
+                <span data-ng-if="user.firstname !=''" data-ng-bind="user.firstname">
+            </span>
+            <span class="search-field-name" data-ng-if="user.last_name !='' && user.last_name != null" data-ng-bind="' ' + user.last_name"></span>
+            <span class="search-type" data-ng-bind="i18n.header_menu.search_user"></span> 
+        </div>
+    </a>
+    <a data-ng-if="user.type == 'G'" ng-click="tagClub(user)"><div class="search-field-img">
+        <img data-ng-if="user.thumb_path == ''" src="app/assets/images/club-list-list-thumb.png" alt="Club" >
+        <img data-ng-if="user.thumb_path != ''" data-ng-src="{{user.thumb_path}}" width="40" height="40">
+        </div>
+        <div class="search-filed-text-section">
+            <span class="search-field-name" data-ng-bind="user.name"></span> 
+            <span class="search-type" data-ng-bind="i18n.header_menu.search_club"></span>
+        </div>
+    </a>
+    <a data-ng-if="user.type == 'S'" ng-click="tagShop(user)"><div class="search-field-img">
+        <img data-ng-if="user.thumb_path == ''" src="app/assets/images/citizen3.jpg" alt="Shop" >
+        <img data-ng-if="user.thumb_path != ''" data-ng-src="{{user.thumb_path}}" width="40" height="40">
+        </div>
+        <div class="search-filed-text-section">
+            <span class="search-field-name" data-ng-bind="user.name"></span> 
+            <span class="search-type" data-ng-bind="i18n.header_menu.search_shop"></span>
+        </div>
+    </a>
+    </li>
+</ul>
+</div>

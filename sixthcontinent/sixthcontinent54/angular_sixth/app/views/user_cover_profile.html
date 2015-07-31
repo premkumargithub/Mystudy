@@ -1,0 +1,140 @@
+<div class="store-dp-section profile-cover user-profile-cover">
+    <div class="store-dp-section-img">
+        <div id="invalidCoverImage" style="color:red; display:none;" ng-bind="invalidCoverImageMgs"></div>
+         <div class="group-loader"> 
+          <img src="app/assets/images/proceed.gif">
+        </div>
+        <div ng-show="coverImageUploadStart" class="cover-loader-update"><img src="app/assets/images/proceed.gif" alt="uploading..." /></div>
+        <a ng-hide="coverLoadHide " ng-if="currentUser.basicProfile.profile_cover_img.original == ''" href="javascript:void(0)" style="background-image:url('app/assets/images/profile-cover-default-c.jpg');cursor:default;">
+        </a> 
+        <a ng-hide="coverLoadHide" class="fancybox " ng-if="currentUser.basicProfile.profile_cover_img.original != '' && mobileView == false" href="{{currentUser.basicProfile.profile_cover_img.original}}" style="background-image:url({{currentUser.basicProfile.profile_cover_img.thumb}}); background-position: {{('-' + currentUser.basicProfile.profile_cover_img.x_cord + 'px' )}} {{('-' + currentUser.basicProfile.profile_cover_img.y_cord + 'px' )}};">
+        </a>
+        <a ng-hide="coverLoadHide" class="fancybox" ng-if="currentUser.basicProfile.profile_cover_img.original != '' && mobileView == true" href="{{currentUser.basicProfile.profile_cover_img.original}}" style="background-image:url({{currentUser.basicProfile.profile_cover_img.thumb}}); background-position: {{( '-' +  mobileX_Cord + 'px')}} {{('-' + mobileY_Cord + 'px')}};">
+        </a>
+        <!-- <div data-ng-show="showCanves"> -->
+        <image-crop data-width="800"  data-height="300" data-shape="square" data-step="imageCropStep" data-result="imageCropResult" class="img-crop-btn" data-cover-load-hide="coverLoadHide" file="fileUrl" data-set-image-cordinate="setImageCordinate()" data-image-x-position="imageXPosition" data-image-y-position="imageYPosition" state="profile" new-image="newImage"></image-crop>
+        <!-- </div> -->
+			<div class="income-received-title" ng-bind="i18n.friends.income_friend"></div>
+		<div class="cover-links-outer">
+				<div class="cover-links user-cover-button userCoverLinks clearfix">
+					<div class="profile-user-credit">
+						<span data-ng-if="currentUser.creditAndIncome.totalIncome != ''" title=" {{currentUser.creditAndIncome.totalIncome | currency:'&euro;'}}"> {{currentUser.creditAndIncome.totalIncome | currency:'&euro;'}}</span>
+						<span  data-ng-hide="currentUser.creditAndIncome.totalIncome" title="{{0.00  | currency:'&euro;'}}">{{0.00  | currency:'&euro;'}}</span>
+					</div> 
+                      
+					<div class="profile-cover-dp" ng-hide="coverLoadHide">
+                    
+						<div class="profile-cover-cap">
+                        
+            <div class="add-cover-cap" data-ng-click="showCoverDropDown($event)" data-ng-blur="hideCoverDropDown()" ng-hide="hideUpdateCoverButton"><img src="app/assets/images/camera.png"><span ng-bind="i18n.profile.update_profile_cover"></span></div>
+             
+              <div class="profile-update-links">
+              <ul ng-show="showCoverOption"><li>
+							<label for="file">
+								<div class="add-cover-pic" ng-if="currentUser.basicProfile.profile_cover_img.original == ''" ng-bind="i18n.profile.add_cover_photo"></div>
+								<div class="add-cover-pic" ng-if="currentUser.basicProfile.profile_cover_img.original != ''" ng-bind="i18n.profile.change_cover_photo"></div>
+						    </label>
+                            <input type="file" ng-file-select="onFileSelect($files)" value="Add Cover Photo" />
+							</li>
+              <li  ng-if="currentUser.basicProfile.profile_cover_img.original != ''"><button ng-click="repositionImage()" > <span ng-bind="i18n.profile.reposition"></span></button></li>
+              </ul>
+                </div>
+						</div>
+					</div>
+			</div>
+		</div>
+       <!-- <div class="profile-dp">
+            <a class="fancybox" ng-if="currentUser.basicProfile.profile_img == ''" href="javascript:void(0)" style="background-image:url('app/assets/images/prof-pic.jpg');cursor:default;">
+            </a> 
+            <a class="fancybox" ng-if="currentUser.basicProfile.profile_img != ''" href="{{currentUser.basicProfile.profile_img.original}}" style="background-image:url({{currentUser.basicProfile.profile_img.thumb}})">
+            </a>
+        </div>-->
+       <div class="profile-dp profile-view-dp" ng-if="currentUser.basicProfile.profile_img.thumb != '' || currentUser.basicProfile.profile_img.thumb ==''" >
+           <a class="profile-image fancybox" href="{{currentUser.basicProfile.profile_img.original}}" ng-if="currentUser.basicProfile.profile_img.thumb != ''"><img alt="" data-ng-src="{{currentUser.basicProfile.profile_img.thumb}}" width="200px" height="200px">
+               </a>
+           <div class="update-profile">
+               <a href="#/profileimgupload" ng-click="makeUncheck()">
+                   <img src="app/assets/images/camera.png" />
+                   <div ng-if="currentUser.basicProfile.profile_img.thumb == ''" class="update-profile-pic" ng-bind="i18n.left_menu.add_profile_picture"></div>
+                   <div ng-if="currentUser.basicProfile.profile_img.thumb != ''" class="update-profile-pic" ng-bind="i18n.left_menu.update_profile_picture"></div>
+               </a>
+           </div>
+           <img ng-if="currentUser.basicProfile.profile_img.thumb == ''" alt="" src="app/assets/images/prof-pic.jpg" width="200px" height="200px">
+               <div class="update-profile">
+                   <a href="#/profileimgupload" ng-click="makeUncheck()">
+                       <img src="app/assets/images/camera.png" />
+                       <div ng-if="currentUser.basicProfile.profile_img.thumb == ''" class="update-profile-pic" ng-bind="i18n.left_menu.add_profile_picture"></div>
+                       <div ng-if="currentUser.basicProfile.profile_img.thumb != ''" class="update-profile-pic" ng-bind="i18n.left_menu.update_profile_picture"></div>
+                   </a>
+               </div>
+               </div>
+    </div>
+    <div class="profile-dp-section">
+        <h3 class="p-dp-name">
+        <a title="{{currentUser.basicProfile.firstname}} {{currentUser.basicProfile.lastname}}" href="#/timeline/{{currentUser.id}}" my-refresh data-ng-bind="(currentUser.basicProfile.firstname + ' ' +currentUser.basicProfile.lastname).length>20?((currentUser.basicProfile.firstname + ' ' +currentUser.basicProfile.lastname) | limitTo: 17)+'...':(currentUser.basicProfile.firstname + ' ' +currentUser.basicProfile.lastname)"><!-- {{(currentUser.basicProfile.firstname + ' ' +currentUser.basicProfile.lastname).length>20?((currentUser.basicProfile.firstname + ' ' +currentUser.basicProfile.lastname) | limitTo: 17)+'...':(currentUser.basicProfile.firstname + ' ' +currentUser.basicProfile.lastname)}} --></a>
+        </h3>
+        <div class="profile-nav clearfix">
+        <div class="navbar-header">
+            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+           <a href="#" class="navbar-brand">Menu</a>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar">
+        <ul class="store-invitations">
+            
+            <li ng-class="{ 'dp-active': timelineActive == 'timeline' }"><a href="#/timeline/{{currentUser.id}}" my-refresh ng-bind="i18n.profile.timeline"></a>
+            </li>            <!-- <li ng-class="{ 'dp-active': timelineActive == 'about' }">
+                    <a href="#/about">{{i18n.profile.about_title}}</a>
+            </li> -->
+            <li ng-class="{ 'dp-active': timelineActive == 'wallets' }">
+                <a href="#/wallets" my-refresh ng-bind="i18n.profile.wallet.title"></a>
+            </li>
+            <li ng-class="{ 'dp-active': timelineActive == 'profiles' }">
+                <a href="#/profiles" ng-bind="i18n.profile.profiles_title"></a>
+                <ul class="more_links">
+                    <!--
+                    <li data-ng-if="currentUser.basicProfile.broker_profile.broker_profile_exists === 1"><a href="#/profiles/{{brokerProfile}}">{{i18n.profile.about.broker_profile}}</a><li> -->
+                    <li data-ng-if="currentUser.basicProfile.citizen_profile === 1"
+                        ><a href="#/profiles" ng-bind="i18n.profile.about.personal_profile"></a></li>
+                    <li data-ng-if="currentUser.basicProfile.citizen_profile === 1"
+                        ><a href="#/profiles/{{citizenProfile}}" ng-bind="i18n.profile.about.professtional_profile"></a></li>
+                     <li data-ng-if="currentUser.basicProfile.citizen_profile === 1"
+                        ><a href="#/profiles/11" ng-bind="i18n.profile.about.profile_preview"></a></li>    
+                </ul>
+            </li>
+            <li ng-class="{ 'dp-active': timelineActive == 'friends' }">
+                <a href="#/friends" my-refresh ng-bind="i18n.profile.friends"> <span class="invitations-number"> </span></a>
+            </li>
+            <li ng-class="{ 'dp-active': timelineActive == 'album' }">
+                <a href="#/album" ng-bind="i18n.profile.pictures"></a>
+            </li>
+            <li ng-class="{ 'dp-active': timelineActive == 'shope' }">
+                <a href="#/myshops/1" ng-bind="i18n.profile.shops"></a>
+            </li>
+            <li ng-class="{ 'dp-active': timelineActive == 'club' }">
+                <a href="#/club" ng-bind="i18n.profile.clubs"><span class="invitations-number"></span></a>
+            </li>
+            <li ng-class="{ 'dp-active': timelineActive == 'more' }" class="last">
+                <a href="javascript:void(0)" ng-bind="i18n.followers.more"> <span class="invitations-number"></span></a>
+                <ul class="more_links">
+                    <li><a href="#/followings"  ng-bind="i18n.followers.following + ' (' + totalCounts.followings + ')' "> </a></li>
+                    <li><a href="#/followers" ng-bind="i18n.followers.title + ' (' + totalCounts.followers + ')'"> </a></li>
+                    <li><a href="#/shop/affiliates" ng-bind="i18n.followers.shops_affiliated + ' (' + totalCounts.shop_affiliates +')' "> </a></li>
+                    <li><a href="#/citizen/affiliates" ng-bind="i18n.followers.citizen_affiliated + ' (' + totalCounts.citizen_affiliates + ')'"> </a></li>
+                    <!-- <li><a href="#/broker/affiliates">{{i18n.followers.brocker_affiliated}} ({{totalCounts.broker_affiliates}})</a></li> -->
+                </ul>
+            </li>
+        </ul>
+    </div>
+    </div>
+    </div>
+<!--     <p if="currentUser.creditAndIncome.shopping_plus_user == 0" class="popUpMsgs">{{i18n.profile.shopingplus_account}}
+    </p>
+    <p ng-if="currentUser.basicProfile.payment_status == 0" class="popUpMsgs warning">
+    <a href="#/myshops" title="" >{{i18n.profile.payment_pending}} </a>
+    </p> -->
+</div>

@@ -1,0 +1,127 @@
+<div class="coup-slogan campaign-head" data-ng-bind="i18n.Campaign_work.sell">
+</div>
+<div class="shopping-card-block">
+    <div class="shopping-card-heading" data-ng-bind="i18n.Campaign_work.create_card"></div>
+    <div class="shopping-card-desc">
+		<span data-ng-bind="i18n.Campaign_work.sold_card1"></span></br>
+        <span data-ng-bind="i18n.Campaign_work.sold_card"></span> 
+	</div>
+    <div class="subscription-shopping-card">
+		<span class="top-line" data-ng-bind="i18n.Campaign_work.activate"></span>
+		<span class="bottom-line" data-ng-bind="i18n.Campaign_work.sell_card"></span>
+    </div>
+<div class="cards-block">
+    <ul>
+		<li><img  src="app/assets/images/card-20-big.jpg" alt="" titile=""/></li>
+		<li><img  src="app/assets/images/card-30-big.jpg" alt="" titile=""/></li>
+		<li><img  src="app/assets/images/card-50-big.jpg" alt="" titile=""/></li>
+		<li><img  src="app/assets/images/card-100-big.jpg" alt="" titile=""/></li>
+    </ul>
+    <div>
+    	<span class="chose-card-btn">39&euro; / Mese</span>
+    	<span class="card-check">
+    	<input type="checkbox"  />
+        <span data-ng-bind="i18n.Campaign_work.term"></span>
+    </span>
+    </div>
+</div>
+<div class="shop-expand-list">
+    <div class="expand-btn" data-ng-click="ShowGrid()"><span data-ng-bind="i18n.Campaign_work.work"></span></div>
+    <div data-ng-show="grid">
+        <ul class="expand-list">
+            <li>
+                <div class="expand-list-content-heading" data-ng-bind="i18n.Campaign_work.choose1">1  Scegli il Valore della tua Carta di Acquisto
+                </div>
+                <div class="expand-list-content" data-ng-bind="i18n.Campaign_work.description1">Scegli l importo delle tue Shopping Card Up To 100% che vuoi vendere.
+                </div>
+                <div class="shop-cards-small">
+                	<ul>
+						<li><img  src="app/assets/images/card-20-small.jpg" alt="" titile=""/></li>
+						<li><img  src="app/assets/images/card-30-small.jpg" alt="" titile=""/></li>
+						<li><img  src="app/assets/images/card-50-small.jpg" alt="" titile=""/></li>
+						<li><img  src="app/assets/images/card-100-small.jpg" alt="" titile=""/></li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+            	<div class="expand-list-content-heading" data-ng-bind="i18n.Campaign_work.choose2">2   Scegli il tuo Budget di Vendita
+                </div>
+                <div class="expand-list-content" data-ng-bind="i18n.Campaign_work.description2">Decidi il numero di Carte che vuoi offrire sul mercato e la scadenza dellofferta.</div>
+
+            <div class="quantity-details-outer">
+                <div class="quantity-details">
+                    <span class="coupon-quanitiy">
+                        <span class="coupon-quanitiy-text" data-ng-bind="i18n.coupon.coupon_quantity"></span>
+                        <span class="coupon-quanitiy-list-value">
+                            <ul>
+                                <li>20</li>
+                                <li class="selected">50</li>
+                                <li>100</li>
+                            </ul>
+                        </span>
+                    </span>
+                </div>
+                    <date-Picker></date-Picker>
+            </div>
+            </li>
+            <li>
+            	<div class="expand-list-content-heading" data-ng-bind="i18n.Campaign_work.choose3">3   Potenzia la tua offerta
+                </div>
+                <div class="expand-list-content" data-ng-bind="i18n.Campaign_work.description3">
+                	Seleziona lo sconto da applicare sul Prezzo della Carta di Acquisto, per incentivare i Cittadini ad acquistarla.
+                    Tagga i tuoi Amici, inserisci Parole Chiave e aggiungi Foto e Descrizione alla tua Offerta.
+                </div>
+                <div class="quantity-details-outer">
+                <div class="quantity-details">
+                    <span class="coupon-quanitiy">
+                        <span class="coupon-quanitiy-text" data-ng-bind="i18n.coupon.coupon_quantity"></span>
+                        <span class="coupon-quanitiy-list-value">
+                            <ul>
+                                <li>20</li>
+                                <li class="selected">50</li>
+                                <li>100</li>
+                            </ul>
+                        </span>
+                    </span>
+                </div>
+
+            <div class="tag-col tag-col1">
+                <div class="col-heading" data-ng-bind="i18n.coupon.tag_keywords"></div>
+
+            </div>
+            <div class="tag-col tag-col2">
+                    <div class="col-heading"><span data-ng-bind="i18n.coupon.list"></span> <a href="#" data-ng-bind="i18n.coupon.open_list"></a></div>
+            </div>
+            </div>
+            </li>
+            <li>
+            	<div class="expand-list-content-heading" data-ng-bind="i18n.Campaign_work.choose4">4  Ottieni le informazioni che fanno la differenza 
+                </div>
+                <div class="expand-list-content" data-ng-bind="i18n.Campaign_work.description4">SixthContinent Strategy ti permette di monitorare vendite e conversioni, ti fornisce i dati aggiornati sui visitatori
+                del tuo Negozio online e sugli utenti che ricevono la tua offerta e soprattutto cosa puoi fare per incentivarli ad acquistare. 
+                </div>
+            </li>
+            <li>
+            	<div class="expand-list-content-heading" data-ng-bind="i18n.Campaign_work.choose5">5  Condizioni economiche
+                </div>
+                <div class="expand-list-content">
+                	<span data-ng-bind="i18n.Campaign_work.description5"></span>
+	                </br></br>
+	                <span  data-ng-bind="i18n.Campaign_work.description51"></span>
+	                </br></br>
+	                <span  data-ng-bind="i18n.Campaign_work.description52"></span>
+                </div>
+            </li>
+            <li>
+            	<div class="expand-list-content-heading" data-ng-bind="i18n.Campaign_work.choose6">
+            		6   Requisiti e Validita
+                </div>
+                <div class="expand-list-content">
+                	<span data-ng-bind="i18n.Campaign_work.description6"></span></br></br>
+                    <span data-ng-bind="i18n.Campaign_work.description61"></span>
+                </div>
+            </li>
+        </ul>
+    </div>
+    </div>
+</div>

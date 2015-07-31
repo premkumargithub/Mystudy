@@ -1,0 +1,743 @@
+<div class="col-3-layout">
+  <left-Panel></left-Panel>
+  <div id="content">
+    <div class="innerAll">
+      <div class="row">
+        <div class="col-lg-8 col-md-8">
+          <div class="inner-container">
+            <div class="editProfileLoader"> <img src="app/assets/images/proceed.gif" data-ng-show="loadEditProfile" /> </div>
+            <div class="tab-content" data-ng-hide="loadEditProfile">
+              <div class="profile-tab-container profile-edit-page"  > 
+                <!-- Tabs Heading -->
+                <div class="tabsbar tabsbar-2">
+                  <ul class="row row-merge">
+                    <li class="col-md-3 glyphicons circle_info active"><a href="#/edit/citizen/1" data-ng-bind="i18n.profile.edit_profile.title" ></a></li>
+                    <li class="col-md-3 glyphicons cart_in" data-ng-if ="editUser.brokeresists == 1" style="display:none"><a href="#/edit/broker/2" data-ng-bind="i18n.profile.edit_profile.edit_broker_profile"></a></li>
+                  </ul>
+                </div>
+                
+                <!-- Tab content -->
+                <div class="tab-pane1"  data-ng-show="edit">
+                  <div class="timeline-cover">
+                    <div class="widget">
+                      <div class="widget-body padding-none margin-none">
+                        <div class="innerAll"> <i class="fa fa-quote-left text-muted pull-left fa-fw"></i>
+                          <p class="lead margin-none" data-ng-bind="i18n.profile.edit_profile.edit"></p>
+                          <button class="fblogin-home connet-facebook" ng-show="showLink" ng-click="sync_to_fb()" ng-bind="i18n.profile.edit_profile.connect_fb"></button>
+                          <button class="fblogin-home sync-facebook" ng-show="showSync" ng-click="sync_to_fb()" ng-bind="i18n.profile.edit_profile.sync_fb"></button>
+                          <!-- <button class="fblogin-home" ng-click="sync_to_fb()">Connect to Facebook</button>
+                          <button class="fblogin-home" ng-click="sync_to_fb()">Re-Sync to Facebook</button> -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="edit-profile-citizen">
+                    <div class="profile-citizen-subheading" data-ng-bind="i18n.profile.edit_profile.personal_details"></div>
+                   
+                    <div class="top-lang-sec">
+                      <select ng-model="currentLanguage" data-ng-change="selectlanguage(currentLanguage); setLanguage(currentLanguage)">
+                        <option ng-repeat="item in languageOptions" value="{{item.key}}" style="background-image:url({{item.flag}});" class="langOption" ng-selected="{{item.key == currentLanguage}}" data-ng-bind="item.value"> </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-container  personal-details-block">
+                    <form ng-keydown="preventEnter($event)" name="editUsers" data-ng-submit="editProfile(1,userForm.$valid)" class="citizen-edit-form" novalidate>
+                      <ul>
+                        <li>
+                          <div class="citizen-edit-label"> <span data-ng-bind="i18n.profile.edit_profile.first_name"></span> </div>
+                          <div class="citizen-edit-input">
+                            <input type="text" name="firstname" id="user_First_Name" data-ng-model="editUser.firstName" class="form-control bg-gray" ng-class="{'error-border': (editUsers.firstname.$dirty && editUsers.firstname.$invalid && editUsers.firstname.$error.required) || (errorIndex == 1 && !editUser.firstName)}"  validation-focus required="" />
+                            <!-- <div ng-show="formSubmitted && !editUser.firstName" class="text-red" data-ng-bind="i18n.store.enter_name"></div>
+                                                    <p ng-show="editUsers.firstName.$error.minlength && !editUsers.firstName.$pristine " class="text-red">You name is required.</p>
+                                                    <p ng-show="editUsers.firstName.$error.maxlength" class="text-red">Username is too long.</p> -->
+                            <div class="text-red" 
+                                                            ng-show="(editUsers.firstname.$dirty && editUsers.firstname.$invalid && editUsers.firstname.$error.required) || (errorIndex == 1 && !editUser.firstName)"> <small class="text-red" 
+                                                            ng-bind="i18n.register.enter_first_name"> </small> </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="citizen-edit-label"> <span data-ng-bind="i18n.profile.edit_profile.last_name"></span> </div>
+                          <div class="citizen-edit-input">
+                            <input type="text" name="lastname" id="user_Last_Name" class="form-control bg-gray" data-ng-model="editUser.lastName" ng-class="{'error-border': (editUsers.lastname.$dirty && editUsers.lastname.$invalid && editUsers.lastname.$error.required ) || (errorIndex == 1 && !editUser.lastName)}"  required=""/>
+                            <div class="text-red" ng-show="(editUsers.lastname.$dirty && editUsers.lastname.$invalid && editUsers.lastname.$error.required)|| (errorIndex == 1 && !editUser.lastName)"> <small class="text-red" 
+                                                             ng-bind="i18n.register.enter_last_name"> </small> </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="citizen-edit-label"> <span data-ng-bind="i18n.profile.edit_profile.birthday"></span> </div>
+                          <div class="register-sixth-one-half citizen-edit-birthday">
+                            <div class="register-sixth-select-month" ng-class="{'error-border': (editUsers.birthmonth.$dirty && editUsers.birthmonth.$invalid && editUsers.birthmonth.$error.required ) || (errorIndex == 1 && !editUser.month)}"  >
+                              <select id="birthmonth" data-ng-model="editUser.month" data-ng-options="month.name for month in months track by month.value" ng-change="monthChange();" name="birthmonth" required="">
+                                <option value="" data-ng-bind="i18n.profile.edit_profile.month"></option>
+                              </select>
+                            </div>
+                            <div class="register-sixth-select-month register-sixth-day" ng-class="{'error-border': (editUsers.birthdate.$dirty && editUsers.birthdate.$invalid && editUsers.birthdate.$error.required) || (errorIndex == 1 && !editUser.day)}" >
+                              <select id="birthdate" data-ng-model="editUser.day" data-ng-options="day for day in editDays" name="birthdate" required="">
+                                <option value="" data-ng-bind="i18n.profile.edit_profile.day"></option>
+                              </select>
+                            </div>
+                            <div class="register-sixth-select-month register-sixth-year" ng-class="{'error-border': (editUsers.birthyear.$dirty && editUsers.birthyear.$invalid && editUsers.birthyear.$error.required ) || (errorIndex == 1 && !editUser.year)}">
+                              <select id="birthyear" data-ng-model="editUser.year" data-ng-options="year for year in years  | reverse" name="birthyear"  required="" >
+                                <option value="" data-ng-bind="i18n.profile.edit_profile.year"></option>
+                              </select>
+                            </div>
+                            <div class="text-red"  ng-show="(editUsers.birthyear.$dirty && editUsers.birthyear.$invalid && editUsers.birthyear.$error.required) || (errorIndex == 1 && !editUser.year)">
+                               <small class="text-red" ng-bind="i18n.register.enter_year"> </small>
+                            </div>
+                            <div class="text-red"  ng-show="(editUsers.birthdate.$dirty && editUsers.birthdate.$invalid && editUsers.birthdate.$error.required )|| (errorIndex == 1 && !editUser.day)">
+                              <small class="text-red" ng-bind="i18n.register.enter_day"> </small> 
+                            </div>
+                            <div class="text-red" ng-show="(editUsers.birthmonth.$dirty && editUsers.birthmonth.$invalid && editUsers.birthmonth.$error.required) || (errorIndex == 1 && !editUser.month)"> 
+                              <small class="text-red" ng-bind="i18n.register.enter_month"> </small> 
+                            </div>
+                            <div  data-ng-class="birthdateclass" data-ng-if ="birthdateError != ''"data-ng-bind="birthdateError"> </div>
+                          </div>
+                        </li>
+                        <li> <span data-ng-bind="i18n.profile.edit_profile.gender.title"></span>
+                          <div class="register-sixth-two-half">
+                            <div class="register-sixth-one-radio">
+                              <div class="shipping_input_radio">
+                                <input type="radio" name="gender" value="m" id="register_male" class="register-sixth-radio" data-ng-model="editUser.gender"  >
+                                <label for="register_male"><span data-ng-bind="i18n.profile.edit_profile.gender.male"></span></label>
+                              </div>
+                              <label for="register_male" data-ng-bind="i18n.profile.edit_profile.male">
+                              <label> </label>
+                              </label>
+                            </div>
+                            <div class="register-sixth-two-radio">
+                              <div class="shipping_input_radio">
+                                <input type="radio" name="gender" value="f" id="register_female" class="register-sixth-radio" data-ng-model="editUser.gender" >
+                                <label for="register_female"><span data-ng-bind="i18n.profile.edit_profile.gender.female"></span></label>
+                              </div>
+                              <label for="register_female" data-ng-bind="i18n.profile.edit_profile.female"></label>
+                            </div>
+                          </div>
+                        </li>
+                        <li> <span data-ng-bind="i18n.profile.edit_profile.hobbies"></span>
+                          <div class="tagsBlockinner">
+                            <div class="tags-wrapper">
+                              <div id="tagsList" class="tags-cloud"> <img class="loadicn" src="app/assets/images/proceed.gif" data-ng-show="">
+                                <input type="text" placeholder="{{i18n.profile.edit_profile.add_hobbyplaceholder}}" id="searchInput" ng-keydown="checkKeyDown($event)" class="form-control bg-gray" ng-model="searchText" data-ng-blur="clearHobbyList()" />
+                                <div class="tags-block">
+                                  <div ng-repeat="selectedTag in selectedTags track by $index" class="tag"> <span class="tagName" data-ng-bind="selectedTag.name"></span> <span class="closeBtn"><b ng-click="removeTag($index)" class="fa fa-times cross"></b></span> </div>
+                                </div>
+                              </div>
+                              <ul id="suggestions" class="suggestions-list">
+                                <li ng-repeat="suggestion in suggestions" class="blockSpan" ng-click="addToSelectedTags($index)" ng-mouseover="$parent.selectedIndex=$index" ng-class="{active : selectedIndex===$index}" data-ng-bind="suggestion.name"></li>
+                              </ul>
+                            </div>
+                            <div  data-ng-class="hobbymsgClass" data-ng-if ="hobbyMessage != ''" data-ng-bind="hobbyMessage"> </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="citizen-edit-label"> <span data-ng-bind="i18n.profile.edit_profile.relationship"></span> </div>
+                          <div class="citizen-edit-input">
+                            <select class="form-control bg-gray" id="relation" data-ng-model="editUser.relationshipsts" data-ng-options="relationship.status for relationship in relationshipstatus" name="relation" >
+                              <option value="" data-ng-bind="i18n.profile.edit_profile.relationship"></option>
+                            </select>
+                        </li>
+                        </li>
+                        <li>
+                          <div class="citizen-edit-label"> <span data-ng-bind="i18n.profile.edit_profile.country"></span> </div>
+                          <div class="citizen-edit-input">
+                            <select class="form-control bg-gray" id="countryId" data-ng-model="editUser.country" data-ng-options="country.country for country in countries" ng-class="{'error-border': (editUsers.nation.$dirty && editUsers.nation.$invalid && editUsers.nation.$error.required ) || (errorIndex == 1 && !editUser.country)}" name="nation" required="">
+                              <option value="" data-ng-bind="i18n.profile.edit_profile.country"></option>
+                            </select>
+                            <div class="text-red" ng-show="(editUsers.nation.$dirty && editUsers.nation.$invalid && editUsers.nation.$error.required) || (errorIndex == 1 && !editUser.country)"> 
+                              <small class="text-red" ng-bind="i18n.register.enter_country"> </small> 
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="citizen-edit-label"> <span data-ng-bind="i18n.profile.edit_profile.state"></span> </div>
+                          <div class="citizen-edit-input">
+                            <input type="text" id="state" class="form-control bg-gray" data-ng-model="editUser.state" ng-class="{'error-border': (editUsers.states.$dirty && editUsers.states.$invalid && editUsers.states.$error.required) || (errorIndex == 1 && !editUser.state)}"  name="states" required=""/>
+                            <div class="text-red" ng-show="(editUsers.states.$dirty && editUsers.states.$invalid && editUsers.states.$error.required) || (errorIndex == 1 && !editUser.state)"> <small class="text-red"  ng-bind="i18n.validation.enter_state"> </small> </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="citizen-edit-label"> <span data-ng-bind="i18n.profile.edit_profile.zip"></span> </div>
+                          <div class="citizen-edit-input">
+                            <!-- <input type="number" id="zipcode" class="form-control bg-gray" data-ng-model="editUser.zip"  ng-class="{'error-border': (editUsers.zipcode.$dirty && editUsers.zipcode.$invalid && editUsers.zipcode.$error.required ) || (errorIndex == 1 && !editUser.zip)}" name="zipcode" ng-maxlength="5" ng-minlength="5" required    /> -->
+                            <input type="text" id="zipcode" class="form-control bg-gray" data-ng-model="editUser.zip"  ng-class="{'error-border': (editUsers.zipcode.$dirty && editUsers.zipcode.$invalid && editUsers.zipcode.$error.required ) || (errorIndex == 1 && !editUser.zip) || (editUsers.zipcode.$error.pattern)}" name="zipcode" maxlength="5" data-ng-maxlength="5" data-ng-minlength="5" data-ng-pattern="/^\d{5}$/"  required="" />
+                            <div class="text-red" ng-show="(editUsers.zipcode.$dirty && editUsers.zipcode.$invalid)  || (errorIndex == 1 && !editUser.zip) ">
+                               <small class="text-red" ng-show="editUsers.zipcode.$error.required" ng-bind="i18n.validation.enter_zip"> 
+                               </small> <!-- <small class="text-red" 
+                                                                ng-show="editUsers.zipcode.$error.minlength" ng-bind="i18n.validation.enter_zip_min_length"> </small> --> <small class="text-red" 
+                                                                ng-show="editUsers.zipcode.$error.pattern" ng-bind="i18n.validation.enter_zip_min_length"> </small> </div>
+                            <!-- <div class="text-red" ng-show="editUsers.zipcode.$dirty && editUsers.zipcode.$invalid">
+                              <small class="text-red" ng-show="editUsers.zipcode.$error.maxlength" ng-bind="i18n.validation.enter_zip_max_length"> </small>
+                              <small class="text-red" ng-show="editUsers.zipcode.$error.minlength" ng-bind="i18n.validation.enter_zip_min_length"> </small>
+                            </div> -->
+                          </div>
+                        </li>
+                        <li>
+                          <div class="citizen-edit-label"> <span data-ng-bind="i18n.profile.edit_profile.city"></span> </div>
+                          <div class="citizen-edit-input">
+                            <input type="text" class="form-control bg-gray" id="place" data-ng-model="editUser.city"  ng-class="{'error-border': (editUsers.place.$dirty && editUsers.place.$invalid && editUsers.place.$error.required )  || (errorIndex == 1 && !editUser.city)}" name="place" required="" />
+                            <div class="text-red"  ng-show="(editUsers.place.$dirty && editUsers.place.$invalid && editUsers.place.$error.required) || (errorIndex == 1 && !editUser.city)"> 
+                              <small class="text-red"  ng-bind="i18n.validation.enter_palce"> </small> </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="citizen-edit-label"> <span data-ng-bind="i18n.profile.edit_profile.city_born"></span> </div>
+                          <div class="citizen-edit-input">
+                            <input type="text" class="form-control bg-gray" id="city_born" data-ng-model="editUser.city_born" ng-class="{'error-border': (editUsers.cityborn.$dirty && editUsers.cityborn.$invalid && editUsers.cityborn.$error.required ) || (errorIndex == 1 && !editUser.city_born)}" name="cityborn" required=""/>
+                            <div class="text-red"  ng-show="editUsers.cityborn.$dirty && editUsers.cityborn.$invalid && editUsers.cityborn.$error.required || (errorIndex == 1 && !editUser.city_born)"> <small class="text-red"  ng-bind="i18n.validation.enter_city_born"> </small> </div>
+                          </div>
+                        </li>
+                        <li><span> </span>
+                          <p class="suggestion-block" data-ng-bind="i18n.profile.edit_profile.message"></p>
+                        </li>
+                        <li> <span data-ng-bind="i18n.profile.edit_profile.address"></span>
+                          <textarea class="form-control bg-gray" data-ng-model="editUser.address" ></textarea>
+                        </li>
+                        <li> <span data-ng-bind="i18n.profile.edit_profile.place"></span>
+                          <input type="text" id="mapplace" class="form-control bg-gray" data-ng-model="editUser.place" readonly >
+                        </li>
+                        <li style="display:none;"> <span data-ng-bind="i18n.profile.edit_profile.latitude"></span>
+                          <input type="text" id="lat" value=""class="form-control bg-gray" data-ng-model="editUser.latitude" readonly />
+                        </li>
+                        <li style="display:none;"> <span data-ng-bind="i18n.profile.edit_profile.longitude"></span>
+                          <input type="text" id="lon" value=""  class="form-control bg-gray" data-ng-model="editUser.longitude" readonly/>
+                        </li>
+                        <li><!-- <map><map> -->
+                          <autocomplete-map></autocomplete-map>
+                        </li>
+                        <li> <span data-ng-bind="i18n.profile.edit_profile.about_me"></span>
+                          <textarea class="form-control bg-gray" data-ng-model="editUser.about_me" ></textarea>
+                        </li>
+                        <li><img src="app/assets/images/ajax-loader.gif" class="ng-hide" data-ng-show="showloading">
+                          <button type="submit" class="btn btn-primary" data-ng-hide="editloader" data-ng-bind="i18n.profile.edit_profile.save"></button>
+                          <div  data-ng-class="msgClass" data-ng-if ="editMessage != ''"
+                                                        data-ng-bind="editMessage"> </div>
+                        </li>
+                      </ul>
+                    </form>
+                    <!-- </div> --> 
+                  </div>
+                  <!-- // Tab content END --> 
+                  <!--Relatives starts-->
+                  <div class="edit-profile-citizen">
+                    <div class="profile-citizen-subheading" data-ng-bind="i18n.profile.edit_profile.family"></div>
+                    <div class="profile-citizen-elements">
+                      <ul>
+                        <li class="add-sub-elements">
+                          <button class="btn btn-primary" data-ng-click="toogleRelative()"><span ng-bind="i18n.profile.edit_profile.add_relation"></span> <img src="app/assets/images/plus.png" title="Click to add a new relative" /></button>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="form-container relatives-form" data-ng-show="showRelativeForm">
+                    <form onkeypress="return event.keyCode != 13;">
+                      <ul>
+                        <li>
+                          <div class="category-list-container family-cate" > <img class="loadicn" src="app/assets/images/proceed.gif" data-ng-show="relativeloader">
+                            <input type="text" class="form-control bg-gray"  placeholder="{{i18n.profile.edit_profile.search_friend}}" data-ng-model="searchRelative"   id="searchrelative"  ng-keydown="downUpKeyPress($event)" data-ng-blur="clearRelative();" data-ng-class="{'has-error' : relativeFrndError}" />
+                            <ul id="suggestions" class="suggestions-list">
+                              <li ng-repeat="relativeSuggesion in relativeSuggesions" class="blockSpan" ng-click="selectedRelative(relativeSuggesion)" ng-mouseover="$parent.selectIndex=$index" ng-class="{active : selectIndex===$index}" data-ng-bind="relativeSuggesion.firstname + ' '  + relativeSuggesion.lastname" ></li>
+                              <li class="blockSpan" ng-show="noFriend" ng-bind="i18n.profile.edit_profile.No_Record"> </li>
+                            </ul>
+                          </div>
+                          <div class="category-list-container">
+                          <select class="form-control bg-gray"   data-ng-model="releativeSearch" data-ng-options="relative.name for relative in relatives"  data-ng-class="{'has-error' : relativeRelError}" >
+                            <option value="" data-ng-bind="i18n.profile.edit_profile.relation"></option>
+                          </select>
+                          <button  class="btn btn-primary"  data-ng-click="saveRelative('')" ng-hide="editRelativeButton" ng-disabled="wait" data-ng-bind="i18n.profile.edit_profile.save"></button>
+                          <button  class="btn btn-primary"  data-ng-click="saveRelative(1)" ng-show="editRelativeButton" ng-disabled="wait" data-ng-bind="i18n.profile.edit_profile.save"></button>
+                          <button  class="btn cancel-btn"  data-ng-click="toogleRelative()" ng-disabled="wait" data-ng-bind="i18n.profile.edit_profile.cancel"></button>
+                        </li>
+                      </ul>
+                    </form>
+                    
+                    <!-- </div> --> 
+                  </div>
+                  <div class="edit-profile-pre-data clearfix">
+                    <div  data-ng-class="errorClass" data-ng-bind="relativeMessage" > </div>
+                    <div class="previous-experience" data-ng-repeat="relative in allRelatives track by $index">
+                      <h2 class="heading" data-ng-click="editRelative(relative);"><span data-ng-bind="relative.firstname + ' ' + relative.lastname"></span></h2>
+                      <div class="subheading" data-ng-click="editRelative(relative);"><span data-ng-bind="relatives[relative.relationId - 1].name"></span></div>
+                      <div class="delete-btn deleteRelative{{relative.id}}" data-ng-click ="confirmClick() && deleteRelative(relative,relative.id)" confirm-click ng-disabled="wait" data-ng-bind="i18n.profile.edit_profile.delete"></div>
+                    </div>
+                  </div>
+                  <!--Relatives ends--> 
+                  
+                  <!--education starts-->
+                  <div class="edit-profile-citizen">
+                    <div class="profile-citizen-subheading" data-ng-bind="i18n.profile.edit_profile.category"></div>
+                    <div class="profile-citizen-elements">
+                      <ul>
+                        <li class="add-sub-elements">
+                          <button class="btn btn-primary" data-ng-click="toogleCatageory();">{{i18n.profile.edit_profile.add_category}} <img src="app/assets/images/plus.png" title="Click to add a new education" /></button>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="form-container category-form" data-ng-show="showCatageoryForm">
+                    <form  onkeypress="return event.keyCode != 13;">
+                      <ul>
+                        <li>
+                          <div class="category-list-container">
+                            <select id="selectCategoryFocus" class="form-control bg-gray"  data-ng-model="selectedCategory" data-ng-options="categorie.category_name for categorie in categories" data-ng-change="focusKeyword();"  data-ng-class="{'has-error' : cathaserror}">
+                              <option value="" data-ng-bind="i18n.profile.edit_profile.select_category" + ' ' + "categoryKeyword">
+                              </option>
+                            </select>
+                          </div>
+                          <div class="category-list-container"> <img class="loadicn" src="app/assets/images/proceed.gif" data-ng-show="showCatKeyLoading">
+                            <input type="text" ng-class="srchkeyicn" id="categoryKeyword" placeholder="{{i18n.profile.edit_profile.search_keyword}}" ng-model="categoryKeyword"  ng-keydown="keywordKeyDown($event)"       ng-disabled="enableKeyword" ng-blur="clearKeyList()"  data-ng-class="{'has-error' : catkeyerror}">
+                            <ul id="suggestions" class="suggestions-list">
+                              <li ng-repeat="keyword in keywords" class="blockSpan" ng-click="storeKeyword(keyword)" ng-mouseover="$parent.keywordIndex=$index" ng-class="{active : keywordIndex===$index}" data-ng-bind="keyword.name"></li>
+                              <li class="blockSpan" ng-show="emptyKeyword" ng-bind="i18n.profile.edit_profile.No_Record"> </li>
+                            </ul>
+                          </div>
+                          <div class="clr"></div>
+                          <div class="tags-block" data-ng-show="keywordList.length > 0">
+                            <div ng-repeat="keyword in keywordList" class="tag"> <span class="tagName" data-ng-bind="keyword"></span> <span class="closeBtn" ><b class="fa fa-times cross" data-ng-click="removeKeyword($index)"></b></span> </div>
+                          </div>
+                          <div class="clr line-gap"></div>
+                          <button class="btn btn-primary" data-ng-click="saveCategory('')" ng-hide="editCategoryButton" ng-disabled="wait" data-ng-bind="i18n.profile.edit_profile.save"></button>
+                          <button class="btn btn-primary" data-ng-click="saveCategory(1)" ng-show="editCategoryButton" ng-disabled="wait" data-ng-bind="i18n.profile.edit_profile.save"></button>
+                          <button data-ng-click="toogleCatageory()" class="btn cancel-btn " ng-disabled="wait" data-ng-bind="i18n.profile.edit_profile.cancel"></button>
+                        </li>
+                      </ul>
+                    </form>
+                    
+                    <!-- </div> --> 
+                  </div>
+                  <div class="edit-profile-pre-data clearfix">
+                    <div  ng-class="catErrCls" ng-bind="catErrClsMsg"></div>
+                    <div class="previous-experience" data-ng-repeat="(catIndx, category) in allCatagories" >
+                      <h2 class="heading" data-ng-click="editCatagory(category);"><span data-ng-bind="category.category_name"></span></h2>
+                      <div class="subheading" data-ng-click="editCatagory(category);">
+                      <div class="category-keywords">
+                      <span data-ng-repeat="singleKey in convertString(category.keywords) track by $index "><span data-ng-bind="singleKey"></span> <span data-ng-if="!$last">,</span></span>
+                      </div>
+                      </div>
+                      <div><img src="app/assets/images/proceed.gif" class="ng-hide" data-ng-show="isDelCat[catIndx]"></div>
+                      <div class="delete-btn" data-ng-click ="confirmClick() && deleteCategories(catIndx)" data-ng-hide="isDelCat[catIndx]" confirm-click data-ng-bind="i18n.profile.edit_profile.delete"></div>
+                    </div>
+                  </div>
+                  <div class="edit-profile-citizen">
+                    <div class="profile-citizen-subheading" data-ng-bind="i18n.profile.edit_profile.education"></div>
+                    <div class="profile-citizen-elements">
+                      <ul>
+                        <li class="add-sub-elements">
+                          <button class="btn btn-primary" data-ng-click="toggleEducationForm();" >{{i18n.profile.edit_profile.add_education}} <img src="app/assets/images/plus.png" title="Click to add a new education" /></button>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="form-container" data-ng-show="showEducationForm" focus-me="educationFocus">
+                    <form name="educations" onkeypress="return event.keyCode != 13;" novalidate>
+                      <ul>
+                        <li> <span data-ng-bind="i18n.profile.edit_profile.school"></span>
+                          <div class="tagsBlockinner">
+                            <div class="tags-wrapper">
+                              <div id="tagsList" class="tags-cloud"> <img class="loadicn" src="app/assets/images/proceed.gif" data-ng-show="schoolLoader">
+                                <input type="text" name="schoolName" id="schoolSuggestion" class="form-control bg-gray" data-ng-model="education.school" ng-keydown="schoolDropDowm($event)" class="form-control bg-gray"  data-ng-blur="clearSchoolList();" ng-class="{'error-border': (educations.schoolName.$dirty && educations.schoolName.$invalid && educations.schoolName.$error.required ) || (formValid==false && !education.school)}"  required=""/>
+                                <ul id="suggestions" class="suggestions-list">
+                                  <li ng-repeat="school in schools" class="blockSpan" ng-click="addSchool(school)" ng-mouseover="$parent.schoolIndex=$index" ng-class="{active : schoolIndex===$index}" data-ng-bind="school.name"></li>
+                                </ul>
+                                <div class="text-red"  ng-show="(educations.schoolName.$dirty && educations.schoolName.$invalid) || (formValid==false && !education.school)"> <small class="text-red"  ng-show="educations.schoolName.$error.required" ng-bind="i18n.register.school"> </small> </div>
+                              </div>
+                              <ul id="suggestions" class="suggestions-list">
+                                <li ng-repeat="suggestion in suggestions" class="blockSpan" ng-click="addToSelectedTags($index)" ng-mouseover="$parent.selectedIndex=$index" ng-class="{active : selectedIndex===$index}" data-ng-bind="suggestion.name"></li>
+                              </ul>
+                            </div>
+                          </div>
+                        </li>
+                        <li> <span data-ng-bind="i18n.profile.edit_profile.dates_attended_from"> </span>
+                          <div class="register-sixth-one-half"> 
+                            <!-- <div class="register-sixth-select-month">
+
+                                                            <select data-ng-model="education.monthStart" data-ng-options="month.name for month in months" ng-change="monthChange();" >
+                                                                <option value="">{{i18n.profile.edit_profile.month}}</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="register-sixth-select-month register-sixth-day">
+                                                            <select data-ng-model="education.dayStart" data-ng-options="day for day in days" >
+                                                                <option value="">{{i18n.profile.edit_profile.day}}</option>
+                                                            </select>
+                                                        </div> -->
+                            <div class="register-sixth-select-month register-sixth-year" ng-class="{'error-border': (educations.startYear.$dirty && educations.startYear.$invalid && educations.startYear.$error.required ) || (formValid==false && !education.yearStart)}" id="school_start">
+                              <select data-ng-model="education.yearStart" data-ng-options="year for year in years | reverse" name="startYear" required="">
+                                <option value="" data-ng-bind="i18n.profile.edit_profile.year"></option>
+                              </select>
+                            </div>
+                            <div class="text-red"  ng-show="(educations.startYear.$dirty && educations.startYear.$invalid) || (formValid==false && !education.yearStart)"> <small class="text-red"  ng-show="educations.startYear.$error.required" ng-bind="i18n.register.schoolYearStart"> </small> </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="citizen-edit-label"> <span data-ng-bind="i18n.profile.edit_profile.currently_attending"></span> </div>
+                          <div class="citizen-edit-input citizen-edit-radio">
+                            <div id="current_condition"  class="register-sixth-two-half">
+                              <div class="register-sixth-one-radio">
+                                <div class="shipping_input_radio">
+                                  <input type="radio" name="ca" value="1" id="edu_Yes" class="register-sixth-radio" data-ng-model="education.currently_attending"  >
+                                  <label for="edu_Yes"><span data-ng-bind="i18n.profile.edit_profile.yes"></span></label>
+                                </div>
+                                <label for="edu_Yes" data-ng-bind="i18n.profile.edit_profile.yes">
+                                <label> </label>
+                                </label>
+                              </div>
+                              <div class="register-sixth-two-radio">
+                                <div class="shipping_input_radio">
+                                  <input type="radio" name="ca" value="0" id="edu_No" class="register-sixth-radio" data-ng-model="education.currently_attending" >
+                                  <label for="edu_No"><span data-ng-bind="i18n.profile.edit_profile.no"></span></label>
+                                </div>
+                                <label for="edu_No" data-ng-bind="i18n.profile.edit_profile.no"></label>
+                              </div>
+                            </div>
+                            <div class="text-red"  ng-show="(formValid==false && (education.currently_attending == undefined || education.currently_attending == null || education.currently_attending === '') )"> <small class="text-red"  ng-bind="i18n.register.currently_attending"> </small> </div>
+                          </div>
+                          <!-- <textarea class="form-control bg-gray" data-ng-model="professional.currently_working" ></textarea><div class="activity-society-examples"> --> 
+                        </li>
+                        <li data-ng-if="education.currently_attending != 1"> <span data-ng-bind="i18n.profile.edit_profile.dates_attended_to"></span>
+                          <div class="register-sixth-one-half"> 
+                            <!-- <div class="register-sixth-select-month">
+                                                            <select data-ng-model="education.monthEnd" data-ng-options="month.name for month in months" ng-change="monthChange();" >
+                                                                <option value="">{{i18n.profile.edit_profile.month}}</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="register-sixth-select-month register-sixth-day">
+                                                            <select data-ng-model="education.dayEnd" data-ng-options="day for day in days" >
+                                                                <option value="">{{i18n.profile.edit_profile.day}}</option>
+                                                            </select>
+                                                        </div> -->
+                            <div class="register-sixth-select-month register-sixth-year" ng-class="{'error-border': (educations.endYear.$dirty && educations.endYear.$invalid && educations.endYear.$error.required ) || (formValid==false && !education.yearEnd)}" id="end_year">
+                              <select data-ng-model="education.yearEnd" data-ng-options="year for year in years | reverse" name="endYear" required="">
+                                <option value="" data-ng-bind="i18n.profile.edit_profile.year"></option>
+                              </select>
+                            </div>
+                            <div class="text-red"  ng-show="(educations.endYear.$dirty && educations.endYear.$invalid )|| (formValid==false && !education.yearEnd)"> <small class="text-red"   ng-show="educations.endYear.$error.required" ng-bind="i18n.profile.edit_profile.please_select_leavingyear"> </small> </div>
+                            <div class="text-red"  ng-show="education.yearEnd < education.yearStart"> <small class="text-red"  ng-bind="i18n.profile.edit_profile.please_enter_correct_dates"> </small> </div>
+                          </div>
+                        </li>
+                        </li>
+                        <li>
+                          <div class="citizen-edit-label"> <span data-ng-bind="i18n.profile.edit_profile.degree"></span> </div>
+                          <div class="citizen-edit-input">
+                            <select id="degree_name" class="form-control bg-gray"  data-ng-model="education.degree" data-ng-options="degree.degree for degree in degrees"  ng-class="{'error-border': (educations.degreeName.$dirty && educations.degreeName.$invalid && educations.degreeName.$error.required ) || (formValid==false && !education.degree)}" name="degreeName" required="">
+                              <option value="" data-ng-bind="i18n.profile.edit_profile.degree"></option>
+                            </select>
+                            <div class="text-red"  ng-show="(educations.degreeName.$dirty && educations.degreeName.$invalid)  || (formValid==false && !education.degree)"> <small class="text-red"  ng-show="(educations.degreeName.$error.required)" ng-bind="i18n.profile.edit_profile.please_select_degree"> </small> </div>
+                          </div>
+                        </li>
+                        <li> <span data-ng-bind="i18n.profile.edit_profile.field_of_study"></span>
+                          <div class="tagsBlockinner">
+                            <div class="tags-wrapper">
+                              <div id="tagsList" class="tags-cloud"> <img class="loadicn" src="app/assets/images/proceed.gif" data-ng-show="studyLoader">
+                                <input type="text" class="form-control bg-gray" data-ng-model="education.Field_Of_Study" ng-keydown="studyDropDown($event)" id="studySuggestion" data-ng-blur="clearFeildOfStudy();"  ng-class="{'error-border': (educations.studyField.$dirty && educations.studyField.$invalid && educations.studyField.$error.required ) || (formValid==false && !education.Field_Of_Study)}" name="studyField" required=""/>
+                              </div>
+                              <ul id="suggestions" class="suggestions-list">
+                                <li ng-repeat="study in studies" class="blockSpan" ng-click="addStudy(study)" ng-mouseover="$parent.studyIndex=$index" ng-class="{active : studyIndex===$index}" data-ng-bind="study.name"></li>
+                              </ul>
+                            </div>
+                            <div class="text-red"  ng-show="(educations.studyField.$dirty && educations.studyField.$invalid) || (formValid==false && !education.Field_Of_Study)"> <small class="text-red"  ng-show="educations.studyField.$error.required" ng-bind="i18n.profile.edit_profile.please_select_fieldofstudy"> </small> </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="citizen-edit-label"> <span data-ng-bind="i18n.profile.edit_profile.grade"></span> </div>
+                          <div class="citizen-edit-input">
+                            <input type="text" id="school_grade" class="form-control bg-gray" data-ng-model="education.grade" ng-class="{'error-border': (educations.grad.$dirty && educations.grad.$invalid && educations.grad.$error.required ) || (formValid==false && !education.grade)}" name="grad" required=""/>
+                            <div class="text-red"  ng-show="(educations.grad.$dirty && educations.grad.$invalid) || (formValid==false && !education.grade)"> <small class="text-red"   ng-show="educations.grad.$error.required" ng-bind="i18n.profile.edit_profile.please_select_grade"> </small> </div>
+                          </div>
+                        </li>
+                        <li> <span data-ng-bind="i18n.profile.edit_profile.activities_and_societies"></span>
+                          <textarea class="form-control bg-gray" data-ng-model="education.activity_society" ></textarea>
+                        </li>
+                        <li>
+                          <div class="citizen-edit-label"> <span data-ng-bind="i18n.profile.edit_profile.description"></span> </div>
+                          <div class="citizen-edit-input">
+                            <textarea id="desc_option" class="form-control bg-gray" data-ng-model="education.description" ng-class="{'error-border': (educations.desc.$dirty && educations.desc.$invalid && educations.desc.$error.required ) || (formValid==false && !education.description)}" name="desc" required=""></textarea>
+                            <div class="text-red"   ng-show="(educations.desc.$dirty && educations.desc.$invalid) || (formValid==false && !education.description)"> <small class="text-red"  ng-show="educations.desc.$error.required " ng-bind="i18n.register.school_desc"> </small> </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="citizen-edit-label"> <span data-ng-bind="i18n.profile.edit_profile.visibility"></span> </div>
+                          <div class="citizen-edit-input">
+                            <select  id="visible_option" class="form-control bg-gray"  data-ng-model="education.visibility" data-ng-options="visibilityoption.visibility for visibilityoption in visibility" ng-class="{'error-border': (educations.visible.$dirty && educations.visible.$invalid && educations.visible.$error.required ) || (formValid==false && !education.visibility)}" name="visible" required="">
+                              <option value="" data-ng-bind="i18n.profile.edit_profile.visibility"></option>
+                            </select>
+                            <div class="text-red"  ng-show="(educations.visible.$dirty && educations.visible.$invalid) || (formValid==false && !education.visibility)"> <small class="text-red"   ng-show="educations.visible.$error.required " ng-bind="i18n.profile.edit_profile.plese_select_visibility"> </small> </div>
+                          </div>
+                        </li>
+                        <li><img src="app/assets/images/ajax-loader.gif" class="ng-hide" data-ng-show="showloading">
+                          <button data-ng-click="saveEducation('');" class="btn btn-primary" data-ng-hide="editEducationBUtton" ng-disabled="wait" data-ng-bind="i18n.profile.edit_profile.save"></button>
+                          <button data-ng-click="saveEducation(1);" class="btn btn-primary" data-ng-show="editEducationBUtton" ng-disabled="wait" data-ng-bind="i18n.profile.edit_profile.save"></button>
+                          <button data-ng-click="toggleEducationForm()" class="btn cancel-btn" data-ng-bind="i18n.profile.edit_profile.cancel" ng-disabled="wait"></button>
+                        </li>
+                      </ul>
+                    </form>
+                    
+                    <!-- </div> --> 
+                  </div>
+                  <div class="edit-profile-pre-data clearfix">
+                    <div  data-ng-class="errorClass" data-ng-bind="educationMessage" > </div>
+                    <div class="previous-experience" data-ng-repeat="educationDetail in educationDetails track by $index | orderBy : '-end_date' ">
+                      <h2 class="heading" data-ng-click="editEducation(educationDetail, 'schoolSuggestion');"><span  data-ng-bind="educationDetail.school"></span></h2>
+                      <div class="subheading" data-ng-click="editEducation(educationDetail,'degree_name');"><span data-ng-bind="educationDetail.degree + ' ,' + educationDetail.field_of_study + ', ' + '(' + educationDetail.grade + ')' "> </span></div>
+                      <div class="time-period" data-ng-click="editEducation(educationDetail,'school_start');"><span>
+                        <div data-ng-bind="educationDetail.start_date" class= "spanInline"></div>
+                        - <span data-ng-if="educationDetail.currently_attending == false"> <span data-ng-if="educationDetail.end_date === undefined || educationDetail.end_date === null || educationDetail.end_date === ' ' " data-ng-bind="currentFullDate"></span><span data-ng-if="educationDetail.end_date != undefined && educationDetail.end_date != null && educationDetail.end_date != '' " data-ng-bind="educationDetail.end_date"></span> </span><span data-ng-if="educationDetail.currently_attending == true" data-ng-bind="i18n.profile.edit_profile.present"> </span></span></div>
+                      <div class="description" data-ng-click="editEducation(educationDetail,'desc_option');"><span data-ng-bind="educationDetail.description"></span></div>
+                      <div class="profile-view-dropdown" data-ng-hide="visibleWait[educationDetail.id]">
+                        <ul class="first-li">
+                          <li><img src="app/assets/images/admin.png" alt="">
+                            <ul class="">
+                              <li ng-class="{'active': educationDetail.visibility_type === 1}"> <a  href data-ng-click="updateEducationVisibility(educationDetail,1)" data-ng-bind="i18n.profile.edit_profile.view_in_personal_profile"></a> </li>
+                              <li ng-class="{'active': educationDetail.visibility_type === 2}"> <a href data-ng-click="updateEducationVisibility(educationDetail,2)" data-ng-bind="i18n.profile.edit_profile.view_in_Professional_profile"></a> </li>
+                              <li ng-class="{'active': educationDetail.visibility_type === 3}"> <a href data-ng-click="updateEducationVisibility(educationDetail,3)" data-ng-bind="i18n.profile.edit_profile.view_in_both"></a></li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </div>
+                      <div data-ng-show="visibleWait[educationDetail.id]" class="profile-view-dropdown"> <img class="loadicn" src="app/assets/images/proceed.gif" > </div>
+                      <div class="delete-btn deleteEducation{{educationDetail.id}}" data-ng-click ="confirmClick() && deleteEducation(educationDetail,educationDetail.id)" confirm-click data-ng-bind="i18n.profile.edit_profile.activities" ></div>
+                    </div>
+                  </div>
+                  
+                  <!--education ends--> 
+                  
+                  <!-- Skill Start -->
+                  <div class="edit-profile-citizen">
+                    <div class="profile-citizen-subheading" data-ng-bind="i18n.profile.edit_profile.skills"></div>
+                    <div class="profile-citizen-elements">
+                      <ul>
+                        <li class="add-sub-elements">
+                          <button class="btn btn-primary" data-ng-click="toggleSkillForm();">{{i18n.profile.edit_profile.add_skill}} <img src="app/assets/images/plus.png" title="Click to add a new Experience" /></button>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="form-container skills-container"  focus-me="professionFocus">
+                    <ul>
+                      <li>
+                        <div >
+                          <div data-ng-show="viewskill" data-ng-click="toggleSkillForm()"  class="tagsBlockinner tagsBlockview">
+                            <div class="tags-wrapper">
+                              <div id="tagsList" class="tags-cloud">
+                                <div class="tags-block"> <span  data-ng-show="emptyskill" data-ng-bind="i18n.profile.edit_profile.no_skill" ></span>
+                                  <div ng-repeat="skill in storeSkillss track by $index" class="tag"> <span data-ng-hide="emptyskill" class="tagName" data-ng-bind="skill"></span> <span class="closeBtn"><b ng-click="removeSkill($index)" class="fa fa-times cross"></b></span> </div>
+                                </div>
+                              </div>
+                            </div>
+                            <ul id="suggestions" class="suggestions-list">
+                              <li ng-repeat="skill in skills" class="blockSpan" ng-click="addToSelectedSkill(skill)" ng-mouseover="$parent.skillIndex=$index" ng-class="{active : skillIndex===$index}" data-ng-bind="skill.name"></li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="clr"></div>
+                        <span data-ng-hide="viewskill" data-ng-bind="i18n.profile.edit_profile.skills"></span>
+                        <div data-ng-hide="viewskill" class="tagsBlockinner">
+                          <div class="tags-wrapper">
+                            <div id="tagsList" class="tags-cloud"> <img class="loadicn" src="app/assets/images/proceed.gif" data-ng-show="skillLoader">
+                              <input type="text" 
+                                                                      data-ng-show="addSkillBox" placeholder="{{i18n.profile.edit_profile.skill_imputplaceholder}}" id="searchSkill" ng-keydown="pressDownKey($event)" class="form-control bg-gray" ng-model="searchSkill" data-ng-blur="clearSkillList()" data-ng-class="{'has-error' : skillMesError}"/>
+                              <div class="tags-block">
+                                <div ng-repeat="skill in storeSkills track by $index" class="tag"> <span class="tagName" data-ng-bind="skill"></span> <span class="closeBtn"><b ng-click="removeSkill($index)" class="fa fa-times cross"></b></span> </div>
+                              </div>
+                            </div>
+                            <ul id="suggestions" class="suggestions-list">
+                              <li ng-repeat="skill in skills" class="blockSpan" ng-click="addToSelectedSkill(skill)" ng-mouseover="$parent.skillIndex=$index" ng-class="{active : skillIndex===$index}" data-ng-bind="skill.name"></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <button data-ng-click="addSkill();" class="btn btn-primary" data-ng-show="addSkillBox"  ng-disabled="wait" data-ng-bind="i18n.profile.edit_profile.save"></button>
+                        <button data-ng-click="closeSkillForm();" ng-disabled="wait" class="btn  cancel-btn" data-ng-show="addSkillBox" ng-disabled="wait" data-ng-bind="i18n.profile.edit_profile.cancel"></button>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="edit-profile-pre-data clearfix">
+                    <div  data-ng-class="skillClass" data-ng-bind="skillMessage" > </div>
+                  </div>
+                  <!-- Skill end --> 
+                  <!--Experience starts-->
+                  <div class="edit-profile-citizen">
+                    <div class="profile-citizen-subheading" data-ng-bind="i18n.profile.edit_profile.experience"></div>
+                    <div class="profile-citizen-elements">
+                      <ul>
+                        <li class="add-sub-elements">
+                          <button class="btn btn-primary" data-ng-click="toggleProfessionForm();">{{i18n.profile.edit_profile.add_experience}} <img src="app/assets/images/plus.png" title="Click to add a new Experience" /></button>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="form-container profession-container" data-ng-show="showProfessionForm" focus-me="professionFocus">
+                    <form name="professionals" onkeypress="return event.keyCode != 13;" novalidate>
+                      <ul>
+                        <li>
+                          <div class="citizen-edit-label"> <span data-ng-bind="i18n.profile.edit_profile.company_name"></span> </div>
+                          <div class="citizen-edit-input">
+                            <div class="auto-suggestion-block"> <img class="loadicn" src="app/assets/images/proceed.gif" data-ng-show="">
+                              <input type="text" class="form-control bg-gray" data-ng-model="professional.company"  id="companySearch" ng-keydown="companyDropDown($event)" data-ng-blur="clearCompanyList();" ng-class="{'error-border': (professionals.companyName.$dirty && professionals.companyName.$invalid && professionals.companyName.$error.required ) || (professionFormValidate==true && !professional.company)}" name="companyName" required/>
+                              <ul id="suggestions" class="suggestions-list">
+                                <li ng-repeat="company in companies" class="blockSpan" ng-click="addCompany(company)" ng-mouseover="$parent.companyIndex=$index" ng-class="{active : companyIndex===$index}" data-ng-bind="company.name"></li>
+                              </ul>
+                              <div class="text-red" ng-show="(professionals.companyName.$dirty && professionals.companyName.$invalid) || (professionFormValidate==true && !professional.company)"> <small class="text-red"   ng-show="professionals.companyName.$error.required" ng-bind="i18n.profile.edit_profile.please_enter_companyname"> </small> </div>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="citizen-edit-label"> <span data-ng-bind="i18n.profile.edit_profile.title_job"></span> </div>
+                          <div class="citizen-edit-input">
+                            <div class="auto-suggestion-block"><img class="loadicn" src="app/assets/images/proceed.gif" data-ng-show="">
+                              <input type="text" class="form-control bg-gray" data-ng-model="professional.title" ng-keydown="jobTitleDropDown($event)" id="jobTitle" data-ng-blur="clearJobTitle()" ng-class="{'error-border': (professionals.Role.$dirty && professionals.Role.$invalid && professionals.Role.$error.required )|| (professionFormValidate==true && !professional.title) }" name="Role" required/>
+                              <ul id="suggestions" class="suggestions-list">
+                                <li ng-repeat="title in titles" class="blockSpan" ng-click="addTitle(title)" ng-mouseover="$parent.titleIndex=$index" ng-class="{active : titleIndex===$index}" data-ng-bind="title.name"></li>
+                              </ul>
+                              <div class="text-red"  ng-show="(professionals.Role.$dirty && professionals.Role.$invalid) || (professionFormValidate==true && !professional.title)"> <small class="text-red"  ng-show="professionals.Role.$error.required" ng-bind="i18n.profile.edit_profile.please_enter_title"> </small> </div>
+                            </div>
+                          </div>
+                        </li>
+                        <li> <span data-ng-bind="i18n.profile.edit_profile.time_period_from"></span>
+                          <div class="register-sixth-one-half">
+                            <div class="register-sixth-select-month"  ng-class="{'error-border': (professionals.job_Month_Start.$dirty && professionals.job_Month_Start.$invalid && professionals.job_Month_Start.$error.required ) || (professionFormValidate==true && !professional.monthStart)}" >
+                              <select data-ng-model="professional.monthStart" data-ng-options="month.name for month in months track by month.value" ng-change="professionalMonthStart();" name="job_Month_Start"  id="job_month_start" required>
+                                <option value="" data-ng-bind="i18n.profile.edit_profile.month"></option>
+                              </select>
+                            </div>
+                            <div class="register-sixth-select-month register-sixth-day"  ng-class="{'error-border': (professionals.job_day_start.$dirty && professionals.job_day_start.$invalid && professionals.job_day_start.$error.required ) || (professionFormValidate==true && !professional.dayStart)}">
+                              <select data-ng-model="professional.dayStart" data-ng-options="day for day in jobDaysStart" name="job_day_start"  id="job_day_start" required>
+                                <option value="" data-ng-bind="i18n.profile.edit_profile.day"></option>
+                              </select>
+                            </div>
+                            <div class="register-sixth-select-month register-sixth-year"  ng-class="{'error-border': (professionals.job_year_start.$dirty && professionals.job_year_start.$invalid && professionals.job_year_start.$error.required ) || (professionFormValidate==true && !professional.yearStart)}">
+                              <select data-ng-model="professional.yearStart" data-ng-options="year for year in years | reverse"  name="job_year_start"  id="job_year_start" required>
+                                <option value="" data-ng-bind="i18n.profile.edit_profile.year"></option>
+                              </select>
+                            </div>
+                            <div class="text-red"  ng-show="(professionals.job_Month_Start.$dirty && professionals.job_Month_Start.$invalid) || (professionFormValidate==true && !professional.monthStart)"> <small class="text-red"  ng-show="professionals.job_Month_Start.$error.required" ng-bind="i18n.profile.edit_profile.please_select_joiningmonth"> </small> </div>
+                            <div class="text-red"  ng-show="(professionals.job_day_start.$dirty && professionals.job_day_start.$invalid )|| (professionFormValidate==true && !professional.dayStart)"> <small class="text-red"  ng-show="professionals.job_day_start.$error.required" ng-bind="i18n.profile.edit_profile.please_select_joiningday"> </small> </div>
+                            <div class="text-red" ng-show="(professionals.job_year_start.$dirty && professionals.job_year_start.$invalid) || (professionFormValidate==true && !professional.yearStart)"> <small class="text-red"  ng-show="professionals.job_year_start.$error.required" ng-bind="i18n.profile.edit_profile.please_select_joiningyear"> </small> </div>
+                            <div class="clr"></div>
+                          </div>
+                        </li>
+                        <li> <span data-ng-bind="i18n.profile.edit_profile.currently_working"></span>
+                          <div  class="register-sixth-two-half citizen-edit-radio" id="condition_current">
+                            <div class="register-sixth-one-radio">
+                              <div class="shipping_input_radio">
+                                <input type="radio" name="cw" value="1" id="register_Yes" class="register-sixth-radio" data-ng-model="professional.currently_working" >
+                                <label for="register_Yes"><span data-ng-bind="i18n.profile.edit_profile.yes"></span></label>
+                              </div>
+                              <label for="register_Yes" data-ng-bind="i18n.profile.edit_profile.yes">
+                              <label> </label>
+                              </label>
+                            </div>
+                            <div class="register-sixth-two-radio">
+                              <div class="shipping_input_radio">
+                                <input type="radio" name="cw" value="0" id="register_No" class="register-sixth-radio" data-ng-model="professional.currently_working" >
+                                <label for="register_No"><span data-ng-bind="i18n.profile.edit_profile.no"></span></label>
+                              </div>
+                              <label for="register_No" data-ng-bind="i18n.profile.edit_profile.no"></label>
+                            </div>
+                            <div class="text-red"  ng-show="(professionFormValidate==true && ( professional.currently_working == undefined || professional.currently_working === '' || professional.currently_working == null)) "> <small class="text-red"   ng-bind="i18n.register.currently_attending"> </small> </div>
+                          </div>
+                          
+                          <!-- <div class="text-red" 
+                                                            ng-show="professional.cw.$dirty && professional.cw.$invalid">
+                                                                <small class="text-red" 
+                                                                    ng-show="professional.cw.$error.required" ng-bind="i18n.profile.edit_profile.select_currentlyworking">
+                                                                </small>
+                                                            </div> --> 
+                          <!-- <textarea class="form-control bg-gray" data-ng-model="professional.currently_working" ></textarea><div class="activity-society-examples"> --> 
+                        </li>
+                        <li data-ng-if="professional.currently_working != 1"> <span data-ng-bind="i18n.profile.edit_profile.time_period_to"></span>
+                          <div class="register-sixth-one-half">
+                            <div class="register-sixth-select-month" ng-class="{'error-border': (professionals.job_month_end.$dirty && professionals.job_month_end.$invalid && professionals.job_month_end.$error.required ) || (professionFormValidate==true && !professional.monthEnd)}">
+                              <select data-ng-model="professional.monthEnd" data-ng-options="month.name for month in months track by month.value" ng-change="professionalMonthEnd();" name="job_month_end" id="job_month_ends" required>
+                                <option value="" data-ng-bind="i18n.profile.edit_profile.month"></option>
+                              </select>
+                            </div>
+                            <div class="register-sixth-select-month register-sixth-day" ng-class="{'error-border': (professionals.job_day_end.$dirty && professionals.job_day_end.$invalid && professionals.job_day_end.$error.required ) || (professionFormValidate==true && !professional.dayEnd)}">
+                              <select data-ng-model="professional.dayEnd" data-ng-options="day for day in jobDaysEnd"  name="job_day_end" id="job_days_ends" required>
+                                <option value="" data-ng-bind="i18n.profile.edit_profile.day" ></option>
+                              </select>
+                            </div>
+                            <div class="register-sixth-select-month register-sixth-year" ng-class="{'error-border': (professionals.job_year_end.$dirty && professionals.job_year_end.$invalid && professionals.job_year_end.$error.required ) || (professionFormValidate==true && !professional.yearEnd)}">
+                              <select data-ng-model="professional.yearEnd" data-ng-options="year for year in years | reverse"  name="job_year_end" id="job_years_ends" required>
+                                <option value="" data-ng-bind="i18n.profile.edit_profile.year"></option>
+                              </select>
+                            </div>
+                            <div class="text-red" ng-show="(professionals.job_month_end.$dirty && professionals.job_month_end.$invalid) || (professionFormValidate==true && !professional.monthEnd)"> <small class="text-red"  ng-show="professionals.job_month_end.$error.required" ng-bind="i18n.profile.edit_profile.please_select_leavingmonth"> </small> </div>
+                            <div class="text-red"  ng-show="(professionals.job_day_end.$dirty && professionals.job_day_end.$invalid) || (professionFormValidate==true && !professional.dayEnd)"> <small class="text-red"  ng-show="professionals.job_day_end.$error.required" ng-bind="i18n.profile.edit_profile.please_select_leavingday"> </small> </div>
+                            <div class="text-red"  ng-show="(professionals.job_year_end.$dirty && professionals.job_year_end.$invalid) || (professionFormValidate==true && !professional.yearEnd)"> <small class="text-red"  ng-show="professionals.job_year_end.$error.required" ng-bind="i18n.profile.edit_profile.please_select_leavingyear"> </small> </div>
+                            <div class="text-red"  ng-show="dateError"> <small class="text-red"  ng-bind="i18n.profile.edit_profile.please_enter_correct_dates"> </small> </div>
+                            <div class="clr"></div>
+                          </div>
+                        </li>
+                        
+                        <!-- <li>
+                                                    <span>{{i18n.profile.edit_profile.headline}}</span>
+                                                    <textarea class="form-control bg-gray" data-ng-model="professional.headline" ></textarea><div class="activity-society-examples">
+                                                </li> -->
+                        <li>
+                          <div class="citizen-edit-label"> <span data-ng-bind="i18n.profile.edit_profile.description"></span> </div>
+                          <div class="citizen-edit-input">
+                            <textarea class="form-control bg-gray" data-ng-model="professional.description" ng-class="{'error-border': (professionals.job_desc.$dirty && professionals.job_desc.$invalid && professionals.job_desc.$error.required ) || (professionFormValidate==true && !professional.description)}" name="job_desc" id="job_description" required></textarea>
+                            <div class="activity-society-examples"></div>
+                            <div class="text-red"  ng-show="(professionals.job_desc.$dirty && professionals.job_desc.$invalid) || (professionFormValidate==true && !professional.description)"> <small class="text-red"  ng-show="professionals.job_desc.$error.required" ng-bind="i18n.profile.edit_profile.please_enter_description"> </small> </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="citizen-edit-label"> <span data-ng-bind="i18n.profile.edit_profile.visibility" ></span> </div>
+                          <div class="citizen-edit-input">
+                            <select class="form-control bg-gray"  data-ng-model="professional.visibility" data-ng-options="visibilityoption.visibility for visibilityoption in visibility" name="visibility_type" ng-class="{'error-border': (professionals.visibility_type.$dirty && professionals.visibility_type.$invalid && professionals.visibility_type.$error.required ) || (professionFormValidate==true && !professional.visibility)}" id="job_visibility" required>
+                              <option value="" data-ng-bind="i18n.profile.edit_profile.visibility"></option>
+                            </select>
+                            <div class="text-red"  ng-show="(professionals.visibility_type.$dirty && professionals.visibility_type.$invalid )|| (professionFormValidate==true && !professional.visibility)"> <small class="text-red"  ng-show="professionals.visibility_type.$error.required" ng-bind="i18n.profile.edit_profile.plese_select_visibility;"> </small> </div>
+                          </div>
+                        </li>
+                        <li>
+                          <button data-ng-click="saveProfession('');" class="btn btn-primary" data-ng-hide="editProfessionButton" ng-disabled="wait" data-ng-bind="i18n.profile.edit_profile.save"></button>
+                          <button data-ng-click="saveProfession(1);" class="btn btn-primary" data-ng-show="editProfessionButton" ng-disabled="wait" data-ng-bind="i18n.profile.edit_profile.save"></button>
+                          <button data-ng-click="toggleProfessionForm()" class="btn cancel-btn" ng-disabled="wait" data-ng-bind="i18n.profile.edit_profile.cancel" ></button>
+                        </li>
+                      </ul>
+                    </form>
+                    
+                    <!-- </div> --> 
+                  </div>
+                  <div class="edit-profile-pre-data clearfix">
+                    <div  data-ng-class="errorClass" data-ng-bind="professionMessage" > </div>
+                    <div class="previous-experience" data-ng-repeat="profession in professionalDetails track by $index | orderBy : '-end_date.date' ">
+                      <h2 class="heading" ng-click="editProfession(profession, 'companySearch');"><span data-ng-bind="profession.company"></span></h2>
+                      <div class="description" ng-click="editProfession(profession, 'jobTitle');"><span data-ng-bind="profession.title"></span></div>
+                      <div class="time-period" ng-click="editProfession(profession, 'job_day_start');"><span class="presentSpan">
+                        <div data-ng-if="(profession.start_date.date.substring(5,7)-1) < 09"class= "spanInline" data-ng-bind="months[profession.start_date.date.substring(6,7) - 1].name + ' '+ profession.start_date.date.substring(0,4)"></div>
+                        <div data-ng-if="(profession.start_date.date.substring(5,7)-1) >= 09" class= "spanInline" data-ng-bind="months[profession.start_date.date.substring(5,7) - 1].name + ' '+ profession.start_date.date.substring(0,4)"></div>
+                        - <span data-ng-if="profession.currently_working == false && (profession.end_date.date.substring(5,7)-1) < 09" class="singlebg" data-ng-bind="months[profession.end_date.date.substring(6,7) - 1].name + ' '+ profession.end_date.date.substring(0,4)"></span>
+                        <span data-ng-if="profession.currently_working == false && (profession.end_date.date.substring(5,7)-1) >= 09" class="singlebg" data-ng-bind="months[profession.end_date.date.substring(5,7) - 1].name + ' '+ profession.end_date.date.substring(0,4)"></span>
+                        <span data-ng-if="profession.currently_working == true"  class="time-period" data-ng-bind="i18n.profile.edit_profile.till_present"></span></span></div>
+                      <div class="subheading" ng-click="editProfession(profession, 'job_description');"><span data-ng-bind="profession.description"></span></div>
+                      <div class="profile-view-dropdown" data-ng-hide="jobVisibleWait[profession.id]">
+                        <ul class="first-li">
+                          <li><img src="app/assets/images/admin.png" alt="">
+                            <ul class="">
+                              <li ng-class="{'active': profession.visibility_type === 1}" ><a href data-ng-click="updateProfessionVisibility(profession,1)" data-ng-bind="i18n.profile.edit_profile.view_in_personal_profile"></a></li>
+                              <li ng-class="{'active': profession.visibility_type === 2}" ><a href data-ng-click="updateProfessionVisibility(profession,2)" data-ng-bind="i18n.profile.edit_profile.view_in_Professional_profile"></a></li>
+                              <li ng-class="{'active': profession.visibility_type === 3}"><a href data-ng-click="updateProfessionVisibility(profession,3)"  data-ng-bind="i18n.profile.edit_profile.view_in_both"></a></li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="profile-view-dropdown" data-ng-show="jobVisibleWait[profession.id]"> <img src="app/assets/images/proceed.gif"  /> </div>
+                      <div class="delete-btn deleteProfession{{profession.id}}" data-ng-click ="confirmClick() && deleteProfession(profession,profession.id)" data-ng-bind="i18n.profile.edit_profile.delete" confirm-click></div>
+                    </div>
+                  </div>
+                  
+                  <!--Experience starts--> 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-lg-4">
+          <profile-Right-Panel></profile-Right-Panel>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

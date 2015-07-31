@@ -1,0 +1,59 @@
+<div class="store-album-section">
+    <div class="text-center" data-ng-class="postErrCls" ng-bind="postErrMsg"></div>
+    <div class="store-dp-album-post">
+        <ul class="store-post-photos">
+            <li ng-class="isImage ? '' : 'post-active' " class="status-post"><a href="javascript:void(0)" data-ng-click="addPost()" ng-bind="i18n.dashboard.postcomment.status"></a></li>
+            <li ng-class="isImage?'post-active' : '' " class="video-post"><a href="javascript:void(0)" data-ng-click="addImage()" ng-bind="i18n.dashboard.postcomment.photos"></a></li>
+        </ul>
+    </div>
+    <form>
+        <div class="store-dp-post-textarea" ng-init="setPlaceholder()">
+            <div class="linkPreview" id="lp1"></div>
+              <div class="tag-friends-name-block" data-ng-show="showTagForm" data-ng-click="gainFocus()"><div class="tag-list"><span class="tag-friends" data-ng-repeat="tags in storedFriend"  ><span ng-bind="tags.user_info.first_name + ' '+ tags.user_info.last_name"></span> <span class="remove-tag-btn" data-ng-click="removeTagFriend($index)"><img titile="" alt="" src="app/assets/images/grey-close-icon.png"></span></span></div><div class="post-tag-friends-block"><input type="text" placeholder="Add friends" id="searchTagFriend"  ng-keydown="keyUpDownControl($event)" data-ng-model="friendName" data-ng-blur="lostFormFocus()"/><div class="post-tag-friend-list" data-ng-show="showFriendList"><ul><li data-ng-repeat="friend in friends" data-ng-click="selectFriend(friend)" ng-mouseover="$parent.friendTaggIndex=$index" ng-class="{active : friendTaggIndex===$index}"><a href><img alt="" data-ng-src="{{friend.user_info.profile_image_thumb}}" data-ng-if="friend.user_info.profile_image_thumb != null  && friend.user_info.profile_image_thumb != ''" width="" height=""/><img src="app/assets/images/dummy32X32.jpg" data-ng-if="friend.user_info.profile_image_thumb == null || friend.user_info.profile_image_thumb == ''"><span ng-bind="friend.user_info.first_name + ' '+ friend.user_info.last_name"> </span></a></li></ul><span ng-show="showSearchLoader" class="ng-hide"><img titile="" alt="" src="app/assets/images/proceed.gif"></span></div></div></div>
+            <div data-ng-show="imgUpload" class="postimgup">
+                <div ng-repeat="item in uploader.queue track by $index" class="preview-image-list">
+                    <div  id="progress-{{$index}}" style="display:block;">
+                        <div class="progress-color"  >
+                            <div class="progress" style="margin-bottom: 0;">
+                                <div class="progress-bar" role="progressbar" ng-style="{'width': item.progress + '%' }"></div>
+                            </div>
+                        </div>
+                        <div data-ng-show="imagePrvSrc[$index].media_thumb_link != ''" class="img-preview">
+                            <!-- <img ng-src="{{imagePrvSrc[$index].media_thumb_link}}" width="80" height="80" /> -->
+                            <div class="imgbkground">
+                                <a style="background-image:url('{{imagePrvSrc[$index].media_thumb_link}}');">
+                                </a> 
+                                <i data-ng-click="removeImage($index)" class="fa fa-fw fa-times" title="Remove" ng-show="item.progress == 100"></i> 
+                            </div>
+                        </div>
+                        <div data-ng-show="postImgLoader[$index] && item.progress == 0" class="progress-img" ng-hide="item.progress == 100">
+                            <show-progress></show-progress>
+                        </div>
+                   </div> 
+                </div>
+                <div class="file-upload-btn btn" >
+                    <input type="file" class="upload" nv-file-select="" uploader="uploader" multiple />
+                </div>
+
+            </div>
+
+            <ul class="store-dp-video-capture" data-ng-show="uploadBox">
+                <li>
+                    <div class="store-upload-photo-video" ng-bind="i18n.dashboard.postcomment.upload_photos"></div>
+                    <input type="file" nv-file-select="" uploader="uploader"  multiple/>
+                </li>
+            </ul>
+            <div class="postcom" data-ng-hide="uploadBox">
+                <div class="post-tag-friend" data-ng-click="showTagCloumn()"><img title="" alt="" src="app/assets/images/tag-friends.png"></div><div class="post-list-bottom-right">
+                <div class="set-privacy" data-ng-hide="postContentLoader">
+                    <select class="form-control bg-gray" ng-model="privacySet" data-ng-options="postPrivacy.roleValue as postPrivacy.roleTitle for postPrivacy in userPrivacySetting">
+                    </select>
+                </div>
+                <a data-ng-hide="postContentStart" class="btn btn-primary" href="javascript:void(0)" ng-click="createPost()" ng-bind="i18n.dashboard.postcomment.post_it" id="postbtn_lp1"></a></div>
+                <show-progress data-ng-show="postContentLoader"></show-progress>
+            </div>
+
+            <div id="retrieveFromDatabase" ></div>
+        </div>
+    </form>
+</div>

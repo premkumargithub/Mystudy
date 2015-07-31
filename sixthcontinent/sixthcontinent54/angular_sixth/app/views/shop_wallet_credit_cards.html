@@ -1,0 +1,58 @@
+<div class="wallettable-responsive">
+  <span ng-class="msgClass" class="text-center" data-ng-bind="message"></span>
+  <table class="table">
+    <thead>
+      <tr>
+        <th class="first-row" data-ng-bind="i18n.store.wallet.select_lbl"></th>
+        <th class="sec-row" data-ng-bind="i18n.store.wallet.credit_lbl"></th>
+        <th class="third-row" data-ng-bind="i18n.store.wallet.holder_lbl"></th>
+        <th class="fourth-row" data-ng-bind="i18n.store.wallet.expire_date_lbl"></th>
+        <th class="fifth-row"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-ng-hide="getCardList" data-ng-repeat="card in cardList">
+        <td data-title="{{i18n.store.wallet.select_lbl}}">
+          <input type="radio" name="cardList" data-ng-click="selectThisCard($index)" ng-checked="selectedCard[$index]" data-ng-hide="inProcess[$index]" />
+          <show-progress data-ng-show="inProcess[$index]"></show-progress>
+        </td>
+        <td data-title="{{i18n.store.wallet.credit_lbl}}">
+          <span class="card-type" data-ng-bind="card.brand"></span> 
+          <span data-ng-bind="i18n.store.wallet.end_up_lbl"></span>
+          <span data-ng-bind="card.pan | spliceChar:4"></span>
+        </td>
+        <td data-title="{{i18n.store.wallet.holder_lbl}}">
+          <span data-ng-bind="card.name + ' ' + card.last_name"></span> 
+        </td>
+        <td data-title="{{i18n.store.wallet.expire_date_lbl}}">
+          <span data-ng-bind="card.expiration_pan | expirationPanFormat"></span>
+        </td>
+        <td data-title="">
+          <button  data-ng-hide="inDelete[$index]" data-ng-bind="i18n.store.wallet.remove_lbl" data-ng-click="confirmClick() && deleteCard($index)"  confirm-click></button>
+          <show-progress data-ng-show="inDelete[$index]"></show-progress>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="club-pagi-section3">
+    <div data-ng-show="getCardList">
+      <show-progress></show-progress>
+      </div>
+    <div class="pagination " data-ng-if="pagination === true ">
+      <ul class="pagination mb10 ">
+        <li class="prev nav-arrow" ng-class="prevCardPageDisabled()">
+          <a href="javascript:void(0);" ng-if="prevCardPageDisabled() == 'disabled'">&#60;</a>
+          <a href="javascript:void(0);" ng-if="prevCardPageDisabled() != 'disabled'" ng-click="prevCardPage()">&#60;</a>
+        </li>
+        <li ng-repeat="n in range"
+            ng-class="{active: n == currentPage, 'seeview': $index+1 == currentPage+1 || $index+1 == currentPage+2 || $index+1 == currentPage-1 || $index+1 == currentPage-2 || $index+1 == currentPage || $last}">
+            <a href ng-click="changeCardPageMore(n)" ng-bind="n"></a>
+          </li>
+        <li class="next nav-arrow" ng-class="nextCardPageDisabled()">
+          <a href="javascript:void(0)" ng-if="nextCardPageDisabled() == 'disabled'" >&#62;</a>
+          <a href="javascript:void(0)" ng-if="nextCardPageDisabled() != 'disabled'" ng-click="nextCardPage()">&#62;</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

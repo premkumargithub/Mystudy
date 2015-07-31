@@ -1,0 +1,31 @@
+<div class="col-3-layout">
+<left-Panel></left-Panel>
+<!-- Content START -->
+  <div id="content">
+    <!-- <div class="layout-app">  -->
+    <div class="innerAll" >
+      <div class="row">
+        <div class="col-lg-8 col-md-8">
+        <div class="inner-container">
+<!--         <p ng-if="currentUser.basicProfile.payment_status == 0" class="popUpMsgs warning">
+        <a href="#/myshops" title="" >{{i18n.profile.payment_pending}} </a>
+        </p>
+        <p if="currentUser.creditAndIncome.shopping_plus_user == 0" class="popUpMsgs">{{i18n.profile.shopingplus_account}}
+        </p> -->
+          <div class="timeline-cover">    
+            <profile-post-form></profile-post-form>
+          </div>
+         <div class="profile-tab-container">
+        </div> 
+            <div class="tab-pane1"> <span  ng-bind="message"></span>
+              <profile-post-list> </profile-post-list>
+             </div>
+        </div></div>     
+           <div class="col-md-4 col-lg-4">
+            <profile-Right-Panel></profile-Right-Panel>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <!-- // Content END -->

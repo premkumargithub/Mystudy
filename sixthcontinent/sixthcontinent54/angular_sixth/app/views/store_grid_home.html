@@ -1,0 +1,19 @@
+<div class="project-wall">
+    <div class="project storecoverid{{store.id}}" data-ng-repeat="store in storeListObject" >
+       <div>
+            <a href="#/blshop/info/{{store.id}}" >
+                <div class="tile-head"><h2 data-ng-bind="store.businessName"></h2></div>
+                <ul>
+                    <li>
+                        <span data-ng-if="store.profile_image_thumb != ''"style="background-image:url('{{store.profile_image_thumb}}');" title="{{store.businessName}}">
+                        </span>
+                        <span data-ng-if="store.profile_image_thumb == ''" style="background-image:url('app/assets/images/store-prod.jpg');" title="{{store.businessName}}">
+                        </span>
+                        <!-- </a> -->
+                    </li>
+                </ul>
+                <h3>{{i18n.store.owner}}-{{store.user_info.username}}</h3> 
+            </a>
+        </div>
+    </div>
+</div>

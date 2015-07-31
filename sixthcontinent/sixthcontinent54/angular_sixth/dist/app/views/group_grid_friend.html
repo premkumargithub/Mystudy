@@ -1,0 +1,27 @@
+<div class="project-wall friend-list-cont">
+    <div  data-ng-repeat = "group in userGroupList">
+       <div class="project" >
+           <a href="#/club/view/{{group.group_id}}/{{group.group_status}}">
+            <div class="tile-head">
+                <h2 ng-bind="group.group_title"></span></h2>
+                <div class="visitors"><span class="member-icon"></span><span data-ng-bind="group.members.length"></span></div>
+            </div>
+             <div class="club-description">{{group.group_description | limitTo : limitCheck}}
+            <strong ng-if= "group.group_description.length > limitCheck">...</strong>
+            </div>
+            <ul>
+                <li>
+                    <span data-ng-if="group.profile_img_thumb != '' " style="background-image:url('{{group.profile_img_thumb}}');"></span>
+                    <span data-ng-if="group.profile_img_thumb == '' " style="background-image:url('app/assets/images/club-list-grid-thumb.png');">
+                    </span>
+                    <!-- <img ng-src="{{group.profile_img_thumb}}" data-ng-if="group.profile_img_thumb != '' " alt="{{group.group_title}}">
+                    <img src="app/assets/images/default_group.png" data-ng-if="group.profile_img_thumb == '' " alt="No image available"> -->
+                </li>
+            </ul>
+           
+            <div data-ng-if="group.is_member == 0" class="btn-no-bg" data-ng-click="joinPublicGroups(group.group_id)" data-ng-bind="i18n.clubs.join_club"></div>
+        </a>
+        <!--<a class="close-btn btn btn-primary" href="javascript:void(0);" data-ng-if="group.owner_id == currentUser.id" data-ng-click='confirmClick() && deleteGroup($index)' confirm-click><i class="fa fa-fw fa-times"></i></a>-->
+       </div>
+       </div>
+</div>

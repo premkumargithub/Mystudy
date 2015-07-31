@@ -1,0 +1,77 @@
+<div class="col-2-layout">
+    <div id="content" class="container-right-fluid-page">
+        <div class="innerAll">
+            <div class="row">
+                <div class="col-lg-8 col-md-8">
+                    <div class="inner-container club-inner-section">
+                        <div class="store-details-section">
+							<storeprofile></storeprofile> 
+					    </div>
+                        <div class="transaction-container comm-section-block">
+							<div class="section-heading">
+							    <span class="trans-heading" data-ng-bind="i18n.coupon.heading"></span>
+						    </div>
+                            <div class="transaction-content">
+	                            <div class="transaction-tab">
+	                                <ul class="tab-list commercial-tab">
+										<li ng-class="{ 'active': tabActive == 'coupon' }"> 
+										<a href data-ng-click="ShowDetail('coupon')"><span class="coupoun-img"></span><span class="trans-text" data-ng-bind="i18n.coupon.hcoupon"></span></a>
+										</li>
+										<li ng-class="{ 'active': tabActive == 'awards' }">
+										<a href data-ng-click="ShowDetail('awards')"><span class="premi-img"></span><span class="trans-text" data-ng-bind="i18n.coupon.Premiums"></span></a>
+										</li>
+										<li ng-class="{ 'active': tabActive == 'card' }">
+										<a href data-ng-click="ShowDetail('card')"><span class="shop-card-img"></span><span class="trans-text" data-ng-bind="i18n.coupon.shopping_card"></span></a>
+										
+									<ul data-ng-show="tabShopping" class="sub-tab-list">
+										<li ng-class="{ 'active': tabinActive == 'shopping2' }" data-ng-if="is_paypal_added ==1 && (is_subscribed == 1)">
+										<a href data-ng-click="ShowDetail('shopping2')"><span class="trans-text"  data-ng-bind="i18n.coupon.create_camp"></span></a>
+										</li>
+										<li ng-class="{ 'active': tabinActive == 'shopping1' }">
+										<a href data-ng-click="ShowDetail('shopping1')"><span class="trans-text" data-ng-bind="i18n.coupon.work"></span></a>
+										</li>
+									</ul>
+										</li>
+										<li ng-class="{ 'active': tabActive == 'commerce' }">
+										<a href data-ng-click="ShowDetail('commerce')"><span class="e-comm-img"></span><span class="trans-text" data-ng-bind="i18n.coupon.e_commerce"></span></a>
+										</li>
+									</ul>		
+	                            </div>
+                                <div class="transaction-tab-content">
+									<!--Coupon Content Start -->
+									<div data-ng-if="coupon == true">
+									<create-coupon></create-coupon>
+									</div>
+									<!--Coupon Content ends -->
+									<!--Awards Content Start -->
+									<div  data-ng-if="awards == true">
+									<create-award></create-award>
+									</div>
+                                    <!--Award Content ends -->
+                                    <!-- Shopping Card Come Funziona  Content starts -->
+									<div data-ng-if="shopping1 == true">
+									    <campaign-work></campaign-work>
+									</div>
+									<!-- Shopping Card Come Funziona Content ends -->
+									<!-- Shopping Card Crea Campagna Content ends -->
+									<div  data-ng-if="shopping2 == true">
+									    <create-campaign></create-campaign>
+									</div>
+                                    <!-- Shopping Card Crea Campagna Content ends -->
+									<div data-ng-show="commerce" style="font-weight:bold" data-ng-bind="i18n.home.launch + '.....'">
+									</div>	
+                                </div>
+                            </div>
+							<div class="trans-des-bottom" data-ng-bind="i18n.Campaign.promotion_footer">
+							</div>
+                        </div>
+                    </div>
+                </div>
+				<div class="col-lg-4 col-md-4">
+				    <profile-Right-Panel></profile-Right-Panel>
+				</div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+<div class="input-group comment comments-listing">
+
+	<a ng-href="#/viewfriend/{{currentUser.basicProfile.user_id}}/about" class="pull-left">
+		<img data-ng-show="currentUser.basicProfile.profile_img.thumb" ng-src="{{currentUser.basicProfile.profile_img.thumb}}" width="38" height="38" class="media-object">
+		<img data-ng-hide="currentUser.basicProfile.profile_img.thumb" ng-src="app/assets/images/dummy60X60.jpg" width="38" height="38" class="media-object">
+	</a>
+		<div class="comment-input store-commnet-typearea">
+			<form>
+			<div class="add-photo-comment" data-ng-hide="showPreview">
+				<label for="file"><i class="fa fa-picture-o"></i></label>
+				<div file-select="file"></div>
+			</div>
+			<div contenteditable strip-br="true" class="form-control" submit-enter="addComment()" data-ng-model="commentText" placeholder="{{i18n.dashboard.postcomment.your_comment_here}}" data-ng-disabled="finalCommentInProcess || selectInProgress.length !=0 "></div>
+			<div ng-init="privacy=userPostList[$index].privacy_setting;clubId=0;clubType=0" class="tagging-item-list" data-ng:model="commentText" search-tagging ng-mouseleave="clearSearchedTagg()"></div>
+			<input type="hidden" ng-model="taggedObject" />
+			<div class="input-group-btn">
+				<button type="button" class="btn btn-primary" href="javascript:void(0);" data-ng-click="addComment()" data-ng-disabled="finalCommentInProcess || selectInProgress.length !=0"><i class="fa fa-comment"></i></button>
+			</div>
+			</form>
+			<div class="preview-images comnt-prev" ng-show="showPreview">
+			 	<!-- <div class="comm-loader" ng-repeat="img in imgSrc track by $index">
+	         	  <show-progress></show-progress>
+	        	</div> -->
+		        
+		        <div ng-repeat="img in commentFiles track by $index" class="comment-pre">
+		        	<a style="background-image:url('{{imgSrc[$index].media_thumb_link}}');">
+					</a> 
+					<i data-ng-click="removeImage($index)" class="fa fa-fw fa-times" title="{{i18n.profile_post.remove}}"></i>
+					<div class="comm-loader" data-ng-show="isInProgress[$index]">
+		         	  <show-progress></show-progress>
+		        	</div> 
+				</div>
+			</div>
+		</div>
+    <div class="clr"></div>
+		<div class="text-center error-comment" data-ng-class="commentErrCls" ng-bind="commentErrMsg"></div>
+</div>	
+<div ng-show="finalCommentInProcess" style="margin-left:30px;">
+	<show-progress></show-progress>
+</div>

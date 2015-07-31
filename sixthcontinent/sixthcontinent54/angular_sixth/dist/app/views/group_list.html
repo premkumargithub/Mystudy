@@ -1,0 +1,116 @@
+<div class="group-list-cont" ng-if="inviteCLub == 1">
+    <div class="group-list" data-ng-repeat = "group in inviteGroupList">
+        <div class="list-image">
+            <ul>
+                <li>
+                    <a data-ng-if="group.profile_img_thumb != '' " href="#/club/view/{{group.group_id}}/{{group.group_status}}" style="background-image:url('{{group.profile_img_thumb}}');"> </a>
+                    <a data-ng-if="group.profile_img_thumb == '' " href="#/club/view/{{group.group_id}}/{{group.group_status}}" style="background-image:url('app/assets/images/club-list-list-thumb.png');"></a>
+                </li>
+            </ul>
+        </div>
+        <div class="list-text">
+            <div class="list-text1">
+            <div class="list-text1-left">
+            <div class="list-text-head">
+            <a class="title-main" href="#/club/view/{{group.group_id}}/{{group.group_status}}" data-ng-bind="group.group_title">{{(group.group_title).length > 31 ?(((group.group_title) | limitTo: 22)+'...'):group.group_title}}</a>
+            </div>
+            <ul>
+                <li>
+                <span ng-if="group.group_status == 2" data-ng-bind="i18n.clubs.private_club"></span>
+                <span ng-if="group.group_status == 1" data-ng-bind="i18n.clubs.public_club"></span>
+                </li>
+                <li class="member-section"><span class="member-icon"></span><span data-ng-bind="group.member_count+' '+i18n.clubs.is_a_members"></span></li>
+            </ul>
+            </div>
+            <div class="list-text1-right">
+                <div class="">
+                    <span class ="vote-count"><ul>
+                       <li data-ng-repeat="rating in averageRating(group.avg_rate) track by $index"> <span ng-class="group.avg_rate % 1 == 0 ? 'votes-avg' : ($last ? (group.avg_rate % 1 > 0.5 ? 'votes-avg' : 'half-avg' ):'votes-avg')"></span></li>
+                        <li ng-repeat="blank in blankStar(group.avg_rate) track by $index"><span class="votes-blank"/></li>
+                    </ul>
+                    </span>
+                    <div class="vote-number ng-binding"><span data-ng-bind="group.no_of_votes"></span>
+                    <a href data-ng-click="findPeople(group.group_id, 'club', group.no_of_votes)">
+                    <span data-ng-if="group.no_of_votes > 1" data-ng-bind="i18n.profile_post.votes"></span><span data-ng-if="group.no_of_votes <= 1" data-ng-bind="i18n.profile_post.vote"></span> </a></div>
+                </div>
+            </div>
+            </div>
+            <div class="list-text2">
+            <p>{{group.group_description  | limitTo: limitCheck}} </p>
+            </div>
+            <div class="list-text3">
+            <a href="javascript:void(0);" data-ng-if="group.owner_id == currentUser.id" data-ng-click='confirmClick() && cancelGroup($index)' confirm-click data-ng-bind="i18n.clubs.cancel_button"></a>
+            <a href="#/club/view/{{group.group_id}}/{{group.group_status}}" class="see-more" data-ng-bind="i18n.clubs.see_more"></a>
+            <span data-ng-if="group.is_sent == 0"><a id="groupjoing{{group.group_id}}" href data-ng-click="joinPublicGroups(group.group_id)" class="joinbtn" data-ng-if="group.is_member == 0" data-ng-bind="i18n.clubs.join_club"></a>
+            </span>
+            <img id="joinloader{{group.group_id}}" class="request-pen" style="display:none;" src="app/assets/images/ajax-loader.gif" alt="loading..." />
+            <span id="requestsent{{group.group_id}}" class="request-pen" style="display:none;" data-ng-bind="i18n.clubs.request_sent"></span>
+            <span id="requestpending{{group.group_id}}" class="request-pen" style="display:none;" data-ng-bind="i18n.clubs.request_pending_approval"></span>
+            <span class="request-pen" data-ng-if="group.is_sent" data-ng-bind="i18n.clubs.request_pending_approval"></span>
+            </div>
+        </div> 
+  </div>      
+</div>
+
+<div class="group-list-cont" ng-if="inviteCLub != 1">
+    <div class="group-list" data-ng-repeat = "group in userGroupList">
+        <div class="list-image">
+            <ul>
+                <li>
+                    <a data-ng-if="group.profile_img_thumb != '' " href="#/club/view/{{group.group_id}}/{{group.group_status}}" style="background-image:url('{{group.profile_img_thumb}}');"> </a>
+                    <a data-ng-if="group.profile_img_thumb == '' " href="#/club/view/{{group.group_id}}/{{group.group_status}}" style="background-image:url('app/assets/images/club-list-list-thumb.png');"></a>
+                </li>
+            </ul>
+        </div>
+        <div class="list-text">
+            <div class="list-text1">
+                <div class="list-text1-left">
+            <div class="list-text-head"><a class="title-main" href="#/club/view/{{group.group_id}}/{{group.group_status}}" data-ng-bind="group.group_title"></a></div>
+            <ul>
+                <li>
+                <span ng-if="group.group_status == 2" data-ng-bind="i18n.clubs.private_club"></span>
+                <span ng-if="group.group_status == 1" data-ng-bind="i18n.clubs.public_club"></span>
+                </li>
+                <li class="member-section"><span class="member-icon"></span><span data-ng-bind="group.members.length+' '+i18n.clubs.is_a_members"></span></li>
+            </ul>
+        </div>
+            <div class="list-text1-right">
+                <div class="">
+                    <span class ="vote-count"><ul>
+                       <li data-ng-repeat="rating in averageRating(group.avg_rate) track by $index">
+                        <span ng-class="group.avg_rate % 1 == 0 ? 'votes-avg' : ($last ? (group.avg_rate % 1 > 0.5 ? 'votes-avg' : 'half-avg' ):'votes-avg')"></span>
+                    </li>
+                        <li ng-repeat="blank in blankStar(group.avg_rate) track by $index"><span class="votes-blank"/></li>
+                    </ul>
+                    </span>
+                    <div class="vote-number ng-binding"><span data-ng-bind="group.no_of_votes"></span>
+                    <a href data-ng-click="findPeople(group.group_id, 'club', group.no_of_votes)">
+                    <span data-ng-if="group.no_of_votes > 1" data-ng-bind="i18n.profile_post.votes"></span><span data-ng-if="group.no_of_votes <= 1" data-ng-bind="i18n.profile_post.vote"></span> 
+                </a></div>
+                </div>
+            </div>
+            </div>
+            <div class="list-text2">
+                <p>
+                    {{group.group_description  | limitTo: limitCheck}} 
+                    <span data-ng-if="group.group_description.length > limitCheck"> ....</span> 
+                </p> 
+            </div>
+            <div class="list-text3">
+            <span data-ng-if="group.is_sent == 0">
+			<a id="groupjoinglist{{group.group_id}}" href data-ng-click="joinPublicGroups(group.group_id)" data-ng-if="group.is_member == 0" data-ng-bind="i18n.clubs.join_club"></a>
+            </span>
+            <a href="javascript:void(0);" class="delete-club" data-ng-if="group.owner_id == currentUser.id" data-ng-click='confirmClick() && deleteGroup($index)' confirm-click data-ng-bind="i18n.clubs.delete_button"></a>
+            <a href="#/club/view/{{group.group_id}}/{{group.group_status}}" class="see-more" data-ng-bind="i18n.clubs.see_more"></a>
+            <img id="joinloaderlist{{group.group_id}}" class="loading-img" style="display:none;" src="app/assets/images/ajax-loader.gif" alt="loading..." />
+            <span id="requestsentlist{{group.group_id}}" class="request-pen" style="display:none;" data-ng-bind="i18n.clubs.request_sent"></span>
+            <span id="requestpendinglist{{group.group_id}}" class="request-pen" style="display:none;" data-ng-bind="i18n.clubs.request_pending_approval"></span>
+            <span class="request-pen" data-ng-if="group.is_sent" data-ng-bind="i18n.clubs.request_pending_approval"></span>
+            </div>
+        </div> 
+  </div>      
+</div>
+<style>
+.animation { opacity:0; transition:all 2000ms ease-in-out; }
+.animation.fade-in { opacity:1; }
+</style>

@@ -1,0 +1,69 @@
+<div class="col-md-4 col-lg-4">
+	<div class="top-citizen-section">
+		<div class="citizen-head">
+			<a href="#/top/citizen/income" title="{{i18n.store.view_all}}" >
+			<strong data-ng-bind="i18n.mission.top50"></strong><span data-ng-bind="i18n.mission.Htop_citizen_per_income"></span></a>
+		</div>
+		<div class="loader-container" data-ng-show="topCitizenPerincomeLoader">
+			<img src="app/assets/images/proceed.gif" alt="loading..." />
+		</div>
+		<ul>
+			<li data-ng-repeat="item in topCitizenPerIncome">
+			<a data-ng-show="isLoggedIn" href="#/viewfriend/{{item.user_info.id}}" title="{{item.user_info.first_name}} {{item.user_info.last_name}} : {{item.totalone | currency:'&euro;'}} ">
+			<img ng-if="item.user_info.profile_image_thumb != ''" data-ng-src="{{item.user_info.profile_image_thumb}}" alt="" />
+			<img ng-if="item.user_info.profile_image_thumb == ''" src="app/assets/images/profile-image.jpg" alt="" />
+			</a>
+			<a data-ng-hide="isLoggedIn" href="javascript:void(0);" title="{{item.user_info.first_name}} {{item.user_info.last_name}} : {{item.totalone | currency:'&euro;'}} ">
+			<img ng-if="item.user_info.profile_image_thumb != ''" data-ng-src="{{item.user_info.profile_image_thumb}}" alt="" />
+			<img ng-if="item.user_info.profile_image_thumb == ''" src="app/assets/images/profile-image.jpg" alt="" />
+			</a>
+			</li> 
+		</ul>
+	</div>
+</div>
+<div class="col-md-4 col-lg-4">
+	<div class="top-citizen-section">
+		<div class="citizen-head">
+			<a href="#/top/public/shops" title="{{i18n.store.view_all}}" >
+			<strong data-ng-bind="i18n.mission.top50"></strong><span data-ng-bind="i18n.mission.Htop_citizen_per_revenues"></span></a>
+		</div>
+			<div class="loader-container" data-ng-show="topShopPerRevenueLoader">
+				<img src="app/assets/images/proceed.gif" alt="loading..." />
+			</div>
+			<ul>
+				<li data-ng-repeat="item in topShopPerRevenue">
+				<a data-ng-show="isLoggedIn" href="#/shop/about/{{item.id}}" title="{{item.name}} : {{item.revenue | currency:'&euro;'}}">
+				<img ng-if="item.profile_image_thumb != ''" data-ng-src="{{item.profile_image_thumb}}" alt="" />
+				<img ng-if="item.profile_image_thumb == ''" src="app/assets/images/footerstore.jpg" alt="" />
+				</a>
+				<a data-ng-hide="isLoggedIn" href="javascript:void(0);" title="{{item.name}} : {{item.revenue | currency:'&euro;'}}">
+				<img ng-if="item.profile_image_thumb != ''" data-ng-src="{{item.profile_image_thumb}}" alt="" />
+				<img ng-if="item.profile_image_thumb == ''" src="app/assets/images/footerstore.jpg" alt="" />
+				</a>
+				</li> 
+			</ul>
+	</div>
+</div>
+<div class="col-md-4 col-lg-4">
+	<div class="top-citizen-section">
+		<div class="citizen-head">
+			<a href="#/top/linked/citizen" title="{{i18n.store.view_all}}" >
+			<strong data-ng-bind="i18n.mission.top50"></strong><span data-ng-bind="i18n.mission.Htop_50_citizen"></span></a>
+		</div>
+		<div class="loader-container" data-ng-show="citizenTopLinkLoader">
+			<img src="app/assets/images/proceed.gif" alt="loading..." />
+		</div>
+		<ul>
+			<li data-ng-repeat="item in topLinkedCitizen">
+			<a data-ng-show="isLoggedIn" href="#/viewfriend/{{item.user_info.id}}" title="{{item.user_info.first_name}} {{item.user_info.last_name}} : {{item.affiliation_count | formatNum}}">
+			<img ng-if="item.user_info.profile_image_thumb != ''" data-ng-src="{{item.user_info.profile_image_thumb}}" alt="" />
+			<img ng-if="item.user_info.profile_image_thumb == ''" src="app/assets/images/profile-image.jpg" alt="" />
+			</a>
+			<a data-ng-hide="isLoggedIn" href="javascript:void(0);" title="{{item.user_info.first_name}} {{item.user_info.last_name}} : {{item.affiliation_count | formatNum}}">
+			<img ng-if="item.user_info.profile_image_thumb != ''" data-ng-src="{{item.user_info.profile_image_thumb}}" alt="" />
+			<img ng-if="item.user_info.profile_image_thumb == ''" src="app/assets/images/profile-image.jpg" alt="" />
+			</a>
+			</li> 
+		</ul>
+	</div>
+</div>

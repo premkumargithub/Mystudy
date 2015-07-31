@@ -1,0 +1,84 @@
+<div class="container-fluid" data-ng-controller="BLDetailShopsController">	
+    <div class="register-sixth-continent-form-section">
+        <div  class="innerAll">
+            <div class="row">
+                <div class="inner-container" style="margin-top: 51px">
+                    <div class="inner-container">
+                        <div class="store-details-section">
+                            <storeprofilehome></storeprofilehome> 
+                        </div>
+                       <div class="form-container">
+                       <div ng-show="storeLoading" class="loader-container">
+                         <img src="app/assets/images/proceed.gif" alt="loading..." />
+                       </div>
+                            <ul>
+                                <li>
+                                    <span ng-bind="i18n.store.name"></span>
+                                    <span class="friend-detail" ng-bind="store.name"></span>
+                                </li>
+                                <li>
+                                    <span ng-bind="i18n.store.business_name"></span>
+                                    <span class="friend-detail" data-ng-bind="store.business_name"></span>
+                                </li>
+                                <li>
+                                    <span data-ng-bind="i18n.store.total_revenue"></span>
+                                    <span class="friend-detail" ng-if="store.mobileAppUrl.length">€ {{(( store.revenue.tot_fatturato | number:2 ).toString().replace(',',' '))}}</span>
+                                    <span class="friend-detail" ng-if="!store.mobileAppUrl.length">€ 0</span>
+                                </li>
+                                <li>
+                                    <span data-ng-bind="i18n.store.legal_status"></span>
+                                    <span class="friend-detail" data-ng-bind="store.legal_status"></span>
+                                </li>
+                                <li>
+                                    <span data-ng-bind="i18n.store.business_type"></span>
+                                    <span class="friend-detail" data-ng-bind="store.business_type"></span>
+                                </li>
+                                <li>
+                                    <span data-ng-bind="i18n.store.phone"></span>
+                                    <span class="friend-detail" data-ng-bind="store.phone"></span>
+                                </li>
+                                <li>
+                                    <span data-ng-bind="i18n.store.email"></span>
+                                    <span class="friend-detail" data-ng-bind="store.email"></span>
+                                </li>
+                                <li>
+                                    <span data-ng-bind="i18n.store.business_country"></span>
+                                    <span class="friend-detail" data-ng-bind="store.business_country"></span>
+                                </li>
+                                <li>
+                                    <span data-ng-bind="i18n.store.business_region"></span>
+                                    <span class="friend-detail" data-ng-bind="store.business_region"></span>
+                                </li>
+                                <li>
+                                    <span data-ng-bind="i18n.store.business_city"></span>
+                                    <span class="friend-detail" data-ng-bind="store.business_city"></span>
+                                </li>
+                                <li>
+                                    <span data-ng-bind="i18n.store.business_address"></span>
+                                    <span class="friend-detail" data-ng-bind="store.business_address"></span>
+                                </li>
+                                <li>
+                                    <span data-ng-bind="i18n.store.zip"></span>
+                                    <span class="friend-detail" data-ng-bind="store.zip"></span>
+                                </li>
+                                <li>
+                                    <span data-ng-bind="i18n.store.province"></span>
+                                    <span class="friend-detail" data-ng-bind="store.province"></span>
+                                </li>
+                                <li data-ng-if="currentUser.id == store.owner_id">
+                                    <span data-ng-bind="i18n.store.vat_number"></span>
+                                    <span class="friend-detail" data-ng-bind="store.vat_number"></span>
+                                </li>
+                                <li>
+                                    <div id="map-canvas-second" style="height:300px;"></div> 
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>

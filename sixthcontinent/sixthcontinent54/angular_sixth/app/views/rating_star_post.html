@@ -1,0 +1,25 @@
+<div class="rating-section">
+	<div class="disable-rating" data-ng-show="waitRateResponse"></div>
+		<rating value="post.current_user_rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value, postIndx)" on-leave="overStar" changes="rateThis(value, post.post_id, postIndx)" class="ratings-block"></rating>				
+		<span class="rate-post" ng-if="post.current_user_rate == 0">
+			<span data-ng-bind="i18n.profile_post.rate_post"></span>
+		</span>
+		<span class="rate-post" ng-if="post.current_user_rate > 0" data-ng-click="removeRating(post.post_id,postIndx)">
+		    <a href data-ng-bind="i18n.profile_post.remove_rating"></a> 
+	    </span>
+</div>
+<div class="average-ratings">
+	<span class="total-votes">{{post.no_of_votes}} <a href data-ng-click="findPeople(post.post_id, post.no_of_votes)">
+		<span data-ng-if="post.no_of_votes > 1" data-ng-bind="i18n.profile_post.votes"></span><span data-ng-if="post.no_of_votes <= 1" data-ng-bind="i18n.profile_post.vote"></span> </a> 
+	</span>
+	<span class="votes-star">
+		<ul>
+			<li data-ng-repeat="rating in averageRating(post.avg_rate) track by $index">
+				<span ng-class="post.avg_rate % 1 == 0 ? 'votes-avg' : ($last ? (post.avg_rate % 1 > 0.5 ? 'votes-avg' : 'half-avg' ):'votes-avg')"></span>
+			</li>
+			<li ng-repeat="blank in blankStar(post.avg_rate) track by $index"><span class="votes-blank"/>
+			</li>
+		</ul>
+	</span>
+</div>
+<div class="clr"></div></div>

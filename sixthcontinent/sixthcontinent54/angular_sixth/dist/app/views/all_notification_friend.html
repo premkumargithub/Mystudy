@@ -1,0 +1,49 @@
+  <a href="javascript:void(0)" class="dropdown-listing"  data-ng-click="showFriendNotification($event)">
+    <img src="app/assets/images/requestsgrey.png" ng-if="!allFriendTotal"/>
+    <img src="app/assets/images/requests.png" ng-if="allFriendTotal"/>
+    <span data-ng-if="allFriendTotal!=0" data-ng-bind="allFriendTotal"></span>
+</a>
+<div ng-show="showFriendNotificationList" class="all-noti-wrapper">
+    <ul class="add-request-accept" data-ng-show="loadNotification1">
+        <li class="accept-center">
+            <img src="app/assets/images/proceed.gif">
+        </li>
+    </ul>
+    <div data-ng-hide="loadNotification1" class="complete-notification" data-ng-click="blockDivClick($event)">
+    <div id="friendnano" class="nano" data-ng-show="FriendRequests.length != 0">
+        <div class="nano-content">
+        <ul class="add-request-accept" data-ng-show="NotificationFound">
+                <li data-ng-repeat="item in FriendRequests" ng-class="{'last':$last}" id="notification-request-friend-{{$index}}">
+                    <div class="add-friend-img">
+                        <a  href="#/viewfriend/{{item.user_info.id}}" title="{{i18n.profile.right_panel.view_profile}}">
+                            <img style="width:50px; height=50px;" data-ng-src="{{item.user_info.profile_image_thumb}}" data-ng-if="item.user_info.profile_image_thumb != ''" alt="" title="{{i18n.profile.right_panel.request_from}} {{item.user_info.username}}"/></a>
+                        <a  href="#/viewfriend/{{item.user_info.id}}" title="{{i18n.profile.right_panel.view_profile}}">
+                            <img style="width:50px; height=50px;" src="app/assets/images/dummy60X60.jpg" data-ng-if="item.user_info.profile_image_thumb == ''" alt="{{i18n.profile.right_panel.no_image}}" title="{{i18n.profile.right_panel.request_from}} {{item.user_info.username}}"/></a>
+                    </div>
+                    <div class="add-friend-right">
+                        <div class="add-friend-right-content">
+                            <h3>
+                                <a href="#/viewfriend/{{item.user_info.id}}" title="{{i18n.profile.right_panel.view_profile}}" data-ng-bind="item.user_info.first_name + ' ' + item.user_info.last_name"></a>
+                            </h3>
+                        <div class="adver-mutal-add-friend" id="notii-{{$index}}">
+                            <input class="val-accept" type="button" value="{{i18n.profile.right_panel.personal_accept}}" ng-click="AcceptRequest(item, $index)" title="{{i18n.profile.right_panel.accept}}"  data-ng-if="item.personal == 1"/>
+                            <input class="val-accept" type="button" value="{{i18n.profile.right_panel.professional_accept}}" ng-click="AcceptRequest(item, $index)" title="{{i18n.profile.right_panel.accept}}" data-ng-if="item.professional == 1"/>
+                            <input  class="val-reject" type="button" value="{{i18n.store.reject}}" ng-click="RejectRequest(item, $index)" title="{{i18n.profile.right_panel.reject}}"/>
+                        </div>
+                      </div>  
+                    </div>
+                </li>
+            </ul>   
+        </div>
+        </div>
+        <ul class="add-request-accept" ng-if="FriendRequests.length == 0">
+            <li data-ng-bind="i18n.profile.right_panel.no_request"></li>
+        </ul>
+        <div class="see-all" data-ng-hide="loadNotification1">
+            <a href="#/view/all/requests" title="{{i18n.notify.see_all}}" data-ng-bind="i18n.notify.see_all"></a>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $("#friendnano").nanoScroller({ preventPageScrolling: true });
+</script>

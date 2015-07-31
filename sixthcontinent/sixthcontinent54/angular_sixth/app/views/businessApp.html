@@ -1,0 +1,13 @@
+<div class="bussiness-app-link-outer">
+	<a class="business-app-link" ng-if="businessApp.length > 0" ng-class="{'active append' : toggleshoplist == true}" ng-click="activeThem('basicProfile');">
+	 	<span data-ng-bind="i18n.dashboard.app_shop"></span>
+	</a>
+</div>
+<div data-ng-show="toggleshoplist" class="citizen-sub-menu" >
+	<ul>
+		<li data-ng-repeat="data in businessApp">
+			<a ng-if="data.isActive == 1 && data.shopStatus == 1"  ng-href="#/shop/transaction/{{data.id}}" data-ng-bind="data.name"></a>
+			<a ng-if="data.isActive == 1 && data.shopStatus == 0" title="{{i18n.dashboard.shop_status}}" ng-href="#/shop/{{data.id}}/contract" data-ng-bind="data.name"></a> 
+		</li>
+	</ul>
+</div>

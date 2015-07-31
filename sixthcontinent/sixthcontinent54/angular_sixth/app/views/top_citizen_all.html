@@ -1,0 +1,50 @@
+<div class="col-2-layout">
+<!-- Content START -->
+<div id="content" class="container-right-fluid-page">
+    <div class="innerAll">
+    <div class="row">
+        <div class="col-lg-8 col-md-8">
+        <div class="inner-container">
+            <div class="friends-list-container">
+                <div class="friend-list-top clearfix">
+                <div class="friend-list-title">
+                    <span><img  src="app/assets/images/album.png" alt="" titile=""/></span> 
+                    <span data-ng-bind="i18n.profile.right_panel.top_linked_citizen"></span>
+                </div>
+            </div>
+            <div class="friend-list-content">
+                <div class="friend-cont-listing">
+                    <ul class="clearfix" ng-show="topLinkedCitizen.length">
+                        <li data-ng-repeat="item in topLinkedCitizen">
+                          <div class="friend-listing-img">
+                          <a ng-if="item.user_info.profile_image_thumb == ''" href="#/viewfriend/{{item.user_info.id}}" style="background-image:url(app/assets/images/prof-pic.jpg);" title="{{item.user_info.first_name}} {{item.user_info.last_name}}"></a>
+                          <a ng-if="item.user_info.profile_image_thumb != ''" href="#/viewfriend/{{item.user_info.id}}" style="background-image:url({{item.user_info.profile_image_thumb}});" title="{{item.user_info.first_name}} {{item.user_info.last_name}}"></a>
+                          </div>
+                          <div class="friend-listing-desc">
+                            <div class="friend-listing-desc-title">
+                              <!-- <div>{{i18n.profile.right_panel.position_number}} : {{ $index + 1}} </div> -->
+                              <a href="#/viewfriend/{{item.user_info.id}}" data-ng-bind="item.user_info.first_name + ' ' + item.user_info.last_name"></a>
+                              <div data-ng-bind="i18n.profile.right_panel.citizen_invited + ' : ' + item.affiliation_count | formatNum"></div>
+                              <div data-ng-bind="i18n.profile.right_panel.country + ' : ' + item.user_info.country"></div>
+                            </div>
+                          </div>
+                        </li>
+                    </ul>
+                  <div class="loader-container" data-ng-show="citizenTopLinkLoader">
+                    <img src="app/assets/images/proceed.gif" alt="{{i18n.friends.loading}}..." />
+                  </div>
+                  <div class="clearfix" ng-show="resultNotFound" data-ng-bind="i18n.friends.no_result_for"></div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4">
+            <profile-Right-Panel></profile-Right-Panel>
+        </div>
+    </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+</div>

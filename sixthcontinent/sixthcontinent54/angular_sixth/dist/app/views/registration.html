@@ -1,0 +1,157 @@
+<div ng-hide="isLoggedIn" class="container-fluid register-sixth-container" data-ng-controller="UserController" id="UserController"> 
+    <!--register sixth continent-->
+    <div class="register-page-top-container">
+    <div class="register-sixth-continent clearfix">
+        <div class="register-sixth-continent-form-section">
+            <!--register left panel-->
+            <div class="register-sixth-continent-left-section">
+                <img src="app/assets/images/login_page_logo.png" title="Sixth Continent" alt="Sixth Continent" />
+				<!--<a class="btn btn-primary btn-public-shop" href="#/blshops/">{{i18n.home.public_shop_home}} </a> -->
+            </div>
+            <!--register left panel-->
+            <div class="register-sixth-continent-form">
+                <div class="register-sixth-cont"><span>cont</span><h1 data-ng-bind="i18n.home.register_top_level"></h1></div>
+                
+                <div class="button-section" style="display:none;margin-bottom: 10px;
+    padding: 0 10px;"><span class="yes"><a href="javascript:void(0)" class="button-default" ng-click="fbyes()" data-ng-bind="i18n.store.yes"></a></span><span class="No"><a class="button-default" href="javascript:void(0)" ng-click="fbno();" data-ng-bind="i18n.store.no"></a></span></div>
+                <div class="fblogin" style="clear: both;display: table;width: 100%; padding:0 10px">
+                <script>
+
+      // Load the SDK asynchronously
+            (function(d, s, id) {
+             var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = "https://connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+              }(document, 'script', 'facebook-jssdk'));
+              </script>
+            <div class="facebook-button" style="float:left; margin-right:10px">
+                <!--<div class="fb-login-button" data-max-rows="30" data-size="large" onlogin="checkLoginState();" data-show-faces="false">{{i18n.home.fblabel}}</div>-->
+                <div class="login-form-top-links facebook-register">
+                  <a class="fblogin-home" href="javascript:void(0)" onclick="checkLoginState();" data-ng-bind="i18n.home.fblabel"></a>
+                </div>
+            </div>
+              
+                <img style="float:left" class="login-img ng-hide" data-ng-show="fbloader" src="app/assets/images/ajax-loader.gif" alt="{{i18n.home.loading}}..." />
+            </div>
+            <div class="fbmsg" style="color: green;padding: 10px 10px 0; display:none" data-ng-bind="fbloginmessage"></div>
+                <form name="user" data-ng-submit="registration(1, user.$valid)" novalidate>
+                    <ul class="register-sixth-form">
+                        <li>
+                            <div class="register-sixth-full">
+                                <input type="email" id="emailReg" ng-blur="visited = true" value="" placeholder="{{i18n.home.email}}" name="emailReg" data-ng-model="user.userEmail" title="{{i18n.home.email}}" ng-class="{ 'has-error' : (user.emailReg.$dirty&&user.emailReg.$invalid&&user.emailReg.$error.required ) || (formSubmitted && !user.userEmail)}" ng-pattern="/^[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/" required/>
+                                <!-- Prem Coding <div ng-show="((user.emailReg.$dirty && user.emailReg.$invalid) || (formSubmitted && !user.userEmail))" class="text-red">
+                                <span ng-show="user.emailReg.$error.required" data-ng-bind="i18n.register.enter_your_email"></span>
+                                <span ng-show="user.emailReg.$error.pattern && visited" data-ng-bind="i18n.register.enter_valid_email"></span>
+                                </div> -->
+                                <div ng-show="((user.emailReg.$dirty && user.emailReg.$invalid && user.emailReg.$error.required) || (formSubmitted && !user.userEmail) || (user.emailReg.$error.pattern && visited))" class="text-red" data-ng-bind="i18n.register.enter_valid_email"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="register-sixth-full">
+                                <input type="password" id="pwdReg" name="pwdReg" ng-blur="visited = true" value="" placeholder="{{i18n.home.password}}" data-ng-model="user.userPassword" data-ng-minlength="6" minlength="6" maxlength ="20" data-ng-maxlength="20" title="{{i18n.home.password}}" ng-class="{ 'has-error' : (user.pwdReg.$dirty&&user.pwdReg.$error.minlength&&user.pwdReg.$invalid&&user.pwdReg.$error.required ) || (formSubmitted && !user.userPassword)}" required/>
+                                <div ng-show="(user.pwdReg.$dirty && user.pwdReg.$invalid || (formSubmitted && !user.userPassword))" class="text-red">
+                                <span ng-show="user.pwdReg.$error.required" data-ng-bind="i18n.register.enter_password"></span>
+                               <span ng-show="user.pwdReg.$error.minlength && visited" data-ng-bind="i18n.register.more_six_digit_password"></span>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="register-sixth-one-half">
+                                <input type="text" id="fname" name="fname" value="" placeholder="{{i18n.home.first_name}}" data-ng-model="user.firstName" title="{{i18n.home.first_name}}"       ng-class="{ 'has-error' : (user.fname.$dirty&&user.fname.$invalid&&user.fname.$error.required ) || (formSubmitted && !user.firstName)}"required/>
+                                <div ng-show="(user.fname.$dirty&&user.fname.$invalid&&user.fname.$error.required ) || (formSubmitted && !user.firstName)" class="text-red" data-ng-bind="i18n.register.enter_first_name"></div>
+                            </div>
+                            <div class="register-sixth-two-half">
+                                <input type="text" id="lname" name="lname" value="" placeholder="{{i18n.home.last_name}}" data-ng-model="user.lastName" title="{{i18n.home.last_name}}" ng-class="{ 'has-error' : (user.lname.$dirty&&user.lname.$invalid&&user.lname.$error.required ) || (formSubmitted && !user.lastName)}" required/>
+                                <div ng-show="(user.lname.$dirty&&user.lname.$invalid&&user.lname.$error.required ) || (formSubmitted && !user.lastName)" class="text-red" data-ng-bind="i18n.register.enter_last_name"></div>
+                            </div>
+                        </li>
+                        <li class="calender-gender">
+                            <div class="register-sixth-one-half">
+                                <div class="register-sixth-select-month" ng-class="{ 'has-error' : (user.dobmonth.$dirty&&user.dobmonth.$error.required ) || (formSubmitted && !user.month)}">
+                                   <select id="dobmonth" name="dobmonth" data-ng-model="user.month" data-ng-options="month.name for month in months" ng-change="monthChange();" required>
+                                       <option value="" data-ng-bind="i18n.home.month"></option>
+                                    </select>
+                                </div>
+
+                                <div class="register-sixth-select-month register-sixth-day" ng-class="{ 'has-error' : (user.dobday.$dirty&&user.dobday.$invalid&&user.dobday.$error.required ) || (formSubmitted && !user.day)}">
+                                    <select id="dobday" name="dobday" data-ng-model="user.day" data-ng-options="day for day in days"  required>
+                                       <option value="" data-ng-bind="i18n.home.day"></option>
+                                     </select>
+                                </div>
+
+                                <div class="register-sixth-select-month register-sixth-year" ng-class="{ 'has-error' : (user.dobyear.$dirty&&user.dobyear.$invalid&&user.dobyear.$error.required ) || (formSubmitted && !user.year)}">
+                                    <select id="dobyear" name="dobyear" data-ng-model="user.year" data-ng-options="year for year in years" required>
+                                        <option value="" data-ng-bind="i18n.home.year"></option>
+                                     </select>
+                                </div>
+                                <div ng-show="(formSubmitted && invalidSelectedDob) || (!user.month  || !user.day || !user.year)">
+                                 <div ng-show="!formSubmitted&&(user.dobmonth.$dirty&&user.dobmonth.$invalid&&user.dobmonth.$error.required) ||(formSubmitted&&!user.month)" class="text-red" data-ng-bind="i18n.register.enter_month"></div>
+                                <div ng-show="!formSubmitted&&(user.dobday.$dirty&&user.dobday.$invalid&&user.dobday.$error.required)||(formSubmitted&&!user.day)" class="text-red" data-ng-bind="i18n.register.enter_day"></div>
+                                <div ng-show="!formSubmitted&&(user.dobyear.$dirty&&user.dobyear.$invalid&&user.dobyear.$error.required)||(formSubmitted&&!user.year)" class="text-red" data-ng-bind="i18n.register.enter_year"></div>
+                                <div ng-show="(formSubmitted && invalidSelectedDob)" class="text-red" data-ng-bind="i18n.register.birthday_invalid"></div>
+                                </div>
+                            </div>
+                            <div class="register-sixth-two-half">
+                                <div class="register-sixth-select-gender" ng-class="{ 'has-error' : (user.genreg.$dirty&&user.genreg.$invalid&&user.genreg.$error.required ) || (formSubmitted && !user.gender)}">
+                                    <select id="genreg" name="genreg" data-ng-model="user.gender" required>
+                                        <option value="" data-ng-bind="i18n.home.gender"></option>
+                                        <option value="m" data-ng-bind="i18n.home.male"></option>
+                                        <option value="f" data-ng-bind="i18n.home.female"></option>
+                                    </select>
+                                </div>
+                                 <div ng-show="(user.genreg.$dirty&&user.genreg.$invalid&&user.genreg.$error.required ) || (formSubmitted && !user.gender)" class="text-red" data-ng-bind="i18n.register.enter_gender"></div> 
+                            </div>
+                        </li>
+                        <li style="display:none;">
+                            <div class="register-sixth-full">
+                                <input type="text" id="citizenid" value="" placeholder="{{i18n.citizenregister.citizen_referral}}" data-ng-model="referralId" title="{{i18n.citizenregister.citizen_referral}}" ng-class="{'readyonlyRef': isreferralId}"/>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="register-sixth-full">
+                                <div class="register-sixth-select-country" ng-class="{ 'has-error' : (user.countryReg.$dirty&&user.countryReg.$invalid&&user.countryReg.$error.required ) || (formSubmitted && !user.country)}">
+                                    <select id="countryReg" name="countryReg" ng-model="user.country" ng-options="country.country for country in countries"  title="select country" required>
+                                        <option value="" data-ng-bind="i18n.home.country_option"></option>
+                                    </select>
+                                </div>
+                                <div ng-show="(user.countryReg.$dirty&&user.countryReg.$invalid&&user.countryReg.$error.required ) || (formSubmitted && !user.country)" class="text-red" data-ng-bind="i18n.register.select_country"></div> 
+                            </div>
+                        </li>
+                        <li>
+                            <div class="register-sixth-full">
+                                <div class="register-sixth-select-terms">
+                                    <input type="checkbox" id="termReg" name="termReg" ng-model="user.terms" ng-class="{ 'has-error' : (user.termReg.$dirty&&user.termReg.$invalid&&user.termReg.$error.required ) || (formSubmitted && !user.terms)}"required/><span data-ng-bind="i18n.home.terms_condition"></span>
+                                    <a data-ng-href="#/privacy" data-ng-bind="i18n.home.terms_condition_anchor">
+                                    </a>
+                                    <span data-ng-bind="i18n.home.terms_condition_site"></span>
+                                </div>
+                                <div ng-show="(user.termReg.$dirty&&user.termReg.$invalid&&user.termReg.$error.required ) || (formSubmitted && !user.terms)" class="text-red" data-ng-bind="i18n.register.terms_condition_agree"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <p class="text-red text-center" data-ng-bind="signUpSuccessMsg"></p>		
+                            <div class="register-sixth-full register-sixth-register">
+                                <div style="text-align:center"><img data-ng-hide="showLoading" src="app/assets/images/ajax-loader.gif" ></div>
+                                <input data-ng-show="showLoading" type="submit" value="{{i18n.home.register_btn}}" title="{{i18n.home.register_btn_title}}"/>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="register-sixth-one-button" data-ng-show="showLoading">
+                            </div> 
+                        </li>
+                         <input type="hidden" id="fbId" value="" data-ng-model="user.fbId"/>
+                        <input type="hidden" id="fbUserId" value="" data-ng-model="user.fbUserId"/>
+                    </ul>
+                </form>
+            </div>		
+        </div>	
+    </div>
+</div>
+    <!--register sixth continent-->	
+   <!--footer-->
+    <footer-logout></footer-logout>
+    <!--footer-->
+    <div ng-include="app/views/footer.html"></div>
+</div>

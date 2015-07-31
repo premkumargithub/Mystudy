@@ -1,0 +1,76 @@
+<div class="invite-affiliate-container">
+<div class="form-container">
+<h2 ng-bind="i18n.invite_affiliate.invite_friend" ng-if="inviteType === '1'"></h2>
+<h2 ng-bind="i18n.invite_affiliate.invite_shop" ng-if="inviteType === '3'"></h2>
+<div class="invite-layout">
+ <div class = "wrap" ng-init = "checkFBforCloudSponge()">
+ <!-- <a class="deep-cloudsponge cs-fb" title="facebook" onclick="checkLoginForInvite();"></a> -->
+ <!-- <a class="deep-cloudsponge cs-fb" title="facebook" ng-click="InviteFbFriends();"></a> -->
+ <a class="deep-cloudsponge cs-fb" ng-if="clodSpongeFB" title="facebook" onclick="return cloudsponge.launch('facebook');"></a>
+ <a class="deep-cloudsponge cs-fb" ng-if="FBGraphAPI" title="facebook" ng-click="InviteFbFriends();"></a>
+ <a class="deep-cloudsponge cs-yho" title="Yahoo" onclick="return cloudsponge.launch('yahoo');"></a>
+ <!-- <a class="deep-cloudsponge cs-wlv" title="Windows Live" onclick="return cloudsponge.launch('windowslive');"></a> -->
+ <a class="deep-cloudsponge cs-gmail" title="Gmail" onclick="return cloudsponge.launch('gmail');"></a>
+ <a class="deep-cloudsponge cs-aol" title="Aol" onclick="return cloudsponge.launch('aol');"></a>
+ <!-- <a class="deep-cloudsponge cs-plaxo" title="Plaxo" onclick="return cloudsponge.launch('plaxo');"></a> -->
+ <!-- <a class="deep-cloudsponge cs-abook" title="Address Book" onclick="return cloudsponge.launch('addressbook');"></a> -->
+ <!-- <a class="deep-cloudsponge cs-outlk" title="Outlook" onclick="return cloudsponge.launch('outlook');"></a> -->
+ <!-- <a class="deep-cloudsponge cs-lkdn" title="Linkedin" onclick="return cloudsponge.launch('linkedin');"></a> -->
+ <!-- <a class="deep-cloudsponge cs-tweet" title="Twitter" onclick="return cloudsponge.launch('twitter');"></a> -->
+ </div>
+
+<div ng-show="invitedScuccess" class="text-success text-center" ng-bind="invitemessage"></div>
+<div ng-show="notinviteduser" class="text-red text-center" ng-bind="errorMsg"></div>
+<div ng-show="needinviteduser" class="text-red text-center" ng-bind="needEmail"></div>
+<form>
+<ul><li>
+<span class="email-separated" ng-bind="i18n.invite_affiliate.emails_with_commas"></span>
+<textarea elastic style="overflow: hidden !important;" class="form-control bg-gray" name="to_emails" id="to_emails"></textarea> 
+</li>
+<li>
+<input class="form-control bg-gray onlycopy" id="inviteUrl" value="" type="text" placeholder="" readonly/>
+</li>
+<li>
+<button ng-hide="requestSending" class="btn btn-primary" type="button" ng-click=" inviteBulkAffiliationUser()" ng-bind="i18n.invite_affiliate.send_buttom"></button>
+<button ng-hide="requestSending" class="btn btn-primary" type="button" ng-click="cancelBack()" ng-bind="i18n.invite_affiliate.cancel"></button>
+<div ng-show="requestSending" style="text-align: center;"><img alt="processing..." src="app/assets/images/proceed.gif"></div></li>
+</ul>
+</form>
+<script type='text/javascript'>
+var key = APP.contact_import.key;
+var provider = APP.contact_import.provider;
+function populateTextarea(contacts, source, owner) {
+  var contact, name, email;
+  var allEmail = "";
+  for (var i = 0; i < contacts.length; i++) {
+    contact = contacts[i];
+    email = contact.selectedEmail();
+    allEmail += email+",";
+  }
+  if($("#to_emails").val().trim() == ''){
+    $("#to_emails").val($("#to_emails").val()+allEmail.slice(0, -1));
+  }else{
+    if($("#to_emails").val().charAt($("#to_emails").val().length-1) !== ','){
+      $("#to_emails").val($("#to_emails").val()+',');
+    }
+    $("#to_emails").val($("#to_emails").val()+allEmail.slice(0, -1));
+  }
+}
+
+var csPageOptions = {
+  domain_key:key, 
+  afterSubmitContacts:populateTextarea,
+  mobile_render: true,
+  sources: provider,
+  afterLaunch: function(){
+    $('#brand').css({
+      display: 'none'
+    });
+  }
+};
+
+</script>
+<script type="text/javascript" src="https://api.cloudsponge.com/address_books.js"></script>
+</div>
+</div>
+</div>

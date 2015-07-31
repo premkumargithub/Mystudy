@@ -1,0 +1,24 @@
+<div class="col-2-layout">
+	<div id="content" class="container-right-fluid-page">
+		<div class="innerAll" >
+			<div class="row">
+				<div class="col-lg-8 col-md-8">
+					<div class="inner-container">
+						<div class="friend-req-container">							
+							<div data-ng-show="requestLoader" class="loader-container">
+								<img src="app/assets/images/proceed.gif" alt="loading..." />
+							</div>
+							<div data-ng-show="notAccesssible" class="loader-container" data-ng-bind="i18n.notify.private_club_not_access">
+							</div>
+							<div data-ng-hide="requestLoader" class="loader-container" data-ng-bind="i18n.notify.private_notinotfound">
+							</div>
+						</div> 
+					</div>
+				</div>     
+				<div class="col-md-4 col-lg-4">
+					<profile-Right-Panel></profile-Right-Panel>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

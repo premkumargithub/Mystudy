@@ -1,0 +1,63 @@
+<a href class="dropdown dropdown-listing" data-ng-click="showAllMessage($event)">
+<img src="app/assets/images/messages-grey.png" ng-if="!homeMessageCount"/>
+<img src="app/assets/images/messages.png" ng-if="homeMessageCount"/>
+<span data-ng-show="homeMessageCount" data-ng-if="homeMessageCount!=0" ng-bind="homeMessageCount"></span>
+</a>
+
+<div data-ng-show="showNewMessageList" class="all-noti-wrapper">
+<ul data-ng-show="loadingUnreadMssage" class="add-request-accept">
+	<li class="accept-center">
+		<img src="app/assets/images/proceed.gif">
+	</li> 
+</ul>
+<div data-ng-show="newMessageShow" class="complete-notification" data-ng-click="blockUiClick($event)">
+<div id="messagenano" class="nano" data-ng-show="messageNoti.length != 0">
+<div class="nano-content">
+<ul class="add-request-accept">
+	<li class="media" data-ng-repeat="message in messageNoti | orderBy:'created_at.date':true">
+		<div data-ng-if="message.message_type == 'M'" data-ng-click="storeThreadAndFriendId(message.thread_id,message.sender_user.id); closeDrop();readMessage(message.thread_id);">
+			<a href="#/message">
+				<div class="add-friend-img">
+				<img data-ng-if="message.sender_user.profile_image_thumb != ''" class="media-object thumb pull-left" data-ng-src="{{message.sender_user.profile_image_thumb}}" alt="" width="50"/>
+				<img data-ng-if="message.sender_user.profile_image_thumb == ''"class="media-object pull-left" width="50" src="app/assets/images/dummy32X32.jpg" alt="" width="50"/>
+				</div>
+				<div class="media-body add-friend-right">
+				 <div class="add-friend-right-content">
+					<span class="label label-default pull-right">{{message.created_at.date | postDateFormat}}</span>
+					<h5 class="media-heading" ng-bind="message.sender_user.first_name + ' ' + message.sender_user.last_name"> </h5>
+					<p class="margin-none">{{(message.body).length > 31 ?(((message.body) | limitTo: 28)+'...'):message.body}}</p>
+				 </div>
+				</div>
+			</a>
+		</div>
+		<div data-ng-if="message.message_type == 'N' || message.message_type == 'R'" data-ng-click="storeThreadAndFriendId(message.id,message.sender_user.id); closeDrop();readMessage(message.thread_id);">
+			<a href="#/message">
+				<div class="add-friend-img">
+				<img data-ng-if="message.sender_user.profile_image_thumb != ''" class="media-object thumb pull-left" data-ng-src="{{message.sender_user.profile_image_thumb}}" alt="" width="50"/>
+				<img data-ng-if="message.sender_user.profile_image_thumb == ''"class="media-object pull-left" width="50" src="app/assets/images/dummy32X32.jpg" alt="" width="50"/>
+				</div>
+				<div class="media-body add-friend-right">
+					<div class="add-friend-right-content">
+					<span class="label label-default pull-right">{{message.created_at.date | postDateFormat}}</span>
+					<h5 class="media-heading" ng-bind="message.sender_user.first_name + ' ' + message.sender_user.last_name"> </h5>
+					<p class="margin-none">{{(message.body).length > 31 ?(((message.body) | limitTo: 28)+'...'):message.body}}</p>
+				</div>
+			</div>
+			</a>
+		</div>
+	</li>
+</ul>
+</div>
+</div>
+<ul class="add-request-accept" ng-if="messageNoti.length == '0'" >
+	<li class="media" ng-bind="i18n.message.no_new_msg">
+	</li>
+</ul>
+<div class="see-all" data-ng-hide="loadNotification"><a href="#/message" title="{{i18n.notify.see_all}}" ng-bind="i18n.notify.see_all"></a>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+    $("#messagenano").nanoScroller({ preventPageScrolling: true });
+</script>
+

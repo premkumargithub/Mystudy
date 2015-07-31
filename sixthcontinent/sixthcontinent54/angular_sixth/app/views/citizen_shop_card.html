@@ -1,0 +1,158 @@
+<form ng-submit="cardSearch()" name="cardSearchForm" novalidate>
+	<div class="wallet-search-block transaction-tab-content">
+		<div class="search-box">
+			<input id="shopSrch" type="text" name="srchTxt" placeholder="{{i18n.citizen_wallet.search}}" ng-model="searchValue">
+			<button><i class="fa fa-search"></i></button>
+		</div>
+			<!--<div class="date-from">
+				<label ng-bind= "i18n.citizen_wallet.from"></label>
+				<input type="text" id="search-frm" class="dateInput" name="srchFrm" ng-model="searchFrom">
+			</div>											
+			<div class="date-from">
+				<label ng-bind= "i18n.citizen_wallet.to"></label>
+				<input type="text"  id="search-to" class= "dateInput" name="srchTo" ng-model="searchTo" >
+			</div>-->
+			<div class="datepicker-section">
+				<date-Picker></date-Picker> 
+			</div>
+			<div class="search-box-buttons">
+				<button type="submit" class="submit-coupon" title="Search"><i class="fa fa-check"></i></button>
+				<a href="javascript:void(o)" title="Clear" ng-click="clearSearch()"><i class="fa fa-times"></i></a>
+			</div>
+	</div>
+</form>
+
+<div data-ng-if="totalCardItemss100 <= 0 && totalCardItemss50 <= 0 && shopingCardLoad1 == false && shopingCardLoad2 == false" data-ng-bind="i18n.citizen_wallet.no_card_available" class="wallat-result"></div>
+<div class="wallet-shopping-results citizenwallet-shopping">
+	<div ng-show = "shopingCardLoad1" style="text-align:center">
+		<img src="app/assets/images/proceed.gif" alt="processing...">
+	</div>
+	<div class="heading" data-ng-if = "totalCardItemss100 > 0"><span ng-bind= "i18n.citizen_wallet.shop_card_up_to"></span> 100% <span class="value" ng-bind="'('+(totalCardItemss100)+')'"></span></div>
+	<div class="result-list">
+		<ul class="clearfix">
+			<li data-ng-repeat = "card in shopCards100 | limitTo:6">
+				<div class="card-type">
+					<img ng-if="card.credit === 100" ng-src="app/assets/images/shopping-card100.jpg" alt="" titile="">
+					<img ng-if="card.credit === 50" ng-src="app/assets/images/shopping-card50.jpg" alt="" titile="">
+					<img ng-if="card.credit === 30" ng-src="app/assets/images/shopping-card30.jpg" alt="" titile="">
+					<img ng-if="card.credit === 20" ng-src="app/assets/images/shopping-card20.jpg" alt="" titile="">
+				</div>
+				<div class="result-details">
+					<div class="details-name">
+						<a href="#/shop/view/{{card.shop_id._id}}"><span ng-bind="card.shop_id.name"></span></a>
+					</div>
+					<div class="details-add">
+					<!-- <span ng-bind="card.shop_id.address_l1"></span>
+					<span ng-if="card.shop_id.address_l2 && card.shop_id.address_l2!==''">, </span> -->
+					<span  ng-if="card.shop_id.address_l2!==''" ng-bind="card.shop_id.address_l2"></span>
+					<span  ng-if="card.shop_id.city.cityname && card.shop_id.city.cityname!==''">, </span>
+					<span ng-if="card.shop_id.city.cityname && card.shop_id.city.cityname!==''" ng-bind="card.shop_id.city.cityname"></span>
+					<span  ng-if="card.shop_id.country.countryname && card.shop_id.country.countryname!==''">, </span>
+					<span  ng-bind="card.shop_id.country.countryname"></span></div>
+
+					<div class="code"><label ng-bind="i18n.citizen_wallet.code"></label> <span ng-bind="card.card_no|| 1"></span></div>
+					<div class="sale"><label ng-bind="i18n.citizen_wallet.balance || 0"></label> <span ng-bind="(card.balance | currency:'&euro;') || (0| currency:'&euro;')"></span></div>
+					<div class="dead-line"><label ng-bind="i18n.citizen_wallet.deadline"></label> <span ng-bind="(card.to_date | date:'dd-MM-yy')"></span></div>
+				</div>
+				<div class="view-ratings">
+		            <ul>
+		              <li data-ng-repeat="i in ratingConvert(card.shop_id.average_anonymous_rating)"></li>
+		              <li class="halfStar" ng-if="card.shop_id.average_anonymous_rating && ((card.shop_id.average_anonymous_rating - convertToInt(card.shop_id.average_anonymous_rating)) > 0)"></li>
+		               <li class="emptyStar" data-ng-repeat="i in ratingConvert(card.shop_id.average_anonymous_rating, 5)"></li>
+		            </ul>
+		            <div ng-bind="i18n.citizen_wallet.coupon_rating"></div>
+		        </div>
+				<div class="wallet-credit">
+					<span class="label-name" ng-bind = "i18n.citizen_wallet.credit_sub"></span>
+					<span class="value" ng-bind="(card.credit | currency:'&euro;') || (0| currency:'&euro;')"></span>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="shop-card-pagi-container" ng-if='totalCardItemss100 > 6'>
+		<div>
+			<ul class="pagination store-paginate">
+				<li class="prev nav-arrow" ng-show="currentPage100-1 > 0">
+				<a href="" ng-click="prevPage100()">&lt;</a>
+				</li>
+				<li data-ng-show="n==1 || n==range100.length || (n <= currentPage100+2 && n >= currentPage100-2)"data-ng-repeat="n in range100" ng-class="{active: n == currentPage100 }" class="num-index">
+				<a href="" ng-click="changePageMore100(n)" ng-bind="n"></a>
+				</li>
+				<li class="next nav-arrow" ng-show="currentPage100 < range100.length">
+				<a href="" ng-click="nextPage100()">&gt;</a>
+				</li>
+		   	</ul>
+		</div>
+	</div>	
+</div>
+
+<div class="wallet-shopping-results citizenwallet-shopping last" >
+
+	<div ng-show = "shopingCardLoad2" style="text-align:center">
+		<img src="app/assets/images/proceed.gif" alt="processing...">
+	</div>
+	<div class="heading" data-ng-if = "totalCardItemss50 > 0"><span ng-bind= "i18n.citizen_wallet.shop_card_up_to"></span> 50% <span class="value" ng-bind="'('+(totalCardItemss50)+')'"></span></div>
+	<div class="result-list">
+		<ul class="clearfix">
+			<li data-ng-repeat = "card in shopCards50 | limitTo:6">
+				<div class="card-type">
+					<img ng-if="card.credit === 100" ng-src="app/assets/images/shop-card100.jpg" alt="" titile="">
+					<img ng-if="card.credit === 50" ng-src="app/assets/images/shop-card50.jpg" alt="" titile="">
+					<img ng-if="card.credit === 30" ng-src="app/assets/images/shop-card30.jpg" alt="" titile="">
+					<img ng-if="card.credit === 20" ng-src="app/assets/images/shop-card20.jpg" alt="" titile="">
+				</div>
+				<div class="result-details">
+					<div class="details-name">
+						<a href="#/shop/view/{{card.shop_id._id}}"><span ng-bind="card.shop_id.name"></span></a>
+					</div>
+					<div class="details-add">
+						<!-- <span ng-bind="card.shop_id.address_l1"></span>
+						<span ng-if="card.shop_id.address_l2 && card.shop_id.address_l2!==''">, </span> -->
+						<span  ng-if="card.shop_id.address_l2!==''" ng-bind="card.shop_id.address_l2"></span>
+						<span  ng-if="card.shop_id.city.cityname && card.shop_id.city.cityname!==''">, </span>
+						<span ng-if="card.shop_id.city.cityname && card.shop_id.city.cityname!==''" ng-bind="card.shop_id.city.cityname"></span>
+						<span  ng-if="card.shop_id.country.countryname && card.shop_id.country.countryname!==''">, </span>
+						<span  ng-bind="card.shop_id.country.countryname"></span>
+					</div>
+
+					<div class="code"><label ng-bind="i18n.citizen_wallet.code"></label> <span ng-bind="card.card_no|| 0001"></span></div>
+					<div class="sale"><label ng-bind="i18n.citizen_wallet.balance || 0"></label> <span ng-bind="(card.balance | currency:'&euro;') || (0| currency:'&euro;')"></span></div>
+					
+				</div>
+				<div class="view-ratings">
+		            <ul>
+		              <li data-ng-repeat="i in ratingConvert(card.shop_id.average_anonymous_rating)"></li>
+		              <li class="halfStar" ng-if="card.shop_id.average_anonymous_rating && ((card.shop_id.average_anonymous_rating - convertToInt(card.shop_id.average_anonymous_rating)) > 0)"></li>
+		               <li class="emptyStar" data-ng-repeat="i in ratingConvert(card.shop_id.average_anonymous_rating, 5)"></li>
+		            </ul>
+		            <div ng-bind="i18n.citizen_wallet.coupon_rating"></div>
+		        </div>
+				<div class="wallet-credit">
+					<span class="label-name" ng-bind = "i18n.citizen_wallet.credit_sub"></span>
+					<span class="value" ng-bind="(card.credit | currency:'&euro;') || (0| currency:'&euro;')"></span>
+				</div>
+			</li>
+		</ul>
+	</div>
+	
+   	<div class="shop-card-pagi-container">
+		<div>
+			<ul class="pagination store-paginate" ng-if="totalCardItemss50 > 6">
+				<li class="prev nav-arrow" ng-show="currentPage50-1 > 0">
+				<a href="" ng-click="prevPage50()">&lt;</a>
+				</li>
+				<li data-ng-show="n==1 || n==range50.length || (n <= currentPage50+2 && n >= currentPage50-2)"data-ng-repeat="n in range50" ng-class="{active: n == currentPage50 }" class="num-index">
+				<a href="" ng-click="changePageMore50(n)" ng-bind="n"></a>
+				</li>
+				<li class="next nav-arrow" ng-show="currentPage50 < range50.length">
+				<a href="" ng-click="nextPage50()">&gt;</a>
+				</li>
+          </ul>
+		</div>
+	</div>	
+</div>
+
+
+
+					
+									

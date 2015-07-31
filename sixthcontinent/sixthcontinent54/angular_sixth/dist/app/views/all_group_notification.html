@@ -1,0 +1,75 @@
+<a href="javascript:void(0)" class="dropdown-listing"  data-ng-click="getAllGroupNotification($event)" >
+    <img src="app/assets/images/group-noti.png" data-ng-if="!homeGroupCount" />
+    <img src="app/assets/images/group-noti-blue.png" data-ng-if="homeGroupCount" />
+    <span data-ng-show="homeGroupCount" data-ng-if="homeGroupCount!=0" data-ng-bind="homeGroupCount"></span>
+</a>
+<div data-ng-show="groupNotificationList" class="all-noti-wrapper">
+    <ul class="add-request-accept" data-ng-show="loadGroupNotification">
+        <li class="accept-center">
+            <img src="app/assets/images/proceed.gif">
+        </li>
+    </ul>
+    <div data-ng-hide="loadGroupNotification" class="complete-notification" data-ng-click="blockDivClick($event)">
+    <div id="groupnano" class="nano" data-ng-show="allNotification.length != 0">
+        <div class="nano-content">
+        <ul class="add-request-accept request-accepted-byother">
+            <li data-ng-repeat="item in allNotification | orderBy:'-notification_id'" id="Groupnotification-request-{{$index}}">
+                <div class="add-friend-img" ng-if="item.message_status == 'U'">
+                    <a href="#/viewfriend/{{item.notification_from.id}}">
+                        <img title="{{item.notification_from.first_name}} {{item.notification_from.last_name}}" alt="" src="app/assets/images/add_club.png" width="50" ng-if="item.message_type == 'group' && item.message == 'accept'"/>
+                        <img title="{{item.notification_from.first_name}} {{item.notification_from.last_name}}" alt="" src="app/assets/images/club_reject.png" width="50" ng-if="item.message_type == 'group' && item.message == 'reject'"/>
+                        <img title="{{item.notification_from.first_name}} {{item.notification_from.last_name}}" alt="" src="app/assets/images/dummy60X60.jpg" width="50" ng-if="item.notification_from.profile_image_thumb == '' && item.message_type == 'group' && item.message == 'join_request'"/>
+                        <img title="{{item.notification_from.first_name}} {{item.notification_from.last_name}}" alt="" data-ng-src="{{item.notification_from.profile_image_thumb}}" width="50" ng-if="item.notification_from.profile_image_thumb != '' && item.message_type == 'group' && item.message == 'join_request'"/>
+                    </a>
+                </div>
+                <div class="add-friend-right">
+                    <div class="add-friend-right-content">
+                    <h3>
+                        <div class="" ng-if="item.message_type == 'group' && item.message == 'join_request'">
+                            <h3><a href="#/viewfriend/{{item.notification_from.id}}" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></a></h3>
+                            <h4>{{i18n.notify.clubs.from}}
+                                <a ng-if="item.group_info.group_type == 1" href="#/club/view/{{item.group_info.id}}/{{item.group_info.group_type}}" title="{{i18n.notify.clubs.view_club}}" data-ng-bind="item.group_info.group_name"></a>
+                                <a ng-if="item.group_info.group_type == 2" href="javascript:void(0)" title="{{i18n.notify.clubs.accept_first}}" data-ng-bind="item.group_info.group_name"></a>
+                            </h4>
+                            <div class="add-friend-accept" >
+                                <input type="button" value="{{i18n.notify.clubs.join_club}}" ng-click="AcceptClubRequest(item.notification_from.id, item.notification_id, item.group_info.id, item.group_info.group_type, $index, $event)" class="ad-accept"/>
+                                <input type="button" value="{{i18n.notify.clubs.reject}}"    ng-click="RejectClubRequest(item.notification_from.id, item.notification_id, item.group_info.id, item.group_info.group_type, $index, $event)" class="re-reject"/>
+                            </div>
+                        </div>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'group' && item.message == 'accept'">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.club_request_accepted + ' ' + item.group_info.name"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'group' && item.message == 'reject'">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.club_request_accepted + ' ' + item.group_info.name"></span>
+                        </a>
+
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'shop_response' && item.message == 'accept'">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.shop_request_accepted + ' ' + item.shop_info.name"></span></a>
+
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'tagging' && item.message == 'TAGGED_IN_POST'" data-ng-click="viewPost(item.post_info.postId, item.notification_id)">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.tagged_request_post + ' ' + item.shop_info.name"></span>
+                        </a>
+                    </h3>
+                    <span class="read-notifcation" ng-if="!((item.message_type == 'friend' && item.message == 'pending') || (item.message_type == 'group' && item.message == 'join_request'))"><a href="javascript:void(0)" ng-click="readNotification('notification-request', $index, item.notification_id)" ><i class="fa fa-times"></i></a></span>
+                </div>
+            </div>
+            </li>
+        </ul>
+    </div>
+    </div>
+        <ul class="add-request-accept" ng-if="allNotification.length == 0">
+            <li data-ng-bind="i18n.notify.no_notification"></li>
+        </ul>
+        <ul>
+            <li class="see-all"><a href="#/club/requests" title="{{i18n.notify.see_all}}" data-ng-bind="i18n.notify.see_all"></a></li>
+        </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    $("#groupnano").nanoScroller({ preventPageScrolling: true });
+</script>
+

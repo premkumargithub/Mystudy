@@ -1,0 +1,35 @@
+<div class="container-fluid register-sixth-container"> 
+
+  <!--register sixth continent-->
+  <div class="map-img-cont">
+  <div class="broker-sixth-one-step">
+    <div class="register-sixth-continent-form-section">
+    <div data-ng-show="verfiyLoader" class="loader-container">
+        <img src="app/assets/images/login-loader.gif" alt="{{i18n.home.loading}}..." />
+    </div>
+      <div class="register-sixth-continent-one-step clearfix" data-ng-hide="verfiyLoader">     
+        <div class="forgot-sixth-continent">
+          <ul>
+            <li data-ng-bind="i18n.verify_user.verify_head"></li>
+          </ul>
+        </div>
+      	
+      	<p ng-class="(error ? 'text-red':'text-success')" class="text-center" data-ng-bind="message"></p>
+
+        <div class="register-sixth-one-step-button " data-ng-show="resend">
+            <div class="resigter-one-step-button-right">
+                <a href="#/resendlink" data-ng-bind="i18n.verify_user.resend_link"></a>
+            </div>
+        </div>
+      </div>  
+    </div>  
+  </div>
+  </div>
+  <!--register sixth continent--> 
+  
+  <!--footer-->
+  <footer-logout></footer-logout>
+<!--footer-->
+<div ng-include="app/views/footer.html"></div>
+</div>
+<!-- // Main Container Fluid END --> 

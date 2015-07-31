@@ -1,0 +1,200 @@
+<div class="tab-content">
+
+    <!-- Tab content -->
+    <div class="tab-pane1 "  data-ng-show="profile">
+        <span data-ng-bind="message"></span>   
+        <!--widget-->
+        <div data-ng-controller="ProfilePostController">
+            <profile-post-list> </profile-post-list>
+        </div>
+        <div data-ng-show="isLoading" style="text-align: center;">
+            <img src="app/assets/images/proceed.gif" alt="{{i18n.citizen.loading}}loading..." />
+        </div>
+        <div class="project" data-role="tile" data-ng-show="{{noContent}}">
+            <strong><span data-ng-bind="i18n.citizen.no_result">...</strong>
+        </div>
+        <!-- //End Widget --> 
+    </div>
+    <!-- // Tab content END -->
+
+    <!-- Tab content -->
+    <div class="tab-pane1"  data-ng-show="edit">
+        <div class="timeline-cover">
+            <div class="widget">
+                <div class="widget-body padding-none margin-none">
+                    <div class="innerAll"> <i class="fa fa-quote-left text-muted pull-left fa-fw"></i>
+                        <p class="lead margin-none" data-ng-bind="i18n.citizen.edit_profile"></p><span data-ng-bind="editMessage"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-container">
+            <form name="editUser" data-ng-submit="editProfile(1)">
+                <ul>
+                    <li>
+                        <span data-ng-bind="i18n.citizen.first_name"></span>
+                        <input type="text" data-ng-model="editUser.firstName"class="form-control bg-gray" required/>
+                    </li>
+                    <li>
+                        <span data-ng-bind="i18n.citizen.last_name"></span>
+                        <input type="text" class="form-control bg-gray" data-ng-model="editUser.lastName" required/>
+                    </li>
+                    <li>
+                        <span data-ng-bind="i18n.citizen.birthday"></span>
+                        <div class="register-sixth-one-half">
+                            <div class="register-sixth-select-month">
+                                <select data-ng-model="editUser.month" data-ng-options="month.name for month in months" ng-change="monthChange();" required>
+                                    <option value="" data-ng-bind="i18n.citizen.month">
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="register-sixth-select-month register-sixth-day">
+                                <select data-ng-model="editUser.day" data-ng-options="day for day in days" required>
+                                    <option value="" data-ng-bind="i18n.citizen.day">
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="register-sixth-select-month register-sixth-year">
+                                <select data-ng-model="editUser.year" data-ng-options="year for year in years" required>
+                                    <option value="" data-ng-bind="i18n.citizen.year">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </li>
+                    <li>
+                        <span data-ng-bind="i18n.citizen.edit_gender"></span>
+                        <div class="register-sixth-two-half">   
+                            <div class="register-sixth-one-radio">
+                                <div class="shipping_input_radio">
+                                    <input type="radio" name="gender" value="m" id="register_male" class="register-sixth-radio" data-ng-model="editUser.gender" required >
+                                    <label for="register_male"><span data-ng-bind="i18n.citizen.gender_male"></span></label>
+                                </div>
+                                <label for="register_male" data-ng-bind="i18n.citizen.gender.male"><label>
+                                    </label></label></div>
+
+                            <div class="register-sixth-two-radio">
+                                <div class="shipping_input_radio">
+                                    <input type="radio" name="gender" value="f" id="register_female" class="register-sixth-radio" data-ng-model="editUser.gender" required>
+                                    <label for="register_female"><span data-ng-bind="i18n.citizen.edit_male"></span></label>
+                                </div>
+                                <label for="register_female" data-ng-bind="i18n.citizen.gender.female"></label>
+                            </div>
+
+                        </div>
+                    </li>
+                    <li>
+                        <span data-ng-bind="i18n.citizen.region"></span>
+                        <select class="form-control bg-gray"  data-ng-model="editUser.country" data-ng-options="country.country for country in countries" required>
+                            <option value="" data-ng-bind="i18n.citizen.country"></option>
+                        </select>
+                    </li>
+                    <li>
+                        <span data-ng-bind="i18n.citizen.zip"></span>
+                        <input type="number" class="form-control bg-gray" data-ng-model="editUser.zip" required/>
+                    </li>
+                    <li>
+                        <span data-ng-bind="i18n.citizen.city"></span>
+                        <input type="text" class="form-control bg-gray" data-ng-model="editUser.city" required/>
+                    </li>
+                    <li>
+                        <span data-ng-bind="i18n.citizen.address"></span>
+                        <textarea class="form-control bg-gray" data-ng-model="editUser.address" required></textarea>
+                    </li>
+                    <li>
+                        <span data-ng-bind="i18n.citizen.place" ></span>
+                        <input type="text" id="mapplace" class="form-control bg-gray" data-ng-model="editUser.place" readonly required>
+                    </li>
+                    <li style="display:none;">
+                        <span data-ng-bind="i18n.citizen.latitude"></span>
+                        <input type="text" id="lat" value=""class="form-control bg-gray" data-ng-model="editUser.latitude" readonly />
+                    </li>
+                    <li style="display:none;">
+                        <span data-ng-bind="i18n.citizen.longitude"></span>
+                        <input type="text" id="lon" value=""  class="form-control bg-gray" data-ng-model="editUser.longitude" readonly/>
+                    </li>
+
+                    <li><!-- <map><map> -->
+                    <autocomplete-map></autocomplete-map></li>
+                    <li><img src="app/assets/images/ajax-loader.gif" class="ng-hide" data-ng-show="showloading">
+                        <button type="submit" class="btn btn-primary" data-ng-bind="i18n.citizen.save" ></button>
+
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+    <!-- // Tab content END -->
+
+    <!-- Tab content -->
+    <div class="tab-pane1"  data-ng-show="brokerprofile">
+        <div class="timeline-cover">
+            <div class="widget">
+                <div class="widget-body padding-none margin-none">
+                    <div class="innerAll"> <i class="fa fa-quote-left text-muted pull-left fa-fw"></i>
+                        <p class="lead margin-none" data-ng-bind="i18n.citizen.edit_broker_profile"></p><span data-ng-bind="editMessage"> </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-container">
+            <form name="editUser" data-ng-submit="editProfile(2)">
+                <ul>
+                    <li>
+                        <span data-ng-bind="i18n.citizen.phone"></span>
+                        <input type="number" class="form-control bg-gray " data-ng-model="editUser.phone" required/>
+                    </li>
+                    <li>
+                        <span data-ng-bind="i18n.citizen.vat_number"></span>
+                        <input type="text" class="form-control bg-gray" data-ng-model="editUser.vatnumber" required/>
+                    </li>
+                    <li>
+                        <span data-ng-bind="i18n.citizen.fiscal_code"></span>
+                        <input type="text" class="form-control bg-gray" data-ng-model="editUser.fiscalcode" required/>
+                    </li>
+                    <li>
+                        <span data-ng-bind="i18n.citizen.iban"></span>
+                        <input type="text" class="form-control bg-gray" data-ng-model="editUser.iban" required/>
+                    </li>
+                    <li>
+                        <span data-ng-bind="i18n.citizen.map_place"></span>
+                        <input type="text" id="mapplace1" class="form-control bg-gray" data-ng-model="editUser.place" />
+                    </li>
+                    <li>
+                        <span data-ng-bind="i18n.citizen.edit_latitude"></span>
+                        <input type="text" id="lat1" value=""class="form-control bg-gray" data-ng-model="editUser.latitude" readonly/>
+                    </li>
+                    <li>
+                        <span data-ng-bind="i18n.citizen.edit_longitude"></span>
+                        <input type="text" id="lon1" value=""  class="form-control bg-gray" data-ng-model="editUser.longitude" readonly/>
+                    </li>
+                    <li><!-- <map></map> -->
+                        <input id="pac-input" class="controls" type="text"
+                               placeholder="{{i18n.citizen.enter_location}}Enter a location">
+                        <div id="type-selector" class="controls">
+                            <input type="radio" name="type" id="changetype-all" checked="checked">
+                            <!-- <label for="changetype-all">All</label>
+                            -->
+                            <!-- <input type="radio" name="type" id="changetype-establishment">
+                            <label for="changetype-establishment">Establishments</label>
+                      
+                            <input type="radio" name="type" id="changetype-geocode">
+                            <label for="changetype-geocode">Geocodes</label> -->
+                        </div>
+                        <div id="map-canvas-second" style="width:100%;height:300px;"></div></li>
+                    <li><img src="app/assets/images/ajax-loader.gif" class="ng-hide" data-ng-show="showloading">
+                        <button class="btn btn-primary" data-ng-bind="i18n.citizen.save" ></button>
+
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+    <!-- // Tab content END -->
+
+    <!-- Tab content -->
+
+    <!-- // Tab content END -->
+
+</div>

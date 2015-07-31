@@ -1,0 +1,182 @@
+<div class="group-section-container">
+    <div class="group-profilo" ng-hide="editGroupStatus">
+        <div class="group-setting-bar">
+            <ul>
+                <li>
+                    <a href="javascript:void(0)" ng-bind="groupDetail.members.length"> - <i class="fa fa-user" ng-click="showGroupMembers()" title="Show All members"></i>
+                        <select data-ng-show="showAllMembers" ng-if="groupDetail.members.length > 1">
+                            <option data-ng-repeat="member in groupDetail.members" value="member.id" ng-bind="member.username"></option>
+                        </select>
+                        <span></span>
+                        <span ng-if="groupDetail.group_status == '1'" title="Group Status">  Public</span>
+                        <span ng-if="groupDetail.group_status == '2'" title="Group Status">  Private</span>
+                    </a>
+                </li> 
+                <li class="setting">
+                    <a ng-if="groupDetail.owner_id == currentUser.id" href="javascript:void(0)" ng-click="editGroup();hideRoleInvite()" title="Edit" class="setting-anchor"><i class="fa fa-gear"></i>
+                    </a>
+                </li>
+            </ul>                            
+        </div>
+        <div id="invalidCoverImage" style="color:red; display:none;" ng-bind="invalidCoverImageMgs"></div>
+        <div class="group-banner store-dp-section store-cover-profile">
+            <figure ng-if="groupDetail.profile_img_cover"><a class="fancybox" href="{{groupDetail.profile_img_original}}"><img data-ng-src="{{groupDetail.profile_img_cover}}"></a></figure>
+            <figure ng-if="!groupDetail.profile_img_cover"><img src="app/assets/images/club-cover-placeholder.png"></figure>
+
+            <div class="profile-dp-section">
+                <div class="profile-cover-dp" ng-show="uploadButton">
+                    <div class="profile-cover-cap club-det" style="position:relative">
+                        <div class="cover-loader ng-hide" ng-show="coverImageUploadStart" style="position:absolute; left:270%;top: 50%"><img alt="uploading..." src="app/assets/images/proceed.gif" ></div>
+                        <label for="file">
+                            <div class="add-cover-cap"><img src="app/assets/images/camera.png"></div>
+                            <div ng-if="groupDetail.profile_img_cover != ''" class="add-cover-pic ng-scope">Change Cover Photo</div>
+                             <div ng-if="groupDetail.profile_img_cover == ''" class="add-cover-pic ng-scope">Change Cover Photo</div>
+                        </label>
+                        <input type="file" value="Add Cover Photo" ng-file-select="onFileSelect($files)">
+                    </div>
+                </div>
+                <h3><a href="javascript:void(0)">{{groupDetail.title}}</a></h3>
+                <ul class="store-invitations">
+                    <li ng-class="{ 'dp-active': timelineActive == 'timeline' }" data-ng-if="groupDetail.is_sent == 0">
+                        <a data-ng-if="groupDetail.is_member == 0"  id="groupjoing{{groupDetail.id}}" href="javascript:void(0);" data-ng-click="joinPublicGroups(groupDetail.id)"> Join Club</a>
+                    </li>
+                    <li ng-class="{ 'dp-active': aboutclub == true }">
+                        <a href  data-ng-click="aboutClub()">About</a>
+                    </li>
+                    <li ng-class="{ 'dp-active': showRole == true }">
+                        <a href data-ng-if="groupDetail.owner_id == currentUser.id" data-ng-click="toggleRole()" >Change Role</a>
+                    </li>
+
+                    <li ng-class="{ 'dp-active': showInvite == true }">
+                        <a href data-ng-if="groupDetail.owner_id == currentUser.id" data-ng-click="toggleInvite()" >Invite</a>
+                    </li>
+                    <li ng-class="{ 'dp-active': timelineActive == 'timeline' }">
+                        <a ng-if="groupDetail.owner_id == currentUser.id" class="ng-scope" href="#/album/club/{{groupDetail.id}}/{{groupDetail.group_status}}" title="Go To Club Album"> Photos</a>
+                    </li>
+                </ul>	
+            </div>       
+
+        </div>
+        <div>			
+
+            <img id="joinloader{{groupDetail.id}}" style="display:none;" src="app/assets/images/ajax-loader.gif" alt="loading..." />
+            <span id="requestsent{{groupDetail.id}}" style="display:none;">Request sent</span>
+            <span id="requestpending{{groupDetail.id}}" style="display:none;">Request is pending for owner approval</span>
+            <span class="request-pen" data-ng-if="groupDetail.is_sent == 1">Request is pending for owner approval</span>
+        </div>
+
+        <form class="invite-user" name="role" data-ng-show="showRole">
+            <ul>
+                <li>
+                    <span>Select Member</span>
+                    <select class="form-control bg-gray" data-ng-model="role.member" data-ng-options="members.username for members in listMember | filter:'!'+UserName">
+                        <option value="">Select member</option>
+                    </select>
+                </li>
+                <li>
+                    <span>Role</span>
+                    <select class="form-control bg-gray" data-ng-model="role.selectedRole">
+                        <option value="">Select Role</option>
+                        <option value="2">Admin</option>
+                        <option value="3">Friend</option>
+                    </select>
+                </li>
+                <li>
+                    <button class="btn btn-primary" data-ng-click="assignRoleToGroup(groupDetail.id)">Save</button>
+                    <button class="btn btn-primary" data-ng-click="toggleRole()">Cancel</button>
+                </li>
+            </ul>
+        </form>
+        <form class="invite-user gruop-bar-form" name="invite" data-ng-show="showInvite">
+            <ul>
+                <li>
+                    <span>User</span>
+                    <input type="text" class="form-control bg-gray" data-ng-change="searchUser()" data-ng-model="invite.userAddress"  data-ng-blur="clearList()"/>
+                    <div class="header-top-search-field-panel" data-ng-show="showUserList">
+                        <ul class="header-top-search-field">
+                            <li data-ng-repeat="user in userList">
+                                <a href="javascript:void"  data-ng-click="setUser(user.user_name,user.user_id)" data-ng-model="selected">
+                                    <div class="search-field-img">
+                                        <img data-ng-if="user.user_info.profile_image != ''"data-ng-src="{{user.user_info.profile_image}}" width="40" height="40">
+                                        <img data-ng-if="user.user_info.profile_image == ''"src="app/assets/images/dummy32X32.jpg" width="40" height="40">
+                                    </div>
+                                    <div class="search-filed-text-section">
+                                        <div class="search-field-name">{{user.user_info.first_name}} {{user.user_info.last_name}}</div>
+                                        
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <span>Role</span>
+                    <select data-ng-model="invite.role" class="form-control bg-gray">
+                        <option value="">Select Role</option>
+                        <option value="2">Admin</option>
+                        <option value="3">Friend</option>
+                    </select>
+                </li>
+                <li>
+                    <button class="btn btn-primary" data-ng-click="joinPrivateGroups(groupDetail.id)">Send</button>
+                    <button class="btn btn-primary" data-ng-click="toggleInvite()">Cancel</button>                        
+                </li>
+            </ul>
+        </form>
+
+
+        <!-- <div class="join-group-btn" data-ng-if="groupDetail.is_sent == 0">
+         <a data-ng-if="groupDetail.is_member == 0" class="btn btn-primary pull-right " id="groupjoing{{groupDetail.id}}" href="javascript:void(0);" data-ng-click="joinPublicGroups(groupDetail.id)"> Join Club</a>
+         </div> -->
+        <div class="group-details" ng-if ="aboutclub ==false && showRole == false && showInvite == false">
+            <div class="details-left">
+                <h2>DESCRIZIONE</h2>
+                <p>{{groupDetail.description}}</p>
+            </div>
+            <div class="details-right">
+                <h2>AMMINISTRATORI</h2>
+                <p data-ng-if="groupDetail.owner_info.first_name == ''">{{groupDetail.owner_info.email}}</p>
+                <p data-ng-if="groupDetail.owner_info.first_name != ''">{{groupDetail.owner_info.first_name}} {{groupDetail.owner_info.last_name}}</p>
+            </div>
+        </div>
+        <div class="group-details" ng-if="aboutclub == true">
+            <div class="details-left">
+                <h2>DESCRIZIONE</h2>
+                <p>{{groupDetail.description}}</p>
+            </div>
+            <div class="details-right">
+                <h2>AMMINISTRATORI</h2>
+                <p data-ng-if="groupDetail.owner_info.first_name == ''">{{groupDetail.owner_info.email}}</p>
+                <p data-ng-if="groupDetail.owner_info.first_name != ''">{{groupDetail.owner_info.first_name}} {{groupDetail.owner_info.last_name}}</p>
+            </div>
+        </div>
+    </div>
+    <!-- Edit Group form start from here -->
+    <article class="social-project" ng-show="editGroupStatus" >
+        <form class="create-group" ng-hide="createGroupToggleTag" data-ng-submit="updateGroup()">
+            <div class="login-error" style="text-align: center; color: red;" data-ng-show="createGroupError">{{createGroupErrorMsg}}</div>
+            <ul>
+                <li>
+                    <span>Club Name</span>
+                    <input type="text" data-ng-model="editGroupObject.title" class="form-control bg-gray" required />
+                </li>
+                <li>
+                    <span>Club Status</span>
+                    <select class="form-control bg-gray" ng-model="editGroupObject.groupTypeID" ng-options="groupType.groupTypeID as groupType.groupTypeTitle for groupType in groupTypes" required>
+                    </select>
+                </li>
+                <li>
+                    <span>Club Description</span>
+                    <textarea class="form-control bg-gray" data-ng-model="editGroupObject.description"required ></textarea>
+                </li>
+                <li>
+                    <div data-ng-show="createGroupStart" style="text-align: center;">
+                        <img src="app/assets/images/ajax-loader.gif" alt="loading..." />
+                    </div>
+                    <button type="submit" ng-hide="createGroupStart" class="btn btn-primary">Update Club <i class="fa fa-fw fa-plus"></i></button>
+                    <button ng-hide="createGroupStart" class="btn btn-primary" data-ng-click="editGroup()">Cancel <i class="fa fa-fw fa-times"></i></button>
+                </li>
+            </ul>
+        </form>
+    </article>
+</div>

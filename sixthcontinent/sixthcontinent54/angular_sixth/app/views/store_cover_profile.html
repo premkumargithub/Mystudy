@@ -1,0 +1,141 @@
+<div class="store-dp-section store-cover-dp-view store-cover-profile">
+                                <div class="store-dp-section-img">
+                                    <div id="invalidCoverImage" style="color:red; display:none;" data-ng-bind="invalidCoverImageMgs"></div>
+                                    <div ng-show="uploadStoreProfile" class="cover-loader"><img src="app/assets/images/proceed.gif" alt="uploading..." /></div>
+                                    <a ng-hide="coverLoadHide" data-ng-if="storeDetail.profile_image_original == '' "  style="background-image:url('app/assets/images/coverstore.jpg')">
+                                    </a> 
+                                    <a ng-hide="coverLoadHide" class="fancybox" data-ng-if="storeDetail.profile_image_original != ''  && mobileView == false" href="{{storeDetail.profile_image_original}}"  style="background-image:url({{storeDetail.cover_image_path}});  background-position: {{('-' + storeDetail.x_cord + 'px' )}} {{('-' + storeDetail.y_cord + 'px' )}}">
+                                    </a>
+                                    <a ng-hide="coverLoadHide" class="fancybox" data-ng-if="storeDetail.profile_image_original != ''  && mobileView == true" href="{{storeDetail.profile_image_original}}"  style="background-image:url({{storeDetail.cover_image_path}});   background-position: {{( '-' +  mobileShopX_Cord + 'px')}} {{('-' + mobileShopY_Cord + 'px')}}">
+                                    </a>
+                                    <!-- <div data-ng-show="showCanves"> -->
+                                     <image-crop data-width="800" data-height="300" data-shape="square" data-step="imageCropStep" data-result="imageCropResult" class="img-crop-btn" data-cover-load-hide="coverLoadHide" file="fileUrl"  image="image" get-file="getFile()" set-image-cordinate="setImageCordinate()" image-x-position="imageXPosition" image-y-position="imageYPosition" state="store" new-image="newImage"></image-crop>
+                                     <!-- </div> -->
+                                    <div class="store-dp-bottom-section clearfix">
+                                     <h3 class="title-left"><a href="javascript:void(0)" class="club_name"  title="{{storeDetail.name}}" data-ng-bind="storeDetail.name"></a></h3>
+  <div class="cover-links-outer">
+        <div class="cover-links store-Cover clearfix">
+                                     <div class="section-store-cover">
+                                     <div class="store-rating-section clearfix">
+        <ul class="cover-ratings">
+            <li ng-class="{active: (storeDetail.shop_rating | number:1) >=0.6, half: ((storeDetail.shop_rating | number:1) <= 0.5) && ((storeDetail.shop_rating | number:1) > 0)}"></li>
+            <li ng-class="{active: (storeDetail.shop_rating | number:1) >= 1.6,half: ((storeDetail.shop_rating | number:1) <= 1.5) && ((storeDetail.shop_rating | number:1) > 1.0)}"></li>
+            <li ng-class="{active: (storeDetail.shop_rating | number:1) >= 2.6, half: ((storeDetail.shop_rating | number:1) <= 2.5) && ((storeDetail.shop_rating | number:1) > 2.0)}"></li>
+            <li ng-class="{active: (storeDetail.shop_rating | number:1) >= 3.6, half: ((storeDetail.shop_rating | number:1) <= 3.5) && ((storeDetail.shop_rating | number:1) > 3.0)}"></li>
+            <li ng-class="{active: (storeDetail.shop_rating | number:1) >= 4.6, half: ((storeDetail.shop_rating | number:1) <= 4.5) && ((storeDetail.shop_rating | number:1) > 4.0)}"></li>
+        </ul>
+        <div class="store-rating-title">{{storeDetail.vote_count}} {{i18n.store.store_vote}}</div>
+        <div class="favoriteicon">
+          <a href="javascript:void(0)" ng-click="favouritestores(storeMainId, $event)" ng-class="{active: store.is_fav == 1}"></a>
+        </div>
+      </div>
+      <div class="store-turnover-section"> <span class="turnover-title">{{i18n.store.turnover}}:</span> <span class="turnover-count" title="{{storeDetail.revenue | currency:'&euro;'}}">{{storeDetail.revenue | currency:'&euro;'}}</span> </div>
+      <!--<div class="store-follow-section">Follow</div>-->
+                                     <div class="profile-cover-dp pro-cover-up" ng-show="storeDetail.owner_id == currentUser.id">
+                                    
+                                        <div class="profile-cover-cap" ng-hide="coverLoadHide">
+                                        <div class="add-cover-cap" data-ng-click="showCoverDropDown($event)" data-ng-blur="hideCoverDropDown()" ng-hide="hideUpdateCoverButton"><img src="app/assets/images/camera.png"><span ng-bind="i18n.store.update_shop_cover"></span></div>
+                                        <div class="profile-update-links">
+              <ul><li>
+                            <label for="file">
+                                                <div class="add-cover-pic" ng-if="storeDetail.profile_image_original == ''" data-ng-bind="i18n.store.add_cover_photo"></div>
+                                                <div class="add-cover-pic" ng-if="storeDetail.profile_image_original != ''" data-ng-bind="i18n.store.change_cover_photo"></div>
+                                            </label>
+                           <input type="file" ng-file-select="onFileSelect($files)" value="Add Cover Photo" /></li>
+                           <li  ng-if="storeDetail.profile_image_original != ''"><button ng-click="repositionImage()" > <span ng-bind="i18n.profile.reposition"></span></button></li>
+              <li></li>
+              </ul>
+                </div>
+                                            
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="follow-container" ng-if="storeDetail.owner_id != currentUser.id">
+                                      <div data-ng-if="followDisplay == 0" class="follow-button" data-ng-click="followshops()">{{i18n.followers.follow}}</div>
+                                      <div data-ng-if="followDisplay == 1" class="follow-button" data-ng-click="unfollowshops()">{{i18n.followers.un_follow}}</div>
+                                      <span class="loader" ng-show="displayLoader"><img src="app/assets/images/proceed.gif" /></span>
+                                    </div>
+                                    </div>
+                                </div></div></div>
+                                </div>
+    <div class="profile-dp-section profile-nav shope_page_title_name clearfix">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+           <a class="navbar-brand" href="#">Menu</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+        <ul class="store-invitations">
+        <li ng-class="{active: $route.current.activetab == 'view'}"><a href="#/shop/view/{{storeMainId}}" title="" data-ng-bind="i18n.store.shop_cover_wall"></a></li>
+        <li class="not-cap" ng-class="{active: $route.current.activetab == 'review'}"><a href="#/shop/reviews/{{storeMainId}}" title="" data-ng-bind="i18n.store.consumer_review"></a></li>   
+        <li ng-class="{active: $route.current.activetab == 'offer'}">
+            <a href="#/shop/offer/{{storeDetail.id}}" title="" data-ng-bind='i18n.store.shop_offer'></a>
+        </li>
+          <li ng-class="{active: $route.current.activetab == 'promotions'}" ng-if="storeDetail.owner_id == currentUser.id"><a href="#/shop/promotions/{{storeDetail.id}}" title="" ng-if="storeDetail.owner_id == currentUser.id" data-ng-bind="i18n.store.shop_comercial"></a></li> 
+          <li ng-class="{active: $route.current.activetab == 'wallet'}">
+                <a ng-if="storeDetail.owner_id == currentUser.id" href="#/shop/wallet/{{storeDetail.id}}" data-ng-bind="i18n.store.wallet.tab_title"></a></li>
+          <li class="not-cap" ng-if="storeDetail.owner_id == currentUser.id" ng-class="{active: $route.current.activetab == 'report'}"><a href="#/shop/report/{{storeDetail.id}}" title="" data-ng-bind="i18n.store.shop_report"></a></li> 
+        <div class="fl" ng-if="storeDetail.owner_id != currentUser.id"> 
+          <li ng-class="{active: $route.current.activetab == 'follower'}"><a href="#/shop/followers/{{storeDetail.id}}" data-ng-bind="i18n.store.shop_follow"></a></li>
+           <li ng-class="{active: $route.current.activetab == 'photo'}"><a href="#/album/shop/{{storeDetail.id}}" data-ng-bind="i18n.store.shop_photo"></a></li>
+           <li><a href="javascript:void(0)" title="" data-ng-bind="i18n.store.shop_gift"></a></li>
+         <li class="not-cap"><a href="javascript:void(0)" title="" data-ng-bind="i18n.store.shop_here"></a></li>
+          <li ng-if="storeDetail.owner_id == currentUser.id" ng-class="{active: $route.current.activetab == 'history'}"><a href="#/shop/history/{{storeMainId}}" data-ng-bind="i18n.store.history"></a></li>
+          <li ng-class="{active: $route.current.activetab == 'about'}"><a href="#/shop/about/{{storeMainId}}" title="" data-ng-bind="i18n.store.about"></a></li>
+          <!-- <li ng-class="{active: $route.current.activetab == 'transaction'}">
+                <a href="#/shop/transaction/{{storeDetail.id}}"  data-ng-bind='i18n.shop_transaction.transaction_tab_lbl'></a>
+                </li>
+                <li ng-class="{active: $route.current.activetab == 'transactionhistory'}">
+                <a href="#/shop/transaction/history/{{storeMainId}}" data-ng-bind="i18n.store"></a>
+              </li> -->
+        </div> 
+             <!--<li class="last" ng-if="storeDetail.owner_id == currentUser.id" ng-class="{active: $route.current.activetab == 'history' || $route.current.activetab == 'follower'"}><a class="parent" href="javascript:void(0)" data-ng-bind="i18n.followers.more"></a>-->
+             <li class="last" ng-class="{active: $route.current.activetab == 'about' || $route.current.activetab == 'photo' || $route.current.activetab == 'transaction' || $route.current.activetab == 'edit' || $route.current.activetab == 'follower' || $route.current.activetab == 'history'}" ng-if="storeDetail.owner_id == currentUser.id"><a class="parent" href="javascript:void(0)" data-ng-bind="i18n.store.about"></a>
+            <ul class="more_links">
+                <li ng-class="{active: $route.current.activetab == 'about'}"><a href="#/shop/about/{{storeMainId}}" title="" data-ng-bind="i18n.store.shop_profile"></a></li>
+                <li ng-class="{active: $route.current.activetab == 'photo'}"><a href="#/album/shop/{{storeDetail.id}}" data-ng-bind="i18n.store.shop_photo"></a></li>
+                <li ng-class="{active: $route.current.activetab == 'transaction'}" ng-if="storeDetail.owner_id == currentUser.id">
+                <a href="#/shop/transaction/{{storeDetail.id}}"  data-ng-bind='i18n.shop_transaction.transaction_tab_lbl'></a>
+                </li>               
+
+                  <li ng-class="{active: $route.current.activetab == 'edit'}"><a ng-if="storeDetail.owner_id == currentUser.id" href="#/shop/edit/{{storeMainId}}" data-ng-click="editStore();initializeWait()" title="Edit Shop" data-ng-bind="i18n.store.edit"></a></li>
+                <li ng-class="{active: $route.current.activetab == 'follower'}"><a href="#/shop/followers/{{storeDetail.id}}" data-ng-bind="i18n.store.shop_follow"></a></li> 
+                <li class="not-cap"><a href="javascript:void(0)" data-ng-bind="i18n.store.shop_who"></a></li>
+                <li ng-class="{active: $route.current.activetab == 'history'}" data-ng-click="storeSelection();"><a ng-if="storeDetail.owner_id == currentUser.id" href="javascript:void(0)" data-ng-bind="i18n.store.history"></a></li>
+                <!-- <li ng-class="{active: $route.current.activetab == 'transactionhistory'}">
+                <a href="#/shop/transaction/history/{{storeMainId}}" data-ng-bind="i18n.store.transaction_history"></a>
+              </li> -->
+              </ul>
+        </li>
+
+        </ul>                                        
+                                       <!-- <li class="member-store"><a href="javascript:void(0)" ng-click="showAllMembers()">{{i18n.store.members}}</a> <div class="invitations-number">{{storeDetail.members.length}}</div>
+                                        <ul class="invitations-lists" ng-show="showAllStoreMember">
+                                        <span class="arrow-up"></span>
+                                        <li ng-repeat="member in storeDetail.members">{{member.username}}</li>
+                                        </ul> 
+                                        </li>
+                                       -->
+        <ul class="store-invitations tabs-right">
+        <li class="tabs-right">
+            <a class="parent" href="javascript:void(0)" data-ng-bind="i18n.friends.shops"></a>
+             <ul class="more_links">
+                <li data-ng-if="isMyShop == 1"><a data-ng-href="#/myshops/1" data-ng-bind="i18n.store.shop_myshop"></a></li>  
+                <li>
+                <a href="#/shop" data-ng-bind="i18n.store.shop_viewall"></a></li>
+              </ul>
+        </li>
+        </ul>
+    </div>
+        </div>
+    </div>
+<script type="text/javascript">
+    $('.tab-hide').click(function() {
+        $('.navbar-header button').addClass('collapsed');
+        $('#navbar').removeClass('in').css('height', '0');
+    });
+</script> 

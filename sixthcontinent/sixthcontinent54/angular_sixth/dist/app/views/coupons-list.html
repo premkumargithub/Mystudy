@@ -1,0 +1,82 @@
+<div class="list-view coupon-offer" data-ng-hide="offerlodar">
+	<ul data-ng-show="iscomingSoon" class="clearfix commingSoon" >
+		<li data-ng-bind="i18n.store.wallet.coming_soon"></li>
+	</ul>	
+	<ul data-ng-hide="iscomingSoon">
+		<li class="clearfix" data-ng-repeat="offer in offerlistingObject">
+
+		<div class="view-left">
+			<div class="img-block">
+				<img  ng-src="app/assets/images/coupon-{{offer.value}}-small.png" alt="" titile=""/>
+				<div class="group-count">
+					<img data-ng-click="getfrndlist($event,offer.shop_id._id)"  src="app/assets/images/group-count.png" style="cursor:pointer;"/>
+					<span class="number" data-ng-show="frcount[$index] != undefined" data-ng-bind="frcount[$index].count"></span>
+					<span class="number" data-ng-show="frcount[$index] == undefined">0</span>
+					<ul class="friend-list">
+						<li class="first" data-ng-bind="i18n.offer_shoppingcard.frnd_list_head"></li>
+						<li class="loader" data-ng-show="frndlistloader">
+							<img src="app/assets/images/proceed.gif">
+						</li>
+						<li data-ng-show="nofndlist" class="text-red" data-ng-bind="i18n.profile.edit_profile.No_Record"></li>
+						<li data-ng-repeat="frnd in friendlist">
+							<a href="#/viewfriend/{{frnd.id}}" data-ng-bind="frnd.first_name + ' ' + frnd.last_name"></a>
+						</li>
+						<li class="last"><a href="#/shop/reviews/{{offer.shop_id._id}}" data-ng-bind="i18n.offer_shoppingcard.frnd_list_last"></a>
+					</ul>
+				</div>
+			</div>
+			<div class="offer-details-block">
+				<h2>
+					<a href="#/shop/view/{{offer.shop_id._id}}" data-ng-bind="offer.shop_id.name"></a>
+				</h2>
+				<div class="ratings-votes">
+					<span class="category" data-ng-bind="Cat = ConvertCategory('{{offer.shop_id.category_id._id}}')"></span>
+					<ul>
+						<li ng-class="{active: (offer.shop_id.average_anonymous_rating | number:1) >=0.6, half: ((offer.shop_id.average_anonymous_rating | number:1) <= 0.5) && ((offer.shop_id.average_anonymous_rating | number:1) > 0)}"></li><li ng-class="{active: (offer.shop_id.average_anonymous_rating | number:1) >= 1.6,half: ((offer.shop_id.average_anonymous_rating | number:1) <= 1.5) && ((offer.shop_id.average_anonymous_rating | number:1) > 1.0)}"></li><li ng-class="{active: (offer.shop_id.average_anonymous_rating | number:1) >= 2.6, half: ((offer.shop_id.average_anonymous_rating | number:1) <= 2.5) && ((offer.shop_id.average_anonymous_rating | number:1) > 2.0)}"></li><li ng-class="{active: (offer.shop_id.average_anonymous_rating | number:1) >= 3.6, half: ((offer.shop_id.average_anonymous_rating | number:1) <= 3.5) && ((offer.shop_id.average_anonymous_rating | number:1) > 3.0)}"></li><li ng-class="{active: (offer.shop_id.average_anonymous_rating | number:1) >= 4.6, half: ((offer.shop_id.average_anonymous_rating | number:1) <= 4.5) && ((offer.shop_id.average_anonymous_rating | number:1) > 4.0)}"></li>
+					</ul>
+					<span class="total-votes">
+						<span data-ng-bind="offer.shop_id.total_votes"></span> 
+						<span data-ng-bind="i18n.profile_post.votes"></span>
+					</span>
+				</div>
+				<div class="location-block" data-ng-bind="offer.shop_id.address_l2"></div>
+				<p data-ng-bind="offer.description | limitTo:135"></p>
+			</div>
+		</div>
+
+		<div class="view-right">
+			<div class="img-block">
+				<div>
+					<span style="background-image:url('app/assets/images/coupon-default-store.jpg')" data-ng-if="offer.shop_id.shop_thumbnail_img == undefined  || offer.shop_id.shop_thumbnail_img == ''"></span>
+					<span style="background-image:url('{{offer.shop_id.shop_thumbnail_img}}')" data-ng-if="offer.shop_id.shop_thumbnail_img != undefined && offer.shop_id.shop_thumbnail_img != ''"></span>
+				</div>	
+			</div>
+			<div class="details-block">
+				<div class="row-line head">
+					<span class="detail-label" data-ng-bind="i18n.offer_shoppingcard.coupons_value"></span>
+					<span class="value"><span data-ng-bind="offer.value | currency:'&euro;'"></span></span>
+				</div>
+				<div class="row-line">
+					<span class="detail-label" data-ng-bind="i18n.offer_shoppingcard.coupon_use_amt"></span>
+					<span class="value"><span data-ng-bind="offer.discount + '%'"></span></span>
+				</div>
+				<div class="row-line">
+					<span class="detail-label" data-ng-bind="i18n.offer_shoppingcard.coupon_expdate"></span>
+					<span class="value" data-ng-bind="offer.end_date | date : 'dd/MM/yyyy'"></span>
+				</div>
+				<div class="add-portfolio">
+					<a href="javascript:void(0)" data-ng-click="buyCoupon($index,offer._id);" data-ng-bind="i18n.offer_shoppingcard.coupons_add" data-ng-class="(buyCouponbtn{{$index}} === 1 ? 'active':'')"></a>
+					<div class="coupon-buy-loader" data-ng-show="buyCouponloder{{$index}}">
+						<img src="app/assets/images/proceed.gif" />
+					</div>
+				</div>
+			</div>
+			<div class="coupon-message">
+				<span class="sucess-mess" data-ng-show="buyCouponSuccess{{$index}}" data-ng-bind="i18n.offer_shoppingcard.buy_success"></span>
+				<span class="sucess-mess" data-ng-show="buyCouponalready{{$index}}" data-ng-bind="i18n.offer_shoppingcard.buy_already"></span>
+				<span class="error-mess"  data-ng-show="buyCouponErr{{$index}}" data-ng-bind="i18n.offer_shoppingcard.buy_error"></span>
+			</div>
+		</div>
+		</li>
+	</ul>
+</div>

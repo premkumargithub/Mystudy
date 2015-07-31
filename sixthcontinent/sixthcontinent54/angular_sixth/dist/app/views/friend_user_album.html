@@ -1,0 +1,82 @@
+<div class="col-2-layout">
+    <!-- Content START -->
+    <div id="content" class="container-right-fluid-page" data-ng-controller="FriendProfile">
+        <!-- <div class="layout-app">  -->
+        <div class="innerAll">
+            <div class="row">
+                <div class="col-lg-8 col-md-8">
+                    <div class="inner-container">
+                        <friend-Cover-Profile-Panel></friend-Cover-Profile-Panel>
+
+                        <div class="friends-list-container" ng-controller="FriendAlbumController">
+                            <!--<div class="friend-list-top clearfix">
+                            <span class="albm-heading"><span class="album-mg" data-ng-bind="i18n.album.photos"><img title="" alt="" src="app/assets/images/album.png"></span></span>
+                                <!-- <div class="friend-list-title">
+                                    <span><img  src="app/assets/images/album.png" alt="" titile=""/></span> 
+                                    {{i18n.album.albums}} 
+                                </div> 
+                                
+                            </div>-->
+                            <div class="albm-tab-button"><a class="album-online" href data-ng-init = "album=true" data-ng-click="album=true;photo_of_you=false" data-ng-class="{active :album===true}" data-ng-bind="i18n.album.albums">
+                                </a>
+                                <a class="album-online" href data-ng-click="album=false;photo_of_you=true" data-ng-class="{active :photo_of_you===true}">
+                                    <span class="" data-ng-if="tagged_photo.length>0" data-ng-bind="i18n.album.photos_of_you + ' ' + friendProfile.user_info.first_name + ' ' + friendProfile.user_info.last_name "></span>
+                                </a></div>
+                            <div data-ng-show ="album" class="album-option-container albumContainer" infinite-scroll="loadMore()" infinite-scroll-distance="3">
+                                <div class="ng-hide" style="text-align:center" ng-show="albloader"><img titile="" alt="" src="app/assets/images/ajax-loader.gif"></div>
+                                <div class="albumHeading" ng-if="listAlbum.length"><span><img title="" alt="" src="app/assets/images/album-heading-img.png"/><span data-ng-bind="i18n.friends.photo_albums"></span></span></div>
+                                <ul class="album-option" ng-if="listAlbum.length">
+                                    <li data-ng-repeat="item in listAlbum">
+                                        <a href="javascript:void(0)"> 
+                                            <div ng-if="!item.featured_media_path.length" class="album-option-img" ng-click="redirectUrl(item.id, item.album_name ,friendProfile.user_info.id)">
+                                                <span style="background-image:url('app/assets/images/album-empty.jpg');"></span>
+                                            </div> 
+                                             <div ng-if="item.featured_media_path.length" class="album-option-img" ng-click="redirectUrl(item.id, item.album_name ,friendProfile.user_info.id)">
+                                                <span style="background-image:url('{{item.featured_media_path}}');"></span>
+                                             
+                                             </div>
+                                            <div class="album-option-heading"><span ng-click="redirectUrl(item.id, item.album_name ,friendProfile.user_info.id)" data-ng-bind="(item.album_name).length>22?((item.album_name | limitTo: 19)+'...'):(item.album_name)"></span>
+                                            </div>
+
+                                          <div class="album-option-sub" ng-click="redirectUrl(item.id, item.album_name,friendProfile.user_info.id)" data-ng-bind="item.media_in_album + ' ' + i18n.album.photos"></div>
+                                            <div class="album-imgae-ratings">
+                                                <div class="album-imgage-ratings-inner" ng-controller="rateAlbum">
+                                                    <ul class="">
+                                                        <li data-ng-repeat="rating in averageRating(item.avg_rate) track by $index">
+                                                            <span ng-class="item.avg_rate % 1 == 0 ? 'votes-avg' : ($last ? (item.avg_rate % 1 > 0.5 ? 'votes-avg' : 'half-avg' ):'votes-avg')"></span>
+                                                        </li><li ng-repeat="blank in blankStar(item.avg_rate) track by $index">
+                                                            <span class="votes-blank"/>
+                                                        </li>
+                                                    </ul>
+                                                    <span class="album-image-votes">{{item.no_of_votes}} <a href  data-ng-click="findPeopleRate(item.id,'user_profile_album', item.no_of_votes)"> <span data-ng-if="item.no_of_votes > 1" data-ng-bind="i18n.profile_post.votes"></span><span data-ng-if="item.no_of_votes <= 1" data-ng-bind="i18n.profile_post.vote"></span></a></span>
+                                                </div>
+                                            </div>
+
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="ng-hide" style="text-align:center" ng-show="listload"><img titile="" alt="" src="app/assets/images/ajax-loader.gif"></div>
+                                <div ng-if="!listAlbum.length" class="" ng-show="noAlbums" data-ng-bind="i18n.friends.no_album">					
+                                </div>
+                            </div>
+                            <div class="album-option-container" data-ng-if = "tagged_photo_available && photo_of_you">
+                                <ul class="album-option">
+                                    <li data-ng-repeat="photo in tagged_photo">
+                                        <div class= "album-option-img">
+                                            <a class="view-album-img" style="background-image:url('{{photo.thumb_path}}')" data-ng-click= "createModal($index, tagged_photo, tagged_photo.length, null ,'friend_tagged_photos')" all-img-modal></a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4">
+                    <profile-Right-Panel></profile-Right-Panel>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>

@@ -1,0 +1,819 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for ./app/js/services/group.js</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../prettify.css">
+    <link rel="stylesheet" href="../../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">./app/js/services/group.js</span></h1>
+    <h2>
+        Statements: <span class="metric">2.29% <small>(3 / 131)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">100% <small>(0 / 0)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">0% <small>(0 / 79)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">2.29% <small>(3 / 131)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> &#187; <a href="index.html">./app/js/services/</a> &#187; group.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259</td><td class="line-coverage"><span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">app.service('GroupService',['$http', '$timeout', <span class="fstat-no" title="function not covered" >function ($http, $timeout) {</span>
+//functions to call the service from the third party api
+<span class="cstat-no" title="statement not covered" >    return {</span>
+        getUserGroups : <span class="fstat-no" title="function not covered" >function(formData, callback) { </span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.getUserGroups+"?access_token="+APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >            var opt = formData;</span>
+<span class="cstat-no" title="statement not covered" >            doPost($http, url, opt, <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+            });
+        },
+        getInviteGroups : <span class="fstat-no" title="function not covered" >function(formData, callback) { </span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.getInviteGroups+"?access_token="+APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >            var opt = formData;</span>
+<span class="cstat-no" title="statement not covered" >            doPost($http, url, opt, <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+            });
+        },
+        createGroup : <span class="fstat-no" title="function not covered" >function(opt, file, callback) {</span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.createGroup+"?access_token="+APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >            doPostWithFile($http, url, opt, file, <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+            });
+        },
+        updateGroup : <span class="fstat-no" title="function not covered" >function(opt, file, callback) {</span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.updateGroup+"?access_token="+APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >            doPostWithFile($http, url, opt, file, <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+            });
+        },
+        deleteGroup : <span class="fstat-no" title="function not covered" >function(formData, callback) {</span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.deleteGroup+"?access_token="+APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >            var opt = formData;</span>
+<span class="cstat-no" title="statement not covered" >            doPost($http, url, opt, <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+            });
+        },
+        getGroupDetail : <span class="fstat-no" title="function not covered" >function(opt, callback) {</span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.getGroupDetail+"?access_token="+APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >            doPost($http, url, opt, <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+            });
+        },
+        searchGroup : <span class="fstat-no" title="function not covered" >function(formData, callback) {</span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.searchGroup+"?access_token="+APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >            var opt = formData;</span>
+<span class="cstat-no" title="statement not covered" >            var response = doPost($http, url, opt, <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+            });
+        },
+        getAllClubNotifications : <span class="fstat-no" title="function not covered" >function(opt, callback) {</span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.getPublicGroupNotification+"?access_token="+APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >            doPost($http, url, opt, <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+            });
+        },
+        responseClubNotification : <span class="fstat-no" title="function not covered" >function(opt, callback) {</span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.responseClubNotification+"?access_token="+APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >            doPost($http, url, opt, <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+            });
+        },
+        getGroupNotifications : <span class="fstat-no" title="function not covered" >function(opt,callback) {</span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.getSpecificClubNotication+"?access_token="+APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >            var response = doPost($http, url, opt, <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+            });
+        },
+        responseGroupJoin : <span class="fstat-no" title="function not covered" >function(formData, callback) {</span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.responseGroupJoin+"?access_token="+APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >            var opt = formData;</span>
+<span class="cstat-no" title="statement not covered" >            doPost($http, url, opt, <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+             });
+        },
+        assignRoleToGroup : <span class="fstat-no" title="function not covered" >function(formData, callback) {</span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.assignRoleToGroup+"?access_token="+APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >            var opt = formData;</span>
+<span class="cstat-no" title="statement not covered" >             doPost($http, url, opt, <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+            });
+        },
+        joinPublicGroup : <span class="fstat-no" title="function not covered" >function(formData, callback) {</span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.joinPublicGroup+"?access_token="+APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >            var opt = formData;</span>
+<span class="cstat-no" title="statement not covered" >             doPost($http, url, opt, <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+            });
+        },
+        joinPrivateGroups : <span class="fstat-no" title="function not covered" >function(formData, callback) {</span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.joinPrivateGroups+"?access_token="+APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >            var opt = formData;</span>
+<span class="cstat-no" title="statement not covered" >             doPost($http, url, opt, <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+            });
+        },
+        /** Club Album service */
+        createClubAlbum: <span class="fstat-no" title="function not covered" >function(opt, callback) {</span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.createClubAlbum + "?access_token=" + APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >             doPost($http, url, opt, <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+            });
+        },
+        getClubAlbum: <span class="fstat-no" title="function not covered" >function(opt, callback) {</span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.getClubAlbums + "?access_token=" + APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >             doPost($http, url, opt, <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+            });
+        },
+        deleteClubAlbum: <span class="fstat-no" title="function not covered" >function(opt, callback) {</span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.deleteClubAlbum + "?access_token=" + APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >             doPost($http, url, opt, <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+            });
+        },
+        deleteClubAlbumMedia: <span class="fstat-no" title="function not covered" >function(opt, callback) {</span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.deleteClubAlbumMedia + "?access_token=" + APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >             doPost($http, url, opt, <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+            });
+        },
+        viewClubAlbum: <span class="fstat-no" title="function not covered" >function(opt, callback) {</span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.viewClubAlbum + "?access_token=" + APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >             doPost($http, url, opt, <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+            });
+        },
+        uploadMediaInClubAlbumFinal: <span class="fstat-no" title="function not covered" >function(opt, callback) {</span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.uploadMediaInClubAlbum + "?access_token=" + APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >             doPost($http, url, opt, <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+            });
+        },
+        uploadMediaInClubAlbum: <span class="fstat-no" title="function not covered" >function(opt, file, callback) {</span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.uploadMediaInClubAlbum + "?access_token=" + APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >             doPostWithClubAlbumMedia($http, url, opt, file, <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+            });
+        },
+         setClubProfileImage: <span class="fstat-no" title="function not covered" >function(opt, callback){</span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.setClubProfileImage + "?access_token=" + APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >            doPost($http, url, opt, <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+            });
+        },
+         uploadClubCover: <span class="fstat-no" title="function not covered" >function(opt, file, callback){</span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.uploadClubCover + "?access_token=" + APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >            doPostWithFile($http, url, opt, file, <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+            });
+        },
+        unjoinclubs : <span class="fstat-no" title="function not covered" >function(opt, callback) {</span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.unjoinclubs+"?access_token="+APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >            doPost($http, url, opt, <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+            });
+        },
+        deleteClubMember : <span class="fstat-no" title="function not covered" >function(opt, callback) {</span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.deleteClubMember+"?access_token="+APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >            doPost($http, url, opt, <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+            });
+        },
+        getUserFriendGroups : <span class="fstat-no" title="function not covered" >function(formData, callback) { </span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.getUserFriendGroups+"?access_token="+APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >            var opt = formData;</span>
+<span class="cstat-no" title="statement not covered" >            doPost($http, url, opt, <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+            });
+        },
+        cancelGroup : <span class="fstat-no" title="function not covered" >function(formData, callback) { </span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.cancelinvitationlink+"?access_token="+APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >            var opt = formData;</span>
+<span class="cstat-no" title="statement not covered" >            doPost($http, url, opt, <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+            });
+        },
+        getClubPostDetail : <span class="fstat-no" title="function not covered" >function(formData, callback) { </span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.getClubPostDetail+"?access_token="+APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >            var opt = formData;</span>
+<span class="cstat-no" title="statement not covered" >            doPost($http, url, opt, <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+            });
+        }
+    };
+}]);
+	
+app.service('PostService',['$http', <span class="fstat-no" title="function not covered" >function($http) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return {</span>
+        createPost : <span class="fstat-no" title="function not covered" >function(opt, callback) {</span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.createGroupPost+"?access_token="+APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >            doPost($http, url, opt, <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+            });
+        },
+        listPost : <span class="fstat-no" title="function not covered" >function(opt, callback) {</span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.listGroupPosts+"?access_token="+APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >            doPost($http, url, opt, <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+            });
+        },
+        updatePost : <span class="fstat-no" title="function not covered" >function(opt, file, callback) {</span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.updateGroupPost+"?access_token="+APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >            doPostPostOnGroupWithFile($http, url, opt, file, <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+            });
+        },
+        deletePost : <span class="fstat-no" title="function not covered" >function(opt, callback) {</span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.deleteGroupPost+"?access_token="+APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >            doPost($http, url, opt, <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+            });
+        },
+        deletePostMedia : <span class="fstat-no" title="function not covered" >function(opt, callback) {</span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.deleteGroupPostMedia+"?access_token="+APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >            doPost($http, url, opt, <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+            });
+        }
+    }
+}]);
+&nbsp;
+&nbsp;
+app.service('CommentService',['$http', <span class="fstat-no" title="function not covered" >function($http) {</span>
+    //function to call the third party api
+<span class="cstat-no" title="statement not covered" >    return {</span>
+        createCommentWithImage : <span class="fstat-no" title="function not covered" >function(opt, file, callback) {</span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.createGroupComment+"?access_token="+APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >            doPostCommentOnGroupWithFile($http, url, opt, file, <span class="fstat-no" title="function not covered" >function(data){</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+            });
+        },
+        createComment : <span class="fstat-no" title="function not covered" >function(opt, callback) {</span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.createGroupComment+"?access_token="+APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >            doPost($http, url, opt, <span class="fstat-no" title="function not covered" >function(data){</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+            });
+        },
+        listComment : <span class="fstat-no" title="function not covered" >function(opt, callback) {</span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.listGroupComments+"?access_token="+APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >            doPost($http, url, opt, <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+            });
+        },
+        updateComment : <span class="fstat-no" title="function not covered" >function(opt, file, callback) {</span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.updateGroupComment+"?access_token="+APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >            doPostCommentOnGroupWithFile($http, url, opt, file, <span class="fstat-no" title="function not covered" >function(data){</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+            });
+        },
+        deleteComment : <span class="fstat-no" title="function not covered" >function(opt, callback) {</span>
+<span class="cstat-no" title="statement not covered" >            var url = APP.service.deleteGroupComment+"?access_token="+APP.accessToken;</span>
+<span class="cstat-no" title="statement not covered" >            doPost($http, url, opt, <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >                callback(data);</span>
+            });
+        }
+    };
+}]);
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Mar 27 2015 19:15:18 GMT+0530 (IST)</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

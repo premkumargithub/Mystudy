@@ -1,0 +1,166 @@
+<div class="col-2-layout">
+	<!-- Content START -->
+	<div id="content" class="container-right-fluid-page">
+		<!-- <div class="layout-app/">  -->
+		<div class="innerAll">
+			<div class="row">
+
+				<div class="col-lg-8 col-md-8">
+
+				<div class="inner-container">
+					<storeprofile></storeprofile> 
+					<!--album section left -->
+					<div class="album-section-left">
+						<!--album section left conntainer -->
+						<div class="album-section-container-top">
+							<div class="album-online">
+								<span class="album-status"><img titile="" alt="" src="app/assets/images/album.png"></span>
+								<span data-ng-bind="i18n.store.shop_albums"></span>
+							</div>
+							<ul class="album-action-message" ng-if="storeDetail.owner_id == currentUser.id">
+								<li class="button-default">
+									<a href="javascript:void(0)" ng-click="showAlbumForm();" data-ng-bind="i18n.store.create_album"></a>
+								</li>
+								<li class="last button-default">
+									<a href="#/shop/view/{{storeId}}" data-ng-bind="i18n.store.back_to_shop"></a>
+								</li>
+							</ul>
+						</div>
+						<!--album section left conntainer -->
+						<!--Create Album Form-->
+						<div class="msg-container">
+						<div class="text-success text-center" data-ng-bind="albumResponse"></div>
+						<div class="text-red text-center" ng-show="albumErrResponse" data-ng-bind="albumErrorResponse"></div>
+						</div>
+						<div class="create-album ng-hide" ng-show="myValue">
+							<form name="storeAlbumForm" ng-submit="createstorealbums(storeAlbumForm.$valid);" novalidate>
+								<ul>
+									<li>
+										<div class="createclub-label">
+										<span data-ng-bind="i18n.store.album.name"></span>
+										</div>
+										<div class="createclub-input">
+										<input id="albumname" name="albumname" type="text" class="form-control bg-gray" ng-model="user.albumname" ng-class="{ 'has-error' : (storeAlbumForm.albumname.$dirty&&storeAlbumForm.albumname.$invalid&&storeAlbumForm.albumname.$error.required ) || (shopAlbumSubmitted && !user.albumname) }" required/>
+										<div ng-show="(storeAlbumForm.albumname.$dirty&&storeAlbumForm.albumname.$invalid&&storeAlbumForm.albumname.$error.required ) || (shopAlbumSubmitted && !user.albumname)" class="text-red" data-ng-bind="i18n.album.enter_album_name"></div>
+										</div>
+									</li>
+									<li>
+										<div class="createclub-label">
+										<span data-ng-bind="i18n.store.album.description"></span>
+										</div>
+										<div class="createclub-input">
+										<textarea id="albumdesc" name="albumdesc" class="form-control bg-gray" ng-model="user.albumdesc" ng-class="{ 'has-error' : (storeAlbumForm.albumdesc.$dirty&&storeAlbumForm.albumdesc.$invalid&&storeAlbumForm.albumdesc.$error.required ) || (shopAlbumSubmitted && !user.albumdesc) }" required></textarea>
+										<div ng-show="(storeAlbumForm.albumdesc.$dirty&&storeAlbumForm.albumdesc.$invalid&&storeAlbumForm.albumdesc.$error.required ) || (shopAlbumSubmitted && !user.albumdesc)" class="text-red" data-ng-bind="i18n.album.enter_album_desc"></div>
+										</div>
+									</li>
+									<li>
+										<button ng-hide="createAlbumLoader" type="submit" class="btn btn-primary">
+											<span class="spanProfile" data-ng-bind="i18n.album.album_create"></span>
+											<i class="fa fa-fw fa-plus"></i>
+										</button>
+										<a ng-hide="createAlbumLoader" class="btn btn-primary" ng-click="closeForm()">
+											<span class="spanProfile" data-ng-bind="i18n.store.album.cancel"></span>
+											<i class="fa fa-fw fa-times"></i>
+										</a>
+										<div style="text-align:center" ng-show="createAlbumLoader"><img titile="" alt="" src="app/assets/images/proceed.gif">
+										</div>
+									</li>
+								</ul>
+							</form>
+						</div>
+
+						<div class="create-album" ng-show="editAlbumForm">
+						<form name="shopEditAlbumForm" ng-submit="updateAlbum();" novalidate>
+							<ul>
+								<li>
+									<div class="createclub-label">
+									<span data-ng-bind="i18n.album.album_name"></span>
+									</div>
+									<div class="createclub-input">
+									<input id="editalbumname" name="editalbumname" type="text" class="form-control bg-gray" ng-model="editAlbumData.album_name" ng-class="{ 'has-error' : (shopEditAlbumForm.editalbumname.$dirty&&shopEditAlbumForm.editalbumname.$invalid&&shopEditAlbumForm.editalbumname.$error.required ) || (shopAlbumSubmitted && !editAlbumData.album_name) }" required />
+									<div ng-show="(shopEditAlbumForm.editalbumname.$dirty&&shopEditAlbumForm.editalbumname.$invalid&&shopEditAlbumForm.editalbumname.$error.required ) || (shopAlbumSubmitted && !editAlbumData.album_name)" class="text-red" data-ng-bind="i18n.album.enter_album_name"></div>
+									</div>
+								</li>
+								<li>
+									<div class="createclub-label">
+									<span data-ng-bind="i18n.album.album_desc"></span>
+									</div>
+									<div class="createclub-input">
+									<textarea id="editalbumdesc" name="editalbumdesc" class="form-control bg-gray" ng-model="editAlbumData.album_description" ng-class="{ 'has-error' : (shopEditAlbumForm.editalbumdesc.$dirty&&shopEditAlbumForm.editalbumdesc.$invalid&&shopEditAlbumForm.editalbumdesc.$error.required ) || (shopAlbumSubmitted && !editAlbumData.album_description) }" required></textarea>
+									<div ng-show="(shopEditAlbumForm.editalbumdesc.$dirty&&shopEditAlbumForm.editalbumdesc.$invalid&&shopEditAlbumForm.editalbumdesc.$error.required ) || (shopAlbumSubmitted && !editAlbumData.album_description)" class="text-red" data-ng-bind="i18n.album.enter_album_desc"></div>
+									</div>
+								</li>
+								<li>
+									<img ng-show="updateUserAlbum" alt="" src="app/assets/images/proceed.gif">
+									<button ng-hide="updateUserAlbum" type="submit" class="btn btn-primary">
+										<span class="spanProfile" data-ng-bind="i18n.album.album_update"></span>
+										<i class="fa fa-fw fa-plus"></i>
+									</button>
+									<a ng-hide="updateUserAlbum" class="btn btn-primary" ng-click="closeEditForm()">
+										<span class="spanProfile" data-ng-bind="i18n.album.album_cancel"></span> 
+										<i class="fa fa-fw fa-times"></i>
+									</a>
+								</li>
+							</ul>
+						</form>
+						</div>
+						<!--End Create Album Form-->
+						<div class="album-option-container albumContainer" infinite-scroll="loadMore()" infinite-scroll-distance="3">
+							<div class="ng-hide" style="text-align:center" ng-show="albloader"><img titile="" alt="" src="app/assets/images/proceed.gif"></div>
+							<div class="albumHeading" ng-if="listAlbum.length"><span><img title="" alt="" src="app/assets/images/album-heading-img.png"/><span data-ng-bind="i18n.friends.photo_albums"></span></span></div>
+							<ul class="album-option" ng-if="listAlbum.length">
+
+								<!--album container-->
+								<li data-ng-repeat="item in listAlbum">
+									<a href="javascript:void(0)">
+										<div ng-if="!item.album_featured_image" class="album-option-img" ng-click="redirectUrl(item.id, item.album_name)">
+										<span style="background-image:url('app/assets/images/album-empty.jpg');"></span>
+											<!--<img titile="" alt="" src="app/assets/images/album-empty.jpg">--></div>
+										<div ng-if="item.album_featured_image" class="album-option-img" ng-click="redirectUrl(item.id, item.album_name)">
+											<span style="background-image:url('{{item.album_featured_image}}');"></span>
+
+											<!--<img titile="" alt="" src="" width="158" height="128">--></div>
+										<div class="album-option-heading" title="{{item.album_name}}"><span class="albm-heading" ng-click="redirectUrl(item.id, item.album_name)">{{(item.album_name).length>17?((item.album_name | limitTo: 14)+'...'):(item.album_name)}}</span>
+											<div class="albmoption">
+											<span ng-if="storeDetail.owner_id == currentUser.id" class="album-option-delete" ng-click="editAlbum(item.album_name, item.album_description, item.id)" title="{{i18n.album.edit}}">
+											<i class="fa fa-pencil-square-o"></i>
+											</span>
+											<span ng-if="storeDetail.owner_id == currentUser.id" title="{{i18n.album.remove}}" class="album-option-delete" ng-click="confirmClick() && deletestorealbums(item.id)" confirm-click><i class="fa fa-fw fa-times"></i></span>
+										</div>
+										</div>
+
+										<div class="album-option-sub" ng-click="redirectUrl(item.id, item.album_name)" data-ng-bind="item.media_in_album + ' ' + i18n.store.album.photos"></div>
+										 <div class="album-imgae-ratings">
+                                    <div class="album-imgage-ratings-inner" ng-controller="rateAlbum">
+                                        <ul class="">
+                                            <li data-ng-repeat="rating in averageRating(item.avg_rate) track by $index">
+                                              <span ng-class="item.avg_rate % 1 == 0 ? 'votes-avg' : ($last ? (item.avg_rate % 1 > 0.5 ? 'votes-avg' : 'half-avg' ):'votes-avg')"></span>
+                                            </li><li ng-repeat="blank in blankStar(item.avg_rate) track by $index">
+                                                <span class="votes-blank"/>
+                                            </li>
+                                        </ul>
+                                        <span class="album-image-votes">{{item.no_of_votes}} <a href  data-ng-click="findPeopleRate((item.id).toString(),'store_album', item.no_of_votes)"> 
+                                        <span data-ng-if="item.no_of_votes > 1" data-ng-bind="i18n.profile_post.votes"></span><span data-ng-if="item.no_of_votes <= 1" data-ng-bind="i18n.profile_post.vote"></span> 
+
+                                         </a></span></div>
+                                </div>
+									</a>
+								</li>								
+								<!--album container-->
+							</ul>
+							<div class="ng-hide" style="text-align:center" ng-show="listload"><img titile="" alt="" src="app/assets/images/proceed.gif"></div>
+							<div ng-if="!listAlbum.length" ng-show="noResult" class="album-option-mess album-blank" data-ng-bind="i18n.friends.no_album"></div>
+						</div>
+					</div>
+					<!--album section left -->
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-4">
+					<profile-right-panel></profile-right-panel>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- // Content END -->
+<div class="clearfix"></div>
+</div>

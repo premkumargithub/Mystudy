@@ -1,0 +1,204 @@
+<div class="col-2-layout">
+    <div id="content" class="container-right-fluid-page">
+        <div class="innerAll">
+            <div class="row">
+                <div class="col-lg-8 col-md-8">
+                    <div class="inner-container club-inner-section">
+                        <!-- <user-Cover-Profile-Panel></user-Cover-Profile-Panel> -->
+                        <article class="social-project social-map social-shop-map store-grid">
+                            <div class="social-heading clearfix">
+                                <span class="clubtitle1" data-ng-bind="i18n.store.title"></span>
+                                <!--ng-if="storeListObject.length < 1"-->
+                                <a href="#/shop_affiliation/{{currentUser.id}}/4" class="btn" data-ng-bind="i18n.header_menu.shops">{{}}</a>
+                                <!-- <a class="btn btn-primary create-group-link" href="#shop/create">{{i18n.store.create_shop}}</a> -->
+                            </div>
+                            <div class="map-container">
+                                <div class="map-loader ng-hide" ng-show="maploader"><img src="app/assets/images/proceed.gif"/></div>
+                                <div class="shop-map" style="display:none">
+                                    <!-- Search by name stats -->
+                                    <div class="shop-search-container clearfix">
+                                        <ul class="sel">
+                                            <li class="con" ng-repeat="selItem in itemsSelectedArr"><span data-ng-bind="selItem"></span> <a href="javascript:void(0);" ng-click="itemSelectedDelet(selItem);">X</a>
+                                            </li>
+                                            <li>
+                                                <input id="mapstoresearch" type="text" ng-model="searchText" ngsearchtext="searchMe(searchText);" ng-blur="hideSearch()" placeholder="{{i18n.store.looking_for}}" />
+                                            </li>
+                                            <li>
+                                                <div class="autocompletepanel" ng-show="itemsDisplaPanel">
+                                                    <div class="search-shop-list mainshop" ng-repeat="item in itemsArr" tabindex="{{$index}}"> <a href="javascript:void(0);" ng-click="itemSelectedData(item);" data-ng-bind="item"></a>
+                                                    </div>
+                                                </div>
+                                                <div class="autocompletepanel" ng-show="itemsDisplaPanelNone">
+                                                    <div class="search-shop-list" data-ng-bind="i18n.store.result_not_found">                                  </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <ul class="sel searchplace">
+                                            <li>
+                                                <input ng-model="addressFilter" id="pac-input" class="controls" type="text" placeholder="{{i18n.store.position_insert}}">
+                                            </li>
+                                        </ul>
+                                    </div>   
+                                    <!-- Search by name ends -->
+                                    <div class="map-filter-title" data-ng-bind="i18n.store.filter"></div>
+                                    <!-- Filter Section starts -->
+                                    <div class="map-filter clearfix" style="display:block">
+                                        <div class="input-container select-box {{catebg}}">
+                                            <select class="form-control first-input first-input" ng-model="store.storecategory" ng-options="category.category_name for category in categories track by category.id" data-ng-change="paginate();getSubCategory()">
+                                                <option selected="selected" value="">{{i18n.shop_affiliation.detail.category}}</option>             
+                                            </select>
+                                            <div class="filter-list" ng-show="filterresult">
+                                            </div>
+                                        </div>
+                                        <div class="input-container select-box {{subCateBg}}">
+                                            <select class="form-control second-input" ng-model="store.subcategory" data-ng-options="subcategory.category_name for subcategory in subcategories track by subcategory.id" ng-disabled="enableSubcategory" ng-change="paginate(); shopSubCatogory()">
+                                                <option selected="selected" value="">{{i18n.shop_affiliation.detail.sub_category}}</option>
+                                            </select>
+                                            <div class="filter-list" ng-show="filterresult">
+                                            </div>
+                                        </div>
+										<div class="clr hideclr"></div>
+                                        <div class="input-container">
+                                            <button ng-class="cardAvailable ? 'active' : 'active-disabled'" type="button" class="btn form-control" ng-click="paginate();toggleCardAvailable()" data-ng-bind="i18n.store.momosy_card_available"></button>
+                                            <div class="filter-list" ng-show="filterresult">
+                                            </div>
+                                        </div>
+                                        <div class="input-container">
+                                            <button ng-class="favAvailable ? 'active' : 'active-disabled'" type="button" class="btn form-control" ng-click="paginate();toggleShopFav()" data-ng-bind="i18n.store.shop_fav"></button>
+                                            <div class="filter-list" ng-show="filterresult">
+                                            </div>
+                                        </div>
+                                        <div class="input-container">
+                                            <a class="voti {{myStoreActive}} form-control" href="javascript:void(0)" ng-click="paginate();myStoreList('myStore', itemsPerPage)" data-ng-bind="i18n.store.shop_myshop"></a>
+                                            <div class="filter-list" ng-show="filterresult">
+                                            </div>
+                                        </div>
+                                        <div class="input-container">
+                                            <button type="button" class="btn view-all {{viewAllActive}}" ng-click="paginate();toggleFilterFalse()" data-ng-bind="i18n.store.shop_viewall"></button>
+                                            <div class="filter-list" ng-show="filterresult">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Filter section ends -->
+                                    <div class="left-section" id="results">
+                                    </div>
+
+                                    <div class="map-canvas-container"><div id="map-canvas"></div></div>
+                                </div>
+                            </div>
+                            <div class="club-pagi-wrapper clearfix">
+                            <div class="wrap-select">
+                                <!--<ul class="for-resp">
+                                <li><a class="voti {{viewAllActive}}" href="javascript:void(0)" ng-click="toggleFilterFalse()">{{i18n.store.view_all}}</a></li>
+                                <li><a class="voti {{myStoreActive}}" href="javascript:void(0)" ng-click="myStoreList('myStore', itemsPerPage)">{{i18n.store.my_shop}}</a></li>
+                                </ul>-->
+                                <div class="order-title">{{i18n.store.shop_orderby}}</div>
+                                <div class="orderby">
+                                    <span class="credit"><input type="radio" ng-model="orderValue" value="1" ng-change="orderBy();"> {{i18n.store.order_credit}}</span>
+                                    <span class="rate"><input type="radio" ng-model="orderValue" value="2" ng-change="orderBy();"> {{i18n.store.order_rating}}</span>
+                                </div>
+                                <div class="clr"></div>
+                                <div class="map-filter">
+                                    <div class="input-container">
+                                        <input type="checkbox" id="shotfilter" ng-click='paginate();mapfilter()'/> {{i18n.store.wallet.shots}}
+                                    </div>
+                                    <div class="input-container">
+                                        <input type="checkbox" id="dpfilter" ng-click='paginate();mapfilter()'/> {{i18n.store.wallet.discount_position}}
+                                    </div>
+                                </div>           
+                                <div class="search-list"> 
+                                    <search>
+                                        <form role="search" method="GET" id="" action="" style="display:none">
+                                            <input type="text" class="searchid" id="shopserchbox" placeholder="{{i18n.store.search_shop}}" data-ng-model="searchTitle"/>
+                                        </form>
+                                    </search> 
+                                </div>   
+                            </div>
+                            <div class="club-pagi-section">
+                                <div class="club-pagi-section2">
+                                    <div class="viewtype-text">{{i18n.clubs.result_per_page}}</div>
+                                    <ul>
+                                        <li><span ng-class="{active: itemsPerPage == firstPage}">
+                                            <a href="javascript:void(0)" ng-click="setPage(firstPage)">{{firstPage}}</a></span></li>
+                                            <li> -<span ng-class="{active: itemsPerPage == 2*firstPage}">
+                                                <a href="javascript:void(0)" ng-click="setPage(2*firstPage)">{{2*firstPage}}</a></span></li>
+                                                <li> -<span ng-class="{active: itemsPerPage == 4*firstPage}">
+                                                    <a href="javascript:void(0)" ng-click="setPage(4*firstPage)">{{4*firstPage}}</a></span></li>
+                                                    <li> -<span ng-class="{active: itemsPerPage == 8*firstPage}">
+                                                        <a href="javascript:void(0)" ng-click="setPage(8*firstPage)">{{8*firstPage}}</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="club-pagi-section1">
+                                    <div class="viewtype-text">{{i18n.clubs.visualization}}</div>
+                                    <ul class="visualizzazione">
+                                        <li class="{{gridActive}}"><a href="javascript:void(0)" data-ng-click="changeView('grid')" class="table-icon" title="{{i18n.store.grid_view}}"></a></li>
+                                        <li class="{{listActive}}"><a href="javascript:void(0);"data-ng-click="changeView('list')" class="list-icon" title="{{i18n.store.list_view}}"></a></li>
+                                    </ul>
+                                </div>                                                  
+                            </div>
+                            <div class="clr"></div>
+                            <div class="club-pagi-section3 upper-pagination">
+                                                    <tr>
+                                                        <th colspan="12" class="text-right" data-ng-if="pagination === true ">
+                                                            <div class="pagination ">
+                                                                <ul class="pagination mb10 store-paginate">
+                                                                    <li ng-class="prevPageDisabled()" class="nav-arrow nav-arrow-left">
+                                                                        <a href ng-click="prevPage()"></a>
+                                                                    </li>
+                                                                    <li ng-repeat="n in range"
+                                                                    ng-class="{active: n == currentPage, 'seeview': $index+1 == currentPage+1 || $index+1 == currentPage+2 || $index+1 == currentPage-1 || $index+1 == currentPage-2 || $index+1 == currentPage || $last}">
+                                                                    <a href ng-click="changePageMore(n)">{{n}}</a>
+                                                                </li>
+                                                                <li ng-class="nextPageDisabled()" class="nav-arrow nav-arrow-right">
+                                                                    <a href ng-click="nextPage()"></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </th>
+                                                </tr>
+                                            </div>
+                            </div>
+                        <div>
+                                            <div class="loader-container" data-ng-show="notFound" data-ng-bind="i18n.store.result_not_found"></div>
+                                            <div ng-show="storeLoading" class="loader-container">
+                                                <img src="app/assets/images/proceed.gif" alt="loading..." />
+                                            </div>
+                                            <store-grid data-ng-show="gridActive == 'active'"></store-grid>
+                                            <store-list data-ng-show="listActive == 'active'"></store-list>
+                                            <div ng-show="storeLoading" class="loader-container" ng-class="{hideLoader : storeListObject.length < 1}">
+                                                <img src="app/assets/images/proceed.gif" alt="loading..." />
+                                            </div>
+                                        </div>
+                                        <div class="club-pagi-section bottom-pagi">
+                                        <div class="club-pagi-section3">
+                                                    <tr>
+                                                        <th colspan="12" class="text-right" data-ng-if="pagination === true ">
+                                                            <div class="pagination ">
+                                                                <ul class="pagination mb10 store-paginate">
+                                                                    <li ng-class="prevPageDisabled()" class="nav-arrow nav-arrow-left">
+                                                                        <a href ng-click="prevPage()"></a>
+                                                                    </li>
+                                                                    <li ng-repeat="n in range"
+                                                                    ng-class="{active: n == currentPage, 'seeview': $index+1 == currentPage+1 || $index+1 == currentPage+2 || $index+1 == currentPage-1 || $index+1 == currentPage-2 || $index+1 == currentPage || $last}">
+                                                                    <a href ng-click="changePageMore(n)">{{n}}</a>
+                                                                </li>
+                                                                <li ng-class="nextPageDisabled()" class="nav-arrow nav-arrow-right">
+                                                                    <a href ng-click="nextPage()"></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </th>
+                                                </tr>
+                                            </div>
+                                        </div>
+                        </article>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <profile-Right-Panel></profile-Right-Panel>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>

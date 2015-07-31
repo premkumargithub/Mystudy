@@ -1,0 +1,17 @@
+<div class="container-fluid register-sixth-container"> 
+	<div class="map-img-cont">
+		<div class="broker-sixth-one-step">
+		<div class="register-sixth-continent-form-section">
+			<div class="loader-container-payment" data-ng-show="isLoading">
+				<img src="app/assets/images/login-loader.gif" alt="{{i18n.home.loading}}..." />
+			</div>
+			<div class="register-sixth-continent-one-step payment-block-mess clearfix" data-ng-hide="isLoading">    <div class="payment-mess">
+					<div class="text-red" data-ng-show="message == 'error'" data-ng-bind="i18n.offer_shoppingcard.trans_error"></div>
+					<div class="text-sucess" data-ng-show="message == 'success'" data-ng-bind="i18n.offer_shoppingcard.trans_success"></div>
+					<a data-ng-show="message == 'success'" href="#/wallets" data-ng-bind="i18n.profile.wallet.title"></a>
+				</div>
+			</div>  
+		</div>  
+		</div>
+	</div>
+</div>

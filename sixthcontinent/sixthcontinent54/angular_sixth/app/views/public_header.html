@@ -1,0 +1,45 @@
+<div class="total-counter">
+    <div class="titleCouter">
+        <div class="blueFont" data-ng-bind="i18n.mission.total_economy"></div>
+        <div class="contatore">
+            <div ng-repeat="item in totalEconomyShifted track by $index"  class="digitCounter" id="counter_{{$index}}">
+            <span data-ng-bind="item"></span>
+            <span class="title-count-line"></span>
+            </div>
+            <div class="digitCounter">$</div>
+        </div>
+    </div>
+</div>
+    
+    <div class="top-lang-sec">
+    <select ng-model="currentLanguage" data-ng-change="selectlanguage(currentLanguage)">
+        <option ng-repeat="item in languageOptions" value="{{item.key}}" style="background-image:url({{item.flag}});" class="langOption" ng-selected="{{item.key == currentLanguage}}" data-ng-bind="item.value">
+        </option>
+    </select>
+    </div>
+
+<div class="navbar hidden-print navbar-default box main" role="navigation">
+    <div class="logo"><img src="app/assets/images/logo.png"></div>
+    <div class="header-right-sec" >
+        <div class="user-action pull-right menu-right-hidden-xs menu-left-hidden-xs">
+            <div class="text-counter">
+                <span class="header-value" data-ng-if="publicUser.user_info.citizen_income != 0" title=" {{publicUser.user_info.citizen_income | currency:'&euro;'}}"> {{publicUser.user_info.citizen_income | currency:'&euro;'}}</span>
+                <span class="header-value" data-ng-if="publicUser.user_info.citizen_income == 0" title="{{0.00  | currency:'&euro;'}}">{{0.00  | currency:'&euro;'}}</span>
+                <span class="reddito">
+                <a title="{{publicUser.user_info.first_name + ' ' +publicUser.user_info.last_name}}">
+                {{(publicUser.user_info.first_name + ' ' +publicUser.user_info.last_name).length>26?((publicUser.user_info.first_name + ' ' +publicUser.user_info.last_name) | limitTo: 22)+'...':(publicUser.user_info.first_name + ' ' +publicUser.user_info.last_name)}}
+                </a></span>     
+            </div>
+            <div class="dropdown username pull-left" > 
+                <a class="dropdown-toggle dropdown-hover" data-toggle="dropdown" href="javascript:void(0)">
+                    <span class="media margin-none"> 
+                        <span class="pull-left border-right">
+                            <img ng-if="publicUser.user_info.profile_image_thumb == ''" src="app/assets/images/profile.jpg" alt="Profile">
+                            <img ng-if="publicUser.user_info.profile_image_thumb != ''" data-ng-src="{{publicUser.user_info.profile_image_thumb}}" alt="Profile">
+                        </span> 
+                    </span> 
+                </a>
+            
+            </div>
+        </div>
+</div>

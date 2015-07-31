@@ -1,0 +1,11 @@
+<div class="rating-section">
+	<div class="disable-rating" data-ng-show="waitRateResponse"></div>
+    <rating value="comment.current_user_rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value, postIndx)" on-leave="overStar" changes="rateComment(value, comment.id, postIndx, indx)" class="ratings-block"></rating>     
+        
+    <span class="rate-post" ng-if="comment.current_user_rate == 0"><a href data-ng-bind="i18n.profile_post.rate_post"></a></span><span class="rate-post" ng-if="comment.current_user_rate > 0" data-ng-click="removeCommentRating(comment.id, postIndx, indx)"><a href data-ng-bind="i18n.profile_post.remove_rating"></a> </span>
+</div>
+<div class="average-ratings" >
+    <span class="total-votes" data-ng-bind="comment.no_of_votes"><a href  data-ng-click="findPeopleRate(comment.id,'dashboard_post_comment', comment.no_of_votes)" data-ng-bind="i18n.profile_post.votes"> </a></span><span class="votes-star"><ul><li data-ng-repeat="rating in averageRating(comment.avg_rate) track by $index"><span ng-class="comment.avg_rate % 1 == 0 ?'votes-avg': ($last ? 'half-avg':'votes-avg')" /></li>
+     <li ng-repeat="blank in blankStar(comment.avg_rate) track by $index"><span class="votes-blank"/></li></ul></span>
+</div>
+<div class="clr"></div>

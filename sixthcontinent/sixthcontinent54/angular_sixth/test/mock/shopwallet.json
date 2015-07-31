@@ -1,0 +1,117 @@
+var getWalletRequest = {
+                    "shopOpen":{
+                        "$collection": APP.applaneTables.sixc_shopdp,
+                        "$filter":{
+                            "shop_id": "30022"
+                        },
+                        "$group":{
+                            "credit":{
+                                "$sum":"$credit"
+                            },
+                        "_id":null,
+                        "$fields":false
+                        }
+                    },
+                    "shopbalance":{
+                        "$collection": APP.applaneTables.sixc_shopdp,
+                        "$filter":{
+                            "shop_id": "30022"
+                        },
+                        "$group":{
+                            "balance":{
+                                "$sum":"$balance"
+                            },
+                            "_id":null,
+                            "$fields":false
+                        }
+                    },
+                    "shopRevenue":{
+                        "$collection": APP.applaneTables.sixc_transactions,
+                        "$filter":{
+                            "shop_id": "30022"
+                        },
+                        "$group":{
+                            "_id":null,
+                            "total_income":{
+                                "$sum":"$total_income"
+                            },
+                            "payble_value":{
+                                "$sum":"$payble_value"
+                            },
+                            "new_upto_50_value":{
+                                "$sum":"$new_upto_50_value"
+                            },
+                            "checkout_value":{
+                                "$sum":"$checkout_value"
+                            },
+                            "$fields":false
+                        }
+                    }
+                };
+var preniumRequest = {
+                "$collection":APP.applaneTables.sixc_shopdp,
+                "$filter":{
+                    "shop_id":"55338df122493a7a6e970eef" //$scope.storeId
+                },
+                "$sort":{
+                    "__history.__createdOn":-1
+                },
+                "$skip":0
+            };
+
+
+var couponReq = {
+            "shop_wallet_upto100":{
+                "$collection":APP.applaneTables.sixc_citizens_cards,
+                "$fields":{
+                    "credit":1,
+                    "discount":1,
+                    "unique_id":1,
+                    "citizen_id":1,
+                    "from_date":1,
+                    "to_date":1,
+                    "balance":1
+                },
+                "$filter": {
+                    "shop_id": "55338df122493a7a6e970eef",
+                    "type":"551ce49e2aa8f00f20d9328f",
+                    "inactive":{
+                        "$in":[false,null]
+                    },
+                    "used_on":{
+                        "$exists":true
+                    },
+                    "balance" : {
+                        "$gt" : 0
+                    }
+                },
+                "$sort":{
+                    "to_date":-1
+                },
+                "$limit" : 10,
+                "$skip":0
+            },
+            "shop_wallet_upto100_count":{
+                "$collection":APP.applaneTables.sixc_citizens_cards,
+                "$group":{
+                    "count":{
+                        "$sum":1
+                    },
+                    "_id":null,
+                    "$fields":false
+                },
+                "$filter": {
+                    "shop_id": "55338df122493a7a6e970eef",
+                    "type":"551ce49e2aa8f00f20d9328f",
+                    "inactive":{
+                        "$in":[false,null]
+                    },
+                    "used_on":{
+                        "$exists":true
+                    },
+                    "balance" : {
+                        "$gt" : 0
+                    }
+                }
+            }
+        }

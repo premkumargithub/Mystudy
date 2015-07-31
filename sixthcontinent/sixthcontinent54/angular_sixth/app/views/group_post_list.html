@@ -1,0 +1,317 @@
+<!--club post comment view section-->
+<div data-ng-hide="noContent" id="postlist" infinite-scroll="{{loadMoreFunc}}" class="clearfix">
+	<div class="widget store-comment-section profile-post-wrapper" data-ng-repeat="(postIndx, post) in posts" >
+			<div class="text-center" data-ng-class="deleteErrCls[postIndx]">{{deleteErrMsg[postIndx]}}</div>
+			<div class="store-comment-view">
+				<div class="post-upper-section">
+					<div class="post-heading">
+						<div class="media clearfix">
+							<div class="sotre-comment-view-left-panel">
+								<div class="store-comment-view-img">
+									<a ng-href="#/viewfriend/{{post.user_profile.id}}">
+										<img data-ng-if="post.user_profile.profile_image_thumb == ''" src="app/assets/images/dummy60X60.jpg" alt="" title="" />
+										<img data-ng-if="post.user_profile.profile_image_thumb != ''" data-ng-src="{{post.user_profile.profile_image_thumb}}" width="52" alt="" title="" />
+									</a>
+								</div>
+								<div class="media-body innerTB half clearfix"> 
+									<ul class="actions-store-dp" data-ng-if="(groupDetail.role == 15 || groupDetail.role == 7 || post.post_author == currentUser.id) && isSinglePostView == false">
+										<li data-ng-hide="activeEdit[postIndx]">
+											<a data-ng-click="toggleEdit($event)"><span class="edit-dele"></span></a>
+											<ul class="actions-drop-action">
+												<li data-ng-if="post.link_type != 1 && post.post_author == currentUser.id"><a href="javascript:void(0);"  data-ng-click="updatePost(postIndx)" data-ng-bind="i18n.user_profile.modify"></a> </li>
+												<li> <a href="javascript:void(0);" data-ng-click= "confirmClick() &&deletePost(postIndx)" confirm-click data-ng-bind="i18n.user_profile.elimina"></a> </li>
+											</ul>
+										</li>
+									</ul>
+									<div class="post-head-title">
+										<a ng-href="#/viewfriend/{{post.user_profile.id}}" data-ng-if="post.user_info.first_name == '' && post.user_profile.id !== currentUser.id" class="strong" data-ng-bind="post.user_profile.email"></a>
+
+										<a ng-href="#/profiles" data-ng-if="post.user_info.first_name == '' && post.user_profile.id === currentUser.id" class="strong" data-ng-bind="post.user_profile.email"></a>
+
+										<a ng-href="#/viewfriend/{{post.user_profile.id}}" data-ng-if="post.user_info.first_name != '' && post.user_profile.id !== currentUser.id" class="strong" data-ng-bind="post.user_profile.first_name+' '+post.user_profile.last_name"></a>
+
+										<a ng-href="#/profiles" data-ng-if="post.user_info.first_name != ''  && post.user_profile.id === currentUser.id" class="strong" data-ng-bind="post.user_profile.first_name+' '+post.user_profile.last_name"></a> 
+										<span><i class="fa fa-star"></i>{{post.post_created.date | postDateFormat}}</span>
+										<span data-ng-if="post.media_info.length == 1" data-ng-bind="i18n.dashboard.postcomment.added+' '+post.media_info.length+' '+i18n.dashboard.postcomment.new_photo" class="photo-added"></span>
+										<span data-ng-if="post.media_info.length > 1" data-ng-bind="i18n.dashboard.postcomment.added+' '+post.media_info.length+' '+i18n.dashboard.postcomment.new_photos" class="photo-added"></span>  
+										<!-- social share button start-->
+						<div class="share-wrapper" >
+		                <!--<a href="javascript:void(0);">{{i18n.dashboard.postcomment.share}}</a>-->
+		                <ul>
+		                	<li class="share-fb" facebook class="facebookShare" dataurl='{{baseUrl}}unouth/post/club/{{groupDetail.id}}/{{post.post_id}}/{{groupDetail.group_status}}' datades="{{post.post_description}}" dataimg="{{post.media_info[0].media_path}}"></li>
+				           <li class="share-tw">
+				           		<a href="javascript:void(0);" twitter-custom datahref='{{baseUrl}}unouth/post/club/{{groupDetail.id}}/{{post.post_id}}/{{groupDetail.group_status}}' datades="{{post.post_description}}"></a>
+				   			</li>
+				            <li class="share-gplus">
+				            	<a href="javascript:void(0);" gplus-custom data-annotation="none" datahref='{{baseUrl}}unouth/post/club/{{groupDetail.id}}/{{post.post_id}}/{{groupDetail.group_status}}' data-action='share'></a>
+				            </li>
+		               </ul>
+		                </div>
+						<!-- social share button end-->
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+
+					<div class="post-desc"> 
+						<div class="postedit">
+								<p id="post_{{post.post_id}}" data-ng-hide="activeEdit[postIndx]" ng-bind-html="post.post_description | newlines:textLimit:post.link_type:i18n.dashboard.postcomment.show_more:post.post_id | unsafe " fullText="{{post.post_description}}"></p>
+
+								<!-- code for update post-->
+								<div class="testata-right-section testata-textarea" data-ng-show="activeEdit[postIndx]">
+									<form name="edit-post" class="clearfix">
+										<div class="text-center" data-ng-class="editPostErrorCls[postIndx]">{{editPostErrorMsg[postIndx]}}</div>
+										<textarea id="editpost_{{post.post_id}}" class="editpostbox" 
+										placeholder="{{i18n.profile_post.unpost}}" ng-model="updateBody[postIndx]"></textarea>
+										<div class="pull-right btn-container">
+											<a class="button" href= "javascript:void(0);" data-ng-click="saveUpdatePost(postIndx)" data-ng-bind="i18n.user_profile.finish_editing"></a>
+											<a class="button" href= "javascript:void(0);" data-ng-click="cancelPost(postIndx)" data-ng-bind="i18n.user_profile.cancel"></a>
+										</div>
+									</form>
+									<div data-ng-show="{{updatePostInProcess}}">
+										<show-progress></show-progress>
+									</div>
+								</div>
+								<!-- code for update post-->
+								<div ng-switch="post.media_info.length" data-ng-if="post.media_info.length > 0">
+									<div class="post-img" ng-switch-when="1">
+										<!--switch case start for single image on image type-->
+										<div ng-switch="post.media_info[0].image_type">
+											<a ng-switch-when="3" href class="imgautoadjust" rel="clubpost-{{post.post_id}}" ng-click="createModal(0, post.media_info,1,post.id,'club_post',post.user_info)" all-img-modal>
+											<img ng-src="{{post.media_info[0].media_path}}" style-parent />
+											</a> 
+											<a ng-switch-when="2" href class="img-height-fix" rel="clubpost-{{post.post_id}}" ng-click="createModal(0, post.media_info,1,post.id,'club_post',post.user_info)" all-img-modal
+											>
+											<img ng-src="{{post.media_info[0].media_path}}" style-parent />
+											</a> 
+											<a ng-switch-when="1" href class="image-height-fix" rel="clubpost-{{post.post_id}}" ng-click="createModal(0, post.media_info,1,post.id,'club_post',post.user_info)" all-img-modal>
+												<img ng-src="{{post.media_info[0].media_path}}" style-parent/>
+											</a> 
+											<a ng-switch-when="null" href class rel="clubpost-{{post.post_id}}" ng-click="createModal(0, post.media_info,1,post.id,'club_post',post.user_info)" all-img-modal>
+												<img ng-src="{{post.media_info[0].media_thumb_path}}" style-parent/>
+											</a>  
+											<a ng-switch-default href class="backgorund-auto-adjust" rel="clubpost-{{post.post_id}}" ng-click="createModal(0, post.media_info,1,post.id,'club_post',post.user_info)" all-img-modal>
+												<img ng-src="{{post.media_info[0].media_path}}" style-parent />
+											</a> 
+										</div>
+										<!--switch case end for single image on image type-->
+									</div>
+									<!-- for two image-->
+									<div class="post-img" ng-switch-when="2">
+										<ul class="post-two-image clearfix">
+											<li>
+												<a href class="imgModal" rel="clubpost-{{post.post_id}}" ng-style="{'background-image':'url('+post.media_info[0].media_thumb_path+')'}" ng-click="createModal(0, post.media_info,2,post.id,'club_post',post.user_info)" all-img-modal>
+												</a> 
+											</li>
+											<li class="post-img-last">
+												<a href class="imgModal" rel="clubpost-{{post.post_id}}" ng-style="{'background-image':'url('+post.media_info[1].media_thumb_path+')'}" ng-click="createModal(1, post.media_info,2,post.id,'club_post',post.user_info)" all-img-modal>
+												</a> 
+											</li>
+										</ul>
+									</div>
+									<!-- for three image-->
+									<div class="post-img" ng-switch-when="3">
+										<ul class="post-three-image clearfix">
+											<li>
+												<a href class="imgModal" rel="clubpost-{{post.post_id}}" ng-style="{'background-image':'url('+post.media_info[0].media_thumb_path+')'}" ng-click="createModal(0, post.media_info,3,post.id,'club_post',post.user_info)" all-img-modal>
+												</a> 
+											</li>
+											<li class="two-img">
+												<a href class="imgModal three-img-first" rel="clubpost-{{post.post_id}}" ng-style="{'background-image':'url('+post.media_info[1].media_thumb_path+')'}" ng-click="createModal(1, post.media_info,3,post.id,'club_post',post.user_info)" all-img-modal>
+												</a> 
+												<a href class="imgModal" rel="clubpost-{{post.post_id}}" ng-style="{'background-image':'url('+post.media_info[2].media_thumb_path+')'}" ng-click="createModal(2, post.media_info,3,post.id,'club_post',post.user_info)" all-img-modal>
+												</a> 
+											</li>
+										</ul>
+									</div>
+									<!-- for four image-->
+									<div class="post-img" ng-switch-when="4">
+										<ul class="post-four-image clearfix">
+											<li>
+												<a href class="imgModal" rel="clubpost-{{post.post_id}}" ng-style="{'background-image':'url('+post.media_info[0].media_thumb_path+')'}" ng-click="createModal(0, post.media_info,4,post.id,'club_post',post.user_info)" all-img-modal>
+												</a> 
+											</li>
+											<li class="three-img">
+												<a href class="first-img" rel="clubpost-{{post.id}}" ng-style="{'background-image':'url('+post.media_info[1].media_thumb_path+')'}" ng-click="createModal(1, post.media_info,4,post.id,'club_post',post.user_info)" all-img-modal>
+												</a>
+												<a href class="second-img" rel="clubpost-{{post.post_id}}" ng-style="{'background-image':'url('+post.media_info[2].media_thumb_path+')'}" ng-click="createModal(2, post.media_info,4,post.id,'club_post',post.user_info)" all-img-modal>
+												</a>
+												<a href class="third-img" rel="clubpost-{{post.post_id}}"  ng-style="{'background-image':'url('+post.media_info[3].media_thumb_path+')'}"  ng-click="createModal(3, post.media_info,4,post.id,'club_post',post.user_info)" all-img-modal>
+												</a> 
+											</li>
+										</ul>
+									</div>
+									<!-- for five image-->
+									<div class="post-img" ng-switch-when="5">
+										<ul class="post-five-image">
+											<li>
+												<a href class rel="clubpost-{{post.post_id}}" ng-style="{'background-image':'url('+post.media_info[0].media_thumb_path+')'}" ng-click="createModal(0, post.media_info,5,post.id,'club_post',post.user_info)" all-img-modal>
+												</a>
+											</li>
+											<li class="four-img">
+												<a href  rel="clubpost-{{post.post_id}}" ng-style="{'background-image':'url('+post.media_info[1].media_thumb_path+')'}" ng-click="createModal(1, post.media_info,5,post.id,'club_post',post.user_info)" all-img-modal>
+												</a>
+												<a href  rel="clubpost-{{post.post_id}}" ng-style="{'background-image':'url('+post.media_info[2].media_thumb_path+')'}" ng-click="createModal(2, post.media_info,5,post.id,'club_post',post.user_info)" all-img-modal>
+												</a>
+												<a href  rel="clubpost-{{post.post_id}}" ng-style="{'background-image':'url('+post.media_info[3].media_thumb_path+')'}" ng-click="createModal(3, post.media_info,5,post.id,'club_post',post.user_info)" all-img-modal>
+												</a>
+												<a href class="fourth-img" rel="clubpost-{{post.post_id}}" ng-style="{'background-image':'url('+post.media_info[4].media_thumb_path+')'}" ng-click="createModal(4, post.media_info,5,post.id,'club_post',post.user_info)" all-img-modal>
+
+												</a>
+											</li>
+										</ul> 
+									</div>
+									<!-- for more then five image-->
+									<div class="post-img" ng-switch-default>
+										<ul class="post-five-image">
+											<li>
+
+												<a href class="" rel="clubpost-{{post.post_id}}" ng-style="{'background-image':'url('+post.media_info[0].media_thumb_path+')'}" ng-click="createModal(0, post.media_info,post.media_info.length,post.id,'club_post',post.user_info)" all-img-modal>
+												</a>
+											</li>
+											<li class="four-img">
+												<a href class rel="clubpost-{{post.post_id}}" ng-style="{'background-image':'url('+post.media_info[1].media_thumb_path+')'}" ng-click="createModal(1, post.media_info,post.media_info.length,post.id,'club_post',post.user_info)" all-img-modal>
+												</a>
+												<a href class rel="clubpost-{{post.post_id}}"  ng-style="{'background-image':'url('+post.media_info[2].media_thumb_path+')'}" ng-click="createModal(2, post.media_info,post.media_info.length,post.id,'club_post',post.user_info)" all-img-modal>
+												</a>
+												<a href class rel="clubpost-{{post.post_id}}" ng-style="{'background-image':'url('+post.media_info[3].media_thumb_path+')'}" ng-click="createModal(3, post.media_info,post.media_info.length,post.id,'club_post',post.user_info)" all-img-modal>
+												</a>
+												<a href class="fourth-img" rel="clubpost-{{post.post_id}}" ng-style="{'background-image':'url('+post.media_info[4].media_thumb_path+')'}" ng-click="createModal(4, post.media_info,post.media_info.length,post.id,'club_post',post.user_info)" all-img-modal>
+												</a>
+												<span data-ng-repeat="(mindx, media) in post.media_info" data-ng-if="mindx>=5">
+													<a ng-href="{{media.media_path}}" class="fourth-img" rel="clubpost-{{post.post_id}}" ng-style="{'background-image':'url('+media.media_thumb_path+')','display':'none'}" ng-click="createModal(mindx, post.media_info,post.media_info.length,post.id,'club_post',post.user_info)" all-img-modal>
+													</a>	
+												</span>
+											</li>
+										</ul> 
+									</div>
+								</div>
+								<!-- stop post image listing-->
+						<div class="ratings-section-outer" data-ng-if="groupDetail.is_member == 1">		
+						<rate-common-club-post></rate-common-club-post>
+					    </div>
+							</div>
+						</div>
+						<!-- Comment -->
+						<div  ng-init="post.fixcount=post.comment_count">
+							<div class="view-comments clearfix store-poeple-likes-comm" data-ng-if="post.comment_count != 0">
+								<img src="app/assets/images/comment-icon.png" data-ng-if="post.fixcount > 4" data-ng-hide="showComments[postIndx]">
+								<a class="text-primary" href="javascript:void(0);"  data-ng-if="post.fixcount > 4" data-ng-click="showAllComments(postIndx)" data-ng-hide="showComments[postIndx]" data-ng-bind="i18n.user_profile.view_previous_comments"></a>
+								<span class="pull-right store-people-commnets-number" data-ng-if="comment_count !=0" data-ng-bind="post.comment_count+' '+i18n.profile_post.comments"></span> 
+								<p class="store-people-commnets-number">{{commentErrorMsg[postIndx]}}</p>
+							</div>
+						</div>
+						<div class= "clr"></div>
+						<!-- First Comment -->
+						<div data-ng-show="commentLoading[postIndx]" style="text-align: center;">
+							<show-progress></show-progress>
+						</div>
+					</div>
+					<div  class="media border-bottom margin-none comments-listing" data-ng-repeat="(indx, comment) in post.comments">
+						<div class="text-center" data-ng-class="delCommentErrCls[comment.id]" data-ng-if="delCommentErrMsg[comment.id] != ''">{{delCommentErrMsg[comment.id]}}</div>
+						<div>
+							<a href="#/viewfriend/{{comment.comment_user_info.id}}" class="pull-left">
+								<img data-ng-if="comment.comment_user_info.profile_image_thumb == ''" src="app/assets/images/dummy32X32.jpg" alt="" title="" class="media-object" width="38" height="38" class="media-object"/>
+								<img data-ng-if="comment.comment_user_info.profile_image_thumb != ''" data-ng-src="{{comment.comment_user_info.profile_image_thumb}}" alt="" title="" class="media-object" width="38" height="38"/>
+							</a>
+							<div class="media-body">
+								<!-- <span class="pull-right" data-ng-if = "comment.comment_user_info.id == currentUser.id || groupDetail.role == 15 || groupDetail.role == 7">
+									<i data-ng-if="activeCommentEdit[postIndx] != comment.id" class="fa fa-fw fa-times" data-ng-click="confirmClick() && deleteComment(postIndx, comment)" confirm-click></i>
+									<i class="fa fa-pencil-square-o" data-ng-if="comment.comment_user_info.id == currentUser.id && activeCommentEdit[postIndx] != comment.id"  data-ng-click="updateComment(postIndx, comment, indx)"></i>
+								</span> -->
+								<span class="pull-right" data-ng-if = "activeCommentEdit[postIndx] != comment.id" >
+								<i title="{{i18n.dashboard.delete_lbl}}" data-ng-if="(groupDetail.role == 15 || groupDetail.role == 7) || (post.post_author == currentUser.id || comment.comment_user_info.id == currentUser.id)" class="fa fa-fw fa-times" data-ng-click="confirmClick() && deleteComment(postIndx, comment)" confirm-click></i>
+									<i title="{{i18n.dashboard.modify_lbl}}"  class="fa fa-pencil-square-o" data-ng-if="comment.comment_user_info.id == currentUser.id" data-ng-click="updateComment(postIndx, comment, indx)"></i>
+								</span>
+								<!-- <span class="pull-right" data-ng-if = "(groupDetail.role != 15 && groupDetail.role != 7 )&& activeCommentEdit[postIndx] != comment.id" >
+									<i data-ng-if="post.post_author == currentUser.id || comment.comment_user_info.id == currentUser.id" class="fa fa-fw fa-times" data-ng-click="confirmClick() && deleteComment(postIndx, comment)" confirm-click></i>
+									<i class="fa fa-pencil-square-o" data-ng-if="comment.comment_user_info.id == currentUser.id" data-ng-click="updateComment(postIndx, comment, indx)"></i>
+								</span> -->
+
+								<a ng-href="#/viewfriend/{{comment.comment_user_info.id}}" data-ng-if="comment.comment_user_info.first_name == '' && comment.comment_user_info.id !== currentUser.id" class="strong" data-ng-bind="comment.comment_user_info.email"></a>
+
+								<a ng-href="#/profiles" data-ng-if="comment.comment_user_info.first_name == '' && comment.comment_user_info.id === currentUser.id" class="strong" data-ng-bind="comment.comment_user_info.email"></a>
+
+								<a ng-href="#/viewfriend/{{comment.comment_user_info.id}}" data-ng-if="comment.comment_user_info.first_name != '' && comment.comment_user_info.id !== currentUser.id" class="strong" data-ng-bind="comment.comment_user_info.first_name+' '+comment.comment_user_info.last_name"></a>
+
+								<a ng-href="#/profiles" data-ng-if="comment.comment_user_info.first_name != ''  && comment.comment_user_info.id === currentUser.id" class="strong" data-ng-bind="comment.comment_user_info.first_name+' '+comment.comment_user_info.last_name"></a>
+								<span class="post-date">{{comment.create_date.date | postDateFormat}}</span>
+								<p class="input-group" data-ng-if="activeCommentEdit[postIndx] != comment.id" ng-bind-html="comment.comment_text | unsafe "></p><!-- removed class comment-edit and comment-text -->
+								<!-- update comment form start -->
+
+								<!-- update comment form-->
+								<div class="input-group comment-edit" data-ng-if="activeCommentEdit[postIndx] == comment.id">
+									<div class="text-center" data-ng-class="commentEditErrCls[postIndx]">{{commentEditErrMsg[postIndx]}}</div>
+									<div class="comment-input">
+										<div contenteditable type="text" class="form-control editcommentbox" ng-model="editCommentText[postIndx]"  placeholder="{{i18n.user_profile.comment_here}}..."> </div>
+										<div ng-init="privacy=0;clubId=(groupDetail.id).toString();clubType=groupDetail.group_status" data-ng:model="editCommentText[postIndx]" class="tagging-item-list" search-edit-tagging ng-mouseleave="clearSearchedTagg()"></div>
+										<input type="hidden" ng-model="taggedObject" value="{{taggedObject}}" class="taggedObject{{postIndx}}" />
+										<div class="input-group-btn">
+										</div>
+										<div class="pull-right btn-container" data-ng-hide="isEditComment[postIndx]">
+											<a class="button" href= "javascript:void(0);" data-ng-click="editComment(postIndx,indx,comment)" data-ng-bind="i18n.user_profile.finished_editing"></a>
+											<a class="button" href= "javascript:void(0);" data-ng-click="cancelEditComment(postIndx, indx)" data-ng-bind="i18n.user_profile.cancel"></a>
+										</div>
+										<div data-ng-show="isEditComment[postIndx]" style="text-align: center;">
+											<show-progress></show-progress>
+										</div>
+									</div>
+								</div>
+								<!-- update comment form end -->
+								<ul class="post-comment-munti" data-ng-if="comment.comment_media_info.length == 1">
+								<li>
+									<div ng-switch="comment.comment_media_info[0].image_type">
+										<a ng-switch-when="3" href="{{comment.comment_media_info[0].media_link}}" class="fancybox imgautoadjust" rel="profilecomnt-{{comment.id}}">
+										<img ng-src="{{comment.comment_media_info[0].media_link}}" /></a> 
+										<a ng-switch-when="2" href="{{comment.comment_media_info[0].media_link}}" class="fancybox img-height-fix" rel="profilecomnt-{{comment.id}}">
+											<img ng-src="{{comment.comment_media_info[0].media_path}}" />
+										</a> 
+										<a ng-switch-when="1" href="{{comment.comment_media_info[0].media_link}}" class="fancybox image-height-fix" rel="profilecomnt-{{comment.id}}">
+											<img ng-src="{{comment.comment_media_info[0].media_link}}" />
+										</a>  
+										<a ng-switch-when="null" href class="imgModal fancybox" rel="profilecomnt-{{comment.id}}">
+											<img ng-src="{{comment.comment_media_info[0].media_link}}" />
+										</a>  
+										<a ng-switch-default href="{{comment.comment_media_info[0].media_link}}" class="fancybox backgorund-auto-adjust" rel="profilecomnt-{{comment.id}}">
+											<img ng-src="{{comment.comment_media_info[0].media_link}}" />
+										</a>
+									</div>
+								</li>
+							</ul>
+								<ul class="post-comment-munti" data-ng-if="comment.comment_media_info.length > 1">
+									<li data-ng-repeat="image in comment.comment_media_info">
+										<a href="{{image.media_link}}" class="fancybox" ng-style="{'background-image':'url('+image.media_link+')'}">
+										</a>
+									</li>
+								</ul>
+							</div>
+							<div data-ng-if="comment.id == deleteCommentIndx" style="text-align: center;">
+								<show-progress></show-progress>
+							</div>
+
+						</div>
+						<div class="ratings-section-outer" data-ng-if="groupDetail.is_member == 1">
+				        <rate-me-club></rate-me-club>
+			            </div>
+					</div>
+				</div>
+				<div data-ng-show="groupDetail.is_member">
+					<group-comment-form id="commentBoxId-{{postIndx}}" post-id="{{post.post_id}}" post-indx ="{{postIndx}}" load-comment="showLimitedComment(postIndx)"></group-comment-form>
+				</div>
+			</div>
+		</div>
+</div>
+<div data-ng-if="isSmallScreen == true">
+	<div style="text-align: center;" data-ng-if="totalSize > posts.length" data-ng-hide="isLoading">
+		<a class="load-more" href="javascript:void(0);" ng-click="loadMore();" ng-bind="i18n.dashboard.postcomment.load_more"></a>
+	</div>
+</div>
+<div class="album-option-container" data-role="tile" ng-show="noContent">
+	<strong ng-bind="i18n.profile_post.no_results">...</strong>
+</div>
+<div data-ng-show="isLoading" style="text-align: center;" >
+	<show-progress></show-progress>
+</div>
+<!--club post comment view section

@@ -1,0 +1,407 @@
+<a href="javascript:void(0)" class="dropdown-listing"  data-ng-click="showAllNotification($event)" >
+     <img src="app/assets/images/notifications-gey.png" data-ng-if="!homeNotificationCount"/>
+    <img src="app/assets/images/notifications.png" data-ng-if="homeNotificationCount"/>
+    <span data-ng-show="homeNotificationCount" data-ng-if="homeNotificationCount!=0" data-ng-bind="homeNotificationCount"></span>
+</a>
+<div ng-show="showNotificationList" class="all-noti-wrapper">
+    <ul class="add-request-accept" data-ng-show="loadNotification">
+        <li class="accept-center">
+            <img src="app/assets/images/proceed.gif">
+        </li>
+    </ul>
+    <div data-ng-hide="loadNotification" class="complete-notification" data-ng-click="blockDivClick($event)">
+    <div id="allnano" class="nano" data-ng-show="allNotification.length != 0">
+        <div class="nano-content">
+        <ul class="add-request-accept request-accepted-byother" >
+            <li data-ng-repeat="item in allNotification" id="notification-request-{{$index}}" ng-class="item.is_read==0 ? 'unread-noti' :'read-noti'">
+            <div class="add-friend-img" ng-if="item.message_status == 'N' || item.message_status == 'W' || item.message_status == 'A'">
+                    <a href="#/shop/view/{{item.shop_info.id}}" ng-if="item.message_status == 'N'">
+                        <img ng-if="!(item.message == 'open' || item.message_type == 'Shot' || item.message == 'shop_inactive' || item.message == 'shop_active')" title="" alt="" src="app/assets/images/notice.png" width="50"/>
+                        <img ng-if="item.message_type == 'discount_position_shop' && item.message == 'open'" title="" alt="" src="app/assets/images/prize.png" width="50"/>
+                        <img ng-if="item.message_type == 'Shot' && item.message == 'assigned'" title="" alt="" src="app/assets/images/coupon.png" width="50"/>
+                        <img ng-if="item.message == 'shop_active'" title="" alt="" src="app/assets/images/shop_active.png" width="50"/>
+                        <img ng-if="item.message == 'shop_inactive'" title="" alt="" src="app/assets/images/shop_inactive.png" width="50"/>
+                    </a>
+                    <a ng-if="item.message_status == 'W'">
+                        <img title="" alt="" src="app/assets/images/warning.png" width="50"/>
+                    </a>
+                    <a ng-if="item.message_status == 'A'">
+                        <img ng-if="!(item.message == 'card_not_found_recurring')" alt="" src="app/assets/images/alert.png" width="50"/>
+                        <img ng-if="item.message == 'card_not_found_recurring'" alt="" src="app/assets/images/payment_fail.png" width="50"/>
+                    </a>
+            </div>
+            <div class="add-friend-img" ng-if="item.message_status == 'T'">
+                <a  href="#/viewfriend/{{item.notification_from.id}}">
+                    <img title="{{item.notification_from.first_name}} {{item.notification_from.last_name}}" alt="" src="app/assets/images/dummy60X60.jpg" width="50" ng-if="item.notification_from.profile_image_thumb == ''"/>
+                    <img title="{{item.notification_from.first_name}} {{item.notification_from.last_name}}" alt="" data-ng-src="{{item.notification_from.profile_image_thumb}}" width="50" ng-if="item.notification_from.profile_image_thumb != ''"/>
+                </a>
+            </div>
+            <div class="add-friend-img" ng-if="item.message_status == 'I'">
+                <a  href="#/viewfriend/{{item.notification_from.id}}">
+                    <img title="{{item.notification_from.first_name}} {{item.notification_from.last_name}}" alt="" src="app/assets/images/ci-sixth-logo.jpg" width="50" />
+                </a>
+            </div>
+            <div class="add-friend-img" ng-if="item.message_status == 'U'">
+                <a href="#/viewfriend/{{item.notification_from.id}}">
+                    <img title="{{item.notification_from.first_name}} {{item.notification_from.last_name}}" alt="" src="app/assets/images/accepted_personal.png" width="50" ng-if="item.message == 'accepted_personal' && item.message_type == 'friend'"/>
+                    <img title="{{item.notification_from.first_name}} {{item.notification_from.last_name}}" alt="" src="app/assets/images/add_professional.png" width="50" ng-if="item.message == 'accepted_professional' && item.message_type == 'friend'"/>
+                    <img title="{{item.notification_from.first_name}} {{item.notification_from.last_name}}" alt="" src="app/assets/images/default_group.jpg" width="50" ng-if="item.notification_from.profile_image_thumb == '' && item.message_type != 'friend' && item.message != 'join_request' && item.message_type != 'group' && item.message_type != 'tagging' && item.message != 'rate' && item.message != 'comment' && item.message != 'post' && item.message !='ctagging'  && item.message != 'tagging'"/>
+                    <img title="{{item.notification_from.first_name}} {{item.notification_from.last_name}}" alt="" src="app/assets/images/add_club.png" width="50" ng-if="item.message_type == 'group' && item.message == 'accept'"/>
+                    <img title="{{item.notification_from.first_name}} {{item.notification_from.last_name}}" alt="" src="app/assets/images/club_reject.png" width="50" ng-if="item.message_type == 'group' && item.message == 'reject'"/>
+                    <img title="{{item.notification_from.first_name}} {{item.notification_from.last_name}}" alt="" src="app/assets/images/dummy60X60.jpg" width="50" ng-if="item.notification_from.profile_image_thumb == '' && item.message_type == 'group' && item.message == 'join_request'"/>
+                    <img title="{{item.notification_from.first_name}} {{item.notification_from.last_name}}" alt="" data-ng-src="{{item.notification_from.profile_image_thumb}}" width="50" ng-if="item.notification_from.profile_image_thumb != '' && item.message_type == 'group' && item.message == 'join_request'"/>
+
+                    <img title="{{item.notification_from.first_name}} {{item.notification_from.last_name}}" alt="" src="app/assets/images/dummy60X60.jpg" width="50" ng-if="item.notification_from.profile_image_thumb == '' && (item.message_type == 'tagging' || item.message == 'post' || item.message == 'rate' || item.message == 'comment' || item.message == 'ctagging' || item.message == 'tagging')"/>
+
+                    <img title="{{item.notification_from.first_name}} {{item.notification_from.last_name}}" alt="" data-ng-src="{{item.notification_from.profile_image_thumb}}" width="50" ng-if="item.notification_from.profile_image_thumb != '' && item.message == 'tagging'"/>
+                    <img title="{{item.notification_from.first_name}} {{item.notification_from.last_name}}" alt="" data-ng-src="{{item.notification_from.profile_image_thumb}}" width="50" ng-if="item.notification_from.profile_image_thumb != '' && item.message == 'rate'"/>
+                    <img title="{{item.notification_from.first_name}} {{item.notification_from.last_name}}" alt="" data-ng-src="{{item.notification_from.profile_image_thumb}}" width="50" ng-if="item.notification_from.profile_image_thumb != '' && item.message == 'comment'"/>
+                    <img title="{{item.notification_from.first_name}} {{item.notification_from.last_name}}" alt="" data-ng-src="{{item.notification_from.profile_image_thumb}}" width="50" ng-if="item.notification_from.profile_image_thumb != '' && item.message == 'post'"/>
+                    <img title="{{item.notification_from.first_name}} {{item.notification_from.last_name}}" alt="" data-ng-src="{{item.notification_from.profile_image_thumb}}" width="50" ng-if="item.notification_from.profile_image_thumb != '' && item.message == 'ctagging'"/>
+                </a>
+            </div>
+                <div class="add-friend-right">
+                    <div class="add-friend-right-content">
+                    <h3>
+                        <a href="#/shop/view/{{item.shop_info.id}}" ng-if="item.message_type == 'Shot' && item.message == 'assigned'">
+                            <span data-ng-bind="i18n.notify.got_shot + ' ' + item.shot_amount + ' ' + i18n.notify.shots_on_shop + ' ' + item.shop_info.name"></span>
+                        </a>
+                        <a href="#/shop/view/{{item.shop_info.id}}" ng-if="item.message_type == 'discount_position' && item.message == 'assigned'">
+                            <span data-ng-bind="i18n.notify.got_shot + ' ' + item.discount_amount + ' ' + i18n.notify.dp_on_shop + ' ' + item.shop_info.name"></span>
+                        </a>
+                        <a href="#/shop/view/{{item.shop_info.id}}" ng-if="item.message_type == 'discount_position_shop' && item.message == 'open'">
+                            <span data-ng-bind="i18n.notify.got_shot + ' ' + item.discount_amount + ' ' + i18n.notify.dp_on_shop + ' ' + item.shop_info.name"></span>
+                        </a>
+                        <a href="#/shop/view/{{item.shop_info.id}}" ng-if="item.message_type == 'shopstatus' && item.message == 'card_not_found_recurring'">
+                            <span data-ng-bind="i18n.notify.payment_failed + ' ' + item.shop_info.name"></span>
+                        </a>
+                        <a href="#/shop/view/{{item.shop_info.id}}" ng-if="item.message_type == 'shopstatus' && item.message == 'shop_active'">
+                            <span data-ng-bind="item.shop_info.name + ' ' + i18n.notify.shop_activated"></span>
+                        </a>
+                        <a href="#/shop/view/{{item.shop_info.id}}" ng-if="item.message_type == 'shopstatus' && item.message == 'shop_inactive'">
+                            <span data-ng-bind="item.shop_info.name + ' ' + i18n.notify.shop_inactivated"></span>
+                        </a>
+                        <a href="#/shop/view/{{item.shop_info.id}}" ng-if="item.message_type == 'recurringpayment' && item.message == 'paymentsuccess'">
+                            <span data-ng-bind="i18n.notify.shop_paymentsuccess + ' ' + item.shop_info.name"></span>
+                        </a>
+                        <a href="#/shop/view/{{item.shop_info.id}}" ng-if="item.message_type == 'recurringpayment' && item.message == 'paymentfail'">
+                            <span data-ng-bind="i18n.notify.shop_paymentfail + ' ' + item.shop_info.name"></span>
+                        </a>
+                        <a href="#/shop/view/{{item.shop_info.id}}" ng-if="item.message_type == 'shopstatus' && item.message == 'paymentpending'">
+                            <span data-ng-bind="i18n.notify.shop_paymentpending + ' ' + item.shop_info.name"></span>
+                        </a>
+                        <a href="#/shop/view/{{item.shop_info.id}}" ng-if="item.message_type == 'billing_circle' && item.message == 'CC_NOT_ADDED'">
+                            <span data-ng-bind="i18n.notify.credit_card_not_added + ' ' + item.shop_info.name"></span>
+                        </a>
+                        <a href="#/shop/view/{{item.shop_info.id}}" ng-if="item.message_type == 'billing_circle' && item.message == 'PENDING_PAYMENT_NOT_DONE'">
+                            <span data-ng-bind="i18n.notify.shop_paymentpending + ' ' + item.shop_info.name"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'broker' && item.message == 'accept'">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.admin_activated_your_acount"></span>
+                        </a>
+                        <a href="#/viewfriend/{{item.notification_from.id}}" ng-if="item.message_type == 'friend' && (item.message == 'accepted_personal' || item.message == 'accepted_professional' || item.message == 'accept')">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-if="item.message == 'accept'" data-ng-bind="i18n.notify.friend_request_accepted"></span>
+                            <span data-ng-if="item.message == 'accepted_personal'" data-ng-bind="i18n.notify.personal_request_accepted"></span>
+                            <span data-ng-if="item.message == 'accepted_professional'" data-ng-bind="i18n.notify.professional_request_accepted"></span>
+                        </a>
+                        <a href="#/shop/wallet/{{item.shop_info.id}}" ng-if="item.message_type == 'billing_circle' && item.message == 'under200_type_a'">
+                            <span data-ng-bind="i18n.notify.under200_type_a"></span>
+                        </a>
+                        <a href="#/shop/wallet/{{item.shop_info.id}}" ng-if="item.message_type == 'billing_circle' && item.message == 'above200_type_a'">
+                            <span data-ng-bind="i18n.notify.above200_type_a"></span>
+                        </a>
+                        <a href="#/shop/wallet/{{item.shop_info.id}}" ng-if="item.message_type == 'billing_circle' && item.message == 'above300_type_a'">
+                            <span data-ng-bind="i18n.notify.above300_type_a"></span>
+                        </a>
+                        <a href="#/shop/view/{{item.shop_info.id}}" ng-if="item.message_type == 'billing_circle' && item.message == 'under200_type_b'">
+                            <span data-ng-bind="i18n.notify.under200_type_b + ' ' + item.shop_info.name"></span>
+                        </a>
+                        <a href="#/shop/view/{{item.shop_info.id}}" ng-if="item.message_type == 'billing_circle' && item.message == 'above200_type_b'">
+                            <span data-ng-bind="i18n.notify.above200_type_b + ' ' + item.shop_info.name"></span>
+                        </a>
+                        <a href="#/shop/view/{{item.shop_info.id}}" ng-if="item.message_type == 'billing_circle' && item.message == 'above300_type_b'">
+                            <span data-ng-bind="i18n.notify.above300_type_b + ' ' + item.shop_info.name"></span>
+                        </a>
+                        <a href="#/shop/view/{{item.shop_info.id}}" ng-if="item.message_type == 'billing_circle' && item.message == 'above300_type_b'">
+                            <span data-ng-bind="i18n.notify.above300_type_b + ' ' + item.shop_info.name"></span>
+                        </a>
+                        <a href="#/shop/wallet/{{item.shop_info.id}}" ng-if="item.message_type == 'billing_circle' && item.message == 'cc_type_b'">
+                            <span data-ng-bind="i18n.notify.cc_type_b"></span>
+                        </a>
+                        <a href="#/shop/view/{{item.shop_info.id}}" ng-if="item.message_type == 'billing_circle' && item.message == 'under200_type_c'">
+                            <span data-ng-bind="i18n.notify.under200_type_c + ' ' + item.shop_info.name"></span>
+                        </a>
+                        <a href="#/shop/view/{{item.shop_info.id}}" ng-if="item.message_type == 'billing_circle' && item.message == 'above200_type_c'">
+                            <span data-ng-bind="i18n.notify.above200_type_c + ' ' + item.shop_info.name"></span>
+                        </a>
+                        <a href="#/shop/view/{{item.shop_info.id}}" ng-if="item.message_type == 'billing_circle' && item.message == 'above300_type_c'">
+                            <span data-ng-bind="i18n.notify.above300_type_c + ' ' + item.shop_info.name"></span>
+                        </a>
+                        <a href="#/club/view/{{item.group_info.id}}/{{item.group_info.status}}" ng-if="item.message_type == 'group' && item.message == 'accept'">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.club_request_accepted + ' ' + item.group_info.name"></span>
+                        </a>
+                        <a href="#/club/view/{{item.group_info.id}}/{{item.group_info.status}}" ng-if="item.message_type == 'group' && item.message == 'reject'">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.club_request_rejected + ' ' + item.group_info.name"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'shop_response' && item.message == 'accept'">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.shop_request_accepted + ' ' + item.group_info.name"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message == 'tagging' && item.message_type == 'TAGGED_IN_POST'" data-ng-click="viewPost(item.post_info.postId, item.notification_id)">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.tagged_request_post + ' ' + item.shop_info.name"></span>
+                        </a>
+                        <a ng-if="item.message == 'tagging' && item.message_type == 'TAGGED_IN_PHOTO'" data-ng-click="getmediainfo(item.photo_info.photoId, 'user', item.photo_info.albumId,item.photo_info.owner_id,'friend_album')">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.tagged_request_photo + ' ' + item.shop_info.name"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'DASHBOARD_POST_RATE'" data-ng-click="viewPost(item.post_info.postId, item.notification_id)">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.has_rate + ' ' + item.post_info.rate"></span>
+                            <span data-ng-bind="i18n.notify.out_of"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'DASHBOARD_COMMENT_RATE'" data-ng-click="viewPost(item.post_info.postId, item.notification_id)">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.comment_rate + ' ' + item.post_info.rate"></span>
+                            <span data-ng-bind="i18n.notify.out_of"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'CLUB_POST_RATE'" data-ng-click="viewClubPost(item.post_info.postId, item.post_info.clubId, item.notification_id, item.post_info.status)">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.has_rated_club_post + ' ' + item.post_info.rate"></span>
+                            <span data-ng-bind="i18n.notify.out_of"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'CLUB_POST_COMMENT_RATE'" data-ng-click="viewClubPost(item.post_info.postId, item.post_info.clubId, item.notification_id, item.post_info.status)">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.comment_rate + ' ' + item.post_info.rate"></span>
+                            <span data-ng-bind="i18n.notify.out_of"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'STORE_POST_RATE'" data-ng-click="viewShopPost(item.post_info.postId, item.post_info.shopId, item.notification_id)">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.has_rated_shop_post + ' ' + item.post_info.rate"></span>
+                            <span data-ng-bind="i18n.notify.out_of"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'STORE_POST_COMMENT_RATE'" data-ng-click="viewShopPost(item.post_info.postId, item.post_info.shopId, item.notification_id)">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.comment_rate + ' ' + item.post_info.rate"></span>
+                            <span data-ng-bind="i18n.notify.out_of"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'DASHBOARD_POST_COMMENT'" data-ng-click="viewPost(item.post_info.postId, item.notification_id)">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.has_commented"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'DASHBOARD_COMMENT_ON_COMMENTED'" data-ng-click="viewPost(item.post_info.postId, item.notification_id)">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.has_commented_on_commented"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'DASHBOARD_WALL_POST_COMMENT'" data-ng-click="viewPost(item.post_info.postId, item.notification_id)">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.has_commented_on_wall"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'CLUB_POST_COMMENT'" data-ng-click="viewClubPost(item.post_info.postId, item.post_info.clubId, item.notification_id, item.post_info.status)">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.has_commented"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'CLUB_COMMENT_ON_COMMENTED'" data-ng-click="viewClubPost(item.post_info.postId, item.post_info.clubId, item.notification_id, item.post_info.status)">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.has_commented_on_commented"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'STORE_POST_COMMENT'" data-ng-click="viewShopPost(item.post_info.postId, item.post_info.shopId, item.notification_id)">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.has_commented"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'STORE_COMMENT_ON_COMMENTED'" data-ng-click="viewShopPost(item.post_info.postId, item.post_info.shopId, item.notification_id)">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.has_commented_on_commented"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'STORE_COMMENT_ON_TAGGED_POST'" data-ng-click="viewShopPost(item.post_info.postId, item.post_info.shopId, item.notification_id)">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.has_commented_on_taggedpost"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'CLUB_RATE'" data-ng-click="viewClubDetail(item.post_info.clubId, item.notification_id, item.post_info.status)">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.has_rated_on_club+' '+item.post_info.rate"></span>
+                            <span data-ng-bind="i18n.notify.out_of"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'USER_ALBUM_RATE'" data-ng-click="viewUserAlbum(item.post_info.albumId, item.notification_id, item.post_info.albumTitle)">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.has_rated_on_album + ' ' + item.post_info.rate"></span>
+                            <span data-ng-bind="i18n.notify.out_of"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'CLUB_ALBUM_RATE'" data-ng-click="viewClubAlbum(item.post_info.clubId, item.post_info.albumTitle, item.post_info.albumId, item.post_info.status, item.notification_id)">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.has_rated_on_album + ' ' + item.post_info.rate"></span>
+                            <span data-ng-bind="i18n.notify.out_of"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'STORE_ALBUM_RATE'" data-ng-click="viewShopAlbum(item.post_info.shopId, item.post_info.albumTitle, item.post_info.albumId, item.notification_id)">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.has_rated_on_album + ' ' + item.post_info.rate"></span>
+                            <span data-ng-bind="i18n.notify.out_of"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'USER_PHOTO_RATE'" data-ng-click="getmediainfo(item.post_info.photoId, 'user', item.post_info.albumId,item.post_info.owner_id,'user_profile_album_photo')">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.has_rated_on_media + ' ' + item.post_info.rate"></span>
+                            <span data-ng-bind="i18n.notify.out_of"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'CLUB_ALBUM_PHOTO_RATE'" data-ng-click="getmediainfo(item.post_info.photoId, 'club', item.post_info.albumId,item.post_info.owner_id,'club_album_photo',1)">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.has_rated_on_media + ' ' + item.post_info.rate"></span>
+                            <span data-ng-bind="i18n.notify.out_of"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'STORE_MEDIA_RATE'" data-ng-click="getmediainfo(item.post_info.photoId, 'shop', item.post_info.albumId,item.post_info.owner_id,'store_media')">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.has_rated_on_media + ' ' + item.post_info.rate"></span>
+                            <span data-ng-bind="i18n.notify.out_of"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'POST_AT_USER_WALL'" data-ng-click="viewPost(item.post_info.postId, item.notification_id)">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.has_post_on_wall"></span>
+                        </a> 
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'POST_AT_CLUB_WALL'" data-ng-click="viewClubPost(item.post_info.postId, item.post_info.clubId, item.notification_id, item.post_info.status)">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.has_post_on_club"></span>
+                            <span class="name" data-ng-bind="item.post_info.clubName"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'POST_AT_SHOP_WALL'" data-ng-click="viewShopPost(item.post_info.postId, item.post_info.shopId, item.notification_id)">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.has_post_on_shop"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'USER_TAGGED_IN_DASHBOARD_COMMENT'" data-ng-click="viewPost(item.post_info.postId, item.notification_id)">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.has_mentioned_you_in_comment"></span>
+                            <span data-ng-bind="i18n.notify.dashboard_wall"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'DASHBOARD_COMMENT_ON_TAGGED_POST'" data-ng-click="viewPost(item.post_info.postId, item.notification_id)">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.has_commented_on_taggedpost"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'USER_TAGGED_IN_CLUB_COMMENT'" data-ng-click="viewClubPost(item.post_info.postId, item.post_info.clubId, item.notification_id, item.post_info.status)">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.has_mentioned_you_in_comment"></span>
+                            <span class="name" data-ng-bind="item.post_info.clubName"></span>
+                            <span data-ng-bind="i18n.notify.club_wall"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'USER_TAGGED_IN_STORE_COMMENT'" data-ng-click="viewShopPost(item.post_info.postId, item.post_info.shopId, item.notification_id)">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.has_mentioned_you_in_comment"></span>
+                            <span class="name" data-ng-bind="item.post_info.shopName"></span>
+                            <span data-ng-bind="i18n.notify.shop_wall"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'CLUB_TAGGED_IN_DASHBOARD_COMMENT'" data-ng-click="viewPost(item.post_info.postId, item.notification_id)">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.has_mentioned_your_club"></span>
+                            <span data-ng-bind="i18n.notify.dashboard_wall"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'CLUB_TAGGED_IN_CLUB_COMMENT'" data-ng-click="viewClubPost(item.post_info.postId, item.post_info.clubId, item.notification_id, item.post_info.status)">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.has_mentioned_your_club"></span>
+                            <span class="name" data-ng-bind="item.post_info.clubName"></span>
+                            <span data-ng-bind="i18n.notify.club_wall"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'CLUB_TAGGED_IN_STORE_COMMENT'" data-ng-click="viewShopPost(item.post_info.postId, item.post_info.shopId, item.notification_id)">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.has_mentioned_your_club"></span>
+                            <span class="name" data-ng-bind="item.post_info.shopName"></span>
+                            <span data-ng-bind="i18n.notify.shop_wall"></span>
+                        </a> 
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'SHOP_TAGGED_IN_DASHBOARD_COMMENT'" data-ng-click="viewPost(item.post_info.postId, item.notification_id)">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.has_mentioned_your_shop"></span>
+                            <span data-ng-bind="i18n.notify.dashboard_wall"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'SHOP_TAGGED_IN_CLUB_COMMENT'" data-ng-click="viewClubPost(item.post_info.postId, item.post_info.clubId, item.notification_id, item.post_info.status)">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.has_mentioned_your_shop"></span>
+                            <span class="name" data-ng-bind="item.post_info.clubName"></span>
+                            <span data-ng-bind="i18n.notify.club_wall"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'SHOP_TAGGED_IN_STORE_COMMENT'" data-ng-click="viewShopPost(item.post_info.postId, item.post_info.shopId, item.notification_id)">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.has_mentioned_your_shop"></span>
+                            <span class="name" data-ng-bind="item.post_info.shopName"></span>
+                            <span data-ng-bind="i18n.notify.shop_wall"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'TXN'&&item.message == 'TXN_CUST_PENDING'" data-ng-click="viewTxnPage((item.transaction_info)._id, item.transaction_info.store_id, item.notification_id)">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.tx_initiated_on_your_shop"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'TXN'&&item.message == 'TXN_CUST_RATING'" data-ng-click="viewShopProfile(item.transaction_info.store_id, item.notification_id)">
+                            <span data-ng-bind="i18n.notify.tx_cust_rated_on_your_shop"></span>
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'TXN'&&item.message == 'TXN_CUST_SHARE'" data-ng-click="viewShopPost(item.transaction_info.post_id, item.shop_info.id, item.notification_id)">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.tx_share_on_your_shop"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'TAGGED_IN_SHOP_CUSTOMER_POST'&&item.message == 'tagging'" data-ng-click="viewShopPost(item.transaction_info.post_id, item.shop_info.id, item.notification_id)">
+                            <span class="name" data-ng-bind="item.notification_from.first_name + ' ' + item.notification_from.last_name"></span>
+                            <span data-ng-bind="i18n.notify.tagged_in_customer_post"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'TXN'&&item.message == 'TXN_CUST_CI_GAIN'" data-ng-click="viewCitizenProfile(item.transaction_info.user_id, item.notification_id)">
+                            <span data-ng-bind="i18n.notify.you_received"></span>
+                            <span class="name" data-ng-bind="(item.transaction_info.citizen_income).toFixed(2) | currency:'&euro;'"></span>
+                            <span data-ng-bind="i18n.notify.citizen_income"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'RECURRING_NOTIFICATION'&&item.message == 'PENDING_FEE_NOT_PAID'" data-ng-click="viewShopProfile(item.shop_info.id, item.notification_id)">
+                            <span data-ng-bind="i18n.notify.pending_fee_for_shop"></span>
+                            <span data-ng-bind="item.shop_info.name"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'RECURRING_NOTIFICATION'&&item.message == 'SHOP_BLOCKED'" data-ng-click="viewShopProfile(item.shop_info.id, item.notification_id)">
+                            <span data-ng-bind="i18n.notify.your_shop"></span>
+                            <span data-ng-bind="item.shop_info.name"></span>
+                            <span data-ng-bind="item.shop_info.blocked_due_recurring_pay"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'RECURRING_NOTIFICATION'&&item.message == 'REG_FEE_NOT_PAID'" data-ng-click="viewShopProfile(item.shop_info.id, item.notification_id)">
+                            <span data-ng-bind="i18n.notify.your_shop"></span>
+                            <span data-ng-bind="item.shop_info.name"></span>
+                            <span data-ng-bind="item.shop_info.blocked_due_reg_fee"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'CAMPAIGN_SHOPPING_CARD'&&item.message == 'CREATED_CARD_UPTO_100'">
+                            <span data-ng-bind="i18n.notify.campaign_sc_upto100_active"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'SUBSCRIPTION'&&item.message == '39EURO_SHOPPING_CARD'" data-ng-click="viewShopPromotions(item.shop_info.store_id, item.notification_id)">
+                            <span data-ng-bind="i18n.notify.39payment_success"></span>
+                            <span class="name" data-ng-bind="i18n.notify.click_here"></span>
+                            <span data-ng-bind="i18n.notify.start_shopping"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'BUYS_SHOPPING_CARD'&&item.message == 'CARD_UPTO_100'" data-ng-click="viewCitizenProfile(item.info.to_id, item.notification_id)">
+                            <span data-ng-bind="i18n.notify.shop_card_upto100"></span>
+                            <span class="name" data-ng-bind="item.shop_info.name"></span>
+                            <span data-ng-bind="i18n.notify.shop_card_worth"></span>
+                            <span class="name" data-ng-bind="item.info.card_value | currency:'&euro;'"></span>
+                            <span data-ng-bind="i18n.notify.shop_card_sc_purchased"></span>
+                        </a>
+                        <a href="javascript:void(0)" ng-if="item.message_type == 'SELLS_SHOPPING_CARD'&&item.message == 'CARD_UPTO_100'" data-ng-click="viewShopProfile(item.shop_info.id, item.notification_id)">
+                            <span data-ng-bind="i18n.notify.shop_card_sold_upto100"></span>
+                            <span class="name" data-ng-bind="item.shop_info.name"></span>
+                            <span data-ng-bind="i18n.notify.shop_card_worth"></span>
+                            <span class="name" data-ng-bind="item.info.card_value | currency:'&euro;'"></span>
+                            <span data-ng-bind="i18n.notify.shop_card_pt_accepted"></span>
+                        </a>
+                    </h3>
+                    <span class="read-notifcation"><a href="javascript:void(0)" ng-click="deleteMarkNotification('notification-request', $index, item.notification_id)" title="{{i18n.notify.remove_noti}}"><i class="fa fa-times"></i></a></span>
+                </div>
+            </div>
+            <a ng-if="item.is_read == 0" href="javascript:void(0)" class="read-mark" title="{{i18n.notify.mark_as_read}}" ng-click="markAsRead('notification-request', $index, item.notification_id)"></a>
+            <a ng-if="item.is_read == 1" href="javascript:void(0)" class="unread-mark" title="{{i18n.notify.mark_as_unread}}" ng-click="markAsUnread('notification-request', $index, item.notification_id)"></a>
+            <span class="post-date-public_noti">
+            <span ng-bind="item.create_date.date | postDateFormat"></span> 
+            </span>
+            </li>
+        </ul>
+        </div>
+    </div>
+    </div>
+    <ul class="add-request-accept" ng-if="allNotification.length == 0 && NotificationFound == true">
+        <li data-ng-bind="i18n.notify.no_notification"></li>
+    </ul>
+    <div class="see-all" data-ng-hide="loadNotification">
+        <a href="#/notifications"  title="{{i18n.notify.see_all}}" data-ng-bind="i18n.notify.see_all"></a>
+    </div>
+</div>
+<script type="text/javascript">
+    $("#allnano").nanoScroller({ preventPageScrolling: true });
+</script>

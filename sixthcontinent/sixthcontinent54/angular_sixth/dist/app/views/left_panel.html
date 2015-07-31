@@ -1,0 +1,178 @@
+<div id="menu" class="hidden-print sidebar-default sidebar-brand-primary">
+    <div id="sidebar-social-wrapper">
+      <div class="profile-wraaper">
+        <span class="ng-hide" ng-show="picloader" style="float:left"><img titile="" alt="" src="app/assets/images/ajax-loader.gif"></span>
+        <div class="updted-profile-section" ng-if="currentUser.basicProfile.profile_img !='' || currentUser.basicProfile.profile_img.thumb ==''" >
+			
+        <a class="profile-image fancybox" href="{{currentUser.basicProfile.profile_img.original}}" ng-if="currentUser.basicProfile.profile_img.thumb !=''"><img alt="" data-ng-src="{{currentUser.basicProfile.profile_img.thumb}}" width="200px" height="200px">
+		<span class="profileloader">
+				<img title="" alt="" src="app/assets/images/proceed.gif">
+			</span>
+        </a>
+        <div class="update-profile">
+          <a href="#/profileimgupload" ng-click="makeUncheck()">
+            <img src="app/assets/images/camera.png" />
+            <div ng-if="currentUser.basicProfile.profile_img.thumb == ''" class="update-profile-pic">
+                <div data-ng-bind="i18n.left_menu.add_profile_picture"></div>
+            </div>
+            <div ng-if="currentUser.basicProfile.profile_img.thumb != ''" class="update-profile-pic">
+                <div data-ng-bind="i18n.left_menu.update_profile_picture"></div>
+            </div>
+          </a>
+        </div>
+        <a href="" class="default-profile-pic"><img ng-if="currentUser.basicProfile.profile_img.thumb == ''" alt="" src="app/assets/images/prof-pic.jpg" width="200px" height="200px"></a>
+        <div class="update-profile">
+          <a href="#/profileimgupload" ng-click="makeUncheck()">
+            <img src="app/assets/images/camera.png" />
+            <div ng-if="currentUser.basicProfile.profile_img.thumb == ''" class="update-profile-pic">
+                <div data-ng-bind="i18n.left_menu.add_profile_picture"></div>
+            </div>
+            <div ng-if="currentUser.basicProfile.profile_img.thumb != ''" class="update-profile-pic">
+                <div data-ng-bind="i18n.left_menu.update_profile_picture"></div>
+            </div>
+          </a>
+        </div>
+        </div>
+            <a href="javascript:void(0)">
+                <span ng-if="currentUser.basicProfile.firstname" style="text-transform:capitalize;" data-ng-bind="currentUser.basicProfile.firstname + ' ' + currentUser.basicProfile.lastname"></span>
+                <span ng-if="!currentUser.basicProfile.firstname" style="text-transform:capitalize;" data-ng-bind="currentUser.basicProfile.user_id"></span>
+            </a>
+        </div>
+        <ul class="menu list-unstyled" ng-controller="ProfileImageController">
+        <li class="hasSubmenu home" ng-click="makeUncheck()"> 
+          <a href="#/" data-toggle="collapse"><span data-ng-bind="i18n.header_menu.home"></span></a>
+        </li> 
+
+        <li class="hasSubmenu dashboard" ng-click="makeUncheck()"> 
+          <a href="#/profiles" data-toggle="collapse">
+              <span data-ng-bind="i18n.left_menu.profile"></span>
+          </a>
+        </li> 
+        <li class="hasSubmenu wallet" ng-click="makeUncheck()"> 
+          <a href="#/wallets" data-toggle="collapse">
+              <span data-ng-bind="i18n.left_menu.wallet"></span> 
+          </a>
+        </li> 
+
+        <li class="hasSubmenu messages" ng-click="makeUncheck()"> 
+            <a href="#/message"> 
+              <span data-ng-bind="i18n.left_menu.messages"></span> 
+              <span class="msg-counting" data-ng-show="homeMessageCount" data-ng-if="homeMessageCount!=0" ng-bind="homeMessageCount"></span>
+            </a> 
+        </li>
+
+        <li class="hasSubmenu pictures" ng-click="makeUncheck()"> 
+            <a href="#album" data-toggle="collapse">
+                <span data-ng-bind="i18n.left_menu.pictures"></span>
+            </a>
+        </li>
+       <!--Not in use currently for future use
+        <li class="hasSubmenu" ng-click="makeUncheck()"> 
+            <a href="#album" data-toggle="collapse">
+                <img src="app/assets/images/video.png" alt="">
+                <span>{{i18n.left_menu.videos}}</span>
+            </a>
+        </li> -->
+        
+        <li class="hasSubmenu clubs" ng-click="addclass($event,'club')"> 
+            <a data-toggle="collapse">
+              <span data-ng-bind="i18n.left_menu.clubs"></span>
+            </a>
+            <ul>
+                <li class="submenu" ng-click="makeUncheck()"> 
+                    <a href="#myclubs"><span data-ng-bind="i18n.clubs.my_clubs"></span> </a>
+                </li>
+                <li class="submenu" ng-click="makeUncheck()"> 
+                    <a href="#club"><span data-ng-bind="i18n.clubs.all_clubs"></span> </a>
+                </li>
+            </ul>
+        </li>
+
+        
+        <!-- <li data-ng-if="currentUser.basicProfile.store_profile == 0" class="hasSubmenu pictures" ng-click="makeUncheck()"> 
+            <a href="#shop" data-toggle="collapse">
+                <span data-ng-bind="i18n.left_menu.shops"></span>
+            </a>
+        </li> -->
+        
+        <li class="hasSubmenu shop" ng-click="addclass($event,'shop')"> 
+            <a data-toggle="collapse"><span data-ng-bind="i18n.left_menu.shops"></span> </a>
+            <ul>
+              <li data-ng-if="currentUser.basicProfile.store_profile == 1" class="submenu" ng-click="makeUncheck()"> 
+                  <a href="#myshops/1"><span data-ng-bind="i18n.store.shop_myshop"></span> </a>
+              </li>
+              <li class="submenu" ng-click="makeUncheck()"> 
+                  <a href="#myshops/2"><span data-ng-bind="i18n.store.my_fav_shop"></span> </a>
+              </li>
+              <li class="submenu" ng-click="makeUncheck()"> 
+                  <a href="#shop"><span data-ng-bind="i18n.store.all_shop"></span> </a>
+              </li>
+            </ul>
+        </li>
+
+        <li class="hasSubmenu offer" ng-click="addclass($event,'offer')"> 
+            <a data-toggle="collapse"><span data-ng-bind="i18n.left_menu.offer_head"></span> </a>
+            <ul>
+              <li class="submenu" ng-click="makeUncheck()"> 
+                  <a href="#offer/1"><span data-ng-bind="i18n.left_menu.offer_card"></span> </a>
+              </li>
+              <li class="submenu" ng-click="makeUncheck()"> 
+                  <a href="#offer/2"><span data-ng-bind="i18n.left_menu.offer_coupons"></span> </a>
+              </li>
+            </ul>
+
+        <li class=" social" ng-click="makeUncheck()"> 
+            <a href="#socialProject" data-toggle="collapse">
+                <span data-ng-bind="i18n.left_menu.social_projects"></span>
+            </a>
+        </li>
+    
+      </ul>
+      <ul class="menu list-unstyled list-two" ng-controller="ProfileImageController">
+    <li class="hasSubmenu friends" ng-click="makeUncheck()">
+      <a href="#/friends" data-toggle="collapse">
+          <span data-ng-bind="i18n.left_menu.friends"></span>
+      </a>
+    </li>
+    <li class="hasSubmenu follows" ng-click="makeUncheck()">
+      <a href="#/followers" data-toggle="collapse">
+          <span data-ng-bind="i18n.followers.title"></span>
+      </a>
+    </li>
+    <li class="hasSubmenu follower" ng-click="makeUncheck()">
+      <a href="#/followings" data-toggle="collapse">
+          <span data-ng-bind="i18n.followers.following"></span>
+      </a>
+    </li>
+  
+  </ul>
+  <ul class="menu list-unstyled list-two" ng-controller="ProfileImageController">
+    <li class="hasSubmenu shop-affiliated" ng-click="makeUncheck()">
+    <a href="#/shop/affiliates" data-toggle="collapse">
+        <span data-ng-bind="i18n.left_menu.shops_affiliated"></span>
+    </a>
+    </li>
+    <li class="hasSubmenu citizens" ng-click="makeUncheck()">
+      <a href="#/citizen/affiliates" data-toggle="collapse">
+          <span data-ng-bind="i18n.left_menu.citizens_affiliated"></span>
+      </a>
+    </li>
+<!--   <li class="hasSubmenu brokers">
+      <a href="#/broker/affiliates" data-toggle="collapse" ng-click="makeUncheck()">
+                <span>{{i18n.left_menu.brockers_affiliated}}</span>
+            </a>
+        </li> -->
+  </ul>
+ <!--
+  <ul class="menu list-unstyled list-two" ng-controller="ProfileImageController">
+    <li class="hasSubmenu">
+    <a href="javascript:void(0)" data-toggle="collapse">
+                <img src="app/assets/images/social.png" alt="">
+                <span>{{i18n.left_menu.social_projects}}</span>
+    </a>
+    </li>
+  </ul>
+ -->
+    </div>
+  </div>
+  <!-- // Main Sidebar Menu END 

@@ -1,0 +1,318 @@
+<div class="container-fluid register-sixth-container">
+    <div class="map-img-cont">
+    <div class="register-sixth-one-step">
+        <div class="register-sixth-continent-form-section">
+            <div class="register-sixth-continent-one-step clearfix shop-register">
+            <div class="register-sixth-one-step-num affilation-tabs">
+                <ul>
+                    <li><span>1</span><p data-ng-bind="i18n.shop_affiliation.citizen_register"></p></li>
+                    <li class="active-one-step"><span>2</span><p data-ng-bind="i18n.shop_affiliation.shop_register"></p></li>
+                    <li><span>3</span><p data-ng-bind="i18n.shop_affiliation.terms_conditions"></p></li>
+                    <li><span>4</span><p data-ng-bind="i18n.shop_affiliation.credit_card_info"></p></li>
+                </ul>
+            </div>
+            <div class="form-container data-store-form">
+            <form name="shopCreateForm" data-ng-submit="registerShop(shopCreateForm.$valid)" id="shopCreateForm" novalidate>
+            <div class="form-one">
+            <div class="form-heading" data-ng-bind="i18n.shop_affiliation.detail.data_store"></div>
+            <ul class="clearfix">
+                <li>
+                    <input type="text" class="form-control bg-gray {{nameCls}}" placeholder="{{i18n.shop_affiliation.detail.store_name}}" ng-model="store.name" name="storename" id="storename" ng-class="{ 'has-error' : (shopCreateForm.storename.$dirty&&shopCreateForm.storename.$invalid&&shopCreateForm.storename.$error.required ) || (formSubmitted && !store.name) }" required />
+                    <div ng-show="(shopCreateForm.storename.$dirty&&shopCreateForm.storename.$invalid&&shopCreateForm.storename.$error.required ) || (formSubmitted && !store.name)" class="text-red" data-ng-bind="i18n.store.enter_name"></div>
+                </li>
+                <li class="two-inputs">
+                    <div class="first-input">
+                    <input type="text" class="form-control bg-gray" placeholder="{{i18n.shop_affiliation.detail.company_name}}" name="storecompany" id="storecompany" ng-model="store.companyName" ng-class="{ 'has-error' : (shopCreateForm.storecompany.$dirty&&shopCreateForm.storecompany.$invalid&&shopCreateForm.storecompany.$error.required ) || (formSubmitted && !store.companyName) }" required/> 
+                    <div ng-show="(shopCreateForm.storecompany.$dirty&&shopCreateForm.storecompany.$invalid&&shopCreateForm.storecompany.$error.required ) || (formSubmitted && !store.companyName)" class="text-red" data-ng-bind="i18n.store.enter_storename"></div>
+                    </div>
+                    <div class="second-input">
+                    <select id="legalForm" class="form-control bg-gray" name="legalform" ng-model="store.legalForm" ng-options="legalForm.value for legalForm in legalForms track by legalForm.id" ng-class="{ 'has-error' : (shopCreateForm.legalform.$dirty&&shopCreateForm.legalform.$invalid&&shopCreateForm.legalform.$error.required ) || (formSubmitted && !store.legalForm) }" required>
+                        <option selected="selected" value="">{{i18n.shop_affiliation.detail.legal_form}}</option>
+                        
+                    </select>
+                    <div ng-show="(shopCreateForm.legalform.$dirty&&shopCreateForm.legalform.$invalid&&shopCreateForm.legalform.$error.required ) || (formSubmitted && !store.legalForm)" class="text-red" data-ng-bind="i18n.store.enter_storestatus"></div>
+                </div>
+                </li>
+                <li class="two-inputs">
+                    <div class="first-input">
+                    <input type="text" id="vatNumber" ng-blur="visited = true" class="form-control bg-gray" placeholder="{{i18n.shop_affiliation.detail.vat_code}}" name="vatnumber" maxlength="40" data-ng-maxlength="40" ng-model="store.vatNumber" ng-class="{ 'has-error' : (shopCreateForm.vatnumber.$dirty&&shopCreateForm.vatnumber.$invalid&&shopCreateForm.vatnumber.$error.required ) || (formSubmitted && !store.vatNumber)||(shopCreateForm.vatnumber.$error.pattern && visited)}" ng-pattern="/^[0-9a-zA-Z]{2,40}$/" required/> 
+                    <div ng-show="(shopCreateForm.vatnumber.$dirty&&shopCreateForm.vatnumber.$invalid&&shopCreateForm.vatnumber.$error.required ) || (formSubmitted && !store.vatNumber)||(shopCreateForm.vatnumber.$error.pattern && visited)" class="text-red" data-ng-bind="i18n.store.enter_storevat"></div>
+                    <div ng-show="vatNumberInvalid" class="text-red" data-ng-bind="createShopErrorMgs"></div>
+                    </div>
+                    <div class="second-input">
+                    <input type="text" id="taxNumber" ng-blur="visited = true" class="form-control bg-gray" maxlength="40" data-ng-maxlength="40" placeholder="{{i18n.shop_affiliation.detail.tax_code}}" name="taxnumber" ng-model="store.taxNumber" ng-class="{ 'has-error' : (shopCreateForm.taxnumber.$dirty&&shopCreateForm.taxnumber.$invalid&&shopCreateForm.taxnumber.$error.required ) || (formSubmitted && !store.taxNumber)||(shopCreateForm.taxnumber.$error.pattern && visited)}" ng-pattern="/^[0-9a-zA-Z]{2,40}$/" required/>
+                    <div ng-show="(shopCreateForm.taxnumber.$dirty&&shopCreateForm.taxnumber.$invalid&&shopCreateForm.taxnumber.$error.required ) || (formSubmitted && !store.taxNumber||(shopCreateForm.taxnumber.$error.pattern && visited))" class="text-red" data-ng-bind="i18n.store.enter_storetax"></div>
+                    </div>   
+                </li>
+                <li class="two-inputs email-input">
+                    <div class="first-input">
+                    <div class="hint-message"><span data-ng-bind="i18n.shop_affiliation.detail.email_desc"></span>
+                    </div>
+                    <input stopccp type="email" id="email" ng-blur="visited = true" class="form-control bg-gray" placeholder="{{i18n.shop_affiliation.detail.email_address}}" name="shopemail" ng-model="store.email" ng-class="{ 'has-error' : (shopCreateForm.shopemail.$dirty&&shopCreateForm.shopemail.$invalid&&shopCreateForm.shopemail.$error.required ) || (formSubmitted && !store.email)||(shopCreateForm.shopemail.$error.pattern && visited)}" ng-pattern="/^[A-Za-z0-9._-]+@[A-Za-z]+\.[A-Za-z.]{2,5}$/" autocomplete="off" required/> 
+                    <div ng-show="(shopCreateForm.shopemail.$dirty&&shopCreateForm.shopemail.$invalid&&shopCreateForm.shopemail.$error.required) || (formSubmitted && !store.email) || shopCreateForm.shopemail.$error.pattern && visited" class="text-red" data-ng-bind="i18n.register.enter_valid_email"></div> 
+                    </div>
+                    <div class="second-input">
+                    <div class="hint-message"><span data-ng-bind="i18n.shop_affiliation.detail.confirm_email_desc"></span>
+                    </div>
+                    <input stopccp type="email" id="confirmemail" class="form-control bg-gray" placeholder="{{i18n.shop_affiliation.detail.confirm_email_address}}" name="confirmemail" ng-model="store.confirmemail" ng-class="{ 'has-error' : (shopCreateForm.confirmemail.$dirty&&shopCreateForm.confirmemail.$invalid&&shopCreateForm.confirmemail.$error.required ) || (formSubmitted && !store.confirmemail) || shopCreateForm.confirmemail.$dirty && (store.email !== store.confirmemail)}" autocomplete="off" required/> 
+                    <div ng-show="(shopCreateForm.confirmemail.$dirty&&shopCreateForm.confirmemail.$invalid&&shopCreateForm.confirmemail.$error.required ) || (formSubmitted && !store.confirmemail) || shopCreateForm.confirmemail.$dirty && (store.email !== store.confirmemail)" class="text-red" data-ng-bind="i18n.store.storeemail_not_same"></div>  
+                </div>
+                </li>
+                <li class="email-input">
+                    <div class="first-input">
+                    <div class="hint-message"><span data-ng-bind="i18n.shop_affiliation.detail.phone_desc"></span></div>
+                    <input type="text" id="phone" value="" ng-blur="visited = true" class="form-control bg-gray" placeholder="{{i18n.shop_affiliation.detail.phone_number}}" name="shopphone" ng-model="store.phone" maxlength="15" data-ng-maxlength="15" ng-class="{ 'has-error' : (shopCreateForm.shopphone.$dirty&&shopCreateForm.shopphone.$invalid&&shopCreateForm.shopphone.$error.required ) || (formSubmitted && !store.phone)||(shopCreateForm.shopphone.$error.pattern && visited)}" ng-pattern="/^\d{10,15}$/" required/> 
+                    <div ng-show="(shopCreateForm.shopphone.$dirty&&shopCreateForm.shopphone.$invalid&&shopCreateForm.shopphone.$error.required ) || (formSubmitted && !store.phone)||(shopCreateForm.shopphone.$error.pattern && visited)" class="text-red" data-ng-bind="i18n.store.enter_storenumber"></div>
+                </li>
+                <li>
+                    <input type="text" id="iban" ng-blur="visited = true" class="form-control bg-gray" placeholder="{{i18n.shop_affiliation.detail.iban_code}}" name="iban" ng-model="store.iban" maxlength="40" data-ng-maxlength="40" ng-class="{ 'has-error' : (shopCreateForm.iban.$dirty&&shopCreateForm.iban.$invalid&&shopCreateForm.iban.$error.required ) || (formSubmitted && !store.iban)||(shopCreateForm.iban.$error.pattern && visited)}" ng-pattern="/^[0-9a-zA-Z]{2,40}$/" required/> 
+                    <div ng-show="(shopCreateForm.iban.$dirty&&shopCreateForm.iban.$invalid&&shopCreateForm.iban.$error.required ) || (formSubmitted && !store.iban)" class="text-red" data-ng-bind="i18n.store.enter_storeiban">
+                    </div>
+                    <div ng-show="(shopCreateForm.iban.$error.pattern && visited)" class="text-red" data-ng-bind="i18n.validation.iban_valid"></div> 
+                    <div ng-show="ibanNumberInvalid" class="text-red" data-ng-bind="createShopErrorMgs"></div>
+                </li>
+                <li class="two-inputs category-dropdown">
+                    <div class="first-input">
+                    <select id="storecategory" class="form-control bg-gray" name="storecategory" ng-model="store.storecategory" ng-options="category.category_name for category in categories track by category.id" ng-class="{ 'has-error' : (shopCreateForm.storecategory.$dirty&&shopCreateForm.storecategory.$invalid&&shopCreateForm.storecategory.$error.required ) || (formSubmitted && !store.storecategory)}" required>
+                        <option selected="selected" value="">{{i18n.shop_affiliation.detail.category}}</option>   
+                    </select>
+                    <div ng-show="(shopCreateForm.storecategory.$dirty&&shopCreateForm.storecategory.$invalid&&shopCreateForm.storecategory.$error.required ) || (formSubmitted && !store.storecategory)" class="text-red" data-ng-bind="i18n.store.enter_storecategory"></div>
+                    </div>
+                    <!-- not in corrent use
+                     <div class="second-input">
+                    <select id="subcategory" class="form-control bg-gray" ng-model="store.subcategory" data-ng-options="subcategory.category_name for subcategory in subcategories track by subcategory.id" ng-disabled="enableSubcategory">
+                        <option selected="selected" value="">{{i18n.shop_affiliation.detail.sub_category}}</option>
+                    </select>
+                    <div class="text-red fl subcategory"></div>
+                    </div> 
+                    <input type="text" class="form-control bg-gray keyword first-input" placeholder="{{i18n.shop_affiliation.detail.keyword}}" ng-model="store.keywords" id="categoryKeyword" ng-disabled="enableKeyword" />
+                    <div class="second-input keyword-load-img">
+                    <img class="loadicn" src="app/assets/images/proceed.gif" data-ng-show="showCatKeyLoading">
+                    </div>
+                    <ul id="suggestions" class="suggestions-list">
+                        <li ng-repeat="keyword in keywords" class="blockSpan" ng-click="storeKeyword(keyword)" ng-mouseover="$parent.keywordIndex=$index" ng-class="{active : keywordIndex===$index}" >{{keyword.name}} </li>
+                    </ul>
+                    <ul>
+                    <li class="category-tags form-control bg-gray">
+                        <div ng-repeat="keyword in keywordList track by $index" class="tag">
+                            <span class="tagName">{{keyword}}</span>
+                            <span class="closeBtn" ><b class="fa fa-times cross" data-ng-click="removeKeyword($index)"></b></span>
+                        </div>
+                    </li>
+                </ul>-->
+                </li>
+                <li>
+                    <textarea id="description" class="form-control bg-gray" placeholder="{{i18n.shop_affiliation.detail.description}}" name="description" ng-model="store.description" ng-class="{ 'has-error' : (shopCreateForm.description.$dirty&&shopCreateForm.description.$invalid&&shopCreateForm.description.$error.required ) || (formSubmitted && !store.description)}" required></textarea> 
+                    <div ng-show="(shopCreateForm.description.$dirty&&shopCreateForm.description.$invalid&&shopCreateForm.description.$error.required ) || (formSubmitted && !store.description)" class="text-red" data-ng-bind="i18n.store.enter_storedesc"></div>            
+                </li>        
+                <li class="form-subheading" data-ng-bind="i18n.shop_affiliation.detail.registered_office_label"></li>
+                <li class="two-inputs">
+                    <div class="first-input">
+                    <select id="regOfficeCountry" class="form-control bg-gray" name="regofficecountry" data-ng-model="store.regOfficeCountry" data-ng-options="country.country for country in countries track by country.id"  ng-class="{ 'has-error' : (shopCreateForm.regofficecountry.$dirty&&shopCreateForm.regofficecountry.$invalid&&shopCreateForm.regofficecountry.$error.required ) || (formSubmitted && !store.regOfficeCountry)}" required>
+                        <option selected="selected" value="">{{i18n.shop_affiliation.detail.country}}</option>
+                    </select>   
+                    <div ng-show="(shopCreateForm.regofficecountry.$dirty&&shopCreateForm.regofficecountry.$invalid&&shopCreateForm.regofficecountry.$error.required ) || (formSubmitted && !store.regOfficeCountry)" class="text-red" data-ng-bind="i18n.store.enter_country"></div> 
+                    </div>
+                    <div class="second-input">
+                    <select id="regOfficeRegion" class="form-control bg-gray" name="regofficeregion" ng-model="store.regOfficeRegion" data-ng-options="region.region for region in regions track by region.id" ng-class="{ 'has-error' : (shopCreateForm.regofficeregion.$dirty&&shopCreateForm.regofficeregion.$invalid&&shopCreateForm.regofficeregion.$error.required ) || (formSubmitted && !store.regOfficeRegion)}" required>
+                        <option selected="selected" value="">{{i18n.shop_affiliation.detail.region}}</option>
+                    </select> 
+                    <div ng-show="(shopCreateForm.regofficeregion.$dirty&&shopCreateForm.regofficeregion.$invalid&&shopCreateForm.regofficeregion.$error.required ) || (formSubmitted && !store.regOfficeRegion)" class="text-red" data-ng-bind="i18n.store.enter_storeregregion"></div> 
+                    </div> 
+                </li>
+                <li class="three-inputs">
+                    <div class="two-inputs">
+                    <div class="first-input clearfix">
+                    <input type="text" id="regOfficeCity" class="form-control bg-gray input-one" placeholder="{{i18n.shop_affiliation.detail.city}}" name="regofficecity" ng-model="store.regOfficeCity" maxlength="20" data-ng-maxlength="20" ng-class="{ 'has-error' : (shopCreateForm.regofficecity.$dirty&&shopCreateForm.regofficecity.$invalid&&shopCreateForm.regofficecity.$error.required ) || (formSubmitted && !store.regOfficeCity)}" required/> 
+                    <div ng-show="(shopCreateForm.regofficecity.$dirty&&shopCreateForm.regofficecity.$invalid&&shopCreateForm.regofficecity.$error.required ) || (formSubmitted && !store.regOfficeCity)" class="text-red" data-ng-bind="i18n.store.enter_storeregcity"></div> 
+                    </div>
+                    <div class="second-input clearfix">
+                    <div class="input-two">
+                    <input type="text" id="province" ng-blur="visited = true" class="form-control bg-gray" placeholder="{{i18n.shop_affiliation.detail.prov}}" name="province" ng-model="store.province" maxlength="2" data-ng-maxlength="2" ng-class="{ 'has-error' : (shopCreateForm.province.$dirty&&shopCreateForm.province.$invalid&&shopCreateForm.province.$error.required ) || (formSubmitted && !store.province)||(shopCreateForm.province.$error.pattern && visited)}" ng-pattern="/^[0-9a-zA-Z]{2}$/" required/> 
+                    <div ng-show=" (shopCreateForm.province.$dirty&&shopCreateForm.province.$invalid&&shopCreateForm.province.$error.required ) || (formSubmitted && !store.province)||(shopCreateForm.province.$error.pattern && visited)" class="text-red" data-ng-bind="i18n.store.enter_storeregprovince"></div> 
+                    </div>
+                    <div class="input-three">
+                    <input type="text" id="regOfficezip" ng-blur="visited = true" class="form-control bg-gray" placeholder="{{i18n.shop_affiliation.detail.cap}}" name="regofficezip" ng-model="store.regOfficezip" maxlength="5" data-ng-maxlength="5" ng-class="{ 'has-error' :  (shopCreateForm.regofficezip.$dirty&&shopCreateForm.regofficezip.$invalid&&shopCreateForm.regofficezip.$error.required ) || (formSubmitted && !store.regOfficezip)||(shopCreateForm.regofficezip.$error.pattern && visited)}" ng-pattern="/^\d{5}$/" required/> 
+                    <div ng-show="(shopCreateForm.regofficezip.$dirty&&shopCreateForm.regofficezip.$invalid&&shopCreateForm.regofficezip.$error.required ) || (formSubmitted && !store.regOfficezip)||(shopCreateForm.regofficezip.$error.pattern && visited)" class="text-red" data-ng-bind="i18n.store.enter_storevalidregzip"></div> 
+                    </div>
+                    </div>
+                    </div>
+                </li>
+                <li>
+                    <input type="text" id="regOfficeStreet" class="form-control bg-gray" placeholder="{{i18n.shop_affiliation.detail.street}}" name="regofficestreet" ng-model="store.regOfficeStreet" ng-class="{ 'has-error' : (shopCreateForm.regofficestreet.$dirty&&shopCreateForm.regofficestreet.$invalid&&shopCreateForm.regofficestreet.$error.required ) || (formSubmitted && !store.regOfficeStreet)}" required/>
+                    <div ng-show="(shopCreateForm.regofficestreet.$dirty&&shopCreateForm.regofficestreet.$invalid&&shopCreateForm.regofficestreet.$error.required ) || (formSubmitted && !store.regOfficeStreet)" class="text-red" data-ng-bind="i18n.store.enter_storeregaddress"></div>       
+                </li>
+                </ul>
+                </div>
+                    
+                <div class="form-two">
+                <div class="form-heading" data-ng-bind="i18n.shop_affiliation.detail.sale_point_label"></div>
+                <ul class="clearfix">
+                <li class="two-inputs">
+                    <div class="first-input">
+                    <select id="HQCountry" class="form-control bg-gray" name="hqcountry" data-ng-model="store.HQCountry" data-ng-options="country.country for country in countries track by country.id" ng-class="{ 'has-error' : (shopCreateForm.hqcountry.$dirty&&shopCreateForm.hqcountry.$invalid&&shopCreateForm.hqcountry.$error.required ) || (formSubmitted && !store.HQCountry)}" required>
+                        <option selected="selected" value="">{{i18n.shop_affiliation.detail.country}}</option>
+                    </select> 
+                    <div ng-show="(shopCreateForm.hqcountry.$dirty&&shopCreateForm.hqcountry.$invalid&&shopCreateForm.hqcountry.$error.required ) || (formSubmitted && !store.HQCountry)" class="text-red" data-ng-bind="i18n.store.enter_hqstorecountry"></div>  
+                    </div>
+                    <div class="second-input">
+                    <select id="HQRegion" class="form-control bg-gray" name="hqregion" ng-model="store.HQRegion" data-ng-options="region.region for region in regions track by region.id" ng-class="{ 'has-error' : (shopCreateForm.hqregion.$dirty&&shopCreateForm.hqregion.$invalid&&shopCreateForm.hqregion.$error.required ) || (formSubmitted && !store.HQRegion)}" required>
+                        <option selected="selected" value="">{{i18n.shop_affiliation.detail.region}}</option>
+                    </select>
+                    <div ng-show="(shopCreateForm.hqregion.$dirty&&shopCreateForm.hqregion.$invalid&&shopCreateForm.hqregion.$error.required ) || (formSubmitted && !store.HQRegion)" class="text-red" data-ng-bind="i18n.store.enter_hqstoreregion"></div>
+                    </div> 
+                </li>
+                <li class="three-inputs">
+                    <div class="two-inputs">
+                    <div class="first-input clearfix">
+                    <input id="HQCity" type="text" class="form-control bg-gray input-one" placeholder="{{i18n.shop_affiliation.detail.city}}" name="hqcity" ng-model="store.HQCity" maxlength="20" data-ng-maxlength="20" ng-class="{ 'has-error' : (shopCreateForm.hqcity.$dirty&&shopCreateForm.hqcity.$invalid&&shopCreateForm.hqcity.$error.required ) || (formSubmitted && !store.HQCity)}" required/> 
+                    <div ng-show="(shopCreateForm.hqcity.$dirty&&shopCreateForm.hqcity.$invalid&&shopCreateForm.hqcity.$error.required ) || (formSubmitted && !store.HQCity)" class="text-red" data-ng-bind="i18n.store.enter_hqstorecity"></div> 
+                    </div>
+                    <div class="second-input clearfix">
+                    <div class="input-two">
+                    <input id="HQProvince" type="text" ng-blur="visited = true" class="form-control bg-gray" placeholder="{{i18n.shop_affiliation.detail.prov}}" name="hqprovince" ng-model="store.HQProvince" maxlength ="2" data-ng-maxlength="2" ng-class="{ 'has-error' : (shopCreateForm.hqprovince.$dirty&&shopCreateForm.hqprovince.$invalid&&shopCreateForm.hqprovince.$error.required ) || (formSubmitted && !store.HQProvince)||(shopCreateForm.hqprovince.$error.pattern && visited)}" ng-pattern="/^[0-9a-zA-Z]{2}$/" required/>
+                    <div ng-show="(shopCreateForm.hqprovince.$dirty&&shopCreateForm.hqprovince.$invalid&&shopCreateForm.hqprovince.$error.required ) || (formSubmitted && !store.HQProvince)||(shopCreateForm.hqprovince.$error.pattern && visited)" class="text-red" data-ng-bind="i18n.store.enter_hqstoreprovince"></div>  
+                    </div>
+                    <div class="input-three">
+                    <input id="HQCap" type="text" ng-blur="visited = true" class="form-control bg-gray" placeholder="{{i18n.shop_affiliation.detail.cap}}" name="hqcap" ng-model="store.HQCap" maxlength="5" data-ng-maxlength="5" ng-class="{ 'has-error' : (shopCreateForm.hqcap.$dirty&&shopCreateForm.hqcap.$invalid&&shopCreateForm.hqcap.$error.required ) || (formSubmitted && !store.HQCap)||(shopCreateForm.hqcap.$error.pattern && visited)}" ng-pattern="/^\d{5}$/" required/>     
+                    <div ng-show="(shopCreateForm.hqcap.$dirty&&shopCreateForm.hqcap.$invalid&&shopCreateForm.hqcap.$error.required ) || (formSubmitted && !store.HQCap)||(shopCreateForm.hqcap.$error.pattern && visited)"class="text-red" data-ng-bind="i18n.store.enter_storevalidregzip"></div> 
+                    </div>
+                    </div>
+                    </div>
+                </li>
+                <li>
+                    <input id="HQStreet" type="text" class="form-control bg-gray" placeholder="{{i18n.shop_affiliation.detail.street}}" name="hqstreet" ng-model="store.HQStreet" ng-class="{ 'has-error' : (shopCreateForm.hqstreet.$dirty&&shopCreateForm.hqstreet.$invalid&&shopCreateForm.hqstreet.$error.required ) || (formSubmitted && !store.HQStreet)}" required/>  
+                    <div ng-show="(shopCreateForm.hqstreet.$dirty&&shopCreateForm.hqstreet.$invalid&&shopCreateForm.hqstreet.$error.required ) || (formSubmitted && !store.HQStreet)" class="text-red" data-ng-bind="i18n.store.enter_hqstoreaddress"></div>    
+                </li> 
+                 <li>
+                    <div class="text-red fl pac-input"></div>
+                <autocomplete-map></autocomplete-map>
+                <input type="hidden" class="form-control bg-gray first-input" id="longitude" ng-model="store.longitude"/>
+                <input type="hidden" class="form-control bg-gray first-input" id="latitude" ng-model="store.latitude" ng-model="store.latitude"/> 
+                <input type="hidden" class="form-control bg-gray first-input" id="mapplace" name="mapplace" ng-model="store.map_place"/>
+                <div ng-show="malLocationEmpty" class="text-red" data-ng-bind="i18n.store.enter_storemap"></div>
+                </li> 
+                <li class="two-inputs">
+                    <div class="first-input">
+                    <div class="hint-message" data-ng-bind="i18n.shop_affiliation.detail.contact_email_desc"></div>
+                    <input type="email" id="HQEmail" ng-blur="visited = true"  class="form-control bg-gray" placeholder="{{i18n.shop_affiliation.detail.email_address}}" name="hqemail" ng-model="store.HQEmail" ng-class="{ 'has-error' : (shopCreateForm.hqemail.$dirty&&shopCreateForm.hqemail.$invalid&&shopCreateForm.hqemail.$error.required ) || (formSubmitted && !store.HQEmail)||(shopCreateForm.hqemail.$error.pattern && visited)}" ng-pattern="/^[A-Za-z0-9._-]+@[A-Za-z]+\.[A-Za-z.]{2,5}$/" required /> 
+                    <div ng-show="(shopCreateForm.hqemail.$dirty&&shopCreateForm.hqemail.$invalid&&shopCreateForm.hqemail.$error.required) || (formSubmitted && !store.HQEmail) || shopCreateForm.hqemail.$error.pattern && visited" class="text-red" data-ng-bind="i18n.register.enter_valid_email"></div> 
+                    </div>
+                    <div class="second-input">
+                    <div class="hint-message" data-ng-bind="i18n.shop_affiliation.detail.contact_phone_desc"></div>
+                    <input type="text" id="HQPhone" ng-blur="visited = true" class="form-control bg-gray" placeholder="{{i18n.shop_affiliation.detail.phone_number}}" name="hqphone" ng-model="store.HQPhone" maxlength="15" data-ng-maxlength="15" ng-class="{ 'has-error' : (shopCreateForm.hqphone.$dirty&&shopCreateForm.hqphone.$invalid&&shopCreateForm.hqphone.$error.required ) || (formSubmitted && !store.HQPhone)||(shopCreateForm.hqphone.$error.pattern && visited)}" required ng-pattern="/^\d{10,15}$/"/> 
+                    <div ng-show="(shopCreateForm.hqphone.$dirty&&shopCreateForm.hqphone.$invalid&&shopCreateForm.hqphone.$error.required ) || (formSubmitted && !store.HQPhone)||(shopCreateForm.hqphone.$error.pattern && visited)" class="text-red" data-ng-bind="i18n.store.enter_hqstorephone"></div>
+                </div>
+                </li>
+                </ul>
+                </div>
+                
+                <div class="form-three">
+                <div class="form-heading" data-ng-bind="i18n.shop_affiliation.detail.legal_data_label"></div>
+                <ul class="clearfix">
+                <li class="two-inputs">
+                    <input type="text" id="legalTaxCode" ng-blur="visited = true" class="form-control bg-gray" placeholder="{{i18n.shop_affiliation.detail.tax_code}}" name="legaltaxcode" maxlength="40" data-ng-maxlength="40" ng-model="store.legalTaxCode" ng-class="{ 'has-error' : (shopCreateForm.legaltaxcode.$dirty&&shopCreateForm.legaltaxcode.$invalid&&shopCreateForm.legaltaxcode.$error.required ) || (formSubmitted && !store.legalTaxCode)||(shopCreateForm.legaltaxcode.$error.pattern && visited)}" ng-pattern="/^[0-9a-zA-Z]{2,40}$/" required/>
+                    <div ng-show="(shopCreateForm.legaltaxcode.$dirty&&shopCreateForm.legaltaxcode.$invalid&&shopCreateForm.legaltaxcode.$error.required ) || (formSubmitted && !store.legalTaxCode)||(shopCreateForm.legaltaxcode.$error.pattern && visited)" class="text-red" data-ng-bind="i18n.store.enter_legalTaxCode"></div>    
+                </li>
+                <li class="two-inputs">
+                    <div class="first-input">
+                    <input type="text" id="firstName" class="form-control bg-gray" placeholder="{{i18n.shop_affiliation.detail.name}}" name="firstname" ng-model="store.firstName" ng-class="{ 'has-error' : (shopCreateForm.firstname.$dirty&&shopCreateForm.firstname.$invalid&&shopCreateForm.firstname.$error.required ) || (formSubmitted && !store.firstName)}" required/>
+                    <div ng-show="(shopCreateForm.firstname.$dirty&&shopCreateForm.firstname.$invalid&&shopCreateForm.firstname.$error.required ) || (formSubmitted && !store.firstName)" class="text-red" data-ng-bind="i18n.store.enter_firstName"></div>
+                    </div>
+                    <div class="second-input"> 
+                    <input type="text" id="lastName" class="form-control bg-gray" placeholder="{{i18n.shop_affiliation.detail.last_name}}" name="lastname" ng-model="store.lastName" ng-class="{ 'has-error' : (shopCreateForm.lastname.$dirty&&shopCreateForm.lastname.$invalid&&shopCreateForm.lastname.$error.required ) || (formSubmitted && !store.lastName)}" required/>  
+                    <div ng-show="(shopCreateForm.lastname.$dirty&&shopCreateForm.lastname.$invalid&&shopCreateForm.lastname.$error.required ) || (formSubmitted && !store.lastName)" class="text-red" data-ng-bind="i18n.store.enter_lastName"></div>
+                    </div> 
+                </li>
+                <li class="four-inputs birth-input">
+                    <div class="two-inputs">
+                    <div class="first-input clearfix">
+                    <input type="text" id="legalBirthPlace" class="form-control bg-gray" placeholder="{{i18n.shop_affiliation.detail.birth_place}}" name="legaldobplace" ng-model="store.legalBirthPlace" ng-class="{ 'has-error' : (shopCreateForm.legaldobplace.$dirty&&shopCreateForm.legaldobplace.$invalid&&shopCreateForm.legaldobplace.$error.required ) || (formSubmitted && !store.legalBirthPlace)}" required/> 
+                    <div ng-show="(shopCreateForm.legaldobplace.$dirty&&shopCreateForm.legaldobplace.$invalid&&shopCreateForm.legaldobplace.$error.required ) || (formSubmitted && !store.legalBirthPlace)" class="text-red" data-ng-bind="i18n.store.enter_legalBirthPlace"></div> 
+                    </div>
+                    <div class="second-input clearfix">
+                    <div class="hint-message" data-ng-bind="i18n.shop_affiliation.detail.dob_label"></div>
+                    <div class="input-one">
+                    <select id="dobDay" class="form-control bg-gray" name="dobday" data-ng-model="store.dobDay" data-ng-options="day.value for day in days track by day.id" ng-class="{ 'has-error' : (shopCreateForm.dobday.$dirty&&shopCreateForm.dobday.$invalid&&shopCreateForm.dobday.$error.required ) || (formSubmitted && !store.dobDay)}" required>
+                        <option selected="selected" value="">{{i18n.shop_affiliation.detail.day}}</option>
+                    </select>
+                    <div ng-show="(shopCreateForm.dobday.$dirty&&shopCreateForm.dobday.$invalid&&shopCreateForm.dobday.$error.required ) || (formSubmitted && !store.dobDay)" class="text-red" data-ng-bind="i18n.store.enter_permntDd"></div> 
+                    </div>
+                    <div class="input-two">
+                    <select id="dobMonth" class="form-control bg-gray" name="dobmonth" data-ng-model="store.dobMonth" data-ng-options="month.name for month in months track by month.value" ng-class="{ 'has-error' : (shopCreateForm.dobmonth.$dirty&&shopCreateForm.dobmonth.$invalid&&shopCreateForm.dobmonth.$error.required ) || (formSubmitted && !store.dobMonth)}" data-ng-change="changeShopMonth()" required>
+                        <option selected="selected" value="">{{i18n.shop_affiliation.detail.month}}</option>
+                    </select>
+                    <div ng-show="(shopCreateForm.dobmonth.$dirty&&shopCreateForm.dobmonth.$invalid&&shopCreateForm.dobmonth.$error.required ) || (formSubmitted && !store.dobMonth)" class="text-red" data-ng-bind="i18n.store.enter_permntMonth"></div> 
+                    </div>
+                    <div class="input-three">
+                    <select id="dobYear" class="form-control bg-gray" data-ng-options="year.value for year in years track by year.id" name="dobyear" data-ng-model="store.dobYear" ng-class="{ 'has-error' : (shopCreateForm.dobyear.$dirty&&shopCreateForm.dobyear.$invalid&&shopCreateForm.dobyear.$error.required ) || (formSubmitted && !store.dobYear)}" data-ng-change="changeShopYear()" required>
+                        <option selected="selected" value="">
+                            {{i18n.shop_affiliation.detail.year}}
+                        </option>
+                    </select>
+                    <div ng-show="(shopCreateForm.dobyear.$dirty&&shopCreateForm.dobyear.$invalid&&shopCreateForm.dobyear.$error.required ) || (formSubmitted && !store.dobYear)" class="text-red" data-ng-bind="i18n.store.enter_permntYear"></div>
+                    </div> 
+                </div>
+                    </div>
+                </li>
+                <li class="two-inputs">
+                    <div class="first-input">
+                    <div class="hint-message" data-ng-bind="i18n.shop_affiliation.detail.not_display_label"></div>
+                    <input type="email" id ="legalEmail" ng-blur="visited = true" class="form-control bg-gray" placeholder="{{i18n.shop_affiliation.detail.email_address}}" name="legalemail" ng-model="store.legalEmail" ng-class="{ 'has-error' : (shopCreateForm.legalemail.$dirty&&shopCreateForm.legalemail.$invalid&&shopCreateForm.legalemail.$error.required ) || (formSubmitted && !store.legalEmail)||(shopCreateForm.legalemail.$error.pattern && visited)}" ng-pattern="/^[A-Za-z0-9._-]+@[A-Za-z]+\.[A-Za-z.]{2,5}$/" required />
+                    <div ng-show="(shopCreateForm.legalemail.$dirty&&shopCreateForm.legalemail.$invalid&&shopCreateForm.legalemail.$error.required) || (formSubmitted && !store.legalEmail) || shopCreateForm.legalemail.$error.pattern && visited" class="text-red" data-ng-bind="i18n.register.enter_valid_email"></div>
+                    </div>
+                    <div class="second-input">
+                    <div class="hint-message" data-ng-bind="i18n.shop_affiliation.detail.not_display_label"></div>
+                    <input type="text" id="legalPhone" ng-blur="visited = true" class="form-control bg-gray" placeholder="{{i18n.shop_affiliation.detail.cellphone}}" name="legalphone" ng-model="store.legalPhone" maxlength="15" data-ng-maxlength="15" ng-class="{ 'has-error' : (shopCreateForm.legalphone.$dirty&&shopCreateForm.legalphone.$invalid&&shopCreateForm.legalphone.$error.required ) || (formSubmitted && !store.legalPhone)|| (shopCreateForm.legalphone.$error.pattern && visited)}" required ng-pattern="/^\d{10,15}$/"/> 
+                    <div ng-show="(shopCreateForm.legalphone.$dirty&&shopCreateForm.legalphone.$invalid&&shopCreateForm.legalphone.$error.required ) || (formSubmitted && !store.legalPhone) || (shopCreateForm.legalphone.$error.pattern && visited)" class="text-red" data-ng-bind="i18n.store.enter_legalPhone"></div> 
+                    </div> 
+                </li>
+                <li class="form-subheading" data-nd-bind="i18n.shop_affiliation.detail.permanent_address_label">
+                    </li>
+                <li class="two-inputs">
+                    <div class="first-input">
+                    <input type="text" id="permntAddress" class="form-control bg-gray" placeholder="{{i18n.shop_affiliation.detail.permanent_address}}" name="permntaddress" ng-model="store.permntAddress" ng-class="{ 'has-error' : (shopCreateForm.permntaddress.$dirty&&shopCreateForm.permntaddress.$invalid&&shopCreateForm.permntaddress.$error.required ) || (formSubmitted && !store.permntAddress)}" required/>
+                    <div ng-show="(shopCreateForm.permntaddress.$dirty&&shopCreateForm.permntaddress.$invalid&&shopCreateForm.permntaddress.$error.required ) || (formSubmitted && !store.permntAddress)" class="text-red" data-ng-bind="i18n.store.enter_permntAddress"></div>
+                    </div>
+                    <div class="second-input">
+                    <input type="text" id="permntProvince" ng-blur="visited = true" class="form-control bg-gray" 
+                    placeholder="{{i18n.shop_affiliation.detail.prov}}" name="permntprovince" ng-model="store.permntProvince" maxlength="2" data-ng-maxlength="2" ng-class="{ 'has-error' : (shopCreateForm.permntprovince.$dirty&&shopCreateForm.permntprovince.$invalid&&shopCreateForm.permntprovince.$error.required ) || (formSubmitted && !store.permntProvince)||(shopCreateForm.permntprovince.$error.pattern && visited)}" ng-pattern="/^[0-9a-zA-Z]{2}$/" required/> 
+                    <div ng-show="(shopCreateForm.permntprovince.$dirty&&shopCreateForm.permntprovince.$invalid&&shopCreateForm.permntprovince.$error.required ) || (formSubmitted && !store.permntProvince)||(shopCreateForm.permntprovince.$error.pattern && visited)" class="text-red" data-ng-bind="i18n.store.enter_permntProvince"></div>
+                    </div> 
+                </li>
+                <li class="two-inputs">
+                    <div class="first-input">
+                    <input type="text" id="permntCity" class="form-control bg-gray" placeholder="{{i18n.shop_affiliation.detail.city}}" name="permntcity" ng-model="store.permntCity" maxlength="20" data-ng-maxlength="20" ng-class="{ 'has-error' : (shopCreateForm.permntcity.$dirty&&shopCreateForm.permntcity.$invalid&&shopCreateForm.permntcity.$error.required ) || (formSubmitted && !store.permntCity)}" required /> 
+                    <div ng-show="(shopCreateForm.permntcity.$dirty&&shopCreateForm.permntcity.$invalid&&shopCreateForm.permntcity.$error.required ) || (formSubmitted && !store.permntCity)" class="text-red" data-ng-bind="i18n.store.enter_permntCity"></div>
+                    </div>
+                    <div class="second-input">
+                    <input type="text" id="permntZip" ng-blur="visited = true" class="form-control bg-gray" placeholder="{{i18n.shop_affiliation.detail.cap}}" name="permntzip" ng-model="store.permntZip" maxlength="5" data-ng-maxlength="5" ng-class="{ 'has-error' : (shopCreateForm.permntzip.$dirty&&shopCreateForm.permntzip.$invalid&&shopCreateForm.permntzip.$error.required ) || (formSubmitted && !store.permntZip)||(shopCreateForm.permntzip.$error.pattern && visited)}" ng-pattern="/^\d{5}$/" required/>   
+                    <div ng-show="(shopCreateForm.permntzip.$dirty&&shopCreateForm.permntzip.$invalid&&shopCreateForm.permntzip.$error.required ) || (formSubmitted && !store.permntZip)||(shopCreateForm.permntzip.$error.pattern && visited)" class="text-red" data-ng-bind="i18n.store.enter_storevalidregzip"></div>
+                    </div> 
+                </li>
+                </ul>
+                </div>  
+                <ul>
+                <li>
+                <div data-ng-show="createStoreLoader" style="text-align: center;">
+                    <img src="app/assets/images/proceed.gif" alt="loading..."/>
+                </div>
+                    <button data-ng-hide="createStoreLoader" type="submit" class="btn btn-primary" data-ng-bind="i18n.shop_affiliation.detail.nxt_btn"></button>
+                    <!-- <button type="reset" data-ng-hide="createStoreLoader" class="btn btn-primary" ng-click="resetStoreObject()">{{i18n.store.reset}}<i class="fa fa-fw fa-times"></i></button> -->
+                    <!-- <div class="text-red display-block-inline fr"  data-ng-show="createStoreError" data-ng-bind="createStoreErrorMgs"></div> -->
+                    <div ng-show="commonError" class="text-red" data-ng-bind="createShopErrorMgs"></div>
+                </li>
+            </ul>
+            <div class="citizen-account-links">
+                <a href="javascript:void(0)" ng-click="backLocation()">&lt;&lt; {{i18n.shop_affiliation.back_link}}</a>
+                <div class="citizen-steps"><span data-ng-bind="i18n.shop_affiliation.step"></span> 2/4</div>
+            </div>
+            </form>
+            </div>
+        </div>      
+    </div>
+    </div>
+</div>
+<footer-logout></footer-logout>
+<div ng-include="app/views/footer.html"></div> 
+</div>

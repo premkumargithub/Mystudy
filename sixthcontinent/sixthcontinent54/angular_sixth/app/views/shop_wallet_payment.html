@@ -1,0 +1,100 @@
+<div class="wallet-add-account shop-wallet-section">
+  <div class="heading" data-ng-bind="i18n.store.wallet.add_paypal_lbl"></div>
+  <ul>
+    <li><a href="javascript:void(0);" ng-click="openPaypalForm()"><img src="app/assets/images/paypal.png" alt="" titile=""/></a>
+      <span data-ng-bind="i18n.store_wallet.paypal.paypal_shop_wallet"></span></li>
+    <li> <a data-ng-href="{{storePaymentUrl}}" >
+      <img  src="app/assets/images/master-visa.png" alt="" titile=""/> </a>
+      <span data-ng-bind="i18n.store_wallet.paypal.paypal_shop_credit"></span>
+    </li>
+  </ul>
+  <div ng-if="paypalErrCls=='text-success'" ng-class="paypalErrCls" class="text-center" data-ng-bind="paypalErrMsg"></div>
+</div> 
+<div data-ng-show="isShowForm">
+    <paypal-form></paypal-form>
+</div>
+<div class="wallet-account-list shopwallet-pending">
+  <div class="heading" data-ng-bind="i18n.store.wallet.accounts_lbl"></div>
+  <div class="account-buttons">
+  	<a href="javascript:void(0);" ng-class="{active:isActiveSubTab(1)}" class="" ng-click="getSubTabData(1);" data-ng-bind="i18n.store_wallet.paypal.credit_card_lbl"></a>
+  	<a href="javascript:void(0);"  ng-class="{active:isActiveSubTab(2)}" class="" ng-click="getSubTabData(2);" data-ng-bind="i18n.store_wallet.paypal.Paypal_lbl"></a>
+  </div>
+  <!-- shop credit cards listing start-->
+  <div data-ng-if="currentSubTab == 1">
+    <shop-wallet-credit-cards></shop-wallet-credit-cards>
+  </div>
+  <!-- shop credit cards listing end-->
+  <!-- shop paypal account listing start-->
+  <div data-ng-if="currentSubTab == 2">
+    <shop-wallet-paypal-accounts></shop-wallet-paypal-accounts>
+  </div>
+  <!-- shop paypal account listing end-->
+   <div class="payment-pending-section clearfix">
+      <div class="payment-pending-left">
+          <span data-ng-bind="i18n.store_wallet.pending_payment_wallet + ' '"></span>
+          <span class="pending-pay" data-ng-bind = "pendingAmount | currency:'&euro;'"></span>
+          <a href="" data-ng-click="showListPay()" data-ng-bind="i18n.store_wallet.pending_detail + ' '" data-ng-show ="!showList" class="show-details"></a>
+          <a href="" data-ng-click="showListPay()" data-ng-bind="i18n.store.wallet.hide_details + ' '" data-ng-show="showList" class="show-details"></a>
+      </div>
+      <div class="payment-pending-right">
+         
+          <a data-ng-click="payPendingAmount()" data-ng-if="pendingAmount != 0" data-ng-bind="i18n.store_wallet.pay_now"></a>
+           <div class="red" data-ng-show="showMoreEuro" data-ng-bind="i18n.store_wallet.pay_five_euro"></div>
+      </div>
+  </div>
+  <div class="wallet-payment-tab">
+     <table class="table" data-ng-show ="showList">
+          <thead class="tran-history-heading">
+              <tr>
+                  <th class="first-th" data-ng-bind="i18n.store_wallet.shop_name"></th>
+                  <th class="third-th" data-ng-bind="i18n.store_wallet.pending_amount_without_vat"></th>
+                  <th class="third-th" data-ng-bind="i18n.store_wallet.Vat"></th>
+                  <th class="sec-th" data-ng-bind="i18n.store_wallet.pending_pay_vat"></th>
+                  <th class="four-th" data-ng-bind="i18n.store_wallet.Type"></th>
+                  <th class="five-th" data-ng-bind="i18n.store_wallet.Date"></th>
+              </tr>
+          </thead>
+          <tbody>
+         <tr data-ng-repeat= "listing in pendingListing | orderBy:'-date.date'">
+              <td data-title="{{i18n.Campaign_listing.coupon_value}}" class="table-blue"><span data-ng-bind="listing.shop_info.name"></span></td>
+              <td data-title="{{i18n.Campaign_listing.utilization}}"><span data-ng-bind="listing.pending_amount_without_vat"></span></td>
+              <td data-title="{{i18n.Campaign_listing.number_sent}}" class="table-blue"><span data-ng-bind="listing.vat"></span></td>
+              <td data-title="{{i18n.Campaign_listing.promotion_date}}"><span data-ng-bind="listing.pending_amount_with_vat"></span></td>
+              <td data-title="{{i18n.Campaign_listing.exp_date}}" class="table-left" >
+              <span data-ng-if ="listing.type == 'R'" data-ng-bind ="i18n.store_wallet.reg_pay"></span>
+              <span data-ng-if ="listing.type == 'T'" data-ng-bind ="i18n.store_wallet.six_percent"></span>
+              <span data-ng-if ="listing.type == 'S'" data-ng-bind ="i18n.store_wallet.sub_pay"></span>
+              </td>
+              <td data-title="{{i18n.Campaign_listing.exp_date}}" class="table-left" ><span data-ng-bind="listing.date.date.substr(0,10)"></span></td>
+        </tr>
+          </tbody>
+      </table>
+      
+      <span data-ng-show = "showDetailLoader" class="listing-loader">
+        <img title="" alt="" src="app/assets/images/proceed.gif" >
+    </span> 
+      <div class="pending-payment-pagi" data-ng-show="showList && (!showNoDetailMsg)">
+       <div class="offer-pagi-section2">
+        <tr>
+          <th colspan="12" class="text-right">
+            <div class="pagination">
+              <ul class="pagination mb10 offer-paginate">
+                <li ng-class="prevPageDisabledPay()" class="nav-arrow nav-arrow-left">
+                  <a href ng-click="prevPagePay()"></a>
+                </li>
+                <li ng-repeat="n in range"
+                ng-class="{active: n == currentPagee, 'seeview': $index+1 == currentPagee+1 || $index+1 == currentPagee+2 || $index+1 == currentPagee-1 || $index+1 == currentPagee-2 || $index+1 == currentPagee || $last}">
+                <a href ng-click="changePageMorePay(n)" data-ng-bind="n"></a>
+                </li>
+                <li ng-class="nextPageDisabledPay()" class="nav-arrow nav-arrow-right">
+                  <a href ng-click="nextPagePay()"></a>
+                </li>
+              </ul>
+            </div>
+          </th>
+        </tr>
+      </div>
+    </div>
+    <span data-ng-show ="showNoDetailMsg && showList" class="span.listing-mess wallet-noresult ng-binding" data-ng-bind="i18n.profile.edit_profile.No_Record"></span>
+   </div> 
+</div>  

@@ -1,0 +1,82 @@
+<div class="wallet-shopping-card shopwallet-coupon">
+  <div data-ng-show="loadCoupon" class="loader-container">
+    <show-progress></show-progress>
+  </div>
+  <div class="wallet-search-block" data-ng-hide="loadCoupon">
+    <div class="search-box">
+      <form data-ng-submit="applyFilter(date, 'getCoupon', citizenName)" >
+        <input id="cName" type="text" placeholder="{{i18n.store.wallet.couponTab.search}}"  data-ng-model="citizenName">
+      </form>
+      <button><i class="fa fa-search"></i></button>
+    </div>
+    <div class="date-from">
+      <label data-ng-bind="i18n.store.wallet.couponTab.from"></label>
+      <date-pickers date="date.startDate"></date-pickers>
+    </div>
+    <div class="date-from">
+      <label data-ng-bind="i18n.store.wallet.couponTab.to"></label>
+       <date-pickers date="date.endDate"></date-pickers>
+    </div>
+    <div class="search-box-buttons">
+      <a href data-ng-click="applyFilter(date, 'getCoupon', citizenName)"><i class="fa fa-check"></i></a>
+      <a href data-ng-click="clearFilter()"><i class="fa fa-times"></i></a>
+    </div>
+  </div>
+  
+  <div data-ng-hide="loadCoupon">
+    <div class="wallet-coupon">
+      <div class="heading"><span data-ng-bind="i18n.store.wallet.couponTab.discount_coupon"></span> <span class="value" data-ng-bind="'('+couponCount+')'"></span></div>
+    </div>
+    <div class="coup-table wallettable-responsive">
+      <table width="100%" border="1">
+        <thead>
+          <tr>
+            <th scope="col" class="text-sec" data-ng-bind="i18n.store.wallet.couponTab.amount"></th>
+            <th scope="col" class="text-sec" data-ng-bind="i18n.store.wallet.couponTab.pays_up_to"></th>
+            <th scope="col" class="tLeft" data-ng-bind="i18n.store.wallet.couponTab.Citizen_name"></th>
+            <th scope="col" data-ng-bind="i18n.store.wallet.couponTab.coupon_Id"></th>
+            <th scope="col" data-ng-bind="i18n.store.wallet.couponTab.balance"></th>
+            <th scope="col" data-ng-bind="i18n.store.wallet.couponTab.deadline"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-ng-repeat="record in couponRecord | orderBy:'-to_date'">
+            <td class="no-bod" data-title="{{i18n.store.wallet.couponTab.amount}}"><div class="coup-price" data-ng-bind="record.credit + '&euro;'"></div></td>
+            <td class="no-bod" data-title="{{i18n.store.wallet.couponTab.pays_up_to}}"><div class="coup-price" data-ng-bind="record.discount | discountFilter"></div></td>
+            <td class="tLeft" data-title="{{i18n.store.wallet.couponTab.Citizen_name}}"><a href="#/viewfriend/{{record.citizen_id._id}}" class="name" data-ng-bind="record.citizen_id.name"></a></td>
+            <td data-ng-bind="record.unique_id" data-title="{{i18n.store.wallet.couponTab.coupon_Id}}"></td>
+            <td data-title="{{i18n.store.wallet.couponTab.balance}}"><a href data-ng-bind="(record.balance | number:2) + '&euro;'"></a></td>
+            <td data-ng-bind="record.to_date | date:'dd-MM-yyyy'" data-title="{{i18n.store.wallet.couponTab.deadline}}"></td> 
+          </tr>
+        </tbody>
+      </table>
+      <div data-ng-if="couponRecord.length == 0">
+        <span class="span.listing-mess wallet-noresult" data-ng-bind="i18n.profile.edit_profile.No_Record"></span>
+      </div>
+      <div data-ng-show="loadMoreCoupons" class="loader-container">
+        <show-progress></show-progress>
+      </div>
+        <div class="club-pagi-section3">
+          <div class="pagination " data-ng-if="pagination === true ">
+            <ul class="pagination mb10 " >
+              <li class="prev nav-arrow" ng-class="prevPageDisabled()">
+                <a href ng-click="prevPage('coupon')">«</a>
+              </li>
+             <!--  <li ng-class="{active: 0 == currentPage}">
+                <a href ng-click="setPage(0);loadMoreCoupon(0);" >1</a>
+              </li> -->
+              <li data-ng-show="n==0 || n==(range.length-1) || (n <= currentPage+2 && n >= currentPage-2)"data-ng-repeat="n in range" ng-class="{active: n == currentPage }" class="num-index">
+                <a href ng-click="setPage(n);loadMoreCoupon(n+1);" >{{n+1}}</a>
+              </li>
+              <!-- <li ng-class="{active: totalPage == currentPage}">
+                <a href ng-click="setPage(totalPage);loadMoreCoupon(totalPage+1);" >{{totalPage+1}}</a>
+              </li> -->
+              <li class="next nav-arrow" ng-class="nextPageDisabled()">
+              <a href ng-click="nextPage('coupon')">»</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

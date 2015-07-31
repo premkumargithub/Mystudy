@@ -1,0 +1,44 @@
+{
+  "name": "Sixthcontinent",
+  "version": "1.0.0",
+  "description": "This is the file managing the node js modules for testing ",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "jasmine-core": "^2.2.0",
+    "karma": "^0.12.31",
+    "karma-chrome-launcher": "^0.1.7",
+    "karma-coverage": "^0.2.7",
+    "karma-jasmine": "^0.3.5",
+    "karma-requirejs": "^0.2.2",
+    "requirejs": "^2.1.16"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-connect": "^0.10.1",
+    "grunt-contrib-copy": "^0.8.0",
+    "grunt-contrib-jshint": "^0.11.1",
+    "grunt-contrib-uglify": "^0.9.0",
+    "grunt-karma": "^0.10.1",
+    "grunt-ngmin": "0.0.3",
+    "grunt-processhtml": "^0.3.7",
+    "grunt-text-replace": "^0.4.0",
+    "karma": "^0.12.31"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://liju_jose@bitbucket.org/daffodilsoftware/sixthcontinent_angular.git"
+  },
+  "keywords": [
+    "sixthcontinent"
+  ],
+  "author": "Liju Jose",
+  "license": "Powered by Daffodil Software Ltd"
+}

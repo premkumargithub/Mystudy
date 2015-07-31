@@ -1,0 +1,77 @@
+<div class="col-2-layout">
+    <div class="container-right-fluid-page" id="content">
+        <div class="innerAll">
+            <div class="row">
+                <div class="col-lg-8 col-md-8">
+                    <div class="inner-container">
+                        <form class="invite-user gruop-bar-form" >
+                            <div class="login-error" style="text-align: center; color: red;" data-ng-show="uploadProfileerror" data-ng-bind="uploadProfileErrorMsg">
+                            </div>
+                        </form>
+                        <!--store details section-->
+                        <div class="store-details-section">
+                            <storeprofile></storeprofile> 
+                        </div>
+
+                        <div class="friend-profile-container">
+                            <div class="timeline-cover">
+                                <div class="widget">
+                                    <div class="widget-body padding-none margin-none">
+                                        <div class="innerAll"> <i class="fa fa-quote-left text-muted pull-left fa-fw"></i>
+                                            <p class="lead margin-none ng-binding" data-ng-bind="i18n.store.transaction_history"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+                            
+                            <div class="table-responsive form-container">
+                                <table class="table">
+                                <thead class="tran-history-heading">
+                                    <tr>
+                                        <th><strong data-ng-bind="i18n.store.transaction_date"></strong></th>
+                                        <th><strong data-ng-bind="i18n.store.transaction_who"></strong></th>
+                                        <th><strong data-ng-bind="i18n.store.transaction_total"></strong></th>
+                                        <th><strong data-ng-bind="i18n.store.transaction_card"></strong></th>
+                                        <th><strong data-ng-bind="i18n.store.transaction_cash"></strong></th>
+                                        <th><strong data-ng-bind="i18n.store.transaction_discount"></strong></th>
+                                    </tr>
+                                </thead>
+                                <tbody class="tran-history-content" infinite-scroll="loadMore()" infinite-scroll-distance="3">
+                                        <tr class="tran-history-list" data-ng-repeat ="history in storeHistoryDetail">
+                                        <td data-ng-bind="history.date"></td>
+                                        <td>{{history.citizen_id.name}}</td>
+                                        <td> {{history.transaction_value | currency:'&euro;'}}
+                                        </td>
+                                        <td> {{history.discount | currency:'&euro;'}}
+                                        </td>
+                                        <td>{{history.payble_value | currency:'&euro;'}}
+                                         </td>
+                                        <td>{{history.discount}}%</td>
+                                        </tr>                
+                                    <tr ng-show="storeLoading" class="loader-container">
+                                        <td><img src="app/assets/images/proceed.gif" alt="loading..." /></td>
+                                    </tr>
+                                    <tr ng-if="!storeHistoryDetail.length" class="loader-container" data-ng-show="noHistory"><td align="left" data-ng-bind="i18n.store.result_not_found"></td></tr>
+                             </tbody>
+                             </table>
+                            </div>
+                            
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+                <!-- Edit store form start from here-->
+
+                <div class="col-lg-4 col-md-4">
+                    <!-- Edit store form start from here-->
+                    <profile-Right-Panel></profile-Right-Panel>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+
+</div>

@@ -1,0 +1,94 @@
+<!--Select Customer Start-->
+<div class="transaction-wrapper transaction-selectcustomer" >
+    <div class="transaction-main-heading" ng-bind="i18n.shop_transaction.select_customer_lbl"></div>
+    <div class="selectcustomer-search">
+        <input type="text" ng-keydown="searchCustomerKey($event)" name="searchValue" ng-model="transactionlist.searchKey" placeholder="{{i18n.shop_transaction.customer_search_pl}}"  submit-enter="searchTransaction()"/>
+        <input type="button" ng-click="searchTransaction()"/>
+        <a href="javascript:void(0);" ng-click="getTransactionList();" class="transaction-refresh"></a>
+    </div>
+                    <div class="club-pagi-section">
+                        <div class="club-pagi-section2"  ng-if="transactionObjectList.length != 0">
+                            <div class="viewtype-text" ng-bind="i18n.clubs.result_per_page"></div>
+                            <ul>
+                                <li><span ng-class="{active: itemsPerPage == firstPage}">
+                                <a href="javascript:void(0)" ng-click="setPage(firstPage)" ng-bind="firstPage"></a></span></li>
+                                <li> -<span ng-class="{active: itemsPerPage == 2*firstPage}">
+                                <a href="javascript:void(0)" ng-click="setPage(2*firstPage)" ng-bind="(2*firstPage)"></a></span></li>
+                                <li> -<span ng-class="{active: itemsPerPage == 4*firstPage}">
+                                <a href="javascript:void(0)" ng-click="setPage(4*firstPage)" ng-bind="(4*firstPage)"></a></span></li>
+                                <li> -<span ng-class="{active: itemsPerPage == 8*firstPage}">
+                                <a href="javascript:void(0)" ng-click="setPage(8*firstPage)" ng-bind="(8*firstPage)"></a></a></li>
+                            </ul>
+                        </div>
+                        <div class="club-pagi-section3" ng-if="transactionObjectList.length != 0">
+                            <tr>
+                            <th colspan="12" class="text-right" data-ng-if="pagination === true ">
+                            <div class="pagination">
+                            <ul class="pagination mb10 store-paginate">
+                            <li class="prev nav-arrow" ng-class="prevPageDisabled()" >
+                            <a href ng-click="prevPage()">&#60;</a>
+                            </li>
+                            <li ng-repeat="n in range"
+                            ng-class="{active: n == currentPage, 'seeview': $index+1 == currentPage+1 || $index+1 == currentPage+2 || $index+1 == currentPage-1 || $index+1 == currentPage-2 || $index+1 == currentPage || $last}">
+                            <a href ng-click="changePageMore(n)" ng-bind="n"></a>
+                            </li>
+                            <li class="next nav-arrow" ng-class="nextPageDisabled()">
+                            <a href ng-click="nextPage()">&#62;</a>
+                            </li>
+                            </ul>
+                            </div>
+                            </th>
+                            </tr>
+                        </div>
+                    </div>
+    <div class="transaction-content">
+        <div ng-if="transactionObjectList.length != 0">
+            <span class="shopTranErrCls" ng-bind="errorMsg"></span>
+            <div class="transaction-listing contentHolder">
+                <ul class="clearfix">
+                    <li ng-repeat="transaction in transactionObjectList">
+                        <div class="selectcustomer-left"> 
+                            <img data-ng-hide="transaction.citizen_id.user_thumbnail_image" ng-src="app/assets/images/profile-image.jpg"alt="transaction-customer" />
+                            <img data-ng-show="transaction.citizen_id.user_thumbnail_image" ng-src="{{transaction.citizen_id.user_thumbnail_image}}" alt="transaction-customer"/>
+                        </div>
+                        <div class="selectcustomer-right">
+                            <div class="selectcustomer-title">
+                                <span ng-bind="transaction.citizen_id.name"></span> 
+                            </div>
+                            <div class="selectcustomer-date">
+                                <span ng-bind="i18n.shop_transaction.transaction_date_listlbl"></span>
+                                <span ng-bind="transaction.date | txnPrgsDate"></span>
+                            </div>
+                            <div class="trans-status-section">
+                            <span ng-bind="i18n.shop_transaction.transaction_status_lbl"></span>
+                            <span ng-bind="transaction.status" ng-class="{'trans-status-pending': transaction.status == 'Pending', 'trans-status-initiate': transaction.status == 'Initiated'}"></span>
+                        </div>                     
+                            <div class="selectcustomer-subtitle">
+                                <span ng-bind="i18n.shop_transaction.transaction_id_listlbl"></span>
+                                <span ng-bind="transaction.id"></span></div>
+                            
+                        </div>
+                        <div class="selectshop-select">
+                            <input type="radio" ng-value="transaction._id" name="TransShopGroup" ng-model="transactionSelect.id">
+                            <label for="radioImageBased"></label>
+                        </div>
+                    </li>
+                </ul>
+                <div class="transaction-loader" ng-show="isLoadTransaction">
+                    <show-progress></show-progress>
+                </div>
+            </div>
+
+            <div class="transaction-buttons" ng-class="{'transaction-disable':requestSending}">
+                <button type="submit" ng-click="getTransactionDetail();" ng-bind="i18n.shop_transaction.next_lbl" ng-disabled="!transactionSelect.id"></button>
+            </div>
+        </div>
+        <div ng-if="transactionObjectList.length == 0 && requestSending==false">
+            <span ng-bind="i18n.shop_transaction.no_transaction"></span>
+        </div>
+    </div>
+    <div class="transaction-loader" ng-show="requestSending ==true && isLoadTransaction==false">
+        <show-progress></show-progress>
+    </div>
+</div>
+<!--Select Customer End--> 

@@ -1,0 +1,46 @@
+<div class="col-2-layout">
+	<div id="content" class="container-right-fluid-page">
+		<div class="innerAll" >
+			<div class="row">
+				<div class="col-lg-8 col-md-8">
+					<div class="inner-container">
+						<div class="friend-req-container">
+							<div class="notification-list-header" data-ng-bind="i18n.notify.your_friend_requests"></div>
+							<div ng-show="friendRequestLoading" class="loader-container">
+							<img src="app/assets/images/proceed.gif" alt="loading..." />
+							</div>
+							<div ng-hide="friendRequestLoading" class="all-notification-view club-req-view" infinite-scroll="loadMore()" infinite-scroll-distance="3">
+							<ul ng-if="FriendRequests.length" class="add-request-accept">
+						    <li data-ng-repeat="item in FriendRequests" ng-class="{'last':$last}" id="notification-request-friend-{{$index}}">
+							<div class="add-friend-img">
+							<a  href="#/viewfriend/{{item.user_info.id}}" title="{{i18n.profile.right_panel.view_profile}}">
+							<img style="width:80px;" data-ng-src="{{item.user_info.profile_image_thumb}}" data-ng-if="item.user_info.profile_image_thumb != ''" alt="" title="{{i18n.profile.right_panel.request_from}} {{item.user_info.username}}"/></a>
+							<a  href="#/viewfriend/{{item.user_info.id}}" title="{{i18n.profile.right_panel.view_profile}}">
+							<img style="width:80px;" src="app/assets/images/dummy60X60.jpg" data-ng-if="item.user_info.profile_image_thumb == ''" alt="{{i18n.profile.right_panel.no_image}}" title="{{i18n.profile.right_panel.request_from}} {{item.user_info.username}}"/></a>
+							</div>
+							<div class="add-friend-right">
+							<div class="add-friend-right-content">
+							<div class="club-req-title">
+							<h3><a href="#/viewfriend/{{item.user_info.id}}" title="{{i18n.profile.right_panel.view_profile}}" data-ng-bind="item.user_info.first_name + ' ' + item.user_info.last_name"></a></h3>
+							</div>
+							<div class="adver-mutal-add-friend add-friend-accept" id="notii-{{$index}}">
+							<input class="val-accept" type="button" value="{{i18n.profile.right_panel.personal_accept}}" ng-click="AcceptRequest(item, $index)" title="{{i18n.profile.right_panel.accept}}"  data-ng-if="item.personal == 1"/>
+							<input class="val-accept" type="button" value="{{i18n.profile.right_panel.professional_accept}}" ng-click="AcceptRequest(item, $index)" title="{{i18n.profile.right_panel.accept}}" data-ng-if="item.professional == 1"/>
+							<input  class="val-reject" type="button" value="{{i18n.store.reject}}" ng-click="RejectRequest(item, $index)" title="{{i18n.profile.right_panel.reject}}"/>
+							</div>
+							</div>  
+							</div>
+							</li>
+							</ul>
+							<div ng-if="!FriendRequests.length" data-ng-bind="i18n.dashboard.no_friend_request"></div>
+							</div>
+						</div> 
+					</div>
+				</div>     
+				<div class="col-md-4 col-lg-4">
+					<profile-Right-Panel></profile-Right-Panel>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,20 @@
+<div class="group-list-cont">
+	<div class="group-list storecoverid{{store.id}}" data-ng-repeat="store in topShopPerRevenue" >
+	<div class="list-image">
+		<a data-ng-if="store.profile_image_thumb != '' " style="background-image:url('{{store.profile_image_thumb}}');" title="{{store.name}}">
+		</a>
+		<a data-ng-if="store.profile_image_thumb == '' " style="background-image:url('app/assets/images/store-prod.jpg');" title="{{store.name}}">
+		</a>
+	</div>
+		<div class="list-text">
+			<div class="list-text-head" ng-bind="i18n.store.Nome"> : <a ng-bind="store.name"> </a>
+			</div>
+			<div class="list-text-head"> <a>
+			{{store.revenue | currency:"&euro;"}}</a>
+			</div>
+			<ul>
+			<li><i class="fa fa-info-circle"></i><p ng-bind="store.description | limitTo: 100 "></p></li>
+			</ul>
+			</div>
+	</div>
+</div>

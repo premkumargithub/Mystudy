@@ -1,0 +1,18 @@
+<div class="project-wall">
+    <div class="project storecoverid{{store.id}}" data-ng-repeat="store in topShopPerRevenue" >
+       <div>
+            <a>
+                <div class="tile-head"><h2 ng-bind="store.business_name"></h2></div>
+                <ul>
+                    <li>
+                        <span data-ng-if="store.profile_image_thumb != ''"style="background-image:url('{{store.profile_image_thumb}}');" title="{{store.businessName}}">
+                        </span>
+                        <span data-ng-if="store.profile_image_thumb == ''" style="background-image:url('app/assets/images/store-prod.jpg');" title="{{store.businessName}}">
+                        </span>
+                    </li>
+                </ul>
+                <h3>{{store.business_name}} : {{store.revenue | currency:"&euro;"}}</h3> 
+            </a>
+        </div>
+    </div>
+</div>

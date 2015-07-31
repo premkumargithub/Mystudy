@@ -1,0 +1,41 @@
+<!-- Content START -->
+<div id="content" data-ng-controller="UserController"> 
+    <!-- <div class="layout-app col-fs">  -->
+    <div class="layout-app col-fs">
+        <div class="row row-app">
+            <div class="col-md-12">
+                <div class="col-separator col-separator-first box col-unscrollable col-fs">
+                    <div class="col-table">
+                        <div class="col-table-row">
+                            <div class="col-app col-unscrollable tab-content">
+                                <div class="col-app lock-wrapper lock-bg-1 tab-pane active animated fadeIn" id="lock-1-1">
+                                    <h3 class="text-white innerB text-center" data-ng-bind="i18n.register.create_account"></h3>
+                                    <div class="lock-container">
+                                        <div class="success-message errormsg reg-param" data-ng-show="sucessMessage" data-ng-bind="signUpSuccessMsg"></div>
+                                        <form action="javascript:void(0)" ng-submit="registration();">
+                                            <div class="innerAll text-center"> <img src="app/assets/images/22.jpg" class="img-circle"/>
+                                                <div class="innerLR">
+                                                    <!--<input class="form-control text-center bg-gray" type="text" placeholder="First Name" data-ng-model="user.userFname" />-->
+                                                    <!--<input class="form-control text-center bg-gray" type="text" placeholder="Last Name" data-ng-model="user.userLname" />-->
+                                                    <input class="form-control text-center bg-gray" type="email" placeholder="{i18n.register.email}}" data-ng-model="user.userEmail" required />                        
+                                                    <input class="form-control text-center bg-gray" type="password" placeholder="{i18n.register.enter_password}}" data-ng-model="user.userPassword" required />
+                                                </div>
+                                                <div class="innerT"  data-ng-hide="signupStart">
+                                                   <button type="submit" class="btn btn-primary" value=""><span data-ng-bind="i18n.register.sign_up"></span> <i class="fa fa-fw fa-user"></i></button>
+                                                </div>
+                                                <div data-ng-show="signupStart">
+                                                <img src="app/assets/images/ajax-loader.gif" alt="{{i18n.register.loading}}..." />
+                                                </div>
+                                                <a href="#/" class="btn margin-none" data-ng-bind="i18n.register.already_register"></a>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

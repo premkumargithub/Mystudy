@@ -1,0 +1,34 @@
+<aside data-ng-controller="ClubNotificationController">
+		<div class="adver-mutal">
+			<div class="adver-mutal-section">
+				<h1 ng-bind="i18n.notify.clubs.join_notification"></h1>
+			</div>
+			<div class="adver-mutal-second">
+			<div class="people-you-may-know-panel">
+				<div class="people-may-see-all"><a href="javascript:void(0)"></a></div>
+			</div>
+			<ul class="adver-mutal-friend" data-ng-show="NotificationFound">
+			<li data-ng-repeat="item in notifications">
+				<div class="adver-mutal-friend-img" data-ng-if = "item.sender_info.profile_image_thumb != ''"><img style="width:64px; height:64px;" data-ng-src="{{item.sender_info.profile_image_thumb}}" alt="" title="" />
+				</div>
+				<div class="adver-mutal-friend-img" data-ng-if = "item.sender_info.profile_image_thumb == ''" ><img src="app/assets/images/dummy60X60.jpg" alt="" title="" />
+				</div>
+				<div class="adver-mutual-friend-right-section">
+					<h3><a href="#viewfriend/{{item.sender_info.id}}/about" title="{{i18n.notify.clubs.show_profile}}" ng-bind= "item.sender_info.first_name + ' ' + item.sender_info.last_name"></a></h3>
+					<h4 ng-bind="i18n.notify.clubs.from"> - <a ng-if="item.group_type == 1" href="#/club/view/{{item.group_id}}/{{item.group_type}}" title="{{i18n.notify.clubs.view_club}}" ng-bind="item.group_name"></a>
+					<a ng-if="item.group_type == 2" href="javascript:void(0)" title="{{i18n.notify.clubs.accept_first}}" ng-bind="item.group_name"></a>
+					</h4>
+					<h4><span ng-if="item.group_type == 1" ng-bind="'(' + i18n.notify.clubs.public + ')'"></span><span ng-if="item.group_type == 2" ng-bind="'(' + i18n.notify.clubs.private + ')'"></span></h4>
+					<div class="adver-mutal-add-friend" id="noti-{{$index}}">
+						<input type="button" value="{{i18n.notify.clubs.join_club}}" ng-click="acceptRequest(item.sender_id, item.request_id, item.group_id, item.group_type, $index)"/>
+						<input type="button" value="{{i18n.notify.clubs.reject}}" ng-click="rejectRequest(item.sender_id, item.request_id, item.group_id, item.group_type, $index)"/>
+					</div>
+				</div>
+			</li>
+			</ul>
+			<div data-ng-show="NotificationNotFound" ng-bind="i18n.notify.clubs.no_notification">
+			</div>
+			</div>
+		</div>
+		<top-Link></top-Link>
+</aside>

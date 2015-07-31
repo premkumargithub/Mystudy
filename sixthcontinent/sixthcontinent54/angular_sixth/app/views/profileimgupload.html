@@ -1,0 +1,58 @@
+<div class="col-3-layout">
+  <!-- Main Sidebar Menu -->
+  <left-panel></left-panel>
+  <!-- // Main Sidebar Menu END -->
+  
+  <!-- Content START -->
+  <div id="content">
+    <!-- <div class="layout-app">  -->
+    <div class="innerAll">
+      <div class="row">
+        <div class="col-lg-8 col-md-8">
+          <div class="inner-container">
+          <div class="timeline-cover">
+            <div class="widget">
+              <div class="widget-body padding-none margin-none">
+                <div class="innerAll"> <i class="fa fa-quote-left text-muted pull-left fa-fw"></i>
+                  <p class="lead margin-none" ng-bind="i18n.profile.profile_pic.upload"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-container">
+            <span class="ng-hide" ng-show="brokerloader"><img titile="" alt="" src="app/assets/images/ajax-loader.gif"></span>
+            
+            	<form class="upload-prof-img" action="javascript:void(0)" ng-submit="uploaduserprofileimages();">
+				<ul>
+					<li>
+						<span style="padding-bottom:5px" ng-bind="i18n.profile.profile_pic.upload_image"></span>
+            <div ng-show="imageSrc" class="upload-img-re" style='height:auto; width:200px; display: block;' >
+                 <img ng-src="{{imageSrc}}"  />
+                <div class="remove-up"><i data-ng-click="removeImage()" class="fa fa-fw fa-times" title="{{i18n.profile.profile_pic.remove}}Remove"></i></div>
+            </div>
+            <div><input type="file" ng-file-select="onFileSelect($files)"/></div>
+            <div class="notice" ng-bind="i18n.profile.profile_pic.best_result_image"></div>
+						<!-- <input type="file" file-model="myFile" required /> -->
+					</li>
+					 
+	
+					<li>
+						<button type="submit" id="addPhoto" ng-hide="albloader" class="btn btn-primary">{{i18n.profile.profile_pic.upload_image}} <i class="fa fa-fw fa-plus"></i></button>
+                        <div class="ng-hide" ng-show="albloader" style="text-align:center"><img title="" alt="" src="app/assets/images/ajax-loader.gif"></div>
+                        <a href="#/profile" ng-hide="albloader" class="btn btn-primary" ng-bind="i18n.profile.profile_pic.cancel"><i class="fa fa-fw fa-times"></i></a>
+            <p class="text-red display-block-inline " data-ng-show="fileNotValid" ng-bind="fileNotValidMsg"></p>
+            <p class="text-success display-block-inline " ng-bind="successMsg"></p>
+					</li>
+				</ul>
+			</form>
+          </div>
+        </div>
+        </div>
+        <div class="col-md-4 col-lg-4">
+            <profile-right-panel></profile-right-panel>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- // Content END -->
+</div>

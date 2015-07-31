@@ -1,0 +1,64 @@
+<div class="col-2-layout">
+<div id="content" class="container-right-fluid-page">
+	<!-- <div class="layout-app">  -->
+	<div class="innerAll">
+		<div class="row">
+			<div class="col-lg-8 col-md-8">
+				<div class="inner-container">
+                <!--This directive will set the time line  image on alubum pic-->
+				<user-Cover-Profile-Panel></user-Cover-Profile-Panel>
+                <!-- <user-Cover-Profile-Panel></user-Cover-Profile-Panel> -->
+				<div ng-show="friendViewLoader" class="loader-container">
+				<img src="app/assets/images/ajax-loader.gif" alt="loading..." />
+				</div>	
+				<!--store details section-->
+				<div class="store-details-section profile-view-page" data-ng-hide="friendViewLoader">
+					<!--store profile section 
+					<div class="store-dp-section friends-view-container">
+
+					</div>
+					store profile section-->
+					<div class="friend-profile-container">
+                    <p data-ng-if="currentUser.basicProfile.broker_profile.is_active === 0 && currentUser.basicProfile.broker_profile.broker_profile_exists == 1 && showcrossactive == true"  class="popUpMsgs" ng-bind="i18n.profile.message_activate_broker">
+                        <span data-ng-click="showcrossactive1()" class="closeisactive" ><i class="fa fa-times"></i></span></p>
+						<div class="timeline-cover profile-choice-id">
+							<div class="widget">
+                                                            
+								<div class="widget-body padding-none margin-none">
+                                                                    
+									<div class="innerAll"> <i class="fa fa-quote-left text-muted pull-left fa-fw"></i>
+									   	
+                                                                            <p class="lead margin-none" ng-bind="i18n.profile.title + ' : ' + currentUser.id"></p>
+                                                                                
+									</div>
+								</div>
+							</div>
+						</div>
+						<div data-ng-controller="UserController">
+							<div data-ng-if="profileType != 1">
+								<user-citizen-profile data-ng-if="profileType != 11"></user-citizen-profile>
+							</div>
+							<div id="showProfessionalDetail"></div>
+							
+							<div data-ng-if="profileType == 1">	
+								<user-professtional-profile></user-professtional-profile>
+							</div>
+							<div data-ng-if="profileType == 11">	
+								<friend-View-Profile></friend-View-Profile>
+							</div>	
+						</div>
+					<!---basic profile container end-->
+					</div>
+				</div>
+			</div>
+			</div>
+			<div class="col-lg-4 col-md-4">
+				<profile-Right-Panel></profile-Right-Panel>
+			</div>	
+		</div>
+	</div>
+
+<!-- // Content END -->
+</div>
+</div>
+<div class="clearfix"></div>

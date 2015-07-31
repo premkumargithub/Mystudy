@@ -1,0 +1,623 @@
+<div id="content" class="container-right-fluid-page">
+	<div class="innerAll">
+		<div class="tAndC" data-ng-hide="loadTerms">
+			<div class="shop-affiliate-tAndC">
+            <div class="register-sixth-one-step-num affilation-tabs">
+                <ul>
+                    <li><span>1</span><p data-ng-bind="i18n.shop_affiliation.citizen_register"></p></li>
+                    <li><span>2</span><p data-ng-bind="i18n.shop_affiliation.shop_register"></p></li>
+                    <li class="active-one-step"><span>3</span><p data-ng-bind="i18n.shop_affiliation.terms_conditions"></p></li>
+                    <li><span>4</span><p data-ng-bind="i18n.shop_affiliation.credit_card_info"></p></li>
+                </ul>
+            </div>
+            <div class="contract-container" ng-show="loeadingContract">
+				<div class="landing-loader">
+					<img src="app/assets/images/proceed.gif" alt="" />
+				</div>
+			</div>
+			<div class="contract-container" ng-hide="loeadingContract">
+			<h1>CONTRATTO DI AFFILIAZIONE COMMERCIALE</h1>
+            <p><i>Leggi con attenzione il contratto e verifica che i dati inseriti siano corretti.</i></p> 
+			<div class="privacy-agreement">
+				<div class="termsConditions">
+			      <div class="fr"> Spett.le<br />
+			        SixthContinent Italia S.r.l.<br />
+			        Corso di Porta Romana, 129<br />
+			        20122 – Milano (MI)<br />
+			        Italy </div>
+			      <div class="shopDetail"><strong>{{ShopDetail.business_city?ShopDetail.business_city:'....'}}, {{currentData | date:'dd.MM.yyyy'}}</strong></div>
+			      <div class="marT20"> <strong>Oggetto: Accordo SixthContinent - Esercente</strong>
+			        <div class="marT20"> Spett.le SixthContinent,<br />
+			          con la presente, facendo seguito agli accordi intercorsi, sottoponiamo alla Vostra attenzione la regolamentazione del rapporto di prestazione di servizi 
+					</div>
+			      </div>
+			      <div class="marT20">
+			        <div class="textAlignCenter"><strong>TRA</strong></div>
+			        <div class="marT20"> SixthContinent Italia S.r.l. con sede in Milano, C.so di Porta Romana 129 , C.F/P. Iva 08387230967, in
+			          persona del legale rappresentante pro tempore, Sig.ra Sabrina Torti, nata a Pavia (PV) il 17/03/1973, domiciliata per la presente carica presso la succitata sede legale della società, C.F TRTSRN73C57G388P,
+			          <div class="textAlignRight"><strong>- SixthContinent Italia S.r.l., d’ora in avanti denominata SXC -</strong></div>
+			        </div>
+			      <!--   <div class="marT20"><strong>congiuntamente, le “Parti”, e, ciascuna, la “Parte”)</strong></div>
+			       --></div>
+			      <div class="marT20">
+			        <div class="textAlignCenter"><strong>E</strong></div>
+			        <div class="marT20"> <span>{{ShopDetail.business_name?ShopDetail.business_name:'....'}}</span>, con sede in <span>{{ShopDetail.business_city?ShopDetail.business_city:'....'}}</span> (<span>{{ShopDetail.province?ShopDetail.province:'....'}}</span>), Via <span>{{ShopDetail.business_address?ShopDetail.business_address:'....'}}</span>, CAP <span>{{ShopDetail.sale_zip?ShopDetail.sale_zip:'....'}}</span>, C.F. e P.IVA <span>{{ShopDetail.vat_number?ShopDetail.vat_number:'....'}}</span>, in persona del/la Sig./Sig.ra <span>{{(ShopDetail.repres_first_name+ShopDetail.repres_last_name)?(ShopDetail.repres_first_name+" "+ShopDetail.repres_last_name):'....'}}</span>, nato/a <span>{{ShopDetail.repres_place_of_birth?ShopDetail.repres_place_of_birth:'....'}}</span>,
+			          il <span>{{ShopDetail.repres_dob?(ShopDetail.repres_dob.date | dateFormat):'....'}}</span>, residente <span>{{ShopDetail.repres_city?ShopDetail.repres_city:'....'}} </span> (<span>{{ShopDetail.repres_province?ShopDetail.repres_province:'....'}}</span>), Via <span>{{ShopDetail.repres_address?ShopDetail.repres_address:'....'}}</span>, CAP <span>{{ShopDetail.repres_zip?ShopDetail.repres_zip:'....'}}</span>, C.F <span>{{ShopDetail.repres_fiscal_code?ShopDetail.repres_fiscal_code:'....'}}</span>;
+			          <div class="textAlignRight"><strong>- Esercente -</strong></div>
+			        </div>
+			        <div class="marT20">(congiuntamente, le <strong>“Parti”</strong>, e, ciascuna, la <strong>“Parte”</strong>)</div>
+			        
+			      </div>
+			      <div class="marT20">
+			        <div class="textAlignCenter"><strong>PREMESSO CHE</strong></div>
+			        <div class="marT20"><strong>A)</strong> SXC è un circuito che promuove l’attività commerciale esercitata da terzi al fine di indirizzare i
+consumi in favore degli Esercenti ad esso convenzionati e classificati come “economicamente virtuosi”
+dall’algoritmo MoMoSy ( <a class="link-text" href="#"><u>www.momosy.com</u></a> ).</div>
+			        <div class="marT20"><strong>B)</strong> SXC è la sussidiaria Italiana di SixthContinent Inc., con sede in San Francisco (California - Stati
+Uniti), presso Plug and Play Tech Center, 440 N. Wolfe Rd., Sunnyvale, Silicon Valley;</div>
+			        <div class="marT20"><strong>C)</strong> SXC è attiva nel settore internet mediante il sito <a class="link-text" href="#"><u>www.SixthContinent.com</u></a>, il Social Network
+Economico che, attraverso i consumi, modifica l'economia;</div>
+			        <div class="marT20"><strong>D)</strong> L’Esercente è attivo nel settore della <span>{{ShopDetail.shop_category?ShopDetail.shop_category:"...."}};</div>
+			        <div class="marT20"><strong>E)</strong> L’Esercente intende avvalersi di SXC e dei suoi servizi;</div>
+			        <div class="marT20"><strong>F)</strong> SXC si dichiara disposta a fornire i servizi richiesti dall’Esercente secondo le tempistiche e le modalità
+ritenute necessarie dalla medesima;</div>
+			        <div class="marT20"><strong>G)</strong> è interesse delle parti regolare un rapporto di prestazione di servizi ove SXC metterà a disposizione
+dell’Esercente uno spazio web, nonché i relativi servizi, sulla propria piattaforma accessibile dal sito <a class="link-text" href="#"><u>www.SixthContinent.com</u></a>;</div>
+			        <div class="marT20"><strong>H)</strong> al circuito SXC possono aderire solamente le imprese rientranti nella c.d. “area verde” della piramide
+MoMoSy. (per ogni e qualsiasi dettaglio e/o riferimento si rimanda al sito <a class="link-text" href="#/momosy"><u>www.SixthContinent.com/momosy</u></a>);</div>
+			      </div>
+			      <div class="marT30">
+			        <div class="textAlignCenter"><strong>TUTTO CIO’ PREMESSO</strong></div>
+			        <div class="marT20">si conviene e stipula quanto segue:</div>
+			        <div class="marT20"><strong>ART.1. OGGETTO</strong></div>
+			        <div class="marT10">
+			          <div class="numbering">1.1</div>
+			          <div class="numberingCont">L’Esercente aderisce al circuito commerciale accessibile dal sito internet <u>www.SixthContinent.com,</u>
+			            di proprietà di SixthContinent Ltd., con sede in Bristol (United
+Kingdom), 21 St Thomas Street, accettando le condizioni economiche inerenti al proprio settore
+merceologico di cui al documento qui allegato sotto la lettera “A”, che forma parte integrante del
+presente accordo.</div>
+			        </div>
+			        <div class="marT10">
+			          <div class="numbering">1.2</div>
+			          <div class="numberingCont">SXC si obbliga a concedere l’accesso al proprio circuito commerciale tramite il sito internet
+			            <u>www.SixthContinent.com,</u>, ovvero tramite apposita App utilizzabile dai principali device mobili in
+commercio, nonché a offrire strumenti promozionali e servizi connessi e conseguenti,
+consentendo altresì la possibilità all’Esercente di personalizzare spazi web messi a disposizione da
+SXC, nei limiti ed alle condizioni previste dal presente accordo.</div>
+			        </div>
+			      </div>
+			      <div class="marT20">
+			        <div><strong>ART.2. CONDIZIONI ECOMONICHE E MODALITA’ DI PAGAMENTO</strong></div>
+			        <div class="marT10">
+			          <div class="numbering">2.1</div>
+			          <div class="numberingCont">
+			            <div>Il prezzo dei servizi offerti viene determinato secondo le seguenti convenute modalità:</div>
+			            <div class="marT5">
+			              <div class="numberingSub">(a)</div>
+			              <div class="numberingContSub">L’affiliazione è gratuita fino al raggiungimento dell’ammontare di transazioni effettuate
+per un valore di Euro 200 (IVA inclusa) verso gli Utenti SixthContinent eseguite tramite
+la App “SixthContinent Business” messa a disposizione gratuitamente da SXC;</div>
+			            </div>
+			            <div class="marT5">
+			              <div class="numberingSub">(b)</div>
+			              <div class="numberingContSub">soltanto quando l’ammontare delle transazioni verso gli utenti SixthContinent supera il
+valore di Euro 200 (IVA inclusa), se l’Esercente intende continuare ad utilizzare i servizi
+offerti da SXC, effettua <strong style="text-decoration:underline;">una sola volta e per sempre</strong> il pagamento per l’adesione di Euro
+99, oltre IVA, tramite Carta di Credito o Conto Paypal; tale importo viene direttamente
+addebitato da SXC sulla carta di credito che l’Esercente ha indicato all’atto della
+registrazione al portale SXC;
+			              </div>
+			            </div>
+						<div class="marT5">
+			              <div class="numberingSub">(c)</div>
+			              <div class="numberingContSub">su ogni acquisto effettuato da parte degli utenti SixthContinent, la percentuale prevista nel
+documento qui allegato sotto la lettera “A” verrà riconosciuta a SixthContinent ITALIA
+SRL, che emetterà relativa fattura per servizi pubblicitari.
+			              </div>
+			            </div>
+			          </div>
+			        </div>
+			        <div class="marT10">
+			          <div class="numbering">2.2</div>
+			          <div class="numberingCont">Tenuto conto delle condizioni economiche di cui al precedente punto 2.1, quanto maturato verrà
+direttamente addebitato da SXC sulla carta di credito fornita dall’Esercente nell’apposita area del
+suo profilo SixthContinent.</div>
+			        </div>
+			        <div class="marT10">
+			          <div class="numbering">2.3</div>
+			          <div class="numberingCont">L’Esercente s’impegna all’atto della sottoscrizione del presente accordo, <u>una sola volta e per
+			            sempre</u>, a riconoscere un sconto di Euro 50 sul prezzo di beni e servizi acquistabili dagli Utenti
+SixthContinent. Tale sconto potrà essere utilizzato per il pagamento di un importo non superiore
+al 50% di ogni singolo acquisto e potrà essere utilizzato anche parzialmente tramite una o più
+transazioni. Lo sconto di Euro 50, definito<strong>“Credito Premium”</strong>, viene attivato automaticamente
+sulla propria App “SixthContinent Business”, che automaticamente riconoscerà gli Utenti
+SixthContinent che possono usufruirne e calcolerà il residuo dovuto per il saldo dell’acquisto.
+Esempio: Il cittadino 1 ha nel proprio portafoglio elettronico SixthContinent “Crediti Premium”
+per euro 20, effettua un acquisto di euro 80 presso l’Esercente che ha ancora attiva la posizione
+“Crediti Premium” di 50€, di conseguenza la App “SixthContinent Business” riconoscerà il diritto
+ad utilizzare 20 euro di sconto “Crediti Premium” ed indicherà la somma di 60 euro per il saldo
+della transazione. Al termine della transazione la posizione “Crediti Premium” dell’Esercente avrà
+un saldo di euro 30.</div>
+			        </div>
+			        <div class="marT10">
+			          <div class="numbering">2.4</div>
+			          <div class="numberingCont">L’Esercente inoltre accetta di attivare n. 20 <strong>“Coupon Sconto”</strong> digitali di Euro 5 ciascuno, che
+SXC invierà sulla App mobile dei 20 Consumatori più vicini e maggiormente interessati ad
+effettuare acquisti presso l’Esercente secondo l’algoritmo di analisi realizzato da SXC. I Coupon
+Sconto digitali di Euro 5 ciascuno sono utilizzabili singolarmente e per acquisti minimi di Euro 10.
+					</div>
+			        </div>
+			        <div class="marT10">
+			          <div class="numbering">2.5</div>
+			          <div class="numberingCont">Il Crediti Premium di cui al punto 2.3 ed il Coupon Sconto di Euro 5 del precedente punto 2.4
+sono cumulabili da parte del Consumatore, ma non possono mai superare il contributo del 50%
+sul valore dell’acquisto.</div>
+			        </div>
+			        <div class="marT10">
+			          <div class="numbering">2.6</div>
+			          <div class="numberingCont">In qualunque momento, SXC si riserva la facoltà di modificare le condizioni economiche
+(Allegato “A”) e le modalità di pagamento previa comunicazione in forma scritta all’Esercente, il
+quale avrà la facoltà di comunicare a SXC, entro 14 giorni dal ricevimento, sempre in forma
+scritta, la propria eventuale accettazione. In caso di mancata accettazione delle modifiche
+apportate da SXC alle condizioni economiche e alle modalità di pagamento, il presente accordo si
+intenderà automaticamente risolto.</div>
+			        </div>
+			      </div>
+			      <div class="marT20">
+			        <div><strong>ART.3. DURATA</strong></div>
+			        <div class="marT10">
+			          <div class="numbering">3.1</div>
+			          <div class="numberingCont">Il Contratto avrà validità di 24 mesi dalla data di accettazione della presente proposta.</div>
+			        </div>
+			        <div class="marT10">
+			          <div class="numbering">3.2</div>
+			          <div class="numberingCont">Alla scadenza, il Contratto si intenderà tacitamente rinnovato.</div>
+			        </div>
+			      </div>
+			      <div class="marT20">
+			        <div><strong>ART.4. RATING MOMOSY.</strong></div>
+			        <div class="marT10">
+			          <div class="numbering">4.1</div>
+			          <div class="numberingCont">Qualora durante il periodo di validità del presente accordo, al rating dell’Esercente conseguisse un
+posizionamento nella c.d. “area rossa” della piramide Mo.Mo.Sy., sarà cura di SXC comunicare
+all’Esercente tale variazione.</div>
+			        </div>
+			        <div class="marT10">
+			          <div class="numbering">4.2</div>
+			          <div class="numberingCont">Nella comunicazione di cui al punto precedente SXC si impegnerà a fornire tutte le istruzioni
+necessarie affinché l’Esercente, entro 90 giorni dal ricevimento della suddetta comunicazione,
+possa concordare tempi e modalità attraverso le quali il proprio rating possa essere rettificato e
+possa quindi rientrare nuovamente all’interno della c.d. “area verde” della piramide Mo.Mo.Sy.</div>
+			        </div>
+			      </div>
+			      <div class="marT20">
+			        <div><strong>ART.5. RECESSO</strong></div>
+			        <div class="marT10">
+			          <div class="numbering">5.1</div>
+			          <div class="numberingCont">In qualunque momento, ciascuna delle parti potrà recedere dal contratto previo invio all’altra di
+lettera raccomandata a.r., o mezzo equipollente (a titolo esemplificativo, ma non tassativo, tramite
+posta elettronica certificata).</div>
+			        </div>
+			        <div class="marT10">
+			          <div class="numbering">5.2</div>
+			          <div class="numberingCont">Il recesso comunicato dall’Esercente con mezzi differenti a quelli sopra menzionati sarà privo di
+efficacia, a nulla rilevando la messa in liquidazione, la mutazione dell’oggetto sociale o della
+ragione sociale dell’impresa Esercente, ai fini dell’insorgenza dell’obbligazione di pagamento dello
+spazio web acquisito.</div>
+			        </div>
+			        <div class="marT10">
+			          <div class="numbering">5.3</div>
+			          <div class="numberingCont">In caso di recesso da parte dell’Esercente, quest’ultimo si impegna, per i 24 (ventiquattro) mesi
+successivi alla comunicazione del recesso medesimo a riconoscere eventuali <em>Shopping Card</em> UP-TO-
+50% e <em>Shopping Card</em> UP-TO-100% prepagate acquistate sui mezzi resi disponibili da SXC.</div>
+			        </div>
+			      </div>
+			      <div class="marT20">
+			        <div><strong>ART.6. LEGITTIMITA’ DEI CONTENUTI PUBBLICATI</strong></div>
+			        <div class="marT10">
+			          <div class="numbering">6.1</div>
+			          <div class="numberingCont">I contenuti pubblicati sullo spazio web concesso, ovvero sulle App gestite da SXC, non dovranno
+essere illeciti, contrari a norme imperative, all’ordine pubblico o al buon costume, né violare in
+alcun modo disposizioni di Legge o diritti di terzi, né potranno contenere promozioni ad attività
+per le quali l’Esercente non sia in grado di attestare la legittimazione all’esercizio secondo le leggi
+dello Stato Italiano.</div>
+			        </div>
+			        <div class="marT10">
+			          <div class="numbering">6.2</div>
+			          <div class="numberingCont">SXC è espressamente autorizzata ad interrompere unilateralmente e senza preavviso la
+pubblicazione dei contenuti sullo spazio web qualora ravvisi la violazione della precedente
+clausola.</div>
+			        </div>
+			      </div>
+			      <div class="marT20">
+			        <div><strong>ART.7. MANLEVA</strong></div>
+			        <div class="marT10">
+			          <div class="numbering">7.1</div>
+			          <div class="numberingCont">L’Esercente si obbliga sin d’ora a tenere indenne SXC da qualsivoglia richiesta risarcitoria, da
+chiunque proveniente, derivante dalla violazione dell’articolo 6.</div>
+			        </div>
+			        <div class="marT10">
+			          <div class="numbering">7.2</div>
+			          <div class="numberingCont">L’Esercente si obbliga altresì a tenere indenne SXC da qualsivoglia richiesta risarcitoria, da
+chiunque proveniente, relativamente ai prodotti e ai servizi offerti e/o venduti dall’Esercente per il
+tramite degli strumenti resi disponibili da SXC.</div>
+			        </div>
+			        <div class="marT10">
+			          <div class="numbering">7.3</div>
+			          <div class="numberingCont">In ogni caso, SXC non risponde di eventuali problemi tecnici o di altro genere comunque
+indipendenti dalla sua volontà che, in quanto collegati al funzionamento delle rete internet,
+impediscano od ostacolino la corretta operatività della pagina web e del link alla URL indicata
+dall’Esercente. In nessun caso, comunque, SXC potrà essere ritenuta responsabile per interruzioni
+di servizio per lavori di manutenzione sul portale e sulle applicazioni ad esso collegate.</div>
+			        </div>
+			      </div>
+			      <div class="marT20">
+			        <div><strong>ART.8. COMPORTAMENTO E TRANSAZIONI</strong></div>
+			        <div class="marT10">
+			          <div class="numbering">8.1</div>
+			          <div class="numberingCont">Poiché SXC si propone di orientare i consumi in favore dell’attività esercitata dall’Esercente,
+quest’ultimo si impegna a mantenere un comportamento idoneo ad accettare i crediti acquistati
+dagli utenti appartenenti al network SXC, nonché ad utilizzare gli strumenti forniti
+dall’applicazione (App) “SixthContinent Business” messa a disposizione gratuitamente da SXC.</div>
+			        </div>
+			        <div class="marT10">
+			          <div class="numbering">8.2</div>
+			          <div class="numberingCont">L’App “SixthContinent Business” è disponibile sui sistemi operativi IOS e Android scaricabile
+gratuitamente rispettivamente dalla piattaforma “App Store” e “Play Store” tramite il link
+contenuto nella email che l’Esercente riceverà al momento dell’adesione. Inoltre l’applicazione è
+disponibile in versione Web ed utilizzabile da qualunque PC.<br />
+L’Esercente pertanto si impegna ad (a) effettuare il download dell’applicazione “SixthContinent
+Business” sul proprio device, (b) ad installarla e (c) ad attivarla secondo le modalità indicate nel
+portale <a href="#" class="link-text"><u>www.SixthContinent.com,</u></a>.</div>
+			        </div>
+			        <div class="marT10">
+			          <div class="numbering">8.3</div>
+			          <div class="numberingCont">L’Esercente si impegna altresì a utilizzare l’applicazione “SixthContinent Business” ogniqualvolta
+un utente appartenente al network SixthContinent ne faccia richiesta ai fini del perfezionamento
+di una transazione di acquisto (d’ora in avanti “transazione”), il cui prezzo dovrà essere
+materialmente indicato dall’Esercente stesso sull’App “SixthContinent Business”.
+						</div>
+			        </div>
+			        <div class="marT10">
+			          <div class="numbering">8.4</div>
+			          <div class="numberingCont">
+			          	Le parti convengono che le transazioni di cui al punto precedente potranno essere di due
+tipologie: transazioni “UP-TO-50%” e transazioni “UP-TO-100%”.
+			          </div>
+			        </div>
+			        <div class="marT10">
+			          <div class="numbering">8.5</div>
+			          <div class="numberingCont">
+			          	Le parti espressamente convengono e accettano che le transazioni UP-TO-50% e UP-TO-100% si svolgeranno come di seguito rappresentato: 
+			          	<ul>
+			          		<li>
+			          			<strong>Transazioni UP-TO-50%</strong>
+			          			<ul style="list-style:disc;">
+			          				<li>L’Utente si reca presso l’Esercente e chiede di poter effettuare una transazione tramite l’applicazione SixthContinent;</li>
+			          				<li>L’Esercente accetta la transazione e utilizza l’app “SixthContinent Business”;</li>
+			          				<li>L’Esercente identifica l’Utente sull’app “SixthContinent Business”;</li>
+			          				<li>L’Esercente digita sull’App “SixthContinent Business” il prezzo di vendita del
+prodotto o del servizio che l’Utente intende acquistare;</li>
+			          				<li>Il sistema gestito da SXC registra la richiesta di transazione e interroga la posizione
+dell’Utente per determinare l’ammontare dei crediti disponibili e di eventuali
+“Coupon Sconto” o “Crediti Premium” disponibili;</li>
+									<li>Effettuata tale verifica, il sistema fornisce all’Esercente l’importo che dovrà essere
+pagato dall’Utente con ogni mezzo accettato dall’Esercente (carta di credito,
+contanti, etc.);</li>
+									<li>L’eventuale differenza tra il prezzo del bene o del servizio venduto e l’importo
+pagato direttamente dall’Utente verrà pagato attraverso l’uso di carte d’acquisto
+“Shopping Card UP-TO-50%” emesse dall’Esercente, preventivamente acquistate
+da SXC (per le modalità di acquisto e i termini di pagamento si rimanda all’art. 9) e
+assegnate all’Utente;</li>
+			          			</ul>
+			          		</li>
+			          	</ul>
+						<ul>
+							<li>
+								<strong>Transazioni UP-TO-100%</strong>
+								<ul style="list-style-type: disc;">
+									<li>L’Esercente lancia una campagna promozionale sulla propria pagina del portale SXC emettendo un numero prestabilito di carte d’acquisto “Shopping Card UPTO-100%” recanti uno dei seguenti tagli: Euro 100, Euro 50, Euro 30, Euro 20;</li>
+									<li>L’Esercente affinché possa emettere tali carte d’acquisto dovrà riconoscere all’Utente SXC che intendesse acquistarle uno sconto discrezionale dal 10% al 30% sul prezzo di beni o servizi da egli venduti;</li>
+									<li>Il sistema gestito da SXC registra la richiesta di transazione e interroga la posizione dell’Utente per determinare l’ammontare dei crediti disponibili;</li>
+									<li>Effettuata tale verifica, il sistema fornisce all’Utente l’indicazione dell’importo che dovrà essere direttamente pagato tramite carta di credito all’Esercente;</li>
+									<li>La differenza tra il prezzo della carta “Shopping Card UP-TO-100%” e l’importo pagato direttamente dall’Utente verrà pagato attraverso l’uso di carte d’acquisto emesse dall’Esercente, preventivamente acquistate da SXC (per le modalità di acquisto e i termini di pagamento si rimanda all’art. 9) e assegnate all’Utente. In particolare, l’Esercente accetta che il pagamento delle carte “Shopping Card UPTO-100%” verrà effettuato per un importo non superiore al 50% del valore complessivo della carta “Shopping Card UP-TO-100% stessa direttamente da SXC attraverso l’acquisto delle carte d’acquisto emesse dall’Esercente sul portare SXC (Es. controvalore acquistabile: Euro 100; sconto riconosciuto: 10%; prezzo carte “Shopping Card UP-TO-100%”: Euro 90; pagamento massimo effettuato direttamente da SXC acquistando carte d’acquisto emesse dall’Esercente: Euro 50).</li>
+									<li>SXC, in caso di esito positivo del pagamento da parte dell’Utente, invia a quest’ultimo una email di conferma all’indirizzo fornito dall’Utente in fase di registrazione, che attesta il successo dell’ operazione di pagamento.</li>
+									<li>Una volta acquistata la carta “Shopping Card UP-TO-100%”, l’Utente potrà recarsi presso l’Esercente e acquistare beni o servizi fino a concorrenza del valore della carta “Shopping Card UP-TO-100%” stessa.</li>
+								</ul>
+							</li>
+						</ul>						
+					  </div>
+			        </div>
+			      </div>
+			      <div class="marT20">
+			        <div><strong>ART.9. TERMINI E CONDIZIONI - CARTE “Shopping Card UP-TO-50%”</strong></div>
+			        <div class="marT10">
+			          <div class="numbering">9.1</div>
+			          <div class="numberingCont">SXC si impegna ad acquistare in nome proprio e per proprio conto, tramite la piattaforma gestita
+da SXC stessa, i titoli di legittimazione (<strong>“carte d’acquisto UP-TO-50”</strong>) emessi dall’Esercente al
+fine di perfezionare le transazioni di cui all’articolo 8.</div>
+			        </div>
+			        <div class="marT10">
+			          <div class="numbering">9.2</div>
+			          <div class="numberingCont">Le carte “Shopping Card UP-TO-50%” emesse dall’Esercente hanno i seguenti tagli: Euro 100,
+Euro 50, Euro 30, Euro 20. Ogni carta è caratterizzate da un codice univoco che la identifichi e
+può essere utilizzata una sola volta.
+			          </div>
+			        </div>
+			        <div class="marT10">
+			          <div class="numbering">9.3</div>
+			          <div class="numberingCont">Al termine di ogni transazione, SXC si impegna a trasmettere all’Esercente, a mezzo delle
+notifiche sull’App mobile, sul proprio profilo utente e via email, il dettaglio della singola
+transazione effettuata. In particolare, SXC comunicherà, il prezzo complessivo della transazione,
+l’importo che dovrà essere pagato direttamente dall’Utente, il numero e il relativo importo
+della/delle carta/e d’acquisto utilizzate dall’Utente per perfezionare la transazione.</div>
+			        </div>
+			        <div class="marT10">
+			          <div class="numbering">9.4</div>
+			          <div class="numberingCont">L’Esercente si impegna sin da ora al termine della transazione a visionare e a eventualmente
+confermare nell’apposita sezione dell’App Mobile, il rendiconto delle “Shopping Card UP-TO-
+50%” utilizzate nella transazione stessa. La conferma da parte dell’Esercente implica l’espressa
+accettazione della veridicità dei dati contenuti nel rendiconto.</div>
+			        </div>
+			        <div class="marT10">
+			          <div class="numbering">9.5</div>
+			          <div class="numberingCont">In conseguenza della conferma di cui al punto che precede, SXC emetterà un documento
+identificato da un codice univoco, attestante l’ammontare complessivo delle “Shopping Card UPTO-
+50%” emesse dall’Esercente per la transazione effettuata, nonché la conferma che SXC
+provvederà ad effettuare il pagamento a mezzo bonifico bancario, o mezzo equipollente, entro il
+giorno lavorativo successivo alle coordinate bancarie che verranno fornite dall’Esercente in fase di
+registrazione al portale <a href="#" class="link-text"><u>www.SixthContinent.com,</u></a></div>
+			        </div>
+			        <div class="marT10">
+			          <div class="numbering">9.6</div>
+			          <div class="numberingCont">Le parti convengono che tutti i pagamenti relativi alle “Shopping Card UP-TO-50%” avverranno
+<strong>solo dopo</strong> l’invio della conferma di cui al punto 9.4.</div>
+			        </div>
+			      </div>
+			      <div class="marT20">
+			        	<div><strong>ART.10. TERMINI E CONDIZIONI – CARTE “Shopping Card UP-TO-100%”</strong></div>
+			        	<div class="marT10">
+			          		<div class="numbering">10.1</div>
+					        <div class="numberingCont">
+					          	SXC, tra i servizi proposti, offre la possibilità all’Utente di acquistare un particolare titolo di
+legittimazione, quindi utilizzabile esclusivamente presso l’Esercente convenzionato che lo emette,
+denominato “<strong> Shopping Card UP-TO-100%</strong>”, che consente all’Utente di acquistare presso
+l’emittente beni o servizi a condizioni particolarmente vantaggiose. Pertanto, l’Esercente si
+impegna, una volta emessa le carte “Shopping Card UP-TO-100%” tramite la piattaforma gestita
+da SXC, ad accettarne l’utilizzo da parte dell’Utente che ne dovesse chiedere l’impiego.
+					        </div>
+				        </div>
+				        <div class="marT10">
+			          		<div class="numbering">10.2</div>
+					        <div class="numberingCont">
+					          	La carta “Shopping Card UP-TO-100%” dovrà consentire al possessore di acquistare i beni o
+servizi offerti dall’Esercente per un controvalore pari ai seguenti tagli: Euro 100, Euro 50, Euro
+30, Euro 20;
+					        </div>
+				        </div>
+				        <div class="marT10">
+			          		<div class="numbering">10.3</div>
+					        <div class="numberingCont">
+					          	L’Esercente conviene di riconoscere uno sconto dal 10% al 30% all’utente SXC (Es. 10) che
+intende acquistare la carta “Shopping Card UP-TO-100%” presso uno qualsiasi degli strumenti
+messi a disposizione da SXC;
+					        </div>
+				        </div>
+				        <div class="marT10">
+			          		<div class="numbering">10.4</div>
+					        <div class="numberingCont">
+					          	Il prezzo della carta “Shopping Card UP-TO-100%” sarà, in virtù del punto 10.3, pari al
+controvalore dei beni o servizi acquistabili, al netto dello sconto riconosciuto all’Utente (Es.
+controvalore acquistabile: Euro 100, sconto riconosciuto: 10%; prezzo carte “Shopping Card UPTO-
+100%”: Euro 90);
+					        </div>
+				        </div>
+				        <div class="marT10">
+			          		<div class="numbering">10.5</div>
+					        <div class="numberingCont">
+					          	SXC al termine di ogni giorno lavorativo, qualora sia stata posta in essere nella giornata almeno un
+acquisto di carte “Shopping Card UP-TO-100%”, si impegna a trasmettere all’Esercente, a mezzo
+degli strumenti gestiti da SXC, un rendiconto di tutte le carte “Shopping Card UP-TO-100%”
+acquistate in tale data. L’Esercente si impegna sin da ora a visionare ogni rendiconto e, nel caso, a
+confermare, nell’apposita sezione dello strumento gestito da SXC prescelto (social, App, etc.), la
+veridicità dei dati in esso contenuti.
+					        </div>
+				        </div>
+				        <div class="marT10">
+			          		<div class="numbering">10.6</div>
+					        <div class="numberingCont">
+					          	In conseguenza della conferma di cui al punto che precede, SXC emetterà un documento
+identificato da un codice univoco, attestante l’ammontare complessivo delle carte “Shopping Card
+UP-TO-100%” acquistate in tale data, nonché la conferma che SXC provvederà ad effettuare il
+pagamento a mezzo bonifico bancario, o mezzo equipollente, entro il giorno lavorativo successivo
+alle coordinate bancarie che verranno fornite dall’Esercente in fase di registrazione al portale <a class="link-text" href="#"><u>www.SixthContinent.com.</u></a>
+					        </div>
+				        </div>
+				        <div class="marT10">
+			          		<div class="numbering">10.7</div>
+					        <div class="numberingCont">
+					          	Le parti espressamente convengono che tutti i pagamenti relativi alle carte d’acquisto di cui sopra
+avverranno <strong>solo dopo</strong> l’invio della conferma di cui al punto 10.5.
+					        </div>
+				        </div>
+			      </div>
+			      <div class="marT20">
+				        <div><strong>ART.11. LEGGE APPLICABILE</strong></div>
+				        <div class="marT10">
+					          <div class="numbering">11.1</div>
+					          <div class="numberingCont">Il presente Contratto è retto dalla Legge italiana.</div>
+				        </div>
+			      </div>
+			      <div class="marT20">
+				        <div><strong>ART.12. FORO COMPETENTE</strong></div>
+				        <div class="marT10">
+					          <div class="numbering">12.1</div>
+					          <div class="numberingCont">Le Parti stabiliscono che ogni controversia che dovesse insorgere in ordine all'interpretazione, alla
+validità ed alla esecuzione del presente Contratto e di ogni atto che ne costituirà esecuzione, nulla
+escluso, sarà devoluta alla competenza del Tribunale di Milano.</div>
+				        </div>
+			      </div>
+			      <div class="marT20">
+			        <div><strong>ART.13. COMUNICAZIONI TRA LE PARTI</strong></div>
+			        <div class="marT10">
+			          <div class="numbering">13.1</div>
+			          <div class="numberingCont">Ogni comunicazione a SXC dovrà essere indirizzata ai seguenti indirizzi di posta elettronica, in
+funzione delle seguenti differenti necessità:
+			            <ul>
+			              <li>Per assistenze e supporto tecnico: supporto@sixthcontinent.org</li>
+			              <li>Per questioni di carattere amministrativo: amministrazione@sixthcontinent.org</li>
+			              <li>Per altre indicazioni: supporto@sixthcontinent.org</li>
+			            </ul>
+			          </div>
+			        </div>
+			        <div class="marT10">
+			          <div class="numbering">13.2</div>
+			          <div class="numberingCont">Ogni comunicazione all’esercente dovrà essere indirizzata all’attenzione di 
+					  <span>{{(ShopDetail.repres_first_name+ShopDetail.repres_last_name)?(ShopDetail.repres_first_name+" "+ShopDetail.repres_last_name):"...."}}</span>, presso la sede legale di <span>{{ShopDetail.business_name?ShopDetail.business_name:"...."}}</span>, via <span>{{ShopDetail.business_address?ShopDetail.business_address:"...."}}</span>, città <span>{{ShopDetail.business_city?ShopDetail.business_city:"...."}}</span>, Cap <span>{{ShopDetail.sale_zip?ShopDetail.sale_zip:"...."}}</span> tel.<span>{{ShopDetail.repres_phone_number?ShopDetail.repres_phone_number:"...."}}</span>, e-mail <span>{{ShopDetail.repres_email?ShopDetail.repres_email:"...."}}</span></div>
+			        </div>
+			      </div>
+			      <div class="marT20">
+			        <div><strong>ART.14. TUTELA DEI DATI PERSONALI RISERVATI</strong></div>
+			        <div class="marT10">
+			          <div class="numbering">14.1</div>
+			          <div class="numberingCont">Le parti si impegnano a trattare i rispettivi dati personali conformemente alla Legge n. 675/96 e
+successivo D.L. n. 196 del 30 giugno 2003, di tutela della privacy, esclusivamente per finalità
+relative alla gestione del presente rapporto contrattuale e di ogni connesso adempimento.</div>
+			        </div>
+			        <div class="marT10">
+			          <div class="numbering">14.2</div>
+			          <div class="numberingCont">I dati relativi alle carte di credito o di debito comunicati a SXC, nel rispetto delle normative vigenti
+in materia, saranno conservati a cura di CartaSi S.p.A., con sede in Milano, Corso Sempione n.55,
+c.s. di Euro 56.888.798,40, C.F. e P.IVA 04107060966.</div>
+			        </div>
+			      </div>
+			      <div class="marT40">{{ShopDetail.business_city?ShopDetail.business_city:''}}, {{currentData | date:'dd.MM.yyyy'}}</div>
+			      <div class="marT40">Esercente</div>
+			      <div class="marT40">_______________</div>
+				  <div class="marT40 sommario"> <strong class="link-text">Sommario</strong>
+					<ul>
+					  <li><strong>ART.1. &nbsp;&nbsp;&nbsp;&nbsp; OGGETTO ............................................................................................................<span>2</span></strong></li>
+					  <li><strong>ART.2. &nbsp;&nbsp;&nbsp;&nbsp; CONDIZIONI ECOMONICHE E MODALITA’ DI PAGAMENTO ...........................<span>2</span></strong></li>
+					  <li><strong>ART.3. &nbsp;&nbsp;&nbsp;&nbsp; DURATA...............................................................................................................<span>4</span></strong></li>
+					  <li><strong>ART.4. &nbsp;&nbsp;&nbsp;&nbsp; RATING MOMOSY. .............................................................................................<span>4</span></strong></li>
+					  <li><strong>ART.5. &nbsp;&nbsp;&nbsp;&nbsp; RECESSO .............................................................................................................<span>4</span></strong></li>
+					  <li><strong>ART.6. &nbsp;&nbsp;&nbsp;&nbsp; LEGITTIMITA’ DEI CONTENUTI PUBBLICATI ....................................................<span>4</span></strong></li>
+					  <li><strong>ART.7. &nbsp;&nbsp;&nbsp;&nbsp; MANLEVA ............................................................................................................<span>4</span></strong></li>
+					  <li><strong>ART.8. &nbsp;&nbsp;&nbsp;&nbsp; COMPORTAMENTO E TRANSAZIONI ................................................................<span>5</span></strong></li>
+					  <li><strong>ART.9. &nbsp;&nbsp;&nbsp;&nbsp; TERMINI E CONDIZIONI - CARTE UP-TO-50 ......................................................<span>7</span></strong></li>
+					  <li><strong>ART.10. &nbsp;&nbsp; TERMINI E CONDIZIONI - CARTE UP-TO-100 ....................................................<span>7</span></strong></li>
+					  <li><strong>ART.11. &nbsp;&nbsp; LEGGE APPLICABILE ...........................................................................................<span>8</span></strong></li>
+					  <li><strong>ART.12. &nbsp;&nbsp; FORO COMPETENTE ...........................................................................................<span>8</span></strong></li>
+					  <li><strong>ART.13. &nbsp;&nbsp; COMUNICAZIONI TRA LE PARTI ........................................................................<span>8</span></strong></li>
+					  <li><strong>ART.14. &nbsp;&nbsp; TUTELA DEI DATI PERSONALI RISERVATI .........................................................<span>9</span></strong></li>
+					</ul>
+				  </div>
+				  <div style="clear:both;"></div>
+				   <br /><br />
+				   <div>
+				    <strong>Allegato “A”</strong>
+				    <br /><br />
+				    <table width="100%" border="1" cellspacing="0" cellpadding="5">
+				      <tr>
+				     <th style="padding:5px" width="25%">ATTIVITA’</td>
+				     <th style="padding:5px" width="25%">COSTI</td>
+				     <th style="padding:5px" width="25%">QUANDO</td>
+				     <th style="padding:5px" width="25%">DETTAGLI</td>
+				      </tr>
+				      <tr>
+				     <td style="padding:5px">Affiliazione</td>
+				     <td style="padding:5px">99EURO + IVA</td>
+				     <td style="padding:5px">Dopo aver incassato 200 EURO (IVA inclusa) tramite l’APP “BUSINESS SIXTHCONTINENT”</td>
+				     <td style="padding:5px">Pagamento tramite Carta di Credito</td>
+				      </tr>
+				      <tr>
+				     <td style="padding:5px">Transazione UP TO 50%</td>
+				     <td style="padding:5px">6% del prezzo incassato dall’Esercente + IVA</td>
+				     <td style="padding:5px">A transazione avvenuta, sul prezzo incassato dall’Esercente (Shopping Card UP TO 50% + importo pagato dall’utente)</td>
+				     <td style="padding:5px">Pagamento tramite Carta di Credito</td>
+				      </tr>
+				      <tr>
+				     <td style="padding:5px">Transazione UP TO 100%</td>
+				     <td style="padding:5px">10% del prezzo della shopping card + IVA</td>
+				     <td style="padding:5px">Al momento della transazione (quando l’Utente acquista la shopping card)</td>
+				     <td style="padding:5px">Tramite Modulo PayPal Chained, l’esercente incassa subito il prezzo della Shopping Card e la quota parte spettante a SixthContinent viene separata al momento dell’acquisto.</td>
+				      </tr>
+				    </table>
+				   </div>
+				   <div style="clear:both;"></div>
+				   <br /><br />
+				   <div>
+				    <strong>Allegato “B”</strong>
+				    <br /><br />
+				    <strong>Transazione UP-TO-50%</strong>
+				    <br /><br />
+				    <div style="padding:10px; border:1px solid #6c6c6c;text-align:center;">SULLA APP "SIXTHCONTINENT BUSINESS", L'ESERCENTE INSERISCE L'IMPORTO TOTALE DEI PRODOTTI O SERVIZI VENDUTI E SELEZIONA IL CITTADINO CHE VUOLE FARE LA TRANSAZIONE.</div>
+				    <div style="text-align:center;"><img src="app/assets/images/down-arrow.png" alt="down arrow" /></div>
+				    <div style="padding:10px; border:1px solid #6c6c6c;text-align:center;">SIXTHCONTINENT VERIFICA I CREDITI NEL PORTAFOGLIO CITTADINO, ACQUISTA DALL'ESERCENTE E ASSEGNA AL CITTADINO LE SHOPPING CARD UP TO 50% NECESSARIE PER COPRIRE FINO AL 50% DELLA TRANSAZIONE.</div>
+				    <div style="text-align:center;"><img src="app/assets/images/down-arrow.png" alt="down arrow" /></div>
+				    <div style="padding:10px; border:1px solid #6c6c6c;text-align:center;">AL TERMINE DELLA TRANSAZIONE COMPARE IL DETTAGLIO CON QUANTO DEVE ESSERE PAGATO DAL CITTADINO AL MOMENTO E QUANTO E' COPERTO DALLE SHOPPING CARD. L'ESERCENTE CONFERMA E ACCETTA IL PAGAMENTO DA PARTE DI SIXTHCONTINENT DELLE SHOPPING CARD UP TO 50% VENDUTE E COINVOLTE NELLA TRANSAZIONE.</div>
+				    <div style="text-align:center;"><img src="app/assets/images/down-arrow.png" alt="down arrow" /></div>
+				    <div style="padding:10px; border:1px solid #6c6c6c;text-align:center;">SIXTHCONTINENT PRELEVA DALLA CARTA DI CREDITO DELL'ESERCENTE IL 6% + IVA PREZZO DEI PRODOTTI O SERVIZI VENDUTI NELLA TRANSAZIONE E MANDA TRAMITE E‐MAIL IL RIEPILOGO DELLA TRANSAZIONE ED DEL PRELIEVO EFFETTUATO.</div>
+				    <div style="text-align:center;"><img src="app/assets/images/down-arrow.png" alt="down arrow" /></div>
+				    <div style="padding:10px; border:1px solid #6c6c6c;text-align:center;">SIXTHCONTINENT GENERA UN RENDICONTO CON IL DETTAGLIO DI TUTTE LE SHOPPING CARD UP TO 50% ACQUISTATE IL GIORNO PRECEDENTE E LO INVIA, TRAMITE E‐MAIL ALL'ESERCENTE. SULLA BASE DI TALE RENDICONTO, SIXTHCONTINENT EFFETTUA IL GIORNO LAVORATIVO SUCCESSIVO, TRAMITE BONIFICO BANCARIO SUL CONTO CORRENTE DELL'ESERCENTE, IL PAGAMENTO DELL'IMPORTO TOTALE DELLE SHOPPING CARD ACQUISTATE.</div>
+				   </div>
+				   <div style="clear:both;"></div>
+				   <br /><br />
+				   <div>
+				    <strong>Transazione UP-TO-100%</strong>
+				    <br /><br />
+				    <div style="padding:10px; border:1px solid #6c6c6c;text-align:center;">SUL SOCIAL NETWORK, L'ESERCENTE PERSONALIZZA E LANCIA UNA CAMPAGNA DI SHOPPING CARD UP TO 100% AI CITTADINI. I CITTADINI CHE ACQUISTANO L'OFFERTA PAGANO UNA PARTE CON CARTA DI CREDITO E UNA PARTE CON CARTE DI ACQUISTO (FINO AL 50% DEL VALORE DELLA SHOPPING CARD UP TO 100%) PREVENTIVAMENTE ACQUISTATE DA SIXTHCONTINENT E ASSEGNATE AI CITTADINI NEL MOMENTO DELL'ACQUISTO.</div>
+				    <div style="text-align:center;"><img src="app/assets/images/down-arrow.png" alt="down arrow" /></div>
+				    <div style="padding:10px; border:1px solid #6c6c6c;text-align:center;">L'ESERCENTE RICEVE LA QUOTA PARTE PAGATA DAL CITTADINO CON CARTA DI CREDITO SUL PROPRIO CONTO PAYPAL AD ESCLUSIONE DELL 10% + IVA DEL PREZZO DELLA SHOPPING CARD UP TO 100% CHE VIENE IN PARTENZA DIRETTO A SIXTHCONTINENT</div>
+				    <div style="text-align:center;"><img src="app/assets/images/down-arrow.png" alt="down arrow" /></div>
+				    <div style="padding:10px; border:1px solid #6c6c6c;text-align:center;">SIXTHCONTINENT INVIA UNA NOTIFICA TRAMITE E‐MAIL, SULL'APP "BUSINESS SIXTHCONTINENT" E SUL SOCIAL NETWORK CON IL RIEPILOGO DI TUTTE LE SHOPPING CARD VENDUTE IL GIORNO PRECEDENTE. L'ESERCENTE VISIONA E CONFERMA CON UN CLICK LE SHOPPING CARD VENDUTE E ACCETTA IL PAGAMENTO DA PARTE DI SIXTHCONTINENT DELLA QUOTA PARTE DEL VALORE DI SHOPPING CARD UP TO 100% ACQUISTATA TRAMITE CARTE DI ACQUISTO COMPRATE DA SIXTHCONTINENT.</div>
+				    <div style="text-align:center;"><img src="app/assets/images/down-arrow.png" alt="down arrow" /></div>
+				    <div style="padding:10px; border:1px solid #6c6c6c;text-align:center;">SIXTHCONTINENT, UNA VOLTA RICEVUTA LA CONFERMA DELL'ESERCENTE, GENERA E INVIA TRAMITE E‐MAIL ALL'ESERCENTE IL RENDICONTO DI TUTTE LE CARTE DI ACQUISTO CHE DEVE PAGARE ALL'ESERCENTE. SULLA BASE DI TALE RENDICONTO, SIXTHCONTINENT EFFETTUA IL GIORNO LAVORATIVO SUCCESSIVO, TRAMITE BONIFICO BANCARIO SUL CONTO CORRENTE DELL'ESERCENTE, IL PAGAMENTO DELL'IMPORTO TOTALE DELLE CARTE DI ACQUISTO UTILIZZATE.</div>
+				   </div>
+			    </div>	
+			</div>
+				<p class="privacy-disclaimer">
+					{{i18n.shop_payment.terms_condition.description_second}}             
+				</p>
+				<p><input type="checkbox" ng-model="agree.flag1" value="1" ng-change="checkFlag()"/> Dichiaro di essere rappresentante della suddetta società e che pertanto sono autorizzato ad affiliare l’attività a SixthContinent.</p>
+				<p><input type="checkbox" ng-model="agree.flag2" value="2" ng-change="checkFlag()"/> Accetto i termini e le condizioni previste dal contratto di affiliazione</p>
+				<p>
+				<input type="checkbox" ng-model="agree.flag4" value="4" ng-change="checkFlag()"/> Dichiaro di aver letto e compreso l’Art.2 “CONDIZIONI ECONOMICHE E MODALITA” e comma relativi e in particolare accetto di riconoscere:
+				</p>
+				<ul>
+				<li>La somma totale di € 50 come sconto (una sola volta e per sempre), utilizzabile dagli utenti SixthContinent per pagare sino al 50% del prezzo di acquisto di prodotti e servizi. Tale sconto viene indicato all’interno dell’applicazione come “Credito Premium” e una volta esaurito, tramite l’utilizzo da parte di uno o più utenti, non è più usufruibile.</li>
+				<li>Dopo aver incassato una somma pari o superiore a € 200 dalle vendite effettuate tramite le applicazioni di SixthContinent, vengono addebitati (una sola volta e per sempre) sulla carta di credito € 99 + IVA.</li>
+				<li>Su ogni vendita effettuata, tramite le applicazioni di SixthContinent, viene addebitato sulla carta di credito il 6% + IVA del valore della transazione eseguita.</li>
+				<li>L’invio automatico (una sola volta e per sempre) a 20 Utenti SixthContinent di un “Coupon Sconto” del valore di € 5 ciascuno, utilizzabili come sconto massimo del 50% sul prezzo di acquisto di prodotti e servizi.</li>
+				</ul>
+
+				<h4>GENTILE CLIENTE PER ATTIVARE IL SUO SHOP E' NECESSARIO PROVVEDERE ALL’INSERIMENTO DI UNA CARTA DI CREDITO</h4>
+				<p>SixthContinent si serve di un sistema di elaborazione dei pagamenti fornito conto terzi (<strong>"Sistema di Elaborazione dei Pagamenti"</strong>) che collega la carta di credito dell'utente all'Applicazione e al Servizio. L'elaborazione dei pagamenti o dei crediti, ove applicabile, rispettivamente all'utilizzo dell'Applicazione e del Servizio, sarà soggetta ai termini, condizioni e privacy policy del Sistema di Elaborazione dei Pagamenti e dell'ente erogatore della carta di credito, oltre che ai presenti Termini di Utilizzo per l'Utente. SixthContinent non sarà ritenuta responsabile di qualsivoglia errore imputabile al Sistema di Elaborazione dei Pagamenti. In riferimento all'utilizzo, da parte dell'utente, dei Servizi, SixthContinent avrà accesso ad alcuni dettagli delle transazioni che verranno impiegati da SixthContinent esclusivamente nel rispetto dell'Avviso su Privacy e Cookie.</p>
+				<p><input type="checkbox" ng-model="agree.flag3" value="3" ng-change="checkFlag()"/> Accetto i termini e le condizioni per la gestione della Carta di Credito</p>
+				<div class="TandC-footer" ng-show="allowProceed">
+					<div class="privacy-radio">
+						<a href="#/edit/shop/{{ShopDetail.id}}" class="btn btn-primary">{{i18n.shop_affiliation.edit}}</a>
+						<!-- <a href="#/" class="btn btn-primary">INDIETRO</a> -->
+						<a data-ng-href="{{storePaymentUrl}}" class="btn btn-primary">{{i18n.shop_payment.terms_condition.pay_btn}}</a>
+					</div>
+				</div>
+				<div class="TandC-footer" ng-show="submitForm">
+					<div class="privacy-radio">
+						<!-- <a href="#/edit/shop/{{ShopDetail.id}}" class="btn btn-primary">{{i18n.shop_affiliation.edit}}</a> -->
+						<!-- <a href="#/" class="btn btn-primary">INDIETRO</a> -->
+						<a href="javascript:void(0)" data-ng-click="payNow()" class="btn btn-primary">{{i18n.shop_payment.terms_condition.submit}}</a>
+					</div>
+				</div>
+				<div class="citizen-account-links">
+					<div class="citizen-steps">{{i18n.shop_affiliation.step}}3/4</div>
+				</div>
+                </div>
+				</div>
+			</div>
+			<div data-ng-show="loadTerms">
+				<show-progress></show-progress>
+			</div>
+		</div>
+	</div>
+	<div class="clearfix"></div>

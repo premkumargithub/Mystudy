@@ -1,0 +1,39 @@
+<style type="text/css">
+.modal-open .modal.in .modal-dialog{width:620px;}
+.modal-body.tag-frnd-modal ul li{padding:8px 130px 8px 40px;}
+.modal-content .modal-body ul.rmv-tag{position:absolute;right:0;top:10px}.modal-content .modal-body ul.rmv-tag li{padding:0;display:inline-block;vertical-align:middle;border:0}.modal-content .modal-body ul.rmv-tag li span.votes-avg{width:23px;height:21px;margin-left:2px;background:url(app/assets/images/rating-star.png) no-repeat;display:block}.modal-content .modal-body ul.rmv-tag li span.votes-blank{width:23px;height:21px;margin-left:2px;background:url(app/assets/images/rating-star.png) 0 -21px no-repeat;display:block}.modal.in .modal-dialog{margin:auto;top:0;bottom:0;left:0;right:0;position:absolute; width:80%; height: 400px;}.modal-body.tag-frnd-modal{height:360px;overflow-y:auto;overflow-x:hidden;padding:0 10px}.modal .modal-content{margin:auto;top:0;bottom:0;left:0;right:0;position:absolute;overflow:visible}
+@media screen and (max-width:640px){.modal.in .modal-dialog{height: 80%}}
+@media screen and (max-width:479px){.modal.in .modal-dialog{width: 90%}.modal-body.tag-frnd-modal ul li{padding:8px 70px 8px 40px}.modal-content .modal-body ul.rmv-tag li span.votes-avg{width:12px;height:10px;margin-left:1px;background:url(app/assets/images/rating-star.png) 0 0/12px no-repeat}.modal-content .modal-body ul.rmv-tag li span.votes-blank{width:12px;height:10px;margin-left:1px;background:url(app/assets/images/rating-star.png) 0 -11px/12px no-repeat}}
+</style>
+
+<div id="friendModal" class="modal-header">
+	<h3 class="modal-title" data-ng-bind="i18n.notify.rated_user"></h3>
+	<div class="modal-popup-close" ng-click="closeModal()"></div>
+</div>
+<div class="modal-body tag-frnd-modal">
+	<ul ng-hide="showPeopleLoader">
+		<li data-ng-repeat="friend in ratedUsers">
+			<span class="tag-img">
+				<img title="" style="width:30px;height:30px" alt="No image available" ng-src='{{friend.profile_image_thumb}}' data-ng-if="friend.profile_image_thumb != null  && friend.profile_image_thumb != ''">
+				<img title="" alt="No image available" src="app/assets/images/dummy32X32.jpg" data-ng-if="friend.profile_image_thumb == null || friend.profile_image_thumb == ''">
+			</span>
+			<span class="tag-frnd-name">
+				<a href ng-click="viewFriendProile(friend.id)" data-ng-bind="friend.first_name + ' ' + friend.last_name "></a><span class="frnd-details">
+					<a href data-ng-bind="friend.about_me"></a>
+				</span>
+			</span>
+			<ul class="rmv-tag">
+				<li data-ng-repeat="avgRate in averageRating(friend.rate) track by $index">
+					<span ng-class="friend.rate % 1 == 0 ?'votes-avg': ($last ? 'half-avg':'votes-avg')" />
+				</li>
+				<li ng-repeat="blank in blankStar(friend.rate) track by $index">
+					<span class="votes-blank"/>
+				</li>
+			</ul>
+		</li>
+	</ul> 
+	<div ng-show="showPeopleLoader">
+		<img titile="" alt="" src="app/assets/images/proceed.gif">
+	</div>
+</div>
+<div class="modal-footer"></div>

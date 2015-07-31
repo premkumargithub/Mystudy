@@ -1,0 +1,87 @@
+<div class="col-2-layout">
+<div id="content" class="container-right-fluid-page">
+    <div class="innerAll">
+        <div class="row">
+            <div class="col-lg-8 col-md-8">
+            <div class="inner-container">
+                <user-Cover-Profile-Panel></user-Cover-Profile-Panel>
+                <article class="social-project">
+                    <div class="social-heading">
+                        <span class="clubtitle1"><i class="fa fa-users"></i> {{i18n.clubs.title}}</span>
+                        <a class="btn btn-primary create-group-link" href="javascript:void(0)" ng-click="createGroupToggle()" data-ng-bind="i18n.clubs.create_club"></a>
+                    </div>
+                    <div class="wrap-select">
+                        <ul class="for-resp">
+                            <!-- <li><a class="voti {{groupPublicActive}}"  href="javascript:void(0);" data-ng-click="searchPublicGroup('allclub')">All Clubs</a></li> -->
+                            <li><a class="voti {{groupMyClubActive}}" href="javascript:void(0);" data-ng-click="myGroup('myclub')" data-ng-bind="i18n.clubs.my_clubs"></a></li>
+                        </ul>
+                        <div class="search-list">
+                            <ul class="visualizzazione">
+                                <li class="{{listActive}}"><a href="javascript:void(0);" data-ng-click="changeView('list')"><i class="fa fa-list"></i></a></li>
+                                <li class="{{gridActive}}"><a href="javascript:void(0);" data-ng-click="changeView('grid')"><i class="fa fa-table"></i></a></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <form name="createClub" class="create-group" ng-hide="createGroupToggleTag" data-ng-submit="createGroup(createClub.$valid)" novalidate>
+                        <ul>
+                            <li>
+                                <div class="createclub-label">
+                                <span data-ng-bind="i18n.clubs.name"></span>
+                                </div>
+                                <div class="createclub-input">
+                                <input type="text" id="clubname" name="clubname" data-ng-model="createGroupData.name" class="form-control bg-gray" ng-class="{ 'has-error' : (createClub.clubname.$dirty&&createClub.clubname.$invalid&&createClub.clubname.$error.required ) || (clubFormSubmitted && !createGroupData.name)}" required />
+                                <div ng-show="(createClub.clubname.$dirty&&createClub.clubname.$invalid&&createClub.clubname.$error.required ) || (clubFormSubmitted && !createGroupData.name)" class="text-red" data-ng-bind="i18n.validation.enter_clubname"></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="createclub-label">
+                                <span data-ng-bind="i18n.clubs.status"></span>
+                                </div>
+                                <div class="createclub-input">
+                                <select id="clubstatus" name="clubstatus" class="form-control bg-gray" ng-model="createGroupData.groupTypeID" ng-options="groupType.groupTypeID as groupType.groupTypeTitle for groupType in groupTypes" ng-class="{ 'has-error' : (createClub.clubstatus.$dirty&&createClub.clubstatus.$invalid&&createClub.clubstatus.$error.required ) || (clubFormSubmitted && !createGroupData.groupTypeID)}" required >
+                                </select>
+                                <div ng-show="(createClub.clubstatus.$dirty&&createClub.clubstatus.$invalid&&createClub.clubstatus.$error.required ) || (clubFormSubmitted && !createGroupData.groupTypeID)" class="text-red" data-ng-bind="i18n.validation.enter_clubstatus"></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="createclub-label">
+                                <span data-ng-bind="i18n.clubs.description"></span>
+                                </div>
+                                <div class="createclub-input">
+                                <textarea id="clubdescription" name="clubdescription"  class="form-control bg-gray" data-ng-model="createGroupData.description" ng-class="{ 'has-error' : (createClub.clubdescription.$dirty&&createClub.clubdescription.$invalid&&createClub.clubdescription.$error.required ) || (clubFormSubmitted && !createGroupData.description)}" required></textarea>
+                                <div ng-show="(createClub.clubdescription.$dirty&&createClub.clubdescription.$invalid&&createClub.clubdescription.$error.required ) || (clubFormSubmitted && !createGroupData.description)" class="text-red" data-ng-bind="i18n.validation.enter_clubdesc"></div>
+                                </div>
+                            </li>
+                            <li>
+                                <button type="submit" ng-hide="createGroupStart" class="btn btn-primary" ><span data-ng-bind="i18n.clubs.create_button"></span> <i class="fa fa-fw fa-plus"></i></button>
+                                <button ng-hide="createGroupStart" class="btn btn-primary" data-ng-click="cancelCreateGroupToggle()"><span data-ng-bind="i18n.clubs.cancel_button"></span> <i class="fa fa-fw fa-times"></i></button>
+                                <div class="login-error text-red text-center display-block-inline" data-ng-show="createGroupError" data-ng-bind="createGroupErrorMsg"></div>
+                            </li>
+                        </ul>
+                        <div data-ng-show="createGroupStart" style="text-align: center;">
+                            <img src="app/assets/images/proceed.gif" alt="loading..." />
+                        </div>
+                    </form>
+                    <div ng-show="createGroupToggleTag"></div>
+                    <p class="text-success text-center" data-ng-bind="message"></p>
+                    <div infinite-scroll="loadMore()" infinite-scroll-distance="3">
+                    <group-grid data-ng-show="gridActive == 'active'"></group-grid>
+                    <group-list data-ng-show="listActive == 'active'"></group-list>
+                    <div data-ng-show="isLoading" style="text-align: center;">
+                        <img src="app/assets/images/ajax-loader.gif" alt="loading..." />
+                    </div>
+                    </div>
+                    <div style="text-align: center;" data-ng-show="noContent" ng-if="userGroupList.length == 0 && isLoading == false">
+                        <strong data-ng-bind="i18n.clubs.no_result"></strong>
+                    </div>
+                </article>
+            </div>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <profile-Right-Panel></profile-Right-Panel>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+</div>

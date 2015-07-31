@@ -1,0 +1,81 @@
+<div class="grid-view" data-ng-hide="offerlodar">	
+	<ul data-ng-show="iscomingSoon" class="clearfix commingSoon">
+		<li data-ng-bind="i18n.store.wallet.coming_soon"></li>
+	</ul>	
+	<ul data-ng-hide="iscomingSoon" class="clearfix">
+		<li class="clearfix" data-ng-repeat="offer in offerlistingObject">
+			
+			<div class="grid-top">
+				<div class="img-block">
+					<img ng-src="app/assets/images/offer-shop{{offer.value}}-small.png" alt="" titile=""/>			
+				</div>
+				<div class="offer-details-block">
+					<h2>
+						<a href="#/card/{{offer._id}}" data-ng-bind="offer.shop_id.name"></a> 
+					</h2>
+					<span class="category" data-ng-bind="Cat = ConvertCategory('{{offer.shop_id.category_id._id}}')"></span>
+					<div class="location-block" data-ng-bind="offer.shop_id.address_l2"></div>
+				</div>
+			</div>
+			<div class="grid-middle">
+				<div class="details-block" data-ng-init="offeramt = calculateprice(offer.value,offer.discount)">
+					<div class="row-line head">
+						<span class="detail-label" data-ng-bind="i18n.offer_shoppingcard.price_for_me"></span>
+						<span class="value"><span data-ng-bind="offeramt.onlyForYou | currency:'&euro;'"></span></span>
+					</div>
+					<div class="row-line">
+						<span class="detail-label" data-ng-bind="i18n.offer_shoppingcard.price_value"></span>
+						<span class="value"><span data-ng-bind="offer.value | currency:'&euro;'"></span></span>
+					</div>
+					<div class="row-line">
+						<span class="detail-label" data-ng-bind="i18n.offer_shoppingcard.price_purchase"></span>
+						<span class="value"><span data-ng-bind="offeramt.price_purchase | currency:'&euro;'"></span></span>
+					</div>
+					<div class="row-line">
+						<span class="detail-label" data-ng-bind="i18n.offer_shoppingcard.price_app_cont"></span>
+						<span class="value"><span data-ng-bind="offeramt.price_sixth | currency:'&euro;'"></span></span>
+					</div>
+				</div>
+			</div>	
+			<div class="grid-bottom">
+				<p data-ng-bind="offer.description"></p>
+				<div class="img-block">
+					<div data-ng-if="offer.imageurl != undefined" >
+						<span ng-repeat="imgurl in (offer.imageurl | hobbyList) | limitTo: 1" style="background-image:url('{{imgurl}}')"></span>
+					</div>
+					<div data-ng-if="offer.imageurl == undefined">
+						<span style="background-image:url('app/assets/images/coupon-default-store.jpg')" data-ng-if="offer.shop_id.shop_thumbnail_img == undefined  || offer.shop_id.shop_thumbnail_img == ''"></span>
+						<span style="background-image:url('{{offer.shop_id.shop_thumbnail_img}}')" data-ng-if="offer.shop_id.shop_thumbnail_img != undefined && offer.shop_id.shop_thumbnail_img != ''"></span>
+					</div>	
+				</div>
+				<div class="group-count-outer clearfix">
+					<div class="group-count">
+						<img data-ng-click="getfrndlist($event,offer.shop_id._id)"  src="app/assets/images/group-count.png" style="cursor:pointer;"/>
+						<span class="number" data-ng-show="frcount[$index] != undefined" data-ng-bind="frcount[$index].count"></span>
+						<span class="number" data-ng-show="frcount[$index] == undefined">0</span>
+						<ul class="friend-list">
+							<li class="first" data-ng-bind="i18n.offer_shoppingcard.frnd_list_head"></li>
+							<li class="loader" data-ng-show="frndlistloader">
+								<img src="app/assets/images/proceed.gif">
+							</li>
+							<li data-ng-show="nofndlist" class="text-red" data-ng-bind="i18n.profile.edit_profile.No_Record"></li>
+							<li data-ng-repeat="frnd in friendlist">
+								<a href="#/viewfriend/{{frnd.id}}" data-ng-bind="frnd.first_name + ' ' + frnd.last_name"></a>
+							</li>
+							<li class="last"><a href="#/card/{{offer._id}}" data-ng-bind="i18n.offer_shoppingcard.frnd_list_last"></a>
+						</ul>
+					</div>
+					<div class="ratings-votes">
+						<ul>
+							<li ng-class="{active: (offer.shop_id.average_anonymous_rating | number:1) >=0.6, half: ((offer.shop_id.average_anonymous_rating | number:1) <= 0.5) && ((offer.shop_id.average_anonymous_rating | number:1) > 0)}"></li><li ng-class="{active: (offer.shop_id.average_anonymous_rating | number:1) >= 1.6,half: ((offer.shop_id.average_anonymous_rating | number:1) <= 1.5) && ((offer.shop_id.average_anonymous_rating | number:1) > 1.0)}"></li><li ng-class="{active: (offer.shop_id.average_anonymous_rating | number:1) >= 2.6, half: ((offer.shop_id.average_anonymous_rating | number:1) <= 2.5) && ((offer.shop_id.average_anonymous_rating | number:1) > 2.0)}"></li><li ng-class="{active: (offer.shop_id.average_anonymous_rating | number:1) >= 3.6, half: ((offer.shop_id.average_anonymous_rating | number:1) <= 3.5) && ((offer.shop_id.average_anonymous_rating | number:1) > 3.0)}"></li><li ng-class="{active: (offer.shop_id.average_anonymous_rating | number:1) >= 4.6, half: ((offer.shop_id.average_anonymous_rating | number:1) <= 4.5) && ((offer.shop_id.average_anonymous_rating | number:1) > 4.0)}"></li>
+						</ul>
+						<span class="total-votes"><span data-ng-bind="offer.shop_id.total_votes"></span> <span data-ng-bind="i18n.profile_post.votes"></span></span>
+					</div>
+				</div>
+			</div>
+			<div class="view-offer"><a href="#/card/{{offer._id}}" data-ng-bind="i18n.offer_shoppingcard.view_offer"></a></div>
+		</li>
+		
+		
+	</ul>
+</div>	

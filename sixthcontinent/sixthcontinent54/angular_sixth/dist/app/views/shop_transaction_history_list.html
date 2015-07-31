@@ -1,0 +1,52 @@
+<!--Transaction History Start-->
+<div class="transaction-wrapper transaction-history">
+    <div class="transaction-main-heading" ng-bind="i18n.shop_transaction.history_lbl"></div>
+    <div class="history-date-section">
+        <!-- <div class="history-date-select">
+            <select>
+                <option selected="selected" value=""ng-bind="i18n.shop_transaction.select_date"></option>
+                <option value="">11/03/15</option>
+                <option value="">13/03/15</option>
+                <option value="">16/03/15</option>
+                <option value="">19/03/15</option>
+            </select>
+        </div> -->
+    </div>
+    <div class="transaction-content">
+        <div ng-if="transactionHistoryObjectList.length != 0">
+            <span class="shopTranErrCls" ng-bind="errorMsg"></span>
+            <!-- <div class="transaction-listing contentHolder" id="scroll-pane" when-scrolled="{{loadMoreFunc}}"> -->
+            <div class="transaction-listing contentHolder" id="scroll-pane">
+                <ul class="clearfix">
+                    <li ng-repeat="transacion in transactionHistoryObjectList">
+                        <div class="trans-history-left">
+                            <img data-ng-hide="transacion.citizen_id.profile_image_thumb" ng-src="app/assets/images/transaction-customer.jpg"alt="transaction-customer" />
+                            <img data-ng-show="transacion.citizen_id.profile_image_thumb" ng-src="{{transacion.citizen_id.profile_image_thumb}}" alt="transaction-customer"/></div>
+                        <div class="trans-history-right">
+                            <div class="history-id-section">
+                                <div class="history-id"><span ng-bind="transacion.id"></span></div>
+                                <div class="history-price"><span ng-bind="transaction_value || 0"></span> &euro;</div>
+                            </div>
+                            <div class="history-title"><span ng-bind="transacion.shop_id._id"></span></div>
+                            <div class="history-time">
+                                <span ng-bind="transacion.date | historyListDate"></span>
+                            </div>
+                        </div>
+                        <div class="selectshop-select">
+                            <input type="radio" ng-value="transacion._id" name="TransShopGroup" ng-model="transactionSelect.id">
+                            <label for="radioImageBased"></label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="transaction-buttons"><a href="javascript:void(0);" ng-click="getTransactionDetail();" ng-bind="i18n.shop_transaction.next_lbl"></a></div>
+        </div>
+    </div>
+    <div ng-if="transactionHistoryObjectList.length == 0 && requestSending==false">
+            <span ng-bind="i18n.shop_transaction.no_transaction"></span>
+    </div>
+    <div class="transaction-listing" ng-show="requestSending ==true && isLoadTransaction==false">
+        <show-progress></show-progress>
+    </div>
+</div>
+<!--Transaction History End--> 

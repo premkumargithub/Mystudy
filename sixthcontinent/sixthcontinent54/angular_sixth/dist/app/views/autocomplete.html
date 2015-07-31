@@ -1,0 +1,17 @@
+<div>
+	<script type="text/ng-template" id="customTemplate.html">
+	  <a>
+	      <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
+	  </a>
+	</script>
+	<form class="form-search" ng-controller="AutocompleteController">
+		<div class="succes-message" data-ng-bind="msgAfterInvite"></div>
+		<div class="search-load-class">
+		    <input type="text" ng-model="selectedCountries" placeholder="{{i18n.search.users}}" typeahead="c as c.country for c in searchedUsers | filter:$viewValue | limitTo:10" typeahead-min-length='1' typeahead-on-select='onSelectPart($item, $model, $label)' typeahead-template-url="customTemplate.html" class="form-control" data-ng-change="searchUsers()" />
+		    <div class="user-search-loder" data-ng-show="searchLoading"><img title="{{i18n.search.loading}}..." alt="" src="app/assets/images/ajax-loader.gif">
+		    </div>
+		    <button class="btn btn-primary" ng-show="InviteSendButton" type="button" ng-click="SentInviteFromStore()" title="{{i18n.search.invite_users}}" data-ng-bind="i18n.search.send"></button>
+		    <button class="btn btn-primary" ng-show="InviteSendButton" type="button" ng-click="onSelectPartCancel()" title="{{i18n.search.cancel}}" data-ng-bind="i18n.search.cancel"></button>
+	    </div>
+	</form>
+</div>

@@ -1,0 +1,44 @@
+<div class="container-fluid">	
+    <div class="register-sixth-continent-form-section">
+       <div  class="innerAll">
+            <div class="row">
+                <div class="inner-container" style="margin-top: 51px">
+                    <div class="inner-container">
+                        <!--store details section-->
+                        <div class="store-details-section">
+                            <storeprofilehome></storeprofilehome> 
+                        </div>
+                        <div class="album-section-container-top">
+                            <div class="album-online">
+                                <span class="album-status"><img titile="" alt="" src="app/assets/images/album.png"></span>
+                                <span data-ng-bind="i18n.store.shop_album + ' : ' + albumname"></span>
+                            </div>
+                            <ul class="album-action-message">
+                                <li>
+                                    <a class="btn btn-primary" href="#/shop/home/album/{{storeMainId}}" data-ng-bind="i18n.store.back_to_shop_album"></a>
+                                </li>
+                            </ul>
+
+                        </div>
+                        <!-- Show the images of  the album -->
+                        <div class="album-option-container" infinite-scroll="loadMoreImage()" infinite-scroll-distance="3">
+                            <div class="ng-hide" style="text-align:center" ng-show="albloader"><img titile="" alt="" src="app/assets/images/proceed.gif"></div>
+                            <ul class="album-option">
+                                <!--album container-->
+                                <li data-ng-repeat="item in viewalbum">
+                                    <a class="view-album-img fancybox" href="{{item.media_path}}" rel="maingallery" style="background-image:url('{{item.thumb_path}}');">
+                                    </a>
+                                </li>	
+                                <!--album container-->
+                            </ul>
+                            <div class="ng-hide" style="text-align:center" ng-show="listload"><img title="" alt="" src="app/assets/images/proceed.gif"></div>
+                            <div class="album-option ng-hide" ng-if="!viewalbum.length" ng-show="noPhotos" data-ng-bind="i18n.store.album.no_image"></div>							
+                        </div>
+                        <!-- show the images of the album  -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>

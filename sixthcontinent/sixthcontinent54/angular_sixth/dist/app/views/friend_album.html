@@ -1,0 +1,53 @@
+
+<!-- Content START -->
+	<div id="content" class="container-right-fluid-page">
+		<!-- <div class="layout-app/">  -->
+		<div class="innerAll">
+			<div class="row">
+				<div class="col-lg-9 col-md-9">
+					<!--album section left -->
+					<div class="album-section-left">
+						<!--album section left conntainer -->
+						<div class="album-section-container-top">
+							<div class="album-online">
+								<span class="album-status" data-ng-bind="i18n.friends.friend_albums"><img titile="" alt="" src="app/assets/images/album.png"></span><span class="ng-hide" ng-show="albloader"><img titile="" alt="" src="app/assets/images/ajax-loader.gif"></span>
+							</div>
+							<ul class="album-action-message">
+								<li class="last"><a href="#/viewfriend/{{userId}}/about"
+							    data-ng-bind="i18n.friends.back_to_profile"></a></li>
+							</ul>
+						</div>
+						<!--album section left conntainer -->
+						<div class="album-option-container" ng-if="friendId == 1">
+							<ul class="album-option" ng-if="listAlbum.length">
+
+								<!--album container-->
+								<li data-ng-repeat="item in listAlbum">
+									<a href="javascript:void(0)">
+										<div ng-if="!item.featured_media_path.length" class="album-option-img" ng-click="redirectUrl(item.id, item.album_name, userId)">
+										<span style="background-image:url('app/assets/images/album-empty.jpg');"></span>
+										</div>
+										<div ng-if="item.featured_media_path.length" class="album-option-img" ng-click="redirectUrl(item.id, item.album_name, userId)">
+											<span style="background-image:url('{{item.featured_media_path}}');"></span>
+										</div>
+										<div class="album-option-heading" ng-click="redirectUrl(item.id, item.album_name, userId)" data-ng-bind="item.album_name">
+										</div>
+                                        <div class="album-option-sub" ng-click="redirectUrl(item.id, item.album_name, userId)" data-ng-bind="item.media_in_album + ' ' + i18n.friends.photos"></div>
+									</a>
+								</li>
+							</ul>
+							<div ng-if="!listAlbum.length" class="album-option ng-hide" ng-show="noAlbums" data-ng-bind="i18n.friends.no_album">
+							</div>
+						</div>
+						<div class="album-option-container" ng-if="friendId == 0 || friendId > 1" data-ng-bind="i18n.friends.need_friend">
+						</div>
+					</div>
+					<!--album section left -->
+				</div>
+				<div class="col-md-3 col-lg-3">
+					<profile-right-panel></profile-right-panel>
+				</div>
+			</div>
+		</div>
+	</div>
+<div class="clearfix"></div>

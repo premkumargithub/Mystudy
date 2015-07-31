@@ -1,0 +1,121 @@
+<div class="col-3-layout">
+    <left-Panel></left-Panel>
+    <div id="content">
+        <div class="innerAll">
+            <div class="row">
+                <div class="col-lg-8 col-md-8">
+                    <div class="inner-container">
+                        <div class="editProfileLoader"> 
+                            <img src="app/assets/images/proceed.gif" data-ng-show="loadEditProfile" />
+                        </div>
+                        <div class="tab-content" data-ng-hide="loadEditProfile">
+                            <div class="profile-tab-container">
+                                <!-- Tabs Heading -->
+                                <div class="tabsbar tabsbar-2">
+                                    <ul class="row row-merge">
+                                        <li class="col-md-3 glyphicons circle_info" data-ng-if ="editUser.citizenesists == 1"><a href="#/edit/citizen/1" >{{i18n.profile.edit_profile.title}}</a></li>
+                                        <li class="col-md-3 glyphicons cart_in active"><a href="#/edit/broker/2" >{{i18n.profile.edit_profile.edit_broker_profile}}</a></li> 
+                                    </ul>
+                                </div>
+                                <!-- Tab content -->
+                                <div class="tab-pane1">
+                                    <div class="timeline-cover">
+                                        <div class="widget">
+                                            <div class="widget-body padding-none margin-none">
+                                                <div class="innerAll"> <i class="fa fa-quote-left text-muted pull-left fa-fw"></i>
+                                                    <p class="lead margin-none">{{i18n.broker.edit_broker_profile.title}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                  </div>
+                                    <div class="alert smallbox" data-ng-class="msgClass" data-ng-if ="editMessage != ''"> 
+                                        {{editMessage}}
+                                    </div>
+                                    <span style="color: red" data-ng-show ="errorMsg">{{profileErrorMessage}}
+                                    </span>
+                                    <div class="form-container">
+                                        <form name="editUser" data-ng-submit="editProfile(2)">
+                                            <ul>
+                                                <li>
+                                                    <span>{{i18n.broker.edit_broker_profile.phone}}</span>
+                                                    <input type="number" class="form-control bg-gray " data-ng-model="editUser.phone" focus-me="shouldBeFocus" required/>
+                                                </li>
+                                                <li>
+                                                    <span>{{i18n.broker.edit_broker_profile.vat_number}}</span>
+                                                    <input type="text" class="form-control bg-gray" data-ng-model="editUser.vatnumber"/>
+                                                </li>
+                                                <li>
+                                                    <span>{{i18n.broker.edit_broker_profile.fiscal_code}}</span>
+                                                    <input type="text" class="form-control bg-gray" data-ng-model="editUser.fiscalcode" required/>
+                                                </li>
+                                                <li>
+                                                    <span>{{i18n.broker.edit_broker_profile.iban}}</span>
+                                                    <input type="text" class="form-control bg-gray" data-ng-model="editUser.iban" required/>
+                                                </li>
+                                                <li>
+                                                    <span>{{i18n.broker.edit_broker_profile.upload_id_card}}</span>
+                                                    <input type="file" name="idcard" class="form-control bg-gray" ng-id-card-file=""/>
+                                                    <div data-ng-show="idCardFilePre">
+                                                        <img data-ng-src="{{idCardFilePre}}" width="200" height="200"/>
+                                                        <a href="javascript:void(0);" data-ng-click="removePreviewIdCard()">
+                                                            {{i18n.broker.edit_broker_profile.remove_id_card}}
+                                                        </a>
+                                                    </div>
+                                                    <div data-ng-hide="idCardFilePre" data-ng-if="editUser.idcard != ''">
+                                                        <img data-ng-src="{{editUser.idcard}}" width="200" height="200"/>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <span>{{i18n.broker.edit_broker_profile.social_security_number}}</span>
+                                                    <input type="file" name="ssn" class="form-control bg-gray" ng-ssn-file-select="" />
+                                                    <div data-ng-show="ssnFilePre">
+                                                        <img data-ng-src="{{ssnFilePre}}" width="200" height="200"/>
+                                                        <a href="javascript:void(0);" data-ng-click="removePreviewSSN()">
+                                                            {{i18n.broker.edit_broker_profile.remove_ssn}}
+                                                        </a>
+                                                    </div>
+                                                    <div data-ng-hide="ssnFilePre" data-ng-if="editUser.ssn != ''">
+                                                        <img data-ng-src="{{editUser.ssn}}" width="200" height="200"/>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <span>{{i18n.citizenregister.broker_referral}}</span>
+                                                    <input type="text" class="form-control bg-gray" data-ng-model="editUser.brokerreferral_id" readonly/>
+                                                </li>
+                                                <li>
+                                                    <span>{{i18n.broker.edit_broker_profile.place}}</span>
+                                                    <input type="text" id="mapplace1" class="form-control bg-gray" data-ng-model="editUser.brokerplace" readonly />
+                                                </li>
+                                                <li style="display:none;">
+                                                    <span>{{i18n.broker.edit_broker_profile.latitutde}}</span>
+                                                    <input type="text" id="lat1" value=""class="form-control bg-gray" data-ng-model="editUser.brokerlatitude" readonly/>
+                                                </li>
+                                                <li style="display:none;">
+                                                    <span>{{i18n.broker.edit_broker_profile.longitude}}</span>
+                                                    <input type="text" id="lon1" value=""  class="form-control bg-gray" data-ng-model="editUser.brokerlongitude" readonly/>
+                                                </li>
+                                                    <li><!-- <map></map> -->
+                                                    <input id="pac-input" class="controls" type="text"
+                                                           placeholder="Enter a location">
+                                                    <div id="type-selector" class="controls">
+                                                        <input type="radio" name="type" id="changetype-all" checked="checked">
+                                                    </div>
+                                                    <div id="map-canvas-second" style="width:100%;height:300px;"></div></li>
+                                                <li><img src="app/assets/images/ajax-loader.gif" class="ng-hide" data-ng-show="showloading">
+                                                    <button class="btn btn-primary" data-ng-hide="editloader">{{i18n.broker.edit_broker_profile.save}}</button>
+
+                                                </li>
+                                            </ul>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div></div>
+                <div class="col-md-4 col-lg-4">
+                    <profile-Right-Panel></profile-Right-Panel>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

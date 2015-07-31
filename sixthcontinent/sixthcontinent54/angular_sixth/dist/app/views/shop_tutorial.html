@@ -1,0 +1,100 @@
+<div class="col-3-layout">
+  <left-Panel></left-Panel>
+    <div id="content">
+      <div class="innerAll" >
+          <div class="row">
+            <div class="col-lg-8 col-md-8">
+              <div class="inner-container">
+                <div class="shop-tutorial-wrapper">
+                    <div class="tutorial-header" data-ng-bind="i18n.shop_tutorial.headline">
+                    </div>
+                    <div class="tutorial-video-section">
+                      <div class="how-works-title" data-ng-bind="i18n.shop_tutorial.work"></div>
+                        <h4 class="title-video" ng-if="currentLanguage == 'it'">Video Tutorial – Negozio</h4>
+                        <div class="tutorial-video with-it" ng-if="currentLanguage == 'it'">
+                          <a class="video-fancybox fancybox.iframe" href="https://www.youtube.com/embed/0FMJRwndcaI?fs=1&amp;autoplay=1"><img src="app/assets/images/tutorial-video-img.jpg" alt="tutorial-video-img" /></a>
+                        </div>
+                        <div class="tutorial-video with-en" ng-if="currentLanguage == 'en'">
+                          <a class="video-fancybox fancybox.iframe" ng-if="currentLanguage == 'en'" href="https://www.youtube.com/embed/x_xTts3BIhc?fs=1&amp;autoplay=1"><img src="app/assets/images/tutorial-video-img.jpg" alt="tutorial-video-img" /></a>
+                          <a class="video-fancybox fancybox.iframe" ng-if="currentLanguage == 'it'" href="https://www.youtube.com/embed/ReyrnWfi810?fs=1&amp;autoplay=1"><img src="app/assets/images/tutorial-video-img.jpg" alt="tutorial-video-img" /></a>
+                        </div>
+                          <div class="own-business-section">
+                              <span data-ng-bind="i18n.shop_tutorial.business"></span>
+                              <a href="#/shop_affiliation/{{currentUser.id}}/4" data-ng-bind="i18n.shop_tutorial.click"></a>
+                            </div>
+                    </div>
+                    <div class="perform-trans-section">
+                        <div class="perform-trans-heading">
+                            <span data-ng-bind="i18n.shop_tutorial.perform" class="perform-trans-title"></span>
+                            <span data-ng-bind="i18n.shop_tutorial.sixth" class="perform-trans-subtitle"></span>
+                        </div>
+                        <div class="perform-trans-steps">
+                            <ul class="clearfix">
+                              <li>
+                                <div class="perform-list-img"><img src="app/assets/images/mobile-img5.jpg" alt="mobile-img5" /></div>
+                                <div class="perform-content-wrap">
+                                <div class="perform-list-content">
+                                <div class="perform-list-count">1</div>
+                                <div class="perform-list-text" data-ng-bind="i18n.shop_tutorial.step1">
+                                </div>
+                                </div>
+                                </div>
+                              </li>
+                              <li>
+                                <div class="perform-content-wrap">
+                                <div class="perform-list-content">
+                                <div class="perform-list-count">2</div>
+                                <div class="perform-list-text" data-ng-bind="i18n.shop_tutorial.step2"></div>
+                                </div>
+                                </div>
+                                <div class="perform-list-img"><img src="app/assets/images/mobile-img6.jpg" alt="mobile-img6" /></div>
+                              </li>
+                              <li>
+                                <div class="perform-list-img"><img src="app/assets/images/mobile-img7.jpg" alt="mobile-img7" /></div>
+                                <div class="perform-content-wrap">
+                                <div class="perform-list-content">
+                                <div class="perform-list-count">3</div>
+                                <div class="perform-list-text">
+                                  <span data-ng-bind="i18n.shop_tutorial.step3" ></span><br />
+                                  <span data-ng-bind="i18n.shop_tutorial.step4"></span></div>
+                                </div>
+                                </div>
+                              </li>
+                              <!-- <li>
+                                <div class="perform-content-wrap">
+                                <div class="perform-list-content">
+                                <div class="perform-list-count">4</div>
+                                <div class="perform-list-text" data-ng-bind="i18n.shop_tutorial.step4"></div>
+                                </div>
+                                </div>
+                                <div class="perform-list-img"><img src="app/assets/images/mobile-img1.jpg" alt="mobile-img4" /></div>
+                              </li> -->
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tutorial-contact">
+                        <h4 class="title-video title-video-bottom" ng-if="currentLanguage == 'it'">Modello Economico – Negozio</h4>
+                        <div class="tutorial-video" ng-if="currentLanguage == 'it'">
+                          <a class="video-fancybox fancybox.iframe" ng-if="currentLanguage == 'en'" href="https://www.youtube.com/embed/x_xTts3BIhc?fs=1&amp;autoplay=1"><img src="app/assets/images/tutorial-video-img.jpg" alt="tutorial-video-img" /></a>
+                          <a class="video-fancybox fancybox.iframe" ng-if="currentLanguage == 'it'" href="https://www.youtube.com/embed/ReyrnWfi810?fs=1&amp;autoplay=1"><img src="app/assets/images/tutorial-video-img.jpg" alt="tutorial-video-img" /></a>
+                        </div>
+                        <div class="own-business-section">
+                          <span data-ng-bind="i18n.shop_tutorial.business"></span>
+                          <a href="#/shop_affiliation/{{currentUser.id}}/4" data-ng-bind="i18n.shop_tutorial.click"></a>
+                        </div>
+                        <div class="assistance-contact">
+                          <span data-ng-bind="i18n.shop_tutorial.footer_contact"></span>
+                          <span data-ng-bind="i18n.shop_tutorial.email" class="assistance-support"></span>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>     
+                  <div class="col-md-4 col-lg-4">
+                    <profile-Right-Panel></profile-Right-Panel>
+                  </div>
+         </div>
+      </div>
+    </div>
+</div>
+        <!-- // Content END -->

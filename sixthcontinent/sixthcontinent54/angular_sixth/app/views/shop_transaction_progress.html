@@ -1,0 +1,74 @@
+<!--Transaction Progress Start-->
+<div class="transaction-wrapper transaction-progress">
+    <div class="transaction-main-heading"  ng-bind="i18n.shop_transaction.transaction_progress_lbl"></div>
+    <div class="transaction-header" data-ng-hide="requestSending">
+        <div class="transaction-header-img">
+            <img src="app/assets/images/transaction-pending.png" alt="" />
+        </div>
+        <div class="transaction-header-title">
+            <p ng-bind="i18n.shop_transaction.transaction_is"></p>
+            <span ng-bind="i18n.shop_transaction.in_progress"></span>
+        </div>
+        <span class="shopTranErrCls" ng-bind="errorMsg"></span>
+        <div class="transaction-header-id">
+            <span ng-bind="i18n.shop_transaction.transaction_id_listlbl"></span>
+            <span data-ng-bind="transactionObject.id"></span>
+        </div>
+        <div class="transaction-header-date">
+            <span data-ng-bind="transactionObject.date | txnPrgsDate"></span>
+        </div>
+    </div>
+    <div class="transaction-content" data-ng-hide="requestSending">
+        <div class="transaction-listing">
+            <ul class="clearfix">
+                <li>
+                    <div class="transaction-listing-left">
+                        <img ng-if="transactionObject.shop_id.shop_thumbnail_img == ''" src="app/assets/images/transaction-product.jpg" alt="" />
+                        <img ng-if="transactionObject.shop_id.shop_thumbnail_img != ''" ng-src="{{transactionObject.shop_id.shop_thumbnail_img}}" alt="" />
+                    </div>
+                    <div class="transaction-listing-right clearfix">
+                        <div class="transaction-listing-head" ng-bind="transactionObject.shop_id.name"></div>
+                        <div class="transaction-list-content">
+                            <div class="transaction-list-label" ng-bind="i18n.shop_transaction.total_amount "></div>
+                            <div class="transaction-list-price"><span ng-bind="transactionObject.transaction_value || 0 | currency:'&euro;'"></span></div>
+                        </div>
+                        <div class="transaction-list-content">
+                            <div class="transaction-list-label" ng-bind="i18n.shop_transaction.discount"></div>
+                            <div class="transaction-list-price">
+                                <span ng-bind="transactionObject.total_discountvalue_used || 0 | currency:'&euro;'"></span> 
+                            </div>
+                        </div>
+                        <div class="transaction-list-content after-discount">
+                            <div class="transaction-list-label" ng-bind="i18n.shop_transaction.after_discount"></div>
+                            <div class="transaction-list-price"><span ng-bind="transactionObject.transaction_value-(transactionObject.total_discountvalue_used) || 0 | currency:'&euro;'"></span></div>
+                        </div>
+                        <div class="transaction-list-content">
+                            <div class="transaction-list-label" ng-bind="i18n.shop_transaction.shop_card_used"></div>
+                            <div class="transaction-list-price">
+                                <span ng-bind="transactionObject.total_cardvalue_used || 0 | currency:'&euro;'"></span></div>
+                        </div>
+                        <div class="transaction-list-content cash-payment">
+                            <div class="transaction-list-label"  ng-bind="i18n.shop_transaction.cash_payment"></div>
+                            <div class="transaction-list-price"><span ng-bind="transactionObject.payble_value || 0 | currency:'&euro;'"></span></div>
+                        </div>
+                        <div class="transaction-list-content">
+                            <div class="transaction-list-label" ng-bind="i18n.shop_transaction.shop_card_balance"></div>
+                            <div class="transaction-list-price"><span ng-bind="transactionObject.upto_50_balance+transactionObject.upto_100_balance || 0 | currency:'&euro;'"></span></div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="trans-prog-confirm">
+            <div class="trans-confrim-title" ng-bind="i18n.shop_transaction.confimation_lbl"></div>
+            <div class="trans-confrim-content" ng-bind="i18n.shop_transaction.confirm_data"></div>
+            <div class="transaction-buttons">
+                <a href="javascript:void(0);" data-ng-click="confirmTransaction()" ng-bind="i18n.shop_transaction.confirm" ></a>
+                <a href="javascript:void(0);" data-ng-click="cancelTransaction()" ng-bind="i18n.shop_transaction.cancel_lbl"></a></div>
+        </div>
+    </div>
+    <div class="transaction-loader" data-ng-show="requestSending">
+        <show-progress></show-progress>
+    </div>
+</div>
+<!--Transaction Progress End--> 

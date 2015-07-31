@@ -1,0 +1,39 @@
+<div class="container-fluid register-sixth-container"> 
+
+    <!--register sixth continent-->
+    <div class="register-sixth-one-step">
+        <div class="register-sixth-continent-form-section">
+            <!--register left panel-->
+            <div class="register-sixth-one-step-section">
+                <!--<div class="register-one-step-change-world">{{i18n.register.title}}</div>-->
+                <div class="titleCouter">
+                    <div class="blueFont" data-ng-bind="i18n.mission.total_economy"></div>
+                    <div class="contatore">
+                        <div ng-repeat="item in totalEconomyShifted track by $index" class="digitCounter" data-ng-bind="item"></div>
+                        <div class="symbolEuro">$</div>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+                <div class="register-one-step-change-dei" data-ng-bind="i18n.register.step_one"></div>
+
+            </div>
+            <!--register left panel-->
+
+            <div class="register-sixth-continent-one-step clearfix">
+
+         
+
+            </div>
+
+            </form>
+        </div>		
+    </div>	
+</div>
+<!--register sixth continent-->	
+
+<!--footer-->
+<footer-logout></footer-logout>
+<!--footer-->
+<div ng-include="app / views / footer.html"></div>  
+</div>

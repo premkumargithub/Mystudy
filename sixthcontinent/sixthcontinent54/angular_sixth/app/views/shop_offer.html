@@ -1,0 +1,119 @@
+<div class="col-2-layout">
+  <div class="container-right-fluid-page" id="content">
+    
+    <div ng-show="isLoadingwallet" class="loader-container">
+      <show-progress></show-progress>
+    </div>
+    
+    <div ng-hide="isLoadingwallet" class="innerAll">
+      <div class="row">
+        <div class="col-lg-8 col-md-8">
+          <div class="inner-container">
+            <div class="login-error" style="text-align: center; color: red;" data-ng-show="uploadProfileerror" data-ng-bind="uploadProfileErrorMsg">
+            </div>
+            <!--store details section-->
+            <div class="store-details-section">
+              <storeprofile></storeprofile> 
+            </div>
+            <!---offer start-->
+            <div class="clr"></div>
+            <div class="shop-offer shop-offer-container offer-section">
+                <div class="section-heading">
+                  <span class="trans-heading ng-binding" data-ng-bind="'Shop ' + i18n.left_menu.offer_head"></span>
+                </div>
+                <div class="shop-offer-tab">
+                  <ul class="tab-list">
+                    <li data-ng-class="offer_type === 'card' ? 'active' : ''"> 
+                        <a href data-ng-click="OfferChange('card')"><span class="trans-text" data-ng-bind="i18n.left_menu.offer_card"></span></a>
+                    </li>
+                    <li data-ng-class="offer_type === 'coupon' ? 'active' : ''">
+                        <a href data-ng-click="OfferChange('coupon')"><span class="trans-text" data-ng-bind="i18n.left_menu.offer_coupons"></span></a>
+                    </li>
+                  </ul>   
+                </div>
+
+                <div class="offer-pagi-section clearfix">
+                  <div class="offer-pagi-section1">
+                    <div class="viewtype-text" data-ng-bind="i18n.clubs.visualization"></div>
+                    <ul class="visualizzazione">
+                      <li class="{{gridActive}}"><a href="javascript:void(0)" data-ng-click="changeView('grid')" class="table-icon" title="{{i18n.store.list_view}}"></a></li>
+                      <li class="{{listActive}}"><a href="javascript:void(0);" data-ng-click="changeView('list')" class="list-icon" title="{{i18n.store.grid_view}}"></a></li>
+                    </ul>
+                  </div>
+                  
+                  <div class="offer-pagi-section2">
+                    <tr>
+                      <th colspan="12" class="text-right">
+                        <div class="pagination ">
+                          <ul class="pagination mb10 offer-paginate">
+                            <li ng-class="prevPageDisabled()" class="nav-arrow nav-arrow-left">
+                              <a href ng-click="prevPage()"></a>
+                            </li>
+                            <li ng-repeat="n in range"
+                            ng-class="{active: n == currentPage, 'seeview': $index+1 == currentPage+1 || $index+1 == currentPage+2 || $index+1 == currentPage-1 || $index+1 == currentPage-2 || $index+1 == currentPage || $last}">
+                            <a href ng-click="changePageMore(n)" data-ng-bind="n"></a>
+                            </li>
+                            <li ng-class="nextPageDisabled()" class="nav-arrow nav-arrow-right">
+                              <a href ng-click="nextPage()"></a>
+                            </li>
+                          </ul>
+                        </div>
+                      </th>
+                    </tr>
+                  </div>
+
+                  <div class="offer-pagi-section3">
+                    <div class="viewtype-text" data-ng-bind="i18n.clubs.result_per_page"></div>
+                    <ul>
+                      <li>
+                        <span ng-class="{active: itemsPerPage == firstPage}">
+                          <a href="javascript:void(0)" ng-click="setPage(firstPage)" data-ng-bind="firstPage"></a>
+                        </span>
+                      </li>
+                      <li> -
+                        <span ng-class="{active: itemsPerPage == 2*firstPage}">
+                          <a href="javascript:void(0)" ng-click="setPage(2*firstPage)" data-ng-bind="2 * firstPage"></a>
+                        </span>
+                      </li>
+                      <li> -
+                        <span ng-class="{active: itemsPerPage == 4*firstPage}">
+                          <a href="javascript:void(0)" ng-click="setPage(4*firstPage)" data-ng-bind="4 * firstPage"></a>
+                        </span>
+                      </li>
+                      <li> -
+                        <span ng-class="{active: itemsPerPage == 8*firstPage}">
+                          <a href="javascript:void(0)" ng-click="setPage(8*firstPage)" data-ng-bind="8 * firstPage"></a>
+                        </span>  
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+				<div class="offer-list">
+                <div class="offer-data-lodar" data-ng-show="offerlodar">
+                  <img src="app/assets/images/proceed.gif">
+                </div>
+                <div class="loader-container" data-ng-show="noResultFound" data-ng-bind="i18n.store.result_not_found"></div>
+
+                <offer-list data-ng-show="listActive == 'active' && offer_type == 'card'"></offer-list>
+                
+                <offer-grid data-ng-show="gridActive == 'active' && offer_type == 'card'"></offer-grid>
+
+                <coupons-list data-ng-show="listActive == 'active' && offer_type == 'coupon'"></coupons-list>
+                
+                <coupons-grid data-ng-show="gridActive == 'active' && offer_type == 'coupon'"></coupons-grid>
+				</div>
+            </div>
+          <!---offer end-->
+          </div>
+        </div> 
+        
+        <div class="col-lg-4 col-md-4"> 
+          <profile-Right-Panel></profile-Right-Panel>
+        </div>
+
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>  

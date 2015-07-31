@@ -1,0 +1,46 @@
+	<!-- Content START -->
+	<div id="content" class="container-right-fluid-page">
+		<!-- <div class="layout-app/">  -->
+		<div class="innerAll">
+			<div class="row">
+				<div class="col-lg-9 col-md-8">
+					<!--album section left -->
+					<div class="album-section-left">
+						<!--album section left conntainer -->
+						<div class="album-section-container-top imgupload">
+							<div class="heading" datat-ng-bind="i18n.friends.friend_album + ' : ' + albumname"></div>
+							<div class="msgDisp" style="color:green" data-ng-bind="albumResponse"></div>
+							<div class="uploadcontainer">
+								<div class="album-online">
+									<span class="album-status" data-ng-bind="i18n.friends.album_images"><img titile="" alt="" src="app/assets/images/album.png"></span> <span class="ng-hide" ng-show="albloader"><img titile="" alt="" src="app/assets/images/ajax-loader.gif"></span>
+								</div>
+								<ul>
+									<li><a class="btn btn-primary" href="#/friend/album/{{frndUserId}}/1" data-ng-bind="i18n.friends.back_to_album"></a></li>
+								</ul>
+							</div>
+						</div>
+						<!--album section left conntainer -->
+						<div class="album-option-container">
+							<ul class="album-option" ng-if="viewalbum.length">
+								<!--album container-->
+								<li data-ng-repeat="item in viewalbum">
+									<a class="view-album-img fancybox" href="{{item.media_path}}" rel="maingallery" style="background-image:url('{{item.media_path}}');"></a>
+								</li>
+							</ul>
+							<ul class="album-option ng-hide" ng-if="!viewalbum.length" ng-show="noPhotos">
+								<li data-ng-bind="i18n.friends.no_image">
+								</li>
+							</ul>
+							
+						</div>
+
+					</div>
+					<!--album section left -->
+				</div>
+				<div class="col-md-4 col-lg-3">
+					<profile-right-panel></profile-right-panel>
+				</div>
+			</div>
+		</div>
+	</div>
+<div class="clearfix"></div>

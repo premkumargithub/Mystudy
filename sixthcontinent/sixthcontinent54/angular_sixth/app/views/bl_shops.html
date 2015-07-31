@@ -1,0 +1,76 @@
+<div class="container-fluid">	
+    <div class="register-sixth-continent-form-section">
+        <div class="inner-container" style="margin-top: 51px">
+            <!-- <user-Cover-Profile-Panel></user-Cover-Profile-Panel> -->
+            <article class="social-project store-grid">
+                <div class="social-heading">
+                    <span class="store-head"><img src="app/assets/images/store-head.png" alt="" /></span>
+                    <span data-ng-bind="i18n.store.title"></span>
+                </div>  
+               <div class="map-container" ng-controller="PublicMapStoreController">
+              <div class="map-loader ng-hide" ng-show="maploader"><img src="app/assets/images/proceed.gif"/></div>
+              <div class="shop-map" style="display:none">
+                <!-- Search by name stats -->
+                    
+                    <div class="container"> 
+                        <b data-ng-bind="i18n.friends.search + ' ' + i18n.friends.shops + ' :'"></b>
+                        <ul class="sel">
+                            <li class="con" ng-repeat="selItem in itemsSelectedArr">
+                                <span data-ng-bind="selItem"></span>
+                                <a href="javascript:void(0);" ng-click="itemSelectedDelet(selItem);">X</a>
+                            </li>
+                            <li>
+                                <input type="text" ng-model="searchText" ngsearchtext="searchMe(searchText);" placeholder="{{i18n.friends.search}} {{i18n.friends.shops}}" />
+                            </li>
+                        </ul>
+                        <div class="autocompletepanel" ng-show="itemsDisplaPanel">
+                            <div class="search-shop-list" ng-repeat="item in itemsArr"> 
+                                <a href="javascript:void(0);" ng-click="itemSelectedData(item);" data-ng-bind="item"></a>
+                            </div>
+                        </div>
+                    </div>   
+                 <!-- Search by name ends -->
+                 <!-- Filter Section starts -->
+                <div class="map-filter">
+                  <div class="map-filter-title">Filter:</div>
+                  <div class="input-container">
+                    <input type="checkbox" id="dpfilter" ng-click='mapfilter()'/>
+                    <span data-ng-bind="i18n.store.wallet.discount_position"></span>
+                    <div style="display:none">
+                        <input type="checkbox" id="shotfilter" ng-click='mapfilter()'/>
+                        <span data-ng-bind="i18n.store.wallet.shots"></span>
+                    </div>
+                </div>
+                </div>
+                 <!-- Filter section ends -->
+                <div class="left-section" id="results">
+                </div>
+              <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+              <div id="map-canvas"></div>
+              </div>
+        </div>
+                <div class="wrap-select">
+                    <div class="search-list"> 
+                        <search>
+                            <form role="search" method="GET" id="" action="">
+                                <input type="text" class="searchid" id="shopserchbox" placeholder="{{i18n.store.search_shop}}" data-ng-model="searchTitle"/>
+                            </form>
+                        </search> 
+                        <ul class="visualizzazione">
+                            <li class="{{listActive}}"><a href="javascript:void(0)" data-ng-click="changeView('list')" title="{{i18n.store.list_view}}"><i class="fa fa-list"></i></a></li>
+                            <li class="{{gridActive}}"><a href="javascript:void(0);" data-ng-click="changeView('grid')" title="{{i18n.store.grid_view}}"><i class="fa fa-table"></i></a></a></li>
+                        </ul>
+                    </div>   
+                </div>
+                <div infinite-scroll="loadMore()" infinite-scroll-distance="3">
+                    <div class="loader-container" data-ng-show="notFound" data-ng-bind="i18n.store.result_not_found"></div>
+                    <store-list-home data-ng-show="listActive == 'active'"></store-list-home>
+                    <store-grid-home data-ng-show="gridActive == 'active'"></store-grid-home>
+                    <div ng-show="storeLoading" class="loader-container">
+                        <img src="app/assets/images/proceed.gif" alt="loading..." />
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+</div>

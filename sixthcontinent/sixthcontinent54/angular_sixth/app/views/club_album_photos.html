@@ -1,0 +1,171 @@
+<div class="col-2-layout">
+<div id="content" class="container-right-fluid-page">
+<div class="innerAll">
+	<div class="row" ng-controller='GroupDetailController'>
+		<div class="col-lg-8 col-md-8">
+		<div class="inner-container">
+                     <group-Cover-Profile-Panel></group-Cover-Profile-Panel>
+                    
+                     <div class="album-section-left album-contain-sec" ng-show='albumshow'>
+				<div class="album-section-container-top clubPhotoUpload imgupload" style='clear:both;'>
+					<div class="heading" ng-bind="i18n.clubs.album_club + ' : ' + albumName"></div>
+					<div class="heading" ng-bind="i18n.clubs.club_album_desc + ' : ' + albumDescription"></div>
+					<div class="uploadcontainer">
+				     <div ng-if="groupDetail.owner_id == currentUser.id">		
+						<div class="album-online">
+							<span class="album-status"><img titile="" alt="" src="app/assets/images/album.png"></span> <spna ng-bind="i18n.clubs.image_upload">
+						</div>
+						<form ng-submit="UploadMediaInAlbum()">						
+						<div class="login-error" style="text-align: center; color: red;" data-ng-show="albumErrMsg" ng-bind="albumErrMsg">
+						</div>
+						<ul class="album-action-message">
+							<!--<li class="last"><a href="javascript:void(0)">
+            					<input type="file" nv-file-select="" uploader="uploader" multiple/>
+            					</a>
+							</li>-->
+							<li class="last"  data-ng-hide="postContentStart"><a href="javascript:void(0)">
+								<span class="ng-hide" ng-show="imageUploadStart"><img titile="" alt="" src="app/assets/images/ajax-loader.gif"></span>
+								<button ng-hide="imageUploadStart" type="submit" id="addbutton" class="btn btn-primary" > <span class="spanProfile" ng-bind="i18n.clubs.add_photo"></span><i class="fa fa-fw fa-plus"></i></button>
+								<span class="ng-hide" ng-show="uploadloader"><img titile="" alt="" src="app/assets/images/ajax-loader.gif"></span>
+								</a>
+								<div ng-show="uploadSuccess" class="text-success text-center display-block-inline" ng-bind="uploadSuccessMsg"></div>
+					<div ng-show="uploadError" class="text-red text-center display-block-inline" ng-bind="uploadErrorMsg"></div>
+					<div class="text-red text-center display-block-inline" data-ng-show="fileNotValid" ng-bind="fileNotValidMsg">
+						</div>
+							</li>
+						</ul>
+						</form>
+						 </div>	
+						
+				   	
+					</div><ul class="shopClubBack">
+							<li><a class="btn btn-primary" href="#/album/club/{{groupId}}/{{clubType}}" ng-bind="i18n.clubs.club_album_back"></a></li>
+						</ul>
+					<div data-ng-show="imgUpload" class="postimgup">
+						<div ng-repeat="item in uploader.queue track by $index" class="preview-image-list">
+							<div class="progress-color">
+		                        <div class="progress" style="margin-bottom: 0;">
+		                            <div class="progress-bar" role="progressbar" ng-style="{'width': item.progress + '%' }"></div>
+		                        </div>
+		                    </div>
+		                    <div data-ng-show="imagePrvSrc[$index].media_thumb_link != ''" class="img-preview">
+		                        <!-- <img ng-src="{{imagePrvSrc[$index].media_thumb_link}}" width="80" height="80" /> -->
+		                        <div class="imgbkground">
+		                            <a style="background-image:url('{{imagePrvSrc[$index].media_thumb_link}}');">
+		                            </a> 
+		                            <i data-ng-click="removeImage($index)" class="fa fa-fw fa-times" title="Remove"></i> 
+		                        </div>
+		                    </div>
+		                    <div data-ng-show="albumImgLoader[$index] && item.progress == 0" class="progress-img" ng-hide="item.progress == 100">
+		                        <show-progress></show-progress>
+		                    </div>
+						</div>
+					</div>
+					<!-- <div class="preview-images">
+					<div ng-show="imageSrc" ng-repeat="img in imageSrc" class="preview-image-list">
+					<img ng-src="{{img}}" width="100" height="100" style="padding:10px;" />
+					<i data-ng-click="removeImage($index)" class="fa fa-fw fa-times" title="{{i18n.club.remove}}Remove"></i>
+					</div>
+					</div> -->
+				</div>
+					<div class="album-sec-top" data-ng-if="albumDetails">
+							<div class="album-sec-left">
+								<div class="album-left-top"><span class="albumHeading"><img title="" alt="" src="app/assets/images/album-heading-img.png"/><span data-ng-bind="i18n.friends.photo_profilo"></span> </span><span class="albumSettings">
+								<!--	<a href=""><img title="" alt="" src="app/assets/images/settings-album.png"/></a>--></span><span class="album-last-update"></span></div>
+								<!--<div class="album-desc">Descrizione dell’album</div>-->
+							</div>
+							<rate-album-dir-club data-ng-if="albumDetails && groupDetail.is_member == 1"></rate-album-dir-club>
+								<div class="clr"></div>
+						</div>
+				<div data-ng-show="clubAlbumLoading" class="loader-container">
+					<img src="app/assets/images/ajax-loader.gif" alt="loading..." />
+				</div>
+				<div class="album-option-container album-section">
+				<div data-ng-show="deleteMediaStart" class="loader-container">
+					<img src="app/assets/images/ajax-loader.gif" alt="loading..." />
+				</div>
+				  <ul class="album-option" ng-if="groupDetail.owner_id == currentUser.id"><li class="upload-img"><a class="view-album-img" href=""></a><input type="file" nv-file-select="" uploader="uploader" multiple/><span class="uploadphotobtn"><span data-ng-bind="i18n.album.upload_photos"></span></span></li></ul>
+					<ul class="album-option" ng-if="viewalbum.length" infinite-scroll="loadMoreImage()" infinite-scroll-distance="3">
+						<li data-ng-repeat="item in viewalbum">
+
+							<!--<a class="view-album-img fancybox" href="{{item.media_path}}" rel="maingallery" style="background-image:url('{{item.thumb_path}}');"></a>
+							<span class="album-delete-image-internal" ng-if="groupDetail.owner_id == currentUser.id" >
+								<a class="close-btn"><i class="fa fa-fw fa-gear"></i></a> -->
+
+							<a class="view-album-img" href rel="maingallery" style="background-image:url('{{item.thumb_path}}');" ng-click="OpenModal($index, viewalbum, viewalbum.length,albumId, 'club', 'club_album_photo', groupId, groupDetail.is_member)" img-modal-new><!--<img src="{{item.media_path}}" width="158px" height="128px"/>--></a>
+							<span class="album-delete-image-internal" ng-if="groupDetail.owner_id == currentUser.id" ><a class="close-btn"><i class="fa fa-fw fa-gear"></i></a>
+
+									<div class="album-gear-pop">
+										<a href="javascript:void(0);" ng-click="confirmClick() && deleteClubAlbumMedia(item.id, $index)" confirm-click ng-bind="i18n.clubs.delete_photo"></a>	
+										<a id="featuredloaderlink-{{$index}}" class="profileimg" ng-click="setClubProfileImage(item.id, $index)" title="Set as profile Image" ng-bind="i18n.clubs.club_profile_pic"></a>
+										<span class="sideloader" style="display:none;" id="featuredloader-{{$index}}"><img title="" alt="" src="app/assets/images/ajax-loader.gif"></span>		
+									</div>
+									</span>
+						    	<div class="album-imgae-ratings" >
+										<div class="album-imgage-ratings-inner" ng-controller="rateAlbum">
+
+	     									<span class="album-image-votes">{{item.no_of_votes}} <a href  data-ng-click="findPeopleRate(item.id,'club_album_photo', item.no_of_votes)">
+	     									<span data-ng-if="item.no_of_votes > 1" data-ng-bind="i18n.profile_post.votes"></span><span data-ng-if="item.no_of_votes <= 1" data-ng-bind="i18n.profile_post.vote"></span>
+	     									</a></span>
+											<ul class="ratingsAlbum">
+												<li data-ng-repeat="rating in averageRating(item.avg_rate) track by $index">
+													<span ng-class="item.avg_rate % 1 == 0 ? 'votes-avg' : ($last ? (item.avg_rate % 1 > 0.5 ? 'votes-avg' : 'half-avg' ):'votes-avg')"></span>
+
+												</li>
+	     										<li ng-repeat="blank in blankStar(item.avg_rate) track by $index">
+	     											<span class="votes-blank"/>
+	     										</li>
+	     									</ul>
+	     								</div>
+ 									</div>			
+					<!--<div class="ratings-section-outer" data-ng-if="groupDetail.is_member == 1">
+                        <div class="rating-section">
+                         <div class="disable-rating" data-ng-show="waitRateResponse"></div>
+                        <rating value="item.current_user_rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value, $index)" on-leave="overStar" changes="rateThis(value, item.id, $index)" class="ratings-block"></rating>               
+                        <span class="rate-post" ng-if="item.current_user_rate == 0"><a href>{{i18n.profile_post.rate_post}} </a></span><span class="rate-post" ng-if="item.current_user_rate > 0" data-ng-click="removeRating(item.id,$index)"><a href>{{i18n.profile_post.remove_rating}} </a> </span>
+                        </div>
+                    <div class="average-ratings"><span class="total-votes">{{item.no_of_votes}}<a href data-ng-click="findPeople(item.id, 'club_album_photo', item.no_of_votes)"> {{i18n.profile_post.votes}} </a> </span><span class="votes-star"><ul><li data-ng-repeat="rating in averageRating(item.avg_rate) track by $index"><span ng-class="item.avg_rate % 1 == 0 ?'votes-avg': ($last ? 'half-avg':'votes-avg')" /></li>
+                     <li ng-repeat="blank in blankStar(item.avg_rate) track by $index"><span class="votes-blank"/></li></ul></span></div>
+                        <div class="clr"></div>
+                    </div>--> 			
+						</li>
+					</ul>
+					<div class="ng-hide" style="text-align:center" ng-show="listload"><img title="" alt="" src="app/assets/images/ajax-loader.gif"></div>
+					<div class="album-option album-blank" ng-if="!viewalbum.length" ng-bind="i18n.clubs.no_photo">
+					</div>	
+				</div>
+			</div>
+        
+                      <div class="group-section-container" ng-show="aboutsection" ng-if="albumshow == false">
+                            <!-- Edit group form end here -->
+                            <article class="group-article">
+                                <div class="bacheca">
+                                  <!--  <h2>{{groupDetail.title}}</h2> -->
+                                    <div data-ng-controller="GroupPostController">
+                                        <div class="post-reply" data-ng-show="groupDetail.is_member">
+                                            <group-post-form></group-post-form>
+                                        </div>
+                                        <group-post-list></group-post-list>
+                                    </div>
+                                </div>
+                                <div class="project" data-role="tile" data-ng-show="{{noContent}}">
+                                    <strong ng-bind="i18n.group.details.no_result">...</strong>
+                                </div>
+                                <div data-ng-show="isLoading" style="text-align: center;">
+                                    <img src="app/assets/images/ajax-loader.gif" alt="loading..." />
+                                </div>
+                            </article>
+                            <!--artical section with comment and reply section -->
+                        </div>
+			</div>
+                    
+		</div>
+		<div class="col-lg-4 col-md-4">
+			<!--<club-Notification-Panel></club-Notification-Panel>-->
+            <profile-right-panel></profile-right-panel> 
+		</div>
+	</div>
+</div>
+</div>
+<div class="clearfix"></div>
+</div>

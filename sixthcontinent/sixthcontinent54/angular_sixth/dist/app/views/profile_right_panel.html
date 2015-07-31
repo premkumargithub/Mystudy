@@ -1,0 +1,70 @@
+<aside data-ng-controller="ProfileNotiController">
+<div class="notifications-section">
+  <ul class="clearfix">
+     <li class="noti-listing all-noti" ng-class="{'active' : scopeVar }">
+        <all-Notification-Panel></all-Notification-Panel>
+    </li>
+     <li class="msg-noti noti-listing" ng-class="{'active' : scopeVar1 }">
+        <message-notification></message-notification>
+    </li>
+	<li class="group-noti noti-listing" ng-class="{'active' : scopeVar3 }">
+        <group-notification-panel></group-notification-panel>
+    </li>
+    
+     <li class="request-noti noti-listing" ng-class="{'active' : scopeVar2 }">
+       <all-Notification-Friend-Panel></all-Notification-Friend-Panel> 
+     </li>
+	 
+  </ul>
+</div> 
+<div class="activity-section">
+    <ul>
+        <li ng-bind="i18n.recent_activity.its_birthday"><span>... </span><span></span></li>
+        <li><a href="#offer/3" data-ng-bind="i18n.offer_shoppingcard.filter_me"></a></li>
+        <li><span ng-bind="i18n.recent_activity.today_gain"></span><a ng-if="todayCredit" href="javascript:void(0);" ><span  data-ng-click="storeSelection();" ng-bind="'€' + (todayCredit | truncateNum)"></span></a>
+        <a data-ng-click="storeSelection();" href="javascript:void(0);" ng-if="!todayCredit" >&euro;0.00</a>
+    </li>
+    </ul>
+</div>
+    <!--
+    <div class="adver-mutal">
+        <div class="adver-mutal-section">
+            <h1>{{i18n.profile.right_panel.title}}</h1>
+            <div class="noti-drop"><a href="javascript:void(0)"><img src="app/assets/images/noti-drop.png" alt="" /></a>
+                <ul class="not-drop-section hidden">
+                    <li><a href="javascript:void(0)">{{i18n.profile.right_panel.sixthconti}} 1</a></li>
+                    <li><a href="javascript:void(0)">{{i18n.profile.right_panel.sixthconti}} 2</a></li>
+                    <li><a href="javascript:void(0)">{{i18n.profile.right_panel.sixthconti}} 3</a></li>
+                    <li><a href="javascript:void(0)">{{i18n.profile.right_panel.sixthconti}} 4</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="adver-mutal-second">
+            <div class="people-you-may-know-panel">
+                <div class="people-may-see-all"><a href="javascript:void(0)"></a></div>
+            </div>
+            <ul class="adver-mutal-friend" data-ng-show="NotificationFound">
+                <li data-ng-repeat="item in FriendRequests" ng-class="{'last':$last}">
+                    <div class="adver-mutal-friend-img">
+                        <a  href="#/viewfriend/{{item.user_info.id}}" title="{{i18n.profile.right_panel.view_profile}}">
+                            <img style="width:64px; height=64px;" src="{{item.user_info.profile_image_thumb}}" data-ng-if="item.user_info.profile_image_thumb != ''" alt="" title="{{i18n.profile.right_panel.request_from}} {{item.user_info.username}}"/></a>
+                        <a  href="#/viewfriend/{{item.user_info.id}}" title="{{i18n.profile.right_panel.view_profile}}">
+                            <img style="width:64px; height=64px;" src="app/assets/images/dummy60X60.jpg" data-ng-if="item.user_info.profile_image_thumb == ''" alt="{{i18n.profile.right_panel.no_image}}" title="{{i18n.profile.right_panel.request_from}} {{item.user_info.username}}"/></a>
+                    </div>
+                    <div class="adver-mutual-friend-right-section">
+                        <h3><a href="#/viewfriend/{{item.user_info.id}}" title="{{i18n.profile.right_panel.view_profile}}">{{item.user_info.first_name}} {{item.user_info.last_name}}</a></h3>
+                        <div class="adver-mutal-add-friend" id="notii-{{$index}}">
+                            <input class="val-accept" type="button" value="{{i18n.friends.add_friend}}" ng-click="AcceptRequest(item.friend_id, $index)" title="{{i18n.profile.right_panel.accept}}" />
+                            <input  class="val-reject" type="button" value="{{i18n.store.reject}}" ng-click="RejectRequest(item.friend_id, $index)" title="{{i18n.profile.right_panel.reject}}"/>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div data-ng-show="NotificationNotFound">{{i18n.profile.right_panel.no_request}}
+            </div>
+        </div>
+    </div>
+    <club-Notification-Panel-Dashboard></club-Notification-Panel-Dashboard> -->
+    <top-Link></top-Link>
+    <right-Link></right-Link>
+</aside>

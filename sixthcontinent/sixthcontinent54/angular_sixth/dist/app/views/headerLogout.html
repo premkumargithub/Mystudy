@@ -1,0 +1,23 @@
+<div class="navbar hidden-print navbar-default box main nav-head" role="navigation">
+	<div class="register-header-section">
+		<div class="logo logo-head"><a href="#/"><img src="app/assets/images/logo-head.png"></a>
+		<div class="logo-disable" data-ng-if="disableLogo == 1"></div>
+		</div>
+		<div class="titleCouter">
+		<div class="blueFont" data-ng-bind="i18n.mission.total_economy"></div>
+		<div class="contatore">
+		<div ng-repeat="item in totalEconomyShifted track by $index" class="digitCounter">
+		<span data-ng-bind="item"></span>
+		<span class="title-count-line"></span>
+		</div>
+		<div class="digitCounter">$</div>
+		</div>
+		</div>
+	</div>
+	<div class="top-lang-sec">
+	<select ng-model="currentLanguage" data-ng-change="selectlanguage(currentLanguage)">
+		<option ng-repeat="item in languageOptions" value="{{item.key}}" style="background-image:url({{item.flag}});" class="langOption" ng-selected="{{item.key == currentLanguage}}" data-ng-bind="item.value">
+		</option>
+	</select>
+	</div>
+</div>

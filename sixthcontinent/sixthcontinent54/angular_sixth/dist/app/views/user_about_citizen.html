@@ -1,0 +1,122 @@
+<div class="innerAll" >
+  <div class="profile-view-section">
+    <div class="heading" ng-bind="i18n.profile.personal_detail"> </div>
+    <div class="edit-detail-btn" ng-if="currentUser.basicProfile.citizen_profile == 1"><a class="btn btn-primary" href="#/edit/citizen/1" ng-bind="i18n.profile.edit_personal_detail"> </a></div>
+  </div>
+  <div data-ng-hide="citizenProfileLoader">
+    <div data-ng-controller="UserController">
+      <div class="profile-about personal-profile-about clearfix">
+        <div class="profile-about-left"> <span class="profile-icons about-icon"></span> <span class="profile-view-title" ng-bind="i18n.friends.about"></span> </div>
+        <div class="profile-about-right">
+          <ul>
+            <li><span class="profile-icons user-icon"></span> <span ng-bind="i18n.profile.about.first_name"></span> <span ng-if="fullCitizenProfile.baisc_profile_info.firstname == '' || fullCitizenProfile.baisc_profile_info.firstname === null">
+              <p>-</p>
+              </span>
+              <p ng-bind="fullCitizenProfile.baisc_profile_info.firstname"></p>
+            </li>
+            <li> <span class="profile-icons user-icon"></span> <span ng-bind="i18n.profile.about.last_name"></span> <span ng-if="fullCitizenProfile.baisc_profile_info.lastname == '' || fullCitizenProfile.baisc_profile_info.lastname === null">
+              <p>-</p>
+              </span>
+              <p ng-bind="fullCitizenProfile.baisc_profile_info.lastname"></p>
+            </li>
+            <li><span class="profile-icons birthday-icon"></span> <span ng-bind="i18n.profile.about.dob"></span>
+              <p data-ng-bind="fullCitizenProfile.baisc_profile_info.date_of_birth.date.substring(8,10) + ' ' + birthmonth + ',' + fullCitizenProfile.baisc_profile_info.date_of_birth.date.substring(0,4)"><!-- {{fullCitizenProfile.baisc_profile_info.date_of_birth.date.substring(8,10)}} {{birthmonth}}, {{fullCitizenProfile.baisc_profile_info.date_of_birth.date.substring(0,4)}} --></p>
+            </li>
+            <li><span class="profile-icons gender-icon"></span> <span ng-bind="i18n.profile.about.gender"></span> <span ng-if="fullCitizenProfile.baisc_profile_info.gender == '' || fullCitizenProfile.baisc_profile_info.gender === null">
+              <p>-</p>
+              </span>
+              <p><span  ng-if="fullCitizenProfile.baisc_profile_info.gender == 'm'" ng-bind="i18n.profile.about.male"></span> <span ng-if="fullCitizenProfile.baisc_profile_info.gender == 'f'" ng-bind="i18n.profile.about.female"></span></p>
+            </li>
+            <li> <span class="profile-icons home-icon"></span> <span ng-bind="i18n.friends.livesin"></span> <span ng-if="fullCitizenProfile.city == '' || fullCitizenProfile.city === null">
+              <p>-</p>
+              </span>
+              <p ng-bind="fullCitizenProfile.city"></p>
+            </li>
+            <li> <span class="profile-icons location-icon"></span> <span ng-bind="i18n.friends.from"></span> <span ng-if="fullCitizenProfile.baisc_profile_info.city_born == '' || fullCitizenProfile.baisc_profile_info.city_born === null">
+              <p>-</p>
+              </span>
+              <p ng-bind="fullCitizenProfile.baisc_profile_info.city_born"></p>
+            </li>
+            <li> <span class="profile-icons profession-icon"></span> <span ng-bind="i18n.friends.profession"></span>
+              <p>
+              <p ng-if="fullCitizenProfile.baisc_profile_info.jobDetails.length >= 1" ng-repeat="job in fullCitizenProfile.baisc_profile_info.jobDetails | orderBy:'-end_date.date' | limitTo: 1" ng-bind="job.title"> </p>
+              <span ng-if="fullCitizenProfile.baisc_profile_info.jobDetails.length == 0">
+              <p>-</p>
+              </span>
+              </p>
+            </li>
+            <li> <span class="profile-icons relation-icon"></span> <span ng-bind="i18n.friends.relation"></span> <span ng-if="fullCitizenProfile.baisc_profile_info.relationship == ' ' || fullCitizenProfile.baisc_profile_info.relationship === null">
+              <p>- </p>
+              </span>
+              <p ng-bind="fullCitizenProfile.baisc_profile_info.relationship"></p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="profile-aboutme profile-hobby">
+        <div class="aboutme-top"><span class="profile-icons hobby-icon"></span> <span class="profile-view-title" ng-bind="i18n.profile.about.citizen_profile_details.hobbies"></span> </div>
+        <div class="aboutme-content"><span ng-repeat="hobby in (fullCitizenProfile.baisc_profile_info.hobbies | hobbyList) track by $index"> {{hobby}} </span></div>
+      </div>
+      <div class="profile-aboutme">
+        <div class="aboutme-top"> <span class="profile-icons aboutme-icon"></span> <span class="profile-view-title" ng-bind="i18n.friends.about_me"></span> </div>
+        <div class="aboutme-content" ng-bind="fullCitizenProfile.baisc_profile_info.about_me"> </div>
+      </div>
+      <div class="profile-about personal-profile-category clearfix" data-ng-if="fullCitizenProfile.baisc_profile_info.categoryKeywords.length > 0">
+        <div class="profile-about-left"> <span class="profile-icons category-icon"></span> <span class="profile-view-title" ng-bind="i18n.profile.edit_profile.category"> </span> </div>
+        <div class="profile-about-right">
+          <ul>
+            <li data-ng-repeat="category in fullCitizenProfile.baisc_profile_info.categoryKeywords" > <span ng-bind="category.category_name"></span>
+              <p class="category-keyword-listing"><span data-ng-repeat="keySingle in convertString(category.keywords) track by $index"><span data-ng-bind="keySingle"></span> <span data-ng-if="!$last">,</span></span></p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="profile-work-experience clearfix">
+        <div class="profile-work-left" >
+          <div class="work-right-top"> <span class="profile-icons family-icon"></span> <span class="profile-view-title" ng-bind="i18n.profile.edit_profile.family"></span> </div>
+          <div class="work-right-bottom" >
+            <div class="work-right-content" ng-repeat="relative in fullCitizenProfile.baisc_profile_info.userRelatives " >
+              <div class="work-title1" ng-bind="relative.firstname + ' ' + relative.lastname"></div>
+              <div class="work-title2" ng-bind="i18n.profile.relationtype[relative.relationId - 1].name"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="profile-work-experience clearfix">
+        <div class="profile-work-left" >
+          <div class="work-right-top"> <span class="profile-icons studio-icon"></span> <span class="profile-view-title" ng-bind="i18n.friends.study"></span> </div>
+          <div class="work-right-bottom" >
+            <div class="work-right-content" ng-repeat="edu in fullCitizenProfile.baisc_profile_info.educationDetail |  orderBy : '-end_date'" data-ng-if="edu.visibility_type === 1 || edu.visibility_type === 3">
+              <div class="work-title1" ng-bind="edu.school"></div>
+              <div class="work-title2" ng-bind="edu.degree + ', ('+ edu.grade +')'"></div>
+              <div class="work-title2" ng-bind="edu.field_of_study"></div>
+              <div class="work-title3" > <span ng-bind="edu.start_date.substring(0,4)"></span> <span ng-if="edu.currently_attending == true"> - <span ng-bind="i18n.profile.edit_profile.till_present"></span></span> <span ng-if="edu.currently_attending == false"> - <span ng-bind="edu.end_date.substring(0,4)"></span></span></div>
+              <div class="work-title2" ng-bind="edu.activities"></div>
+              <div class="work-title3" ng-bind="edu.description"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="profile-work-experience clearfix">
+        <div class="profile-work-left">
+          <div class="work-left-top"> <span class="profile-icons work-icon"></span> <span class="profile-view-title" ng-bind="i18n.friends.work_expe"></span> </div>
+          <div class="work-left-bottom">
+            <div class="work-left-content" ng-repeat="job in fullCitizenProfile.baisc_profile_info.jobDetails | orderBy : '-end_date.date'" data-ng-if="job.visibility_type === 1 || job.visibility_type === 3">
+              <div class="work-title1" ng-bind="job.company"></div>
+              <div class="work-title2" ng-bind="job.title"></div>
+              <div class="work-title3">
+              <span data-ng-if="(job.start_date.date.substring(5,7)-1) >= 09" data-ng-bind="months[job.start_date.date.substring(5,7)-1].name + ' '+ job.start_date.date.substring(0,4)"></span>
+              <span data-ng-if="(job.start_date.date.substring(5,7)-1) < 09" data-ng-bind="months[job.start_date.date.substring(6,7)-1].name + ' '+ job.start_date.date.substring(0,4)"></span>
+              <span ng-if="job.currently_working == true"> - <span ng-bind="i18n.profile.edit_profile.till_present"></span></span>
+              <span ng-if="job.currently_working == false && (job.end_date.date.substring(5,7)-1) >= 09" data-ng-bind="'-' + months[job.end_date.date.substring(5,7)-1].name + ' '+ job.end_date.date.substring(0,4)"> </span>
+              <span ng-if="job.currently_working == false  && (job.end_date.date.substring(5,7)-1) < 09" data-ng-bind="'-' + months[job.end_date.date.substring(6,7)-1].name + ' '+ job.end_date.date.substring(0,4)"> </span>
+              </div>
+              <div class="work-title3" ng-bind="job.description"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div data-ng-show="citizenProfileLoader"> <img src="app/assets/images/proceed.gif" > </div>
+</div>

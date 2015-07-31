@@ -1,0 +1,40 @@
+<div class="public-container">
+<div class="col-2-layout">
+	<div id="content" class="container-right-fluid-page">
+		<div class="innerAll" >
+			<div class="row">
+				<div class="col-lg-8 col-md-8">
+					<div data-ng-show="postPageLoader" class="loader-container">
+						<img src="app/assets/images/proceed.gif" alt="loading..." />
+					</div>
+					<div data-ng-hide="postPageLoader">
+					<div class="inner-container" data-ng-show="postPageNotFound">
+						<h3 data-ng-bind="i18n.public.page_not_available"></h2>
+						<h4 data-ng-bind="i18n.public.page_removed"></h3>
+					</div>
+					<div class="inner-container" data-ng-hide="postPageNotFound">
+						<div class="public-overlay-container">
+						<div class="tab-pane1 public-post-container"> 
+						<!-- {{posts}} -->
+						<public-post-list></public-post-list>
+						</div>
+						<div class="public-post-overlay">
+							
+						</div>
+						</div>
+						<div class="public-post-links">
+							<a href="#/citizen_affiliation/{{publicUser.user_info.id}}/1" data-ng-bind="i18n.public.what_is_sixthcontinent"></a>
+							<a href="#/citizen_affiliation/{{publicUser.user_info.id}}/1" data-ng-bind="i18n.public.join_sixthcontinent"></a>
+							<a href="#/citizen_affiliation/{{publicUser.user_info.id}}/1" data-ng-bind="i18n.public.login_with_fb"></a>
+						</div>
+					</div>
+					</div>
+				</div> 
+				<div class="col-md-4 col-lg-4">
+					<public-right-panel></public-right-panel>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>

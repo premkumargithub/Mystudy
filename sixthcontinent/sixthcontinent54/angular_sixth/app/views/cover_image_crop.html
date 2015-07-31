@@ -1,0 +1,20 @@
+<div id="image-crop-{{ rand }}" class="ng-image-crop ng-image-crop--{{ shape }}" ng-style="moduleStyles">
+	<section class="canvas-section" ng-style="" ng-show="step==2">
+		<canvas id="myCanvas" class="cropping-canvas" width="{{ canvasWidth }}" height="{{ canvasHeight }}" ng-mousemove="onCanvasMouseMove($event)" ng-mousedown="onCanvasMouseDown($event)" ng-mouseup="onCanvasMouseUp($event)"></canvas>
+		<div ng-style="croppingGuideStyles" class="cropping-guide">
+		</div>
+		<div class="zoom-handle ng-hide" ng-mousemove="onHandleMouseMove($event)" ng-mousedown="onHandleMouseDown($event)" ng-mouseup="onHandleMouseUp($event)" >
+			<span>&larr; zoom &rarr;</span>
+		</div>
+		<div class="crop-buttons"><button ng-click="crop()" ng-bind="update"></button>
+		<button ng-click="reset()" ng-bind="cancel"></button>
+		</div>
+	</section>
+	<section ng-style="sectionStyles" class="image-crop-section-final ng-hide" ng-show="step==3">
+		<img class="image-crop-final" ng-src="{{ croppedDataUri }}" />
+	</section>
+	<div class="drag-text" ng-show="step==2" ng-bind="drag"></div>
+	<!-- <section ng-style="" ng-show="step==1">
+		<input type="file" class="image-crop-input ng-hide"  ng-cover-select="onFileSelect($files)"/>
+	</section> -->
+</div>

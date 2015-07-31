@@ -1,0 +1,176 @@
+<!-- Widget -->
+<div class="widget gridalicious-item not-responsive profile-post-wrapper" data-ng-repeat="(postIndx, post) in posts" infinite-scroll="loadMore()">
+    <div class="post-upper-section">
+        <div class="post-heading" >
+            <div class="media clearfix"> <a ng-href="#/blshop/info/{{storeMainId}}" class="pull-left">
+                    <img data-ng-if="post.user_profile.profile_image_thumb == ''" src="app/assets/images/dummy60X60.jpg" width="55" height="55" class="media-object">
+                    <img data-ng-if="post.user_profile.profile_image_thumb != ''" data-ng-src="{{post.user_profile.profile_image_thumb}}" width="55" height="55" class="media-object">
+                </a>
+                <div class="media-body innerTB half clearfix">
+                    <div class="post-head-title">
+                        <a ng-href="#/blshop/info/{{storeMainId}}" data-ng-if="post.user_profile.first_name == ''" class="strong" data-ng-bind="post.user_profile.email"></a> 
+                        <a ng-href="#/blshop/info/{{storeMainId}}" data-ng-if="post.user_profile.first_name != ''" class="strong" data-ng-bind="post.user_profile.first_name + ' ' + post.user_profile.last_name"></a> 
+                        <span>
+                            <i class="fa fa-star"></i>
+                            <span data-ng-bind="post.store_post_created.date | date : 'MMMM d, yyyy'"></span>
+                        </span> 
+                        <span data-ng-if="post.media_info.length != 0" data-ng-bind="i18n.store.added + ' ' + post.media_info.length + ' ' + i18n.store.new_photo"></span>  
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Content -->
+        <div class="post-desc">
+            <div class="postedit">
+                <p data-ng-hide="activeEdit[postIndx]" ng-repeat="line in (post.store_post_desc | newlines) track by $index" ng-bind-html="line | unsafe" data-ng-bind="post.store_post_desc"></p>
+                <!-- code for update post-->
+                <div class="testata-right-section testata-textarea" data-ng-show="activeEdit[postIndx]">
+
+                    <div data-ng-show="updatePostInProcess[postIndx]" style="text-align: center;">
+                        <img src="app/assets/images/proceed.gif" alt="{{i18n.group.sending}}..." />
+                    </div>
+                </div>
+                <div ng-switch="post.media_info.length" data-ng-if="post.media_info.length > 0">
+                    <div class="post-img" ng-switch-when="1">
+                        <a href="{{post.media_info[0].media_path}}" rel="storepost-{{post.id}}" class="fancybox" ng-style="{'background-image':'url('+post.media_info[0].media_thumb_path+')'}">
+                        </a> 
+                    </div>
+                    <!-- for two image-->
+                    <div class="post-img" ng-switch-when="2">
+                        <ul class="post-two-image clearfix">
+                            <li>
+                                <a href="{{post.media_info[0].media_path}}" rel="storepost-{{post.id}}" class="fancybox"  ng-style="{'background-image':'url('+post.media_info[0].media_thumb_path+')'}">
+                                </a> 
+                            </li>
+                            <li class="post-img-last">
+                                <a href="{{post.media_info[1].media_path}}" rel="storepost-{{post.id}}" class="fancybox" ng-style="{'background-image':'url('+post.media_info[1].media_thumb_path+')'}">
+                                </a> 
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- for three image-->
+                    <div class="post-img" ng-switch-when="3">
+                        <ul class="post-three-image clearfix">
+                            <li>
+                                <a href="{{post.media_info[0].media_path}}" class="fancybox" rel="storepost-{{post.id}}" ng-style="{'background-image':'url('+post.media_info[0].media_thumb_path+')'}">
+                                </a> 
+                            </li>
+                            <li class="two-img">
+                                <a href="{{post.media_info[1].media_path}}" class="fancybox three-img-first" rel="storepost-{{post.id}}" ng-style="{'background-image':'url('+post.media_info[1].media_thumb_path+')'}">
+                                </a> 
+                                <a href="{{post.media_info[2].media_path}}" class="fancybox" rel="storepost-{{post.id}}" ng-style="{'background-image':'url('+post.media_info[2].media_thumb_path+')'}">
+                                </a> 
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- for four image-->
+                    <div class="post-img" ng-switch-when="4">
+                        <ul class="post-four-image clearfix">
+                            <li>
+                                <a href="{{post.media_info[0].media_path}}" rel="storepost-{{post.id}}"class="fancybox" ng-style="{'background-image':'url('+post.media_info[0].media_thumb_path+')'}">
+                                </a> 
+                            </li>
+                            <li class="three-img">
+                                <a href="{{post.media_info[1].media_path}}" rel="storepost-{{post.id}}" class="fancybox first-img" ng-style="{'background-image':'url('+post.media_info[1].media_thumb_path+')'}">
+                                </a>
+                                <a href="{{post.media_info[2].media_path}}" rel="storepost-{{post.id}}" class="fancybox second-img" ng-style="{'background-image':'url('+post.media_info[2].media_thumb_path+')'}">
+                                </a>
+                                <a href="{{post.media_info[3].media_path}}" rel="storepost-{{post.id}}" class="fancybox third-img" ng-style="{'background-image':'url('+post.media_info[3].media_thumb_path+')'}">
+                                </a> 
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- for five image-->
+                    <div class="post-img" ng-switch-when="5">
+                        <ul class="post-five-image">
+                            <li>
+                                <a href="{{post.media_info[0].media_path}}" rel="storepost-{{post.id}}" class="fancybox" ng-style="{'background-image':'url('+post.media_info[0].media_thumb_path+')'}">
+                                </a>
+                            </li>
+                            <li class="four-img">
+                                <a href="{{post.media_info[1].media_path}}" rel="storepost-{{post.id}}" class="fancybox" ng-style="{'background-image':'url('+post.media_info[1].media_thumb_path+')'}">
+                                </a>
+                                <a href="{{post.media_info[2].media_path}}" rel="storepost-{{post.id}}" class="fancybox" ng-style="{'background-image':'url('+post.media_info[2].media_thumb_path+')'}">
+                                </a>
+                                <a href="{{post.media_info[3].media_path}}" rel="storepost-{{post.id}}" class="fancybox" ng-style="{'background-image':'url('+post.media_info[3].media_thumb_path+')'}">
+                                </a>
+                                <a href="{{post.media_info[4].media_path}}" rel="storepost-{{post.id}}" class="fancybox fourth-img" ng-style="{'background-image':'url('+post.media_info[4].media_thumb_path+')'}">
+                                </a>
+                            </li>
+                        </ul> 
+                    </div>
+                    <!-- for more than five image-->
+                    <div class="post-img" ng-switch-default>
+                        <ul class="post-five-image">
+                            <li>
+                                <a href="{{post.media_info[0].media_path}}" rel="storepost-{{post.id}}" class="fancybox" ng-style="{'background-image':'url('+post.media_info[0].media_thumb_path+')'}">
+                                </a>
+                            </li>
+                            <li class="four-img">
+                                <a href="{{post.media_info[1].media_path}}" rel="storepost-{{post.id}}" class="fancybox" ng-style="{'background-image':'url('+post.media_info[1].media_thumb_path+')'}">
+                                </a>
+                                <a href="{{post.media_info[2].media_path}}" rel="storepost-{{post.id}}" class="fancybox" ng-style="{'background-image':'url('+post.media_info[2].media_thumb_path+')'}">
+                                </a>
+                                <a href="{{post.media_info[3].media_path}}" rel="storepost-{{post.id}}" class="fancybox" ng-style="{'background-image':'url('+post.media_info[3].media_thumb_path+')'}">
+                                </a>
+                                <a href="{{post.media_info[4].media_path}}" rel="storepost-{{post.id}}" class="fancybox fourth-img" ng-style="{'background-image':'url('+post.media_info[4].media_thumb_path+')'}">
+                                </a>
+                                <span data-ng-repeat="(mindx, media) in post.media_info" data-ng-if="mindx>=5">
+                                    <a ng-href="{{media.media_path}}" class="fancybox fourth-img" rel="storepost-{{post.id}}" ng-style="{'background-image':'url('+media.media_thumb_path+')', 'display':'none'}">
+                                    </a>	
+                                </span>
+                            </li>
+                        </ul> 
+                    </div>
+                </div>
+                <!-- stop post image listing-->
+            </div> 
+        </div> 
+        <!-- Comment -->
+        <div class="view-comments clearfix">
+            <img src="app/assets/images/comment-icon.png" data-ng-if="post.comment_count > 4" data-ng-hide="showComments[postIndx]">
+            <a class="text-primary" href="javascript:void(0);" data-ng-click="showAllComments(postIndx)" data-ng-if="post.comment_count > 4" data-ng-hide="showComments[postIndx]" data-ng-bind="i18n.group.view_all_comments"></a>
+            <span data-ng-show="allCommentLoad[postIndx]"><show-progress></show-progress></span>
+            <span class="pull-right" data-ng-bind="post.comment_count + ' ' + i18n.group.comments"></span>
+        </div>
+    </div>
+    <!-- First Comment -->
+    <div data-ng-show="commentLoading[postIndx]" style="text-align: center;">
+        <img src="app/assets/images/proceed.gif" alt="{{i18n.group.sending}}sending..." />
+    </div>
+    <div data-ng-hide="commentLoading[postIndx]">
+        <div class="media border-bottom margin-none comments-listing" data-ng-repeat="(indx, comment) in post.comments"> 
+            <div>
+                <a href="#/blshop/info/{{storeMainId}}" class="pull-left">
+                    <img data-ng-if="comment.comment_user_info.profile_image_thumb == ''" src="app/assets/images/dummy60X60.jpg" width="38" height="38" class="media-object">
+                    <img data-ng-if="comment.comment_user_info.profile_image_thumb != ''" data-ng-src="{{comment.comment_user_info.profile_image_thumb}}" width="38" height="38" class="media-object">
+                </a>
+                <div class="media-body">
+                    <span class="pull-right" data-ng-if= "comment.comment_user_info.id == currentUser.id">
+                        <i class="fa fa-fw fa-times" 
+                           data-ng-click="confirmClick() && deleteComment(postIndx,indx)" confirm-click></i>
+                        <i class="fa fa-pencil-square-o"  data-ng-click="updateComment(postIndx,indx)"></i>
+                    </span>
+                    <a href="#/blshop/info/{{storeMainId}}" data-ng-if="comment.comment_user_info.first_name == ''" data-ng-bind="comment.comment_user_info.email"></a> 
+                    <a href="#/blshop/info/{{storeMainId}}" data-ng-if="comment.comment_user_info.first_name != ''" data-ng-bind="comment.comment_user_info.first_name + ' ' + comment.comment_user_info.last_name"></a>
+                    <span class="post-date" data-ng-bind="comment.comment_created_at.date | date : 'mediumDate'"></span>
+                    <p data-ng-bind="comment.comment_text"></p>
+                    <ul class="post-comment-munti">
+                        <li data-ng-repeat="media in comment.comment_media_info">
+                            <a data-ng-href="{{media.media_path}}" class="fancybox" ng-style="{'background-image':'url('+media.media_path+')'}">
+                            </a>
+                        </li>
+                    </ul>
+                   </div>
+             </div>
+        </div>
+    </div>
+</div>
+<div class="album-option-container" data-ng-show="noContent">
+    <div class="project" data-role="tile" >
+        <strong data-ng-bind="i18n.profile_post.no_results + '...'"></strong>
+    </div>
+    <div data-ng-show="isLoading" style="text-align: center;">
+        <img src="app/assets/images/proceed.gif" alt="{{i18n.group.loading}}..." />
+    </div>
+</div>

@@ -1,0 +1,239 @@
+<div class="col-2-layout">
+	<div id="content" class="container-right-fluid-page">
+		<div class="innerAll">
+			<div class="row">
+				<div class="col-lg-8 col-md-8"> 
+					<div class="inner-container">
+						<div class="offer-section">
+							<div class="section-heading">
+								<span data-ng-bind="i18n.offer_shoppingcard.heading"></span> / 
+								<a href="#/shop/{{cardData.shop_id._id}}" class="sub-head" data-ng-bind="cardData.shop_id.name"></a>
+								<div class="back-offer">
+									<a href="#/offer/1" data-ng-bind="i18n.offer_shoppingcard.back"></a>
+								</div>
+							</div>
+							<div class="offer-details-section clearfix">
+								<div class="offer-details-left">
+									<div class="detials-left-top">
+										<div class="shop-card-img">
+											<img alt="" ng-src="app/assets/images/offer-shop{{cardData.value}}-large.png" alt="" />
+											<div class="offer-shop-details">
+												<span class="offer-shop-name">
+													<a href="#/shop/{{cardData.shop_id._id}}" data-ng-bind="cardData.shop_id.name"></a>
+												</span>
+												<span class="offer-shop-address">
+													<!-- <span><span data-ng-bind="cardData.shop_id.address_l1"></span></span> -->
+													<span><span data-ng-bind="cardData.shop_id.address_l2"></span></span>
+													<span><span data-ng-bind="i18n.offer_shoppingcard.telephone"></span> <span data-ng-bind="cardData.shop_id.mobile_no"></span></span>
+													<span><span data-ng-bind="i18n.offer_shoppingcard.mail"></span> <span data-ng-bind="cardData.shop_id.email_address"></span></span>
+												</span>
+											</div>
+										</div>
+										<div class="sale-block">
+											<span class="sale-line" data-ng-bind="i18n.offer_shoppingcard.price_for_me"></span>
+											<div class="value">
+												<span class="">&euro;</span> 
+												<span class="" data-ng-bind="onlyForYou"></span>
+											</div>
+											<div class="buy-now-outer-sec">
+												<button class="buy-now-btn" data-ng-class="buyclass" data-ng-bind="i18n.offer_shoppingcard.buy" data-ng-click="buycard(cardData.value,cardData.discount);"></button>
+												<img data-ng-show="buylodar" src="app/assets/images/proceed.gif">
+												<span class="buy-now-mess" data-ng-show="buyerror" data-ng-bind="i18n.offer_shoppingcard.buy_error"></span>
+											</div>
+										</div>
+										<div class="graph-section"><!-- pie chart starts here -->
+											<nvd3-pie-chart data="PieChartData" id="PieChartId" margin="{left:0,top:0,bottom:0,right:0}" x="xFunction()" y="yFunction()" showLabels="true" pieLabelsOutside="false" showValues="true" labelType="value" color="colorFunction()" width="208" objectequality="false" height="208">
+ 												<svg></svg>
+									    	</nvd3-pie-chart>
+									    	<ul>
+									    		<li class="first-bar"><span class="bar-box"></span><span data-ng-bind="i18n.offer_shoppingcard.final_price"></span></li>
+									    		<li class="sec-bar"><span class="bar-box"></span><span data-ng-bind="i18n.offer_shoppingcard.price_discount"></span></li>
+									    		<li class="third-bar"><span class="bar-box"></span><span data-ng-bind="i18n.offer_shoppingcard.price_app_cont"></span></li>
+									    	</ul>
+										</div><!-- pie chart ends here -->
+									</div>
+									<div class="detials-left-bottom">
+										<p data-ng-bind="cardData.description"></p>
+										<span class="expire-text">
+											<span data-ng-bind="i18n.offer_shoppingcard.expires"></span> 
+											<span class="expire-date" data-ng-bind="cardData.end_date | date : 'dd-MM-yy'"></span>
+										</span>
+										<div class="map-block"><!-- map starts here -->
+											<div id="map-canvas"></div>
+											<div class="add" data-ng-bind="cardData.shop_id.address_l2"><span></span></div>
+										</div><!-- map ends here -->
+									</div>
+								</div>
+								<div class="offer-details-right">
+									<div class="slider-section"><!-- Slider starts here -->
+
+										<div class="mainimageshell">
+											<div class="viewwindow">
+												<ul id="fullscroller" class="fullsizelist" >
+													<li>
+														<span id="fullsize" class="large" style="background-image:url('{{Imageselected}}')"></span>
+													</li>
+												</ul>
+											</div>
+										</div>
+
+										<div class="thumbsshell" id="scroll-pane">
+											<div class="thumbswrapper">
+												<ul>
+													<li ng-repeat="image in galleryData">
+															<a ng-href="" class="thumbnailanchor" ng-class="$first ? 'active' : ''" ng-click="scrollTo(image,$index,$event)">
+																<span class="thumbnail" style="background-image:url('{{image}}')"></span>
+															</a>
+													</li>
+												</ul>
+											</div>
+										</div>
+
+									</div><!-- Slider ends here -->
+
+									<div class="offfer-detail-selected">
+									<div class="group-count">
+										<span class="count-txt" data-ng-bind="i18n.offer_shoppingcard.frnd_list_head"></span>
+										<img  src="app/assets/images/group-big.png" data-ng-click="frndlistshow = !frndlistshow"/>
+										<span class="number" data-ng-bind="frcount[0].count" data-show-show="frcount.length > 0"></span>
+										<span class="number" data-ng-show="frcount.length == 0">0</span>
+										<ul class="friend-list" data-ng-hide="frndlistshow">
+											<li class="first" data-ng-bind="i18n.offer_shoppingcard.frnd_list_head"></li>
+											<li data-ng-show="nofndlist" class="text-red" data-ng-bind="i18n.profile.edit_profile.No_Record"></li>
+											<li data-ng-repeat="frnd in friendlist" data-ng-click="frndVal(frnd.id);">
+												<a data-ng-if="frnd.first_name == '' && frnd.id !== currentUser.id" class="strong" data-ng-bind="frnd.email"></a>
+
+												<a data-ng-if="frnd.first_name == '' && rfrnd.id === currentUser.id" class="strong" data-ng-bind="frnd.email"></a>
+
+												<a data-ng-if="frnd.first_name != '' && frnd.id !== currentUser.id" class="strong" data-ng-bind="frnd.first_name + ' ' + frnd.last_name"></a>
+
+												<a data-ng-if="frnd.first_name != ''  && frnd.id === currentUser.id" class="strong" data-ng-bind="rfrnd.first_name + ' ' + frnd.last_name"></a> 
+											</li>
+											<li class="last"><a href data-ng-click="frndVal('all');" data-ng-bind="i18n.offer_shoppingcard.frnd_list_last"></a>
+										</ul>
+									</div>
+										<div class="off-dtl-heading">
+											<a href="#/shop/view/{{cardData.shop_id._id}}" data-ng-bind="cardData.shop_id.name"></a>
+										</div>
+										<div class="off-dtl-place">
+											<div>
+												<span class="shop-type" data-ng-bind="cardData.shop_id.name"></span>
+												<span class="shop-place" data-ng-bind="cardData.shop_id.address_l2"></span>
+											</div>
+											<div>
+											<span class="shop-num">
+												<span data-ng-bind="i18n.offer_shoppingcard.telephone"></span>
+												<span data-ng-bind="cardData.shop_id.mobile_no"></span>
+											</span>	
+												<span class="shop-website" data-ng-bind="cardData.shop_id.website"></span>
+											</div>
+										</div>
+										<div class="view-ratings">
+											<ul>
+												<li ng-class="{active: (cardData.shop_id.average_anonymous_rating | number:1) >=0.6, half: ((cardData.shop_id.average_anonymous_rating | number:1) <= 0.5) && ((cardData.shop_id.average_anonymous_rating | number:1) > 0)}"></li><li ng-class="{active: (cardData.shop_id.average_anonymous_rating | number:1) >= 1.6,half: ((cardData.shop_id.average_anonymous_rating | number:1) <= 1.5) && ((cardData.shop_id.average_anonymous_rating | number:1) > 1.0)}"></li><li ng-class="{active: (cardData.shop_id.average_anonymous_rating | number:1) >= 2.6, half: ((cardData.shop_id.average_anonymous_rating | number:1) <= 2.5) && ((cardData.shop_id.average_anonymous_rating | number:1) > 2.0)}"></li><li ng-class="{active: (cardData.shop_id.average_anonymous_rating | number:1) >= 3.6, half: ((cardData.shop_id.average_anonymous_rating | number:1) <= 3.5) && ((cardData.shop_id.average_anonymous_rating | number:1) > 3.0)}"></li><li ng-class="{active: (cardData.shop_id.average_anonymous_rating | number:1) >= 4.6, half: ((cardData.shop_id.average_anonymous_rating | number:1) <= 4.5) && ((cardData.shop_id.average_anonymous_rating | number:1) > 4.0)}"></li>
+											</ul>
+											<span class="total-votes">
+												<span class="value" data-ng-bind="cardData.shop_id.total_votes"></span>
+												<span data-ng-bind="i18n.profile_post.votes"></span>
+											</span>
+										</div>
+										<div class="selected-shop-desc" data-ng-bind="cardData.description"></div>
+									</div>
+									<div class="offfer-review-list" infinite-scroll="loadMore()">
+										<div class="reviews-head">
+											<span data-ng-bind="i18n.offer_shoppingcard.review"></span> 
+											(<span class="value" data-ng-bind="totalreview"></span>)
+										</div>
+										<div class="no-review" data-ng-bind="i18n.offer_shoppingcard.no_review" data-ng-show="(reviews.length == 0 && !isLoading)"></div>
+										<ul >
+											<li data-ng-repeat="(reviewIndx, review) in reviews">
+												<div class="review-list-top">
+													<div class="review-user-img">
+														<a ng-href="#/viewfriend/{{review.user_profile.id}}" class="pull-left">
+															<img data-ng-if="review.user_profile.profile_image_thumb == ''" src="app/assets/images/dummy60X60.jpg" width="74" height="74" class="media-object">
+															<img data-ng-if="review.user_profile.profile_image_thumb != ''" data-ng-src="{{review.user_profile.profile_image_thumb}}" width="74" height="74" class="media-object">
+														</a>
+													</div>
+													<div class="review-list-right">
+														<span class="review-user-name">
+															<a ng-href="#/viewfriend/{{review.user_profile.id}}" data-ng-if="review.user_info.first_name == '' && review.user_profile.id !== currentUser.id" class="strong" data-ng-bind="review.user_profile.email"></a>
+
+															<a ng-href="#/profiles" data-ng-if="review.user_info.first_name == '' && review.user_profile.id === currentUser.id" class="strong" data-ng-bind="review.user_profile.email"></a>
+
+															<a ng-href="#/viewfriend/{{review.user_profile.id}}" data-ng-if="review.user_info.first_name != '' && review.user_profile.id !== currentUser.id" class="strong" data-ng-bind="review.user_profile.first_name + ' ' + review.user_profile.last_name"></a>
+
+															<a ng-href="#/profiles" data-ng-if="review.user_info.first_name != ''  && review.user_profile.id === currentUser.id" class="strong" data-ng-bind="review.user_profile.first_name + ' ' + review.user_profile.last_name"></a> 
+														</span>
+														
+														<div class="review-person-details">
+															<a ng-href="#/viewfriend/{{review.user_profile.id}}" data-ng-if="review.user_info.first_name == '' && review.user_profile.id !== currentUser.id" class="strong" data-ng-bind="review.user_profile.email"></a>
+
+															<a ng-href="#/profiles" data-ng-if="review.user_info.first_name == '' && review.user_profile.id === currentUser.id" class="strong" data-ng-bind="review.user_profile.email"></a>
+
+															<a ng-href="#/viewfriend/{{review.user_profile.id}}" data-ng-if="review.user_info.first_name != '' && review.user_profile.id !== currentUser.id" class="strong" data-ng-bind="review.user_profile.first_name + ' ' + review.user_profile.last_name"></a>
+
+															<a ng-href="#/profiles" data-ng-if="review.user_info.first_name != ''  && review.user_profile.id === currentUser.id" class="strong" data-ng-bind="review.user_profile.first_name + ' ' + review.user_profile.last_name"></a> 
+															<span ng-bind="i18n.dashboard.postcomment.has_been"></span>
+															<a ng-href="#/shop/view/{{review.store_info.id}}"  ng-bind="review.store_info.name"> </a>
+															<span data-ng-if="review.tagged_friends_info.length > 0" > 
+																<span ng-bind="i18n.dashboard.postcomment.with"></span> <span data-ng-repeat="taggedFriend in review.tagged_friends_info | limitTo :2"><a ng-href="#/viewfriend/{{taggedFriend.id}}"  ng-bind="taggedFriend.first_name + ' '+ taggedFriend.last_name"> </a><span data-ng-if="review.tagged_friends_info.length > 1 && ($index) <= 0">, </span></span><span data-ng-if="review.tagged_friends_info.length > 2" ><span ng-bind="' '+i18n.dashboard.postcomment.and"></span><span ng-bind="' '+i18n.dashboard.postcomment.others"></span>   <a href data-ng-click="showAllFriend(review.post_id, review.user_profile, review.tagged_friends_info)"> <span ng-if="currentLanguage === 'en'" ng-bind="review.tagged_friends_info.length - 2"> </span> <span ng-if="currentLanguage === 'it'" ng-bind="review.tagged_friends_info.length - 2"> </span><span ng-bind="' '+i18n.dashboard.postcomment.friends"></span></a></span>
+															</span>
+														</div>
+													</div>
+													<span class="list3-right">
+														<span data-ng-bind="review.store_post_created.date | postDateFormat"></span>
+													</span>
+												</div>
+												<div class="review-list-bottom">
+													<div class="view-ratings clearfix">
+														<div class="rate-left">
+														<span class="myvote" data-ng-bind="i18n.store.my_frnd"></span>
+														<ul>
+															<li ng-class="{active: (review.customer_voting | number:1) >=0.6, half: ((review.customer_voting | number:1) <= 0.5) && ((review.customer_voting | number:1) > 0)}"></li><li ng-class="{active: (review.customer_voting | number:1) >= 1.6,half: ((review.customer_voting | number:1) <= 1.5) && ((review.customer_voting | number:1) > 1.0)}"></li><li ng-class="{active: (review.customer_voting | number:1) >= 2.6, half: ((review.customer_voting | number:1) <= 2.5) && ((review.customer_voting | number:1) > 2.0)}"></li><li ng-class="{active: (review.customer_voting | number:1) >= 3.6, half: ((review.customer_voting | number:1) <= 3.5) && ((review.customer_voting | number:1) > 3.0)}"></li><li ng-class="{active: (review.customer_voting | number:1) >= 4.6, half: ((review.customer_voting | number:1) <= 4.5) && ((review.customer_voting | number:1) > 4.0)}"></li>
+														</ul>
+														</div>
+														<div class="rate-right">
+														<span class="storevote" data-ng-bind="i18n.store.store_rating"></span>
+														<ul>
+															<li ng-class="{active: (review.store_voting_avg | number:1) >=0.6, half: ((review.store_voting_avg | number:1) <= 0.5) && ((review.store_voting_avg | number:1) > 0)}"></li><li ng-class="{active: (review.store_voting_avg | number:1) >= 1.6,half: ((review.store_voting_avg | number:1) <= 1.5) && ((review.store_voting_avg | number:1) > 1.0)}"></li><li ng-class="{active: (review.store_voting_avg | number:1) >= 2.6, half: ((review.store_voting_avg | number:1) <= 2.5) && ((review.store_voting_avg | number:1) > 2.0)}"></li><li ng-class="{active: (review.store_voting_avg | number:1) >= 3.6, half: ((review.store_voting_avg | number:1) <= 3.5) && ((review.store_voting_avg | number:1) > 3.0)}"></li><li ng-class="{active: (review.store_voting_avg | number:1) >= 4.6, half: ((review.store_voting_avg | number:1) <= 4.5) && ((review.store_voting_avg | number:1) > 4.0)}"></li>
+														</ul>
+														<span class="value" data-ng-bind="review.store_voting_count"></span> 
+														<span data-ng-bind="i18n.profile_post.votes"></span>
+														</div>
+													</div>
+													<div class="description">
+														<span class="limit-desc{{$index}}" data-ng-bind="review.store_post_desc | limitTo : textLimit" ></span>	
+														<span class="full-desc{{$index}}" style="display:none;" data-ng-bind="review.store_post_desc"></span>	
+														<a class="show-more" data-ng-click="showmoredesc($index,$event)" data-ng-if="review.store_post_desc.length > textLimit" data-ng-bind="i18n.dashboard.postcomment.show_more"></a>
+													</div>
+
+													<ul class="media-info">
+														<li data-ng-repeat="image in review.media_info">
+															<a  href="{{image.media_path}}" class="fancybox imgautoadjust" rel="storepost-{{review.post_id}}">
+																<span style="background-image:url('{{image.media_thumb_path}}')"></span>
+															</a> 
+														</li>
+													</ul>
+												</div>
+											</li>
+										</ul>
+
+										<div class="reviews-lodar" data-ng-show="isLoading">
+											<img src="app/assets/images/proceed.gif">
+										</div>
+
+									</div>	
+								</div>								
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-4 col-md-4">
+					<profile-Right-Panel></profile-Right-Panel>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</div>

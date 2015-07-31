@@ -1,0 +1,41 @@
+<div class="wallet-add-account shop-wallet-section">
+  <div class="heading" data-ng-bind="i18n.store.wallet.add_paypal_lbl"></div>
+  <ul>
+    <li><a href="javascript:void(0);" ng-click="openPaypalForm()"><img src="app/assets/images/paypal.png" alt="" titile=""/></a>
+      <span data-ng-bind="i18n.store_wallet.paypal.paypal_shop_wallet"></span></li>
+    <li> <a data-ng-href="{{storePaymentUrl}}" >
+      <img  src="app/assets/images/master-visa.png" alt="" titile=""/> </a>
+      <span data-ng-bind="i18n.store_wallet.paypal.paypal_shop_credit"></span>
+    </li>
+  </ul>
+  <div ng-if="paypalErrCls=='text-success'" ng-class="paypalErrCls" class="text-center" data-ng-bind="paypalErrMsg"></div>
+</div> 
+<div data-ng-show="isShowForm">
+    <paypal-form></paypal-form>
+</div>
+<div class="wallet-account-list shopwallet-pending">
+  <div class="heading" data-ng-bind="i18n.store.wallet.accounts_lbl"></div>
+  <div class="account-buttons">
+  	<a href="javascript:void(0);" ng-class="{active:isActiveSubTab(1)}" class="" ng-click="getSubTabData(1);" data-ng-bind="i18n.store_wallet.paypal.credit_card_lbl"></a>
+  	<a href="javascript:void(0);"  ng-class="{active:isActiveSubTab(2)}" class="" ng-click="getSubTabData(2);" data-ng-bind="i18n.store_wallet.paypal.Paypal_lbl"></a>
+  </div>
+  <!-- shop credit cards listing start-->
+  <div data-ng-if="currentSubTab == 1">
+    <shop-wallet-credit-cards></shop-wallet-credit-cards>
+  </div>
+  <!-- shop credit cards listing end-->
+  <!-- shop paypal account listing start-->
+  <div data-ng-if="currentSubTab == 2">
+    <shop-wallet-paypal-accounts></shop-wallet-paypal-accounts>
+  </div>
+  <!-- shop paypal account listing end-->
+ <!--  <div class="payment-pending-section clearfix">
+  	<div class="payment-pending-left">
+	  <span data-ng-bind="i18n.store_wallet.paypal.pending_payment"></span>
+ 	  <a href=""><span>&euro;39,90</span> show details</a>
+    </div>
+    <div class="payment-pending-right">
+      <a href="#" data-ng-bind="i18n.store_wallet.paypal.pending_payment">Pay now pending payments</a>
+    </div>
+  </div> -->
+</div>  

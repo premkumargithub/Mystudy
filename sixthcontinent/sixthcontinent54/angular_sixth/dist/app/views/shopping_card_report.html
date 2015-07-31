@@ -1,0 +1,129 @@
+<div class="coup-slogan campaign-head" data-ng-bind="i18n.Campaign.create_campaign">
+</div>
+    <div class="shopvalue-Block">
+        <div class="shopping-card-heading" data-ng-bind="i18n.Campaign.card"></div>
+        <div class="shopping-card-desc" data-ng-bind="i18n.Campaign.card_detail">
+        	
+        </div>
+        <div class="card-large custom-check-box">
+            <ul>
+	            <li>
+	            	<img  src="app/assets/images/card-20-large.jpg" alt="" titile=""/><span class="card-select"><input type="radio" name="checkboxG1" id="checkboxG1" class="css-checkbox" /><label for="checkboxG1" class="css-label"></label></span>
+	            </li>
+	            <li>
+	            	<img  src="app/assets/images/card-30-large.jpg" alt="" titile=""/><span class="card-select"><input type="radio" name="checkboxG1" id="checkboxG2" class="css-checkbox"/><label for="checkboxG2" class="css-label"></label></span>
+	            </li>
+	            <li>
+	            	<img  src="app/assets/images/card-50-large.jpg" alt="" titile=""/><span class="card-select"><input type="radio" name="checkboxG1" id="checkboxG3" class="css-checkbox"/><label for="checkboxG3" class="css-label"></label></span>
+	            </li>
+	            <li>
+	            	<img  src="app/assets/images/card-100-large.jpg" alt="" titile=""/><span class="card-select"><input type="radio" name="checkboxG1" id="checkboxG4" class="css-checkbox" /><label for="checkboxG4" class="css-label"></label></span>
+	            </li>
+            </ul>
+            <div class="selected-card">
+            	<span data-ng-bind="i18n.Campaign.selected_euro"></span><!-- <span>50 Euro</span> -->
+            </div>
+        </div>
+            <div class="card-discount-block">
+                <div class="card-discount-heading" data-ng-bind="i18n.Campaign.discount"></div>
+                <div class="card-discount-desc" data-ng-bind="i18n.Campaign.select_dp"></div>
+                <div class="quantity-details">
+					<span class="coupon-quanitiy">
+						
+						<span class="coupon-quanitiy-list-value">
+	                        <ul>
+								<li>10%</li>
+								<li class="selected">20%</li>
+								<li>30%</li>
+	                        </ul>
+	                        <span data-ng-bind="i18n.Campaign.select_discount"><!-- <span>10%</span> -->
+	                    </span>
+                    </span>
+                </div>
+            </div>
+            <div class="card-discount-block">
+				<div class="card-discount-heading" data-ng-bind="i18n.Campaign.quantity"></div>
+				<div class="quantity-details">
+					<span class="coupon-quanitiy">
+						<span class="coupon-quanitiy-text" data-ng-bind="i18n.Campaign.upto_card" ></span>
+							<span class="coupon-quanitiy-list-value">
+					            <ul class="list-break">
+					                <li>20</li>
+									<li class="selected">50</li>
+									<li>100</li>
+					            </ul>
+				                <span data-ng-bind="i18n.Campaign.selected_card"></span>
+                                <!-- <span>50 Shopping Card Up To 100%</span> -->
+				            </span>
+	                </span>
+                </div>
+            </div>
+            <div class="discount-detail">
+	            <h2 data-ng-bind="i18n.Campaign.offter"></h2>
+	            <div class="tag-target" data-ng-bind="i18n.coupon.tag"></div>
+	            <div class="tag-target-des" data-ng-bind="i18n.Campaign.client">
+	            	
+	            </div>
+			<div class="discount-tag-section clearfix">
+				<div class="card-col1">
+					<img src="app/assets/images/card-50-max.png" alt="" titile=""/>
+				</div>
+				<div class="card-col2">
+					<div class="col-heading">
+                    <span data-ng-bind="i18n.coupon.list"></span>
+                    </div>
+					<div class="keywords-tag">
+                        <ul>
+                            <li>Alessandro Guarino </li>
+                            <li>Matteo Ligari</li>
+                            <li>Fabrizio Politi</li>
+                            <li>Aleksander Bonzanini</li>
+                        </ul>
+                    </div>
+                    <div class="col-heading tag-keyword" data-ng-bind="i18n.coupon.tag_keywords"></div>
+                    <div class="keywords-tag">
+                        <ul>
+                            <li>Sport</li>
+                            <li>Calcio</li>
+                            <li>Atleta</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-col3">
+                <div class="col-heading" data-ng-bind="i18n.coupon.target_cate"></div>
+           <div class="checkbox-block">
+                <span class="coupon-checkbox"><input type="checkbox" value="allowance">
+                <span  data-ng-bind="i18n.coupon.man"></span></span>
+                <span class="coupon-checkbox"><input type="checkbox" value="allowance">
+                <span  data-ng-bind="i18n.coupon.women"></span></span>
+            </div></div>
+            </div>
+           </div>
+        <div class="add-photo-section">
+            <div class="card-photo" data-ng-bind="i18n.Campaign.add_photo"></div>
+            <ul class="uplod-photo">
+            	<li>
+            		<img src="app/assets/images/add-plus.png" alt="" titile=""/>
+            	</li>
+            </ul>
+            <ul class="uplod-photo-view">
+            	<li></li>
+            	<li></li>
+            	<li></li>
+            	<li></li>
+            	<li></li>
+            </ul>
+            <div class="clr"></div>
+        <div class="card-des" data-ng-bind="i18n.Campaign.add_description"></div>
+            <textarea placeholder="{{i18n.Campaign.here_descrp}}"></textarea>
+            <div class="confirmation-section">
+                <button class="btn-confirm" data-ng-bind="i18n.coupon.Confirm"></button>
+                    <p>
+                        <span data-ng-bind="i18n.coupon.message"> </span>
+                        <span data-ng-bind="i18n.Campaign.msge2"></span>
+                        <span data-ng-bind="i18n.coupon.msge3"> </span> 
+                        <span data-ng-bind="i18n.coupon.msge4"></span>
+                    </p>
+            </div>
+        </div>
+    </div>

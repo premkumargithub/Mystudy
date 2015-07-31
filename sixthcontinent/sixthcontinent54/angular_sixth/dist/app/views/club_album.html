@@ -1,0 +1,179 @@
+<div class="col-2-layout">
+    <!-- Content START -->
+    <div id="content" class="container-right-fluid-page">
+        <div class="innerAll">
+
+            <div class="row" ng-controller='GroupDetailController'>
+                <div class="col-lg-8 col-md-8" >
+                    <div class="inner-container">
+                        <group-Cover-Profile-Panel></group-Cover-Profile-Panel>
+                            <div class="album-section-left" ng-show='albumshow'>
+                              <div class="album-section-container-top" style='clear:both;'>
+                                <div class="album-online">
+                                    <span class="album-status"><img titile="" alt="" src="app/assets/images/album.png"></span> <span ng-bind="i18n.clubs.club_albums"></span>
+                                </div>
+                                <ul class="album-action-message">
+                                    <li class="button-default" data-ng-if="groupDetail.owner_id == currentUser.id"><a href="javascript:void(0)" ng-click="showAlbumForm();" ng-bind="i18n.clubs.create_album"></a></li>
+                                    <li class="last button-default"><a href="#/club/view/{{groupId}}/{{groupType}}" ng-bind="i18n.clubs.club_back"></a></li>
+                                </ul>
+                            </div>
+                            <div class="msg-container">
+                            <div class="text-red text-center" ng-bind="albumErrorResponse"></div>
+                            <div class="text-success text-center" ng-bind="albumResponse"></div>
+                            </div>
+
+                            <div class="create-album" data-ng-show="createAlbumForm">
+                                <form name="clubAlbumForm" ng-submit="createClubAlbum(clubAlbumForm.$valid)" novalidate>           
+                                    <ul>
+                                        <li>
+                                            <div class="createclub-label">
+                                            <span ng-bind="i18n.clubs.club_album_name"></span>
+                                            </div>
+                                            <div class="createclub-input">
+                                            <input id="clubalbumname" name="clubalbumname" type="text" class="form-control bg-gray" ng-model="CreateAlbum.albumName" ng-class="{ 'has-error' : (clubAlbumForm.clubalbumname.$dirty&&clubAlbumForm.clubalbumname.$invalid&&clubAlbumForm.clubalbumname.$error.required ) || (clubAlbumSubmitted && !CreateAlbum.albumName) }" required multiple/>
+                                            <div ng-show="(clubAlbumForm.clubalbumname.$dirty&&clubAlbumForm.clubalbumname.$invalid&&clubAlbumForm.clubalbumname.$error.required ) || (clubAlbumSubmitted && !CreateAlbum.albumName)" class="text-red" data-ng-bind="i18n.album.enter_album_name"></div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="createclub-label">
+                                            <span ng-bind="i18n.clubs.club_album_desc"></span>
+                                            </div>
+                                            <div class="createclub-input">
+                                            <textarea id="clubalbumdesc" name="clubalbumdesc" class="form-control bg-gray" ng-model="CreateAlbum.description" ng-class="{ 'has-error' : (clubAlbumForm.clubalbumdesc.$dirty&&clubAlbumForm.clubalbumdesc.$invalid&&clubAlbumForm.clubalbumdesc.$error.required ) || (clubAlbumSubmitted && !CreateAlbum.description) }" required></textarea>
+                                            <div ng-show="(clubAlbumForm.clubalbumdesc.$dirty&&clubAlbumForm.clubalbumdesc.$invalid&&clubAlbumForm.clubalbumdesc.$error.required ) || (clubAlbumSubmitted && !CreateAlbum.description)" class="text-red" data-ng-bind="i18n.album.enter_album_desc"></div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <button data-ng-hide="CreateAlbumStart" type="submit" class="btn btn-primary" ng-bind="i18n.clubs.create_album"><i class="fa fa-fw fa-plus"></i></button>
+                                            <a data-ng-hide="CreateAlbumStart" class="btn btn-primary" ng-click="showAlbumForm()" ng-bind="i18n.clubs.album_cancel"><i class="fa fa-fw fa-times"></i>
+                                            </a>
+                                            <div ng-show="createSuccess" class="text-success text-center display-block-inline" ng-bind="successMessage"></div>
+                                            <div class="login-error text-red text-center display-block-inline" data-ng-show="createError " ng-bind="errorMessage"></div>
+                                            <div data-ng-show="CreateAlbumStart" class="loader-container">
+                                            <img src="app/assets/images/proceed.gif" alt="loading..." />
+                                            </div>
+                                            
+                                        </li>
+                                    </ul>
+                                </form>
+                            </div>
+                        <div class="create-album" ng-show="editAlbumForm">
+                        <form name="editClubAlbumForm" ng-submit="updateAlbum(editClubAlbumForm.$valid)" novalidate>
+                            <ul>
+                                <li>
+                                <div class="createclub-label">
+                                <span ng-bind="i18n.album.album_name"></span>
+                                </div>
+                                <div class="createclub-input">
+                                <input id="editalbumname" name="editalbumname" type="text" class="form-control bg-gray" ng-model="editAlbumData.albumName" ng-class="{ 'has-error' : (editClubAlbumForm.editalbumname.$dirty&&editClubAlbumForm.editalbumname.$invalid&&editClubAlbumForm.editalbumname.$error.required ) || (clubAlbumSubmitted && !editAlbumData.albumName) }" multiple required />
+                                <div ng-show="(editClubAlbumForm.editalbumname.$dirty&&editClubAlbumForm.editalbumname.$invalid&&editClubAlbumForm.editalbumname.$error.required ) || (clubAlbumSubmitted && !editAlbumData.albumName)" class="text-red" data-ng-bind="i18n.album.enter_album_name"></div>
+                                </div>
+                                </li>
+                                <li>
+                                <div class="createclub-label">
+                                <span ng-bind="i18n.album.album_desc"></span>
+                                </div>
+                                <div class="createclub-input">
+                                <textarea id="editalbumdesc" name="editalbumdesc" class="form-control bg-gray" ng-model="editAlbumData.albumDescription" ng-class="{ 'has-error' : (editClubAlbumForm.editalbumdesc.$dirty&&editClubAlbumForm.editalbumdesc.$invalid&&editClubAlbumForm.editalbumdesc.$error.required ) || (clubAlbumSubmitted && !editAlbumData.albumDescription) }" required></textarea>
+                                <div ng-show="(editClubAlbumForm.editalbumdesc.$dirty&&editClubAlbumForm.editalbumdesc.$invalid&&editClubAlbumForm.editalbumdesc.$error.required ) || (clubAlbumSubmitted && !editAlbumData.albumDescription)" class="text-red" data-ng-bind="i18n.album.enter_album_desc"></div>
+                                </div>
+                                </li>
+                                <li>
+                                <img ng-show="updateUserAlbum" alt="" src="app/assets/images/proceed.gif">
+                                <button ng-hide="updateUserAlbum" type="submit" class="btn btn-primary" ng-bind="i18n.album.album_update"><i class="fa fa-fw fa-plus"></i></button>
+                                <a ng-hide="updateUserAlbum" class="btn btn-primary" ng-click="closeEditForm()" ng-bind="i18n.album.album_cancel"><i class="fa fa-fw fa-times"></i></a>
+                                </li>
+                            </ul>
+                        </form>
+                        </div>
+                            <div data-ng-show="clubAlbumLoading" class="loader-container">
+                                <img src="app/assets/images/proceed.gif" alt="loading..." />
+                            </div>
+
+                            <div class="album-option-container albumContainer" data-ng-hide="clubAlbumLoading" infinite-scroll="loadMore()" infinite-scroll-distance="3">
+                            <div class="albumHeading" ng-if="clubAlbumData.length"><span><img title="" alt="" src="app/assets/images/album-heading-img.png"/><span data-ng-bind="i18n.friends.photo_albums"></span></span></div>
+                                <ul class="album-option" ng-if="clubAlbumData.length">
+                                    <li data-ng-repeat="item in clubAlbumData">
+                                        <a href="javascript:void(0)">
+                                            <div ng-if="!item.album_featured_image" class="album-option-img" ng-click="redirectUrl(item.id, item.album_name)">
+                                                <span style="background-image:url('app/assets/images/album-empty.jpg');"></span>
+                                                <!--<img titile="" alt="" src="app/assets/images/album-empty.jpg">--></div>
+                                            <div ng-if="item.album_featured_image" class="album-option-img" ng-click="redirectUrl(item.id, item.album_name)">
+                                                <span ng-style="{'background-image':'url('+item.album_featured_image+')'}"></span>
+                                                <!--<img titile="" alt="" src="{{item.album_featured_image}}" width="158" height="128">--></div>
+                                            <div class="album-option-heading"><span  class="albm-heading" ng-click="redirectUrl(item.id, item.album_name)">{{(item.album_name).length>17?((item.album_name | limitTo: 14)+'...'):(item.album_name)}}</span>
+                                                <div class="albmoption" data-ng-if="groupDetail.owner_id == currentUser.id">
+                                                <span class="album-option-delete" ng-click="editAlbum(item)" title="{{i18n.album.edit}}">
+                                                <i class="fa fa-pencil-square-o"></i>
+                                                </span>
+                                                <span id="deleteStart-{{$index}}" class="album-option-delete" ng-click="confirmClick() && deleteClubAlbum(item.id, $index)" confirm-click><i class="fa fa-fw fa-times" title="{{i18n.club.delete_album}}"></i>
+                                                </span>
+                                                <span style="display:none;" id="deleteStartLoader-{{$index}}"><img src="app/assets/images/proceed.gif" alt="loading..." /></span>
+                                            </div>
+
+                                            <div class="album-option-sub" ng-click="redirectUrl(item.id, item.album_name)" data-ng-bind="item.media_in_album + ' ' + i18n.clubs.photos" ></div>
+                                            <div class="album-imgae-ratings">
+                                    <div class="album-imgage-ratings-inner" ng-controller="rateAlbum">
+                                        <ul class="">
+                                            <li data-ng-repeat="rating in averageRating(item.avg_rate) track by $index">
+                                               <span ng-class="item.avg_rate % 1 == 0 ? 'votes-avg' : ($last ? (item.avg_rate % 1 > 0.5 ? 'votes-avg' : 'half-avg' ):'votes-avg')"></span>
+                                            </li><li ng-repeat="blank in blankStar(item.avg_rate) track by $index">
+                                                <span class="votes-blank"/>
+                                            </li>
+                                        </ul>
+                                        <span class="album-image-votes">{{item.no_of_votes}} <a href  data-ng-click="findPeopleRate(item.id,'club_album', item.no_of_votes)"> <span data-ng-if="item.no_of_votes > 1" data-ng-bind="i18n.profile_post.votes"></span><span data-ng-if="item.no_of_votes <= 1" data-ng-bind="i18n.profile_post.vote"></span> </a></span></div>
+                                </div>
+
+                                        </a>
+                     <!--<div class="ratings-section-outer" data-ng-if="groupDetail.is_member == 1">
+                        <div class="rating-section">
+                        <div class="disable-rating" data-ng-show="waitRateResponse"></div>
+                        <rating value="item.current_user_rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value, $index)" on-leave="overStar" changes="rateThis(value, item.id, $index)" class="ratings-block"></rating>               
+                        <span class="rate-post" ng-if="item.current_user_rate == 0"><a href>{{i18n.profile_post.rate_post}} </a></span><span class="rate-post" ng-if="item.current_user_rate > 0" data-ng-click="removeRating(item.id,$index)"><a href>{{i18n.profile_post.remove_rating}} </a> </span>
+                        </div>
+                    <div class="average-ratings"><span class="total-votes">{{item.no_of_votes}}<a href data-ng-click="findPeople(item.id, 'club_album', item.no_of_votes)"> {{i18n.profile_post.votes}} </a> </span><span class="votes-star"><ul><li data-ng-repeat="rating in averageRating(item.avg_rate) track by $index"><span ng-class="item.avg_rate % 1 == 0 ?'votes-avg': ($last ? 'half-avg':'votes-avg')" /></li>
+                     <li ng-repeat="blank in blankStar(item.avg_rate) track by $index"><span class="votes-blank"/></li></ul></span></div>
+                        <div class="clr"></div>
+                    </div>-->
+                                    </li>
+                                </ul>
+                                <div class="ng-hide" style="text-align:center" ng-show="listload"><img titile="" alt="" src="app/assets/images/proceed.gif"></div>
+                                <div class="album-option album-blank" ng-if="!clubAlbumData.length && groupDetail.owner_id == currentUser.id" ng-bind="i18n.clubs.no_album">
+                                </div>
+                                <div class="album-option album-blank" ng-if="!clubAlbumData.length && groupDetail.owner_id != currentUser.id" ng-bind="i18n.friends.no_album">
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="group-section-container" ng-show="aboutsection" ng-if="albumshow == false">
+                            <!-- Edit group form end here -->
+                            <article class="group-article">
+                                <div class="bacheca">
+                                  <!--  <h2>{{groupDetail.title}}</h2> -->
+                                    <div data-ng-controller="GroupPostController">
+                                        <div class="post-reply" data-ng-show="groupDetail.is_member">
+                                            <group-post-form></group-post-form>
+                                        </div>
+                                        <group-post-list></group-post-list>
+                                    </div>
+                                </div>
+                                <div class="project" data-role="tile" data-ng-show="{{noContent}}">
+                                    <strong ng-bind="i18n.group.details.no_result">...</strong>
+                                </div>
+                                <div data-ng-show="isLoading" style="text-align: center;">
+                                    <img src="app/assets/images/proceed.gif" alt="loading..." />
+                                </div>
+                            </article>
+                            <!--artical section with comment and reply section -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <!--<club-Notification-Panel></club-Notification-Panel>-->
+                    <profile-right-panel></profile-right-panel>   
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+<div class="clearfix"></div>

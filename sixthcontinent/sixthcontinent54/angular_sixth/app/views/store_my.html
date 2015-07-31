@@ -1,0 +1,100 @@
+<div class="col-2-layout">
+  <div id="content" class="container-right-fluid-page">
+    <div class="innerAll">
+      <div class="row">
+        <div class="col-lg-8 col-md-8">
+          <div class="inner-container club-inner-section">
+              <user-Cover-Profile-Panel></user-Cover-Profile-Panel>
+              <article class="social-project store-grid">
+                <div class="social-heading">
+                    <span class="clubtitle1" data-ng-bind="i18n.store.title"></span>
+                    <a class="btn btn-primary create-group-link" href="#/shop_affiliation/{{currentUser.id}}/4" data-ng-bind="i18n.header_menu.shops"></a>
+                </div>
+                <div class="wrap-select">
+                    <ul class="for-resp">
+                        <li><a class="voti {{viewAllActive}}" href="javascript:void(0)" ng-click="paginate(); getShop('viewAll', itemsPerPage)" data-ng-bind="i18n.store.view_all"></a></li>
+                        <li><a class="voti {{myStoreActive}}" href="javascript:void(0)" ng-click="paginate(); getShop('myStore', itemsPerPage)" data-ng-bind="i18n.store.my_shop"></a></li>
+                        <li><a class="voti {{favShopActive}}" href="javascript:void(0)" ng-click="paginate(); getShop('favStore', itemsPerPage)" data-ng-bind="i18n.store.my_fav_shop"></a></li>
+                    </ul>
+                    <div class="search-list">
+                        <search>
+                            <form role="search" method="GET" id="" action="">
+                                <input type="text" class="searchid" id="shopserchbox" placeholder="{{i18n.store.search_shop}}" data-ng-model="searchText"/>
+                            </form>
+                        </search>             
+                    </div>   
+                </div>
+                <div class="club-pagi-section">
+                  <div class="club-pagi-section1">
+                    <div class="viewtype-text" data-ng-bind="i18n.clubs.visualization"></div>
+                    <ul class="visualizzazione">
+                      <li class="{{gridActive}}"><a href="javascript:void(0)" data-ng-click="changeView('grid')" class="table-icon" title="{{i18n.store.grid_view}}"></a></li>
+                      <li class="{{listActive}}"><a href="javascript:void(0);" data-ng-click="changeView('list')" class="list-icon" title="{{i18n.store.list_view}}"></a></li>
+                    </ul>
+                  </div>
+                  <div class="club-pagi-section2">
+                    <div class="viewtype-text" data-ng-bind="i18n.clubs.result_per_page"></div>
+                    <ul>
+                      <li>
+                        <span ng-class="{active: itemsPerPage == firstPage}">
+                        <a href="javascript:void(0)" ng-click="setPage(firstPage)" data-ng-bind="firstPage"></a>
+                        </span>
+                      </li>
+                      <li> -
+                        <span ng-class="{active: itemsPerPage == 2*firstPage}">
+                            <a href="javascript:void(0)" ng-click="setPage(2*firstPage)" data-ng-bind="2 * firstPage"></a>
+                        </span>
+                      </li>
+                      <li> -
+                        <span ng-class="{active: itemsPerPage == 4*firstPage}">
+                          <a href="javascript:void(0)" ng-click="setPage(4*firstPage)" data-ng-bind="4 * firstPage"></a>
+                        </span>
+                      </li>
+                      <li> -
+                        <span ng-class="{active: itemsPerPage == 8*firstPage}">
+                          <a href="javascript:void(0)" ng-click="setPage(8*firstPage)" data-ng-bind="8 * firstPage"></a>
+                        </span>  
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="club-pagi-section3">
+                    <tr>
+                      <th colspan="12" class="text-right" data-ng-if="pagination === true ">
+                        <div class="pagination ">
+                          <ul class="pagination mb10 store-paginate">
+                            <li ng-class="prevPageDisabled()" class="nav-arrow">
+                              <a href ng-click="prevPage()">&#60;</a>
+                            </li>
+                            <li ng-repeat="n in range"
+                            ng-class="{active: n == currentPage, 'seeview': $index+1 == currentPage+1 || $index+1 == currentPage+2 || $index+1 == currentPage-1 || $index+1 == currentPage-2 || $index+1 == currentPage || $last}">
+                              <a href ng-click="changePageMore(n)" data-ng-bind="n"></a>
+                            </li>
+                            <li ng-class="nextPageDisabled()" class="nav-arrow">
+                              <a href ng-click="nextPage()">&#62;</a>
+                            </li>
+                          </ul>
+                        </div>
+                      </th>
+                    </tr>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="loader-container" data-ng-show="notFound" data-ng-bind="i18n.store.result_not_found"></div>
+                  <div ng-show="storeLoading" class="loader-container">
+                    <img src="app/assets/images/proceed.gif" alt="loading..." />
+                  </div>
+                  <myshop-grid data-ng-show="gridActive == 'active'"></myshop-grid>
+                  <myshop-list data-ng-show="listActive == 'active'"></myshop-list> 
+                </div>
+              </article>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4">
+              <profile-Right-Panel></profile-Right-Panel>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+</div>

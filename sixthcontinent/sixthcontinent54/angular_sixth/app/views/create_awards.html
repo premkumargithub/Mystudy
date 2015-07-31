@@ -1,0 +1,169 @@
+<p class="text-red text-center" 
+data-ng-show="(!showCouponListMsg  && dp.discountPosition && !showErrorDp)">
+    <span data-ng-bind="i18n.Campaign.no_permission_coupon"></span> 
+</p>
+<div class="text-red text-center">
+    <p data-ng-show= "showErrorDp"> <span data-ng-bind="i18n.coupon.no_allow_dp"></span> </p>
+</div> 
+ 
+<div class="cre-camp-list-heading coupon-heading">
+	<span data-ng-bind="i18n.Campaign_listing.dp_list"></span>
+</div>
+<div class="cre-camp-listing awards-list">
+	<table class="table awards-listing">
+		<thead>
+			<tr>
+				<th data-ng-bind="i18n.Campaign_listing.dp_sdate"></th>
+				<th data-ng-bind="i18n.Premiums.value"></th>
+				<th></th>
+			</tr>
+		</thead>
+        <tbody>
+			<tr data-ng-repeat ="coupon in offerlistingObject">
+				<td class="table-blue" data-ng-bind="coupon.start_date | date:'dd-MM-yyyy'"></td>
+				<td class="" data-ng-bind="coupon.credit"></td>
+				<td class="table-fa-times" data-ng-click="confirmClick() && deleteDP($index,coupon._id)" confirm-click><i class="fa fa-times"></i></td>
+			</tr>		
+		</tbody>
+     </table>
+     <span data-ng-show ="deleteLoader" class="listing-loader align-left">
+        <img  title="" alt="" src="app/assets/images/proceed.gif" >
+    </span>
+      <span data-ng-show = "couponListingLoader" class="listing-loader align-left">
+        <img data-ng-show = "couponListingLoader" title="" alt="" src="app/assets/images/proceed.gif" >
+    </span>  
+    <span data-ng-show="showCouponListMsg" class="listing-mess align-left"> 
+        <span data-ng-bind="i18n.Campaign_listing.dp_no"></span>
+    </span> 
+</div>
+<div class="coup-slogan-awards" data-ng-bind="i18n.Premiums.people"></div>
+<form name="discountpositionFrom" onkeypress="return event.keyCode != 13;" data-ng-submit="createDp(createDp.$valid)" novalidate>
+   <div class="recevie-prize-section">
+	    <div class="recevie-prize-heading" data-ng-bind="i18n.Premiums.credit"></div>
+	    <div class="recevie-prize-list">
+	        <ul>
+				<li data-ng-bind="i18n.Premiums.credit1"></li>
+				<li data-ng-bind="i18n.Premiums.credit2"></li>
+				<li data-ng-bind="i18n.Premiums.credit3"></li>
+		    </ul>
+	    </div>
+	    <div class="recevie-prize-right">
+		    <div class="discount-amt">
+			  <ul class="radio-input-block">
+					<li><input type="radio"  id="radio1" class="css-checkbox" ng-model="dp.discountPosition" value="50" data-ng-click="showHideOther()"/>
+					<label for="radio1" class="css-label radGroup2">&euro;50</label>
+					</li>
+					<li><input type="radio"  id="radio2" class="css-checkbox" ng-model="dp.discountPosition" value="100" data-ng-click="showHideOther()" />
+					<label for="radio2" class="css-label radGroup2">&euro;100</label>
+					</li>
+					<li><input type="radio"  id="radio3" class="css-checkbox" ng-model="dp.discountPosition" value="150" data-ng-click="showHideOther()"/>
+					<label for="radio3" class="css-label radGroup2">&euro;150</label>
+					</li>
+					<li><input type="radio"  id="radio4" class="css-checkbox" ng-model="dp.discountPosition" value="" data-ng-click="showOther()"/>
+					<label for="radio4" class="css-label radGroup2" data-ng-bind="i18n.Premiums.more"></label>
+					</li>
+		    </ul>
+			<div class="amt-input">
+			   <span class="import-value" data-ng-show= "confirm" data-ng-bind="valueDp"></span>
+			   <span class="import-value" data-ng-show= "(!confirm && (!showValue))" data-ng-bind="i18n.Premiums.value"></span>
+			   <input class="import-value" type="text"   ng-model="dp.discountPosition" ng-pattern="/^[0-9]{1,7}$/" value=''   name="dpval" data-ng-show="showValue && (!confirm)"/>
+			   <a id="confirmdp" class="amt-link" data-ng-bind="i18n.coupon.Confirm" data-ng-click="confirmAwards()"> 
+			  	</a>
+            </div>
+             <div ng-show="discountpositionFrom.dpval.$error.pattern" class="text-red error-copoun">
+             	<span data-ng-bind="i18n.Campaign_work.enter_valid_value"></span>
+             </div>
+			  <div ng-show="(discountSubmitted && !dp.discountPosition)" class="text-red error-copoun"><span data-ng-bind="i18n.Campaign_work.select_value"></span></div>
+			  <div ng-show="(discountSubmitted && (!confirm) && dp.discountPosition)" class="text-red error-copoun">
+			  	<span data-ng-bind="i18n.Campaign_work.coupon_confirm"></span></div>
+			 <div ng-show="conMsg" class="text-red error-copoun">
+			  	<span data-ng-bind="i18n.Campaign_work.success_confirm"></span></div>
+
+		    </div>
+	    </div>
+	       <div class="clr"></div>
+    </div>
+<div class="tag-target-section">
+    <div class="tag-target-heading" data-ng-bind="i18n.coupon.tag"></div>
+    <div class="tag-target-desc" data-ng-bind="i18n.coupon.keywords">
+    </div>
+	<div class="tag-target-grid">
+	        <div class="tag-col tag-col1">
+	            <div class="col-heading" data-ng-bind="i18n.coupon.tag_keywords"></div>
+                <div class="coupon-add-input">
+                    <input type="text" placeholder="Add Tag" ng-model="tagkeywords" id="categoryKeyword"  ng-keydown="keywordKeyDown($event)"/>
+                    <div class="coupon-add-list" data-ng-if="keywords.length != 0">
+                        <ul>
+                            <li ng-repeat="keyword in keywords"  ng-click="storeKeyword(keyword)" ng-mouseover="$parent.keywordIndex=$index" ng-class="{active : keywordIndex===$index}">
+                                <span data-ng-bind="keyword.name"></span></li>
+                        </ul>
+                    </div>
+                </div>
+            <div class="keywords-tag" data-ng-show="keywordList.length">
+                <div class="second-input keyword-load-img">
+                    <img class="loadicn" src="app/assets/images/proceed.gif" data-ng-show="showCatKeyLoading">
+                    </div>
+		        <ul>
+		             <li ng-repeat="keyword in keywordList track by $index">
+                        <span class="tagName" data-ng-bind="keyword.name"></span>
+                            <span class="closeBtn" ><b class="fa fa-times cross" data-ng-click="removeKeyword($index)"></b></span>
+                    </li> 
+		        </ul>
+	        </div>
+             
+	        </div>
+	     <div class="tag-col tag-col2">
+				    <div class="col-heading"><span data-ng-bind="i18n.coupon.list"></span> <!-- <a href="#" data-ng-bind="i18n.coupon.open_list"></a> --></div><div class="coupon-add-input">
+                    <input type="text" placeholder="Add Tag" id="searchTagFriend"  ng-keydown="keyUpDownControl($event)" data-ng-model="friendName" data-ng-blur="lostFormFocus()"/>
+                    <div class="coupon-add-list" data-ng-show="showFriendList">
+                        <ul>
+                          <li data-ng-repeat="friend in friends" data-ng-click="selectFriend(friend)" mouseover="$parent.friendTaggIndex=$index" ng-class="{active : friendTaggIndex===$index}">
+                                <a href>
+                                    <img alt="" src="{{friend.user_info.profile_image_thumb}}" data-ng-if="friend.user_info.profile_image_thumb != null  && friend.user_info.profile_image_thumb != ''" width="" height=""/>
+                                     <img src="app/assets/images/dummy32X32.jpg" data-ng-if="friend.user_info.profile_image_thumb == null || friend.user_info.profile_image_thumb == ''">
+                                     <span ng-bind="friend.user_info.first_name + ' '+ friend.user_info.last_name"> </span>
+                                </a>
+                            </li>
+                        </ul>
+                        <span ng-show="showSearchLoader" class="ng-hide"><img titile="" alt="" src="app/assets/images/proceed.gif"></span>
+                    </div>
+                </div>
+
+					<div class="keywords-tag" ng-if="storedFriend.length != 0">
+		                <ul>
+		                    <li data-ng-repeat="tags in storedFriend"><span ng-bind="tags.user_info.first_name + ' '+ tags.user_info.last_name"></span>
+                             <span class="remove-tag-btn" data-ng-click="removeTagFriend($index)"><img titile="" alt="" src="app/assets/images/grey-close-icon.png"></span></li>
+		                </ul>
+		            </div>
+                     
+		    </div>
+	    <div class="tag-col tag-col3">
+            <div>
+		        <div class="col-heading" data-ng-bind="i18n.coupon.target_cate"></div>
+                <div class="checkbox-block" id="checkl">
+                    <span class="coupon-checkbox" ng-repeat="targetsex in sex">
+                        <input type='checkbox' 
+                        ng-checked="checkedSex.indexOf(targetsex.dbvalue) != -1" ng-click="toggleCheck(targetsex.dbvalue)"/>
+                        <span  data-ng-bind="targetsex.value"></span>
+                    </span>
+                </div>
+            </div>
+            
+		</div>
+	</div>
+	<div class="confirmation-section">
+	   <input data-ng-hide ="hideButton" data-ng-hide="showLoader" class="btn-confirm" type="submit" value="{{i18n.coupon.Confirm}}"/>
+	    <p data-ng-show="showMesge">
+        	<span data-ng-bind="i18n.coupon.message" class="grey-mess"> </span>
+            <span data-ng-bind="i18n.Premiums.msge2"></span>
+            <span data-ng-bind="i18n.Premiums.msge3" class="grey-mess"> </span> 
+            <span data-ng-bind="i18n.coupon.msge4"></span>
+	    </p>
+	      
+        <p data-ng-show ="errorMesg">
+            <span data-ng-bind="i18n.dashboard.common_error" class="text-red"> </span>
+        </p>        
+	    <div data-ng-show="showLoader" style="text-align:center"><img titile="" alt="" src="app/assets/images/proceed.gif"></div>
+	</div>
+</div>
+</form>

@@ -1,0 +1,50 @@
+<div class="col-2-layout">
+<div id="content" class="container-right-fluid-page">
+<div class="innerAll">
+    <div class="row">
+        <div class="col-lg-8 col-md-8">
+        <div class="inner-container">
+            <user-Cover-Profile-Panel></user-Cover-Profile-Panel>
+            <div class="friends-list-container">
+              <div class="friend-list-top clearfix">
+                <div class="friend-list-title">
+                <span><img  src="app/assets/images/album.png" alt="" titile=""/> <span ng-bind="i18n.affiliate.title" /></span> 
+                
+                </div>
+               <!--  <span>&nbsp;&nbsp; ({{totalSize}})</span> -->
+              </div>
+        <div class="friend-list-content">
+            <div class="friend-cont-listing">
+                <ul class="clearfix" ng-show="citizenAffiliate.length" infinite-scroll="loadMore()" infinite-scroll-distance="3">
+                    <li data-ng-repeat="item in citizenAffiliate">
+                      <div class="friend-listing-img">
+                      <a ng-if="item.profile_image_thumb == ''" href="#/viewfriend/{{item.id}}/about" style="background-image:url(app/assets/images/prof-pic.jpg);" title="{{item.first_name}} {{item.last_name}}"></a>
+                      <a ng-if="item.profile_image_thumb != ''" href="#/viewfriend/{{item.id}}/about" ng-style="{'background-image':'url('+item.profile_image_thumb+')'}"title="{{item.first_name}} {{item.last_name}}"></a>
+                      </div>
+                      <div class="friend-listing-desc">
+                        <div class="friend-listing-desc-title">
+                          <a href="#/viewfriend/{{item.id}}/about"> <span ng-bind="item.first_name" /> <span ng-bind="item.last_name" /> </a>
+                        </div>
+                      </div>
+                    </li>
+                </ul>
+              <div class="loader-container" data-ng-show="followersLoader">
+                <img src="app/assets/images/ajax-loader.gif" alt="{{i18n.followers.loading}}loading..." />
+              </div>
+              <div class="clearfix" ng-show="!citizenAffiliate.length && resultNotFound" >
+                    <span ng-bind="i18n.followers.no_result"></span>
+              </div>
+            </div>
+        </div>
+        </div>
+        </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4">
+            <profile-Right-Panel></profile-Right-Panel>
+        </div>
+    </div>
+</div>
+</div>
+<div class="clearfix"></div>
+</div>

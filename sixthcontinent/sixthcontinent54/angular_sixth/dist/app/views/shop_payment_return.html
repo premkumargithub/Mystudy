@@ -1,0 +1,26 @@
+<div id="content" class="container-right-fluid-page">
+	<!-- <div class="layout-app">  -->
+	<div class="innerAll">
+		<div class="tAndC">
+			<div data-ng-hide="{{success}}">
+				<p class="pay-fail" data-ng-bind="i18n.shop_payment.fail_payment.description">
+				</p>
+				<span class="success-btn">
+					<a href="{{backurl}}" class="btn btn-primary" data-ng-bind="i18n.shop_payment.fail_payment.cancel_btn"></a>
+				</span>
+			</div>
+			<div data-ng-show="{{success}}">
+				<p class="pay-success" data-ng-bind="i18n.shop_payment.success_payment.description1">
+				</p>
+				<p class="pay-success" data-ng-bind="i18n.shop_payment.success_payment.description2">
+				</p>
+				<p class="pay-success" data-ng-bind="i18n.shop_payment.success_payment.description3">
+				</p>
+				
+			</div>
+		</div>
+	</div>
+</div>
+<!-- // Content END -->
+
+<div class="clearfix"></div>

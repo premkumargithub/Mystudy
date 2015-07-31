@@ -1,0 +1,211 @@
+<div class="container-fluid register-sixth-container"> 
+	<div class="map-img-cont">
+    <div class="register-sixth-one-step">
+        <div class="register-sixth-continent-form-section">
+            <div class="register-sixth-continent-one-step clearfix citizen-register">
+            <div class="register-sixth-one-step-num affilation-tabs">
+                <ul>
+                    <li class="active-one-step"><span>1</span><p ng-bind="i18n.shop_affiliation.citizen_register"></p></li>
+                    <li><span>2</span><p ng-bind="i18n.shop_affiliation.shop_register"></p></li>
+                    <li><span>3</span><p ng-bind="i18n.shop_affiliation.terms_conditions"></p></li>
+                    <li><span>4</span><p  ng-bind="i18n.shop_affiliation.credit_card_info"></p></li>
+                </ul>
+            </div>
+            <div class="already-registered" ng-show="sameAccount">
+            <form>
+            <ul class="register-sixth-one-step-field">
+                <li>
+                <div class="register-sixth-one-step-half">
+                <span ng-bind="oldUser.userEmail"></span>
+                </div>
+                <div class="register-sixth-two-step-half citizen-name">
+				<span ng-bind="oldUser.firstName" class="first-name"></span>
+				<span ng-bind="oldUser.lastName" class="last-name"></span>
+                </div>
+                </li>
+                <li>
+                <div class="register-sixth-one-step-half">
+                <span ng-bind="oldUser.dob ? ((oldUser.dob).split(' ')[0] | dateFormat) :' '" ></span>
+                </div>
+                <div class="register-sixth-two-step-half">
+                <span ng-show="oldUser.gender==='f' || oldUser.gender === 'F'" ng-bind="i18n.shop_affiliation.female"></span>
+                <span ng-show="oldUser.gender==='m' || oldUser.gender === 'M'" ng-bind="i18n.shop_affiliation.male"></span>
+                </div>
+                </li>  
+
+                <li>
+                <div class="register-sixth-one-step-full">
+                <span ng-bind="oldUser.country"></span>
+                </div>
+                </li>
+            </ul>
+            </form>
+            <div class="decision-links">
+                <a href="javascript:void(0)" class="btn btn-primary" ng-click="createNewAccount()"> 
+                <span ng-bind="i18n.shop_affiliation.new_account"></span></a>
+                <a href="javascript:void(0)" class="btn btn-primary" ng-click="changeLoginAccount()">
+                <span ng-bind="i18n.shop_affiliation.change_account"></span></a>
+                <a href="#/shop/register/{{profileType}}" class="btn btn-primary"><span ng-bind="i18n.shop_affiliation.with_same_account"> </span></a>
+            </div>
+            <div class="citizen-account-links">
+                <div class="citizen-steps"> <span ng-bind="i18n.shop_affiliation.step"></span>1/4</div>
+            </div>
+            </div>
+
+            <div class="changeAccount" ng-show="newLogin">
+                <form name="changeAcountForm" data-ng-submit="proceedWithNewAccount(changeAcountForm.$valid)" novalidate>
+                <div class="register-login-section-form">
+                <ul class="register-sixth-form">
+                <li>
+                <div class="register-sixth-full">
+                <input type="email" name="email" id="changeemailid" ng-blur="visited = true" placeholder="{{i18n.home.email}}" data-ng-model="changeUser.userName" title="{{i18n.home.enter_email}}" ng-class="{ 'has-error' : (changeAcountForm.email.$dirty&&changeAcountForm.email.$invalid&&changeAcountForm.email.$error.required ) || (changeAccountSubmitted && !changeUser.userName) || (changeAcountForm.email.$error.pattern && visited)}" ng-pattern="/^[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/" required/>
+                <div ng-show="(changeAcountForm.email.$dirty&&changeAcountForm.email.$invalid&&changeAcountForm.email.$error.required) || (changeAccountSubmitted && !changeUser.userName) || changeAcountForm.shopemail.$error.pattern && visited" class="text-red" data-ng-bind="i18n.register.enter_valid_email"></div>
+                </div>
+                </li>
+                <li>
+                <div class="register-sixth-full">
+                <input type="password" name="changepassword" id="changepassword" placeholder="{{i18n.home.password}}" data-ng-model="changeUser.password"  title="{{i18n.home.enter_password}}" ng-class="{ 'has-error' : (changeAcountForm.changepassword.$dirty&&changeAcountForm.changepassword.$invalid&&changeAcountForm.changepassword.$error.required ) || (changeAccountSubmitted && !changeUser.password)}"  required/>
+                <div ng-show="(changeAcountForm.changepassword.$dirty&&changeAcountForm.changepassword.$invalid&&changeAcountForm.changepassword.$error.required) || (changeAccountSubmitted && !changeUser.password) || changeAcountForm.changepassword.$error.pattern && visited" class="text-red" data-ng-bind="i18n.register.enter_valid_password"></div>
+                </div>
+                </li>
+                <li>
+                <div class="register-sixth-full login-page-submit">
+                    <div class="register-sixth-full register-sixth-register">
+                    <input data-ng-hide="loginStart" type="submit" title="{{i18n.home.login}}" value="{{i18n.home.login}}" />
+                    <img class="login-img" data-ng-show="loginStart" src="app/assets/images/proceed.gif" alt="{{i18n.home.loading}}..." />
+                    </div>
+                </div>
+                </li>
+                <li>
+                <div class="login-error text-red" data-ng-show="loginError"> <span ng-bind=
+                "loginErrorMsg"></span>
+                </div>
+                </li>
+                </ul>
+                <div class="citizen-account-links">
+                <a href="javascript:void(0)" ng-click="back()">&lt;&lt;<span ng-bind="i18n.shop_affiliation.back_link" /></a>
+                </div>
+                </div>
+                </form>
+            </div>
+
+            <form name="user" data-ng-submit="registerCitizen(user.$valid)" ng-show="newAccount" novalidate>
+            <div class="citizen-create-account">
+            <div class="citizen-account-left">
+            <div class="citizen-title" > <span ng-bind="i18n.shop_affiliation.recording" /></div>
+            <div class="citizen-desc1" > <span ng-bind="i18n.shop_affiliation.free_register" /></div>
+            <div class="citizen-desc2" > <span ng-bind="i18n.shop_affiliation.proceed_your_customer" /></div>
+            </div>
+            <ul class="register-sixth-one-step-field citizen-account-right">
+                <li>
+                <div class="register-sixth-one-step-half">
+                <input type="email" id="emailCitizenReg" ng-blur="visited = true" data-ng-model="user.userEmail" name="emailCitizenReg" placeholder="{{i18n.register.email}}" title="{{i18n.register.email}}" ng-pattern="emailPattern" ng-class="{ 'has-error' : (user.emailCitizenReg.$dirty&&user.emailCitizenReg.$invalid&&user.emailCitizenReg.$error.required ) || (formSubmitted && !user.userEmail)}" required/>
+                <div ng-show="((user.emailCitizenReg.$dirty && user.emailCitizenReg.$invalid) || (formSubmitted && !user.userEmail))" class="text-red">
+                <span ng-show="user.emailCitizenReg.$error.required" data-ng-bind="i18n.register.enter_your_email"></span>
+                <span ng-show="user.emailCitizenReg.$error.pattern && visited" data-ng-bind="i18n.register.enter_valid_email"></span>
+                </div>
+                </div>
+                <div class="register-sixth-two-step-half">
+                <input type="password" id="pwdCitizenReg" name="pwdCitizenReg" ng-blur="visited = true" value="" data-ng-model="user.userPassword" placeholder="{{i18n.register.password}}" data-ng-minlength="6" maxlength ="20" data-ng-maxlength="20" ng-class="{ 'has-error' : (user.pwdCitizenReg.$dirty&&user.pwdCitizenReg.$error.minlength&&user.pwdCitizenReg.$invalid&&user.pwdCitizenReg.$error.required ) || (formSubmitted && !user.userPassword)}" title="{{i18n.register.password}}" required/>
+                <div ng-show="(user.pwdCitizenReg.$dirty && user.pwdCitizenReg.$invalid || (formSubmitted && !user.userPassword))" class="text-red">
+                <span ng-show="user.pwdCitizenReg.$error.required" data-ng-bind="i18n.register.enter_password"></span>
+                <span ng-show="user.pwdCitizenReg.$error.minlength && visited" data-ng-bind="i18n.register.more_six_digit_password"></span>
+                </div>
+                </div>
+                </li>
+
+                <li>
+                <div class="register-sixth-one-step-half">
+                <input type="text" id="fname" name="fname" value="" placeholder="{{i18n.register.first_name}}" data-ng-model="user.firstName" 
+                title="{{i18n.register.first_name}}firstname" ng-class="{ 'has-error' : (user.fname.$dirty&&user.fname.$invalid&&user.fname.$error.required ) || (formSubmitted && !user.firstName)}" required/>
+                <div ng-show="(user.fname.$dirty&&user.fname.$invalid&&user.fname.$error.required ) || (formSubmitted && !user.firstName)" class="text-red" data-ng-bind="i18n.register.enter_first_name"></div>
+                </div>
+                <div class="register-sixth-two-step-half">
+                <input type="text" id="lname" name="lname" value="" placeholder="{{i18n.register.last_name}}" title="{{i18n.register.last_name}}lastname" data-ng-model="user.lastName" ng-class="{ 'has-error' : (user.lname.$dirty&&user.lname.$invalid&&user.lname.$error.required ) || (formSubmitted && !user.lastName)}" required/>
+                <div ng-show="(user.lname.$dirty&&user.lname.$invalid&&user.lname.$error.required ) || (formSubmitted && !user.lastName)" class="text-red" data-ng-bind="i18n.register.enter_last_name"></div>
+                </div>
+                </li>
+
+                <li class="calender-gender">
+                <div class="register-sixth-one-step-half">
+                <div class="register-sixth-select-month" ng-class="{ 'has-error' : (user.dobmonth.$dirty&&user.dobmonth.$error.required ) || (formSubmitted && !user.month)}">
+                <select id="dobmonth" name="dobmonth" data-ng-model="user.month" data-ng-options="month.name for month in months track by month.value"  required>
+                <option value="" ng-bind="i18n.register.month"></option>
+                </select>
+                </div>
+                <div class="register-sixth-select-month register-sixth-day" ng-class="{ 'has-error' : (user.dobday.$dirty&&user.dobday.$invalid&&user.dobday.$error.required ) || (formSubmitted && !user.day)}">
+                <select id="dobday" name="dobday" data-ng-model="user.day" data-ng-options="day for day in days" required>
+                <option value="" ng-bind="i18n.register.day"</option>
+                </select>
+                </div>
+                <div class="register-sixth-select-month register-sixth-year" ng-class="{ 'has-error' : (user.dobyear.$dirty&&user.dobyear.$invalid&&user.dobyear.$error.required ) || (formSubmitted && !user.year)}">
+                <select id="dobyear" name="dobyear" data-ng-model="user.year" data-ng-options="year.value for year in years track by year.id"  required>
+                <option value="" ng-bind="i18n.register.year"</option>
+                </select>
+                </div>
+                <div ng-show="(formSubmitted && invalidSelectedDob) || (!user.month  || !user.day || !user.year)">
+                <div ng-show="!formSubmitted&&(user.dobmonth.$dirty&&user.dobmonth.$invalid&&user.dobmonth.$error.required) ||(formSubmitted&&!user.month)" class="text-red"data-ng-bind="i18n.register.enter_month"></div>
+                <div ng-show="!formSubmitted&&(user.dobday.$dirty&&user.dobday.$invalid&&user.dobday.$error.required)||(formSubmitted&&!user.day)" class="text-red" data-ng-bind="i18n.register.enter_day"></div>
+                <div ng-show="!formSubmitted&&(user.dobyear.$dirty&&user.dobyear.$invalid&&user.dobyear.$error.required)||(formSubmitted&&!user.year)" class="text-red" data-ng-bind="i18n.register.enter_year"></div>
+                <div ng-show="(formSubmitted && invalidSelectedDob)" class="text-red" data-ng-bind="i18n.register.birthday_invalid"></div>
+                </div>
+                </div>
+                <div class="register-sixth-two-step-half">
+                <div class="register-sixth-select-gender" ng-class="{ 'has-error' : (user.genCitizenreg.$dirty&&user.genCitizenreg.$invalid&&user.genCitizenreg.$error.required ) || (formSubmitted && !user.gender)}">
+                <select id="genCitizenreg" name="genCitizenreg" data-ng-model="user.gender" required>
+                <option value="" ng-bind="i18n.register.gender" ></option>
+                <option value="m" ng-selected="{{user.gender == 'm'}}" ng-bind="i18n.register.male" ></option>
+                <option value="f" ng-selected="{{user.gender == 'f'}}" ng-bind="i18n.register.female"></option>
+                </select>
+                </div>
+                <div ng-show="(user.genreg.$dirty&&user.genreg.$invalid&&user.genreg.$error.required ) || (formSubmitted && !user.gender)" class="text-red" data-ng-bind="i18n.register.enter_gender"></div> 
+                </div>
+                </li>
+
+                <li style="display:none;">
+                <div class="register-sixth-one-step-full">
+                <div class="register-sixth-one-step-select-referral-id">
+                <input type="text" value="" data-ng-model="referralId" placeholder="{{i18n.register.referral_id}}" style="width:100%" ng-class="{'readyonlyRef': isreferralId}" />
+                </div>
+                </div>
+                </li>	
+
+                <li>
+                <div class="register-sixth-one-step-half">
+                <div class="register-sixth-one-step-select-country" ng-class="{ 'has-error' : (user.countryReg.$dirty&&user.countryReg.$invalid&&user.countryReg.$error.required ) || (formSubmitted && !user.country)}">
+                <select id="countryReg" name="countryReg" ng-model="user.country" ng-options="country.country for country in countries" title="{{i18n.register.select_country}}" required>
+                <option value="" ng-bind="i18n.register.country"></option>
+                </select>
+                </div>
+                <div ng-show="(user.countryReg.$dirty&&user.countryReg.$invalid&&user.countryReg.$error.required ) || (formSubmitted && !user.country)" class="text-red" data-ng-bind="i18n.register.select_country"></div> 
+                </div>
+                <div class="register-sixth-two-step-half">
+                <div class="resigter-one-step-button-right">
+                <input type="submit" data-ng-show="showLoading" name="" value="{{i18n.register.next_step}}" /></div>
+                <img data-ng-hide="showLoading" src="app/assets/images/proceed.gif">
+                </div>
+                <div class="text-red button-center"> <span ng-bind="signUpSuccessMsg" /></div>
+                </li>
+                <li>
+                <div class="register-sixth-one-step-half"> 
+                <a ng-show="isLoggedIn" href="javascript:void(0)" data-ng-click="changeLoginAccount()"><strong ng-bind="i18n.shop_affiliation.already_citizen"></strong> <span ng-bind="i18n.shop_affiliation.only_email_pass"></span><strong><u ng-bind="i18n.shop_affiliation.click_here"></u></strong></a> 
+                <a href="javascript:void(0)" ng-hide="isLoggedIn" ng-click="alreadyUserLogin()"><strong ng-bind="i18n.shop_affiliation.already_citizen"></strong> <span ng-bind="i18n.shop_affiliation.only_email_pass"></span><strong><u ng-bind="i18n.shop_affiliation.click_here"></u></strong></a>
+                </div>
+                </li>
+            </ul>
+            </div>
+            <div class="citizen-account-links">
+                <a ng-hide="isLoggedIn" href="#/shop/landing2/5" ng-click="back()">&lt;&lt; <span ng-bind="i18n.shop_affiliation.back_link" /></a>
+                <a ng-show="isLoggedIn" href="javascript:void(0)" ng-click="back()">&lt;&lt; <span ng-bind="i18n.shop_affiliation.back_link" /></a>
+                <div class="citizen-steps"> <span ng-bind="i18n.shop_affiliation.step"/>1/4</div>
+            </div>
+            </div>
+            </form>
+        </div>		
+    </div>
+    </div>
+</div>
+<!--register sixth continent-->	
+<footer-logout></footer-logout>
+<div ng-include="app/views/footer.html"></div> 
+</div>

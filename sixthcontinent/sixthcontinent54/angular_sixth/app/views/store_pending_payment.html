@@ -1,0 +1,93 @@
+<div class="col-2-layout">
+<div class="container-right-fluid-page" id="content">
+  <div class="innerAll">
+    <div class="row">
+      <div class="col-lg-8 col-md-8">
+        <div class="inner-container">
+          <div class="login-error" style="text-align: center; color: red;" data-ng-show="uploadProfileerror" data-ng-bind="uploadProfileErrorMsg"></div>
+          <!--store details section-->
+         <!--  <div class="store-details-section">
+            <storeprofile></storeprofile> 
+          </div> -->
+          <div class="form-container">
+            <!--store card section-->
+            <div class="store-details-section"> 
+              <div class="friend-profile-container">
+                <div class="timeline-cover">
+                  <div class="widget">
+                    <div class="widget-body padding-none margin-none">
+                      <div class="innerAll"> 
+                          <i class="fa fa-quote-left text-muted pull-left fa-fw"></i>
+                          <p class="lead margin-none ng-binding" data-ng-bind="i18n.store.card.manage_cards"></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                    <span class="alert" data-ng-class="msgClass" data-ng-if="message" data-ng-bind="message"></span>
+                </div>
+                <div class="form-container" data-ng-hide="noContent || isLoadingCard">
+                  <div class="card-block-heading">
+                    <ul>
+                      <li><strong data-ng-bind="i18n.store.card.your_card"></strong></li>
+                      <li data-ng-bind="i18n.store.card.name_card"></li>
+                      <li data-ng-bind="i18n.store.card.expiry_date"></li>
+          					  <li class="btn-container"></li>
+          					  <li class="last"></li>
+                    </ul>
+                  </div>
+                  <div class="card-block-content" infinite-scrolls-down="loadMore()" cardshold="1" style="height:400px; overflow-y:auto">
+                    <div class="card-block-list" ng-class="card.defaultflag ? 'active' : '' " ng-init="setDefault(card)" ng-repeat="(indx,card) in cardList">
+                      <ul>
+                        <li>
+                          <input name="RadioGroup1" type="radio" value="{{card.contract_id}}" ng-model="$parent.cardid" />
+                          <!-- <span class="card-icon">
+                          <img src="./assets/images/master-card.gif" alt="Master Card" />
+                          </span> -->
+                        <strong data-ng-bind="card.brand"></strong> 
+                        <span class="text-small" data-ng-bind="' ' + i18n.store.card.ending_in + ' ' + card.pan | panFormat"></span>
+                        <div class="default-card" data-ng-if="card.defaultflag" data-ng-bind="i18n.store.card.default_card"></div>
+                        </li>
+                        <li data-ng-bind="card.name + ' ' + card.last_name"></li>
+                        <li data-ng-bind="card.expiration_pan | expirationPanFormat"></li>
+                        <li class="btn-container" data-ng-hide="card.defaultflag">
+                          <a href="javascript:void(0);" class="btn btn-primary" data-ng-click='deleteCard(indx)' data-ng-bind="i18n.store.card.delete"></a>
+                        </li>
+                        <li class="last"><show-progress data-ng-show="inProcess[indx]"></show-progress>
+                        <show-progress data-ng-show="inDelete[indx]"></show-progress></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <show-progress data-ng-show="isLoadingCard"></show-progress>
+                  <div class="project" data-role="tile" data-ng-show="noContent">
+                    <strong data-ng-bind="i18n.store.card.no_card + '...'"></strong>
+                  </div>
+                  <div class="project addcard" data-role="tile">
+          					 <h4 data-ng-bind="i18n.store.card.add_credit_card"></h4>
+          					 <p data-ng-bind="i18n.store.card.accept_card"></p>
+					           <a data-ng-href="#/shop/card/addcard/{{storeId}}/2" class="btn btn-primary" data-ng-bind="i18n.store.card.add_card"></a>
+                  </div>
+                  <div class="project addcard" data-role="tile" data-ng-hide="pendingPayBtn">
+                      <span style="display:none">
+                        <a data-ng-if="storePendingPaymentUrl != ''" data-ng-href="{{storePendingPaymentUrl}}" class="btn btn-primary" data-ng-bind="i18n.store.payment.payOneClick"></a>
+                      </span>
+                      <span data-ng-show="payRecurring">
+                          <a href="javascript:void(0);" data-ng-click="confirmPayment() && payRecurringPayment()" class="btn btn-primary" data-ng-bind="i18n.store.payment.payDefaultCard" confirm-payment></a>
+                      </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!---store card section end--> 
+          </div>
+        </div> 
+        <div class="col-lg-4 col-md-4"> 
+          <profile-Right-Panel></profile-Right-Panel>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+  </div>
+</div> 

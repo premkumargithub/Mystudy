@@ -1,0 +1,21 @@
+<div class="group-list-cont">
+	<div class="group-list storecoverid{{store.id}}" data-ng-repeat="store in storeListObject" >
+		<div class="list-image">
+                    <a href="#/blshop/info/{{store.id}}" data-ng-if="store.profile_image_thumb != '' " style="background-image:url('{{store.profile_image_thumb}}');" title="{{store.name}}">
+			</a>
+                    <a href="#/blshop/info/{{store.id}}" data-ng-if="store.profile_image_thumb == '' " style="background-image:url('app/assets/images/store-prod.jpg');" title="{{store.name}}">
+            </a>
+		</div>
+		<div class="list-text">
+			<div class="list-text-head">{{i18n.store.Nome}} : <a href="#/blshop/info/{{store.id}}" >{{store.name}} </a>
+			</div>
+			<div class="list-text-head">{{i18n.store.RS}} : <a href="#/blshop/info/{{store.id}}" >{{store.businessName}} </a>
+			</div>
+			<ul>
+				<li><i class="fa fa-info-circle"></i><p>{{ store.description | limitTo: 100 }}</p></li>
+				<li><i class="fa fa-user"></i><span>{{store.user_info.username}}</span></li>
+			</ul>
+			<a ng-href="#/blshop/info/{{store.id}}" class="btn btn-primary" title="{{i18n.store.view_shop}}">{{i18n.store.view_shop}}</a>
+                 </div>
+	</div>
+</div>

@@ -1,0 +1,338 @@
+            <div class="group-profilo" ng-hide="editGroupStatus">
+                <div class="group-setting-bar">
+                    <ul>
+                        <li>
+                            <a href="javascript:void(0)" >
+                            <span></span>
+                            <span ng-if="groupDetail.group_status == '1'" title="Group Status" ng-bind="i18n.clubs.cover.public"></span>
+                            <span ng-if="groupDetail.group_status == '2'" title="Group Status" ng-bind="i18n.clubs.cover.private"></span>
+                            </a>
+                            </li> 
+                        <li class="setting">
+                            <a ng-if="groupDetail.owner_id == currentUser.id" href="javascript:void(0)" ng-click="editGroup();hideRoleInvite()" title="Edit" class="setting-anchor"><i class="fa fa-gear"></i>
+                            </a>
+                        </li>
+                    </ul>                            
+                </div>
+                <div id="invalidCoverImage" style="color:red; display:none;" ng-bind="invalidCoverImageMgs"></div>
+                <div class="group-banner store-dp-section store-cover-profile">
+
+                    <div class="store-dp-section-img">
+                        <div class="group-loader"> 
+                           <img src="app/assets/images/proceed.gif">
+                        </div>
+                        <div class="cover-loader-ajax ng-hide" ng-show="coverImageUploadStart"><img alt="uploading..." src="app/assets/images/proceed.gif" ></div>
+                        <a ng-hide="coverLoadHide" ng-if="groupDetail.profile_img_cover  && mobileView == false" class="fancybox" href="{{groupDetail.profile_img_original}}" style="background-image:url({{groupDetail.profile_img_cover}});  background-position: {{('-' + groupDetail.x_cord + 'px' )}} {{('-' + groupDetail.y_cord + 'px' )}}">
+                        </a> 
+                        <a ng-hide="coverLoadHide" ng-if="groupDetail.profile_img_cover  && mobileView == true" class="fancybox" href="{{groupDetail.profile_img_original}}" style="background-image:url({{groupDetail.profile_img_cover}});  background-position:  {{( '-' +  mobileClubX_Cord + 'px')}} {{('-' + mobileClubY_Cord + 'px')}}">
+                        </a>
+                        <a ng-hide="coverLoadHide" class="fancybox" ng-if="!groupDetail.profile_img_cover" href="javascript:void(0)" style="background-image:url('app/assets/images/club-cover-placeholder.png');cursor:default;">
+                        </a>
+                        <!-- <div data-ng-show="showCanves"> -->
+                        <image-crop data-width="800" data-height="300" data-shape="square" data-step="imageCropStep" data-result="imageCropResult" class="img-crop-btn" data-cover-load-hide="coverLoadHide" file="fileUrl"  image="image" get-file="getFile()" set-image-cordinate="setImageCordinate()" image-x-position="imageXPosition" image-y-position="imageYPosition" state="club" new-image="newImage"></image-crop>
+                        <!-- </div> -->
+                        <div ng-show="clubsection" ng-if="groupDetail.is_member == 1 && groupDetail.owner_id != currentUser.id" class="remove-club">
+                        <a ng-show="rmClub" href="javascript:void(0)" ng-click='confirmClick() 
+                        && removeClub()' ng-bind="i18n.clubs.remove_club" confirm-click-remove></a>
+                        <div class="ng-hide" style="text-align:center" ng-show="clubloader">
+                            <img titile="" alt="" src="app/assets/images/proceed.gif">
+                        </div>
+                        <a ng-show="successClub" class="ng-hide" href="javascript:void(0)" ng-bind="i18n.clubs.success"></a>
+                        </div>
+                        <h3 class="title-left"><a title="{{groupDetail.title}}" href="javascript:void(0)" class="club_name" data-ng-bind="groupDetail.title">
+                       <!--  {{(groupDetail.title).length>18 ? ((groupDetail.title | limitTo: 15)+'...'):(groupDetail.title)}} -->
+                        </a></h3>
+                        <!--code for ratings-->
+						
+	<div class="cover-links-outer">
+				<div class="cover-links diff-Cover club-cover clearfix">
+            <div class="section-group-cover">            
+                <div class="ratings-section-outer" data-ng-if="groupDetail.is_member == 1">
+                    <div class="rating-section">
+                        <div class="disable-rating" data-ng-show="waitRateResponse"></div>
+                        <rating value="groupDetail.current_user_rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar" changes="rateThis(value, groupDetail.id)" class="ratings-block"></rating>               
+                        <span class="rate-post" ng-if="groupDetail.current_user_rate == 0"><a href ng-bind="i18n.profile_post.rate_post_club"></a></span><span class="rate-post" ng-if="groupDetail.current_user_rate > 0" data-ng-click="removeRating(groupDetail.id)"><a href ng-bind="i18n.profile_post.remove_rating"></a> </span>
+                    </div>
+                  <div class="average-ratings"><span class="total-votes">{{groupDetail.no_of_votes}} <a href data-ng-click="findPeople(groupDetail.id, 'club', groupDetail.no_of_votes)" >
+                  <span data-ng-if="groupDetail.no_of_votes > 1" data-ng-bind="i18n.profile_post.votes"></span><span data-ng-if="groupDetail.no_of_votes <= 1" data-ng-bind="i18n.profile_post.vote"></span> 
+                 </a> </span><span class="votes-star"><ul ng-if="groupDetail"><li data-ng-repeat="rating in averageRating(groupDetail.avg_rate) track by $index">
+                  <span ng-class="groupDetail.avg_rate % 1 == 0 ? 'votes-avg' : ($last ? (groupDetail.avg_rate % 1 > 0.5 ? 'votes-avg' : 'half-avg' ):'votes-avg')"></span>
+                   </li>
+                     <li ng-repeat="blank in blankStar(groupDetail.avg_rate) track by $index"><span class="votes-blank"/></li></ul></span>
+                 </div>
+                 <div class="clr"></div>
+                </div> 
+                <!--rating for general visitor start-->
+                <div class="ratings-section-outer sdfas" data-ng-if="groupDetail.is_member != 1">
+                    <div class="average-ratings"><span class="total-votes">{{groupDetail.no_of_votes}} <a href data-ng-click="findPeople(groupDetail.id, 'club', groupDetail.no_of_votes)" >
+                    <span data-ng-if="groupDetail.no_of_votes > 1" data-ng-bind="i18n.profile_post.votes"></span>
+                    <span data-ng-if="groupDetail.no_of_votes <= 1" data-ng-bind="i18n.profile_post.vote"></span> 
+                    </a> </span>
+                    <span class="votes-star"><ul ng-if="groupDetail"><li data-ng-repeat="rating in averageRating(groupDetail.avg_rate) track by $index">
+                    <span ng-class="groupDetail.avg_rate % 1 == 0 ? 'votes-avg' : ($last ? (groupDetail.avg_rate % 1 > 0.5 ? 'votes-avg' : 'half-avg' ):'votes-avg')"></span>
+                    </li>
+                    <li ng-repeat="blank in blankStar(groupDetail.avg_rate) track by $index"><span class="votes-blank"/></li></ul></span>
+                    </div>
+                 <div class="clr"></div>
+                </div> 
+                <!--rating for general visitor end-->
+
+                        <!--code for ratings-->
+                        <div class="join-club-request" data-ng-if="groupDetail.is_member == 0 && groupDetail.is_sent != 1" >
+                            <a id="groupjoing{{groupDetail.id}}" href="javascript:void(0);" data-ng-click="joinPublicGroups(groupDetail.id)" class="join-group-btn" ng-bind="i18n.clubs.cover.join"></a>
+                        </div>
+                        <img id="joinloader{{groupDetail.id}}"  style="display:none;padding: 17px 0;" src="app/assets/images/proceed.gif" alt="loading..." class="club-loading"/>
+                        <div class="join-club-request-sent" style="display:none">
+                          <!-- <span id="requestsent{{groupDetail.id}}" class="requestsend-joinmsg" ng-bind="i18n.clubs.cover.sent_request"></span> -->
+                          <span  id="requestsent{{groupDetail.id}}"     class="requestsend-joinmsg" ng-bind="i18n.clubs.cover.sent_request"></span>
+                        </div>    
+                        <div id="checkUser" >
+                        <div class="profile-cover-dp" ng-hide="coverLoadHide" >
+                          <div class="profile-cover-cap club-det" style="position:relative" >
+                            <div class="add-cover-cap" data-ng-click="showCoverDropDown($event)" data-ng-blur="hideCoverDropDown()" ng-hide="hideUpdateCoverButton"><img src="app/assets/images/camera.png"  ng-show="uploadButton"/> <span ng-bind="i18n.clubs.cover.update_club_cover"  ng-show="uploadButton"></span></div>
+                            <div class="profile-update-links">
+              <ul ng-show="showCoverOption"><li>
+                            <label for="file">
+                              
+                                  <div ng-if="groupDetail.profile_img_cover != ''" class="add-cover-pic ng-scope" ng-bind="i18n.clubs.cover.change_cover"></div>
+                                  <div ng-if="groupDetail.profile_img_cover == ''" class="add-cover-pic ng-scope" ng-bind="i18n.clubs.cover.add_cover"></div>
+                              </label>
+                           <input type="file" value="Add Cover Photo" ng-file-select="onFileSelect($files)" /></li>
+                           <li  ng-if="groupDetail.profile_img_cover != ''"><button ng-click="repositionImage()" >  <span ng-bind="i18n.profile.reposition"></span></button></li>
+              <li></li>
+              </ul>
+                </div>
+                              
+                            
+                          </div>
+                        </div>
+                        </div>
+                </div></div></div>
+                        </div>
+
+     <div class="profile-dp-section profile-nav clearfix">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+           <a class="navbar-brand" href="#">Menu</a>
+        </div>
+     <div id="navbar" class="navbar-collapse collapse">
+    <ul class="store-invitations"> 
+        <!-- <li data-ng-if="groupDetail.is_sent == 0">
+        <a  style="color:#2DA0DA" data-ng-if="groupDetail.is_member == 0"  id="groupjoing{{groupDetail.id}}" href="javascript:void(0);" data-ng-click="joinPublicGroups(groupDetail.id)">{{i18n.clubs.cover.join}}</a>
+        </li>  -->
+        <li ng-class="{ 'dp-active': clubCoverActive == 'about' }">
+            <a href="javascript:void(0)" data-ng-click="aboutClub(groupDetail.id)" ng-bind="i18n.clubs.info"></a>
+        </li>
+        <li ng-class="{ 'dp-active': clubCoverActive == 'member' }">
+        <a href data-ng-click="toggleMember()" ng-bind="i18n.clubs.cover.members"></a>
+        </li>
+        <li ng-class="{ 'dp-active': clubCoverActive == 'changerole' }" data-ng-if="groupDetail.owner_id == currentUser.id">
+        <a href  data-ng-click="toggleRole()" ng-bind="i18n.clubs.cover.change_role"></a>
+        </li>            
+        <li ng-class="{ 'dp-active': clubCoverActive == 'invite' }" data-ng-if="groupDetail.owner_id == currentUser.id">
+        <a href  data-ng-click="toggleInvite()" ng-bind="i18n.clubs.cover.invite"></a>
+        </li>
+        <li ng-class="{ 'dp-active': clubCoverActive == 'photos' }" >
+        <a   class="ng-scope" href="#/album/club/{{groupDetail.id}}/{{groupDetail.group_status}}" data-ng-click="togglePhotos()" title="{{i18n.clubs.cover.club_goto}}" ng-bind="i18n.clubs.cover.photos"></a>
+        </li>
+
+    </ul>  
+
+    <ul class="store-invitations tabs-right">
+        <li>
+            <a data-ng-href="#/club" ng-bind="i18n.clubs.cover.clubback_list"></a>
+        </li>
+    </ul>
+     </div>   
+  </div>                          
+    </div>
+<div class="notifi-rt notification-block">
+        <div>     
+        <!-- <img id="joinloader{{groupDetail.id}}" style="display:none;" src="app/assets/images/proceed.gif" alt="loading..." /> -->
+           
+            <span id="requestpending{{groupDetail.id}}" class="requestsend-joinmsg" ng-bind="i18n.clubs.cover.request_pending"></span>
+            <span class="request-pen popUpMsgs" data-ng-if="groupDetail.is_sent == 1 && groupDetail.is_member!=1" ng-bind="i18n.clubs.cover.request_pending"></span>
+         </div>
+    </div>
+            <div class="club-boundary" data-ng-show="showRole">
+                <form class="invite-user" name="role" data-ng-submit="assignRoleToGroup(groupDetail.id)">
+                <ul>
+                    <li>    
+                        <span ng-bind="i18n.clubs.cover.select_member"></span>
+                        <select class="form-control bg-gray" data-ng-model="role.member" data-ng-options="members.username for members in listMember | filter:'!'+UserName" required>
+                            <option value="" ng-bind="i18n.clubs.cover.select_member"></option>
+                        </select>
+                    </li>
+                    <li>
+                        <span ng-bind="i18n.clubs.cover.roles"></span>
+                        <select class="form-control bg-gray" data-ng-model="role.selectedRole" required >
+                            <option value="" ng-bind="i18n.clubs.cover.select_role"></option>
+                            <option value="2" ng-bind="i18n.clubs.cover.admin"></option>
+                            <option value="3" ng-bind="i18n.clubs.cover.friend"></option>
+                        </select>
+                    </li>
+                    <li>
+                        <button class="btn btn-primary" ng-bind="i18n.clubs.cover.save"></button>
+                        <button class="btn btn-primary" data-ng-click="toggleRole()" ng-bind="i18n.clubs.cover.cancel"></button>
+                        <div class="login-error text-red text-center display-block-inline" data-ng-show="ChangeRoleError" ng-bind="changeroleErrorMsg"></div>
+                    <div class="login-error text-success text-center display-block-inline" ng-bind="ChangeRoleMessage"></div>
+                    </li>
+                </ul>
+
+        </form>
+        </div>
+        <div class="club-boundary" data-ng-show="showInvite"> 
+            <form class="invite-user gruop-bar-form" name="invite" data-ng-submit="joinPrivateGroups(groupDetail.id)">
+                 <span class="" ng-show="showinvite">
+                    <img src="app/assets/images/proceed.gif" alt="" titile="">
+                 </span>
+                <ul>
+                    <li>
+                        <span ng-bind="i18n.clubs.cover.users"></span>
+                         <div class="club-invite-user-wrapper">
+                        <input type="text" class="form-control bg-gray" data-ng-change="searchUser()" data-ng-model="invite.userAddress"   required />
+
+                        <div class="header-top-search-field-panel" data-ng-show="showUserList">
+                        <ul class="header-top-search-field">
+                            <span ng-show="albloader"><img titile="" alt="" src="app/assets/images/proceed.gif"></span>
+                            <li data-ng-repeat="user in userList">
+                            <a href="javascript:void(0)"  data-ng-click="setUser(user.user_info.first_name,user.user_info.last_name,user.user_id)" data-ng-model="selected">
+                            <div class="search-field-img">
+                                <img data-ng-if="user.user_info.profile_image != ''"ng-src="{{user.user_info.profile_image}}" width="40" height="40">
+                                <img data-ng-if="user.user_info.profile_image == ''"src="app/assets/images/dummy32X32.jpg" width="40" height="40">
+                            </div>
+                                <div class="search-filed-text-section">
+                                <div class="search-field-name" ng-bind="user.user_info.first_name+' '+user.user_info.last_name"></div>
+                               <!-- <div class="search-field-email">({{user.user_email}})</div>-->
+                                </div>
+                            </a>
+                            </li>
+                        </ul>
+                    </div></div>
+                    </li>
+                    <li>
+                        <span ng-bind="i18n.clubs.cover.roles"></span>
+                        <select data-ng-model="invite.role" class="form-control bg-gray" required >
+                            <option value="" ng-bind="i18n.clubs.cover.select_role"></option>
+                            <option value="2" ng-bind="i18n.clubs.cover.admin"></option>
+                            <option value="3" ng-bind="i18n.clubs.cover.friend"></option>
+                        </select>
+                    </li>
+                    <li>
+                        <button class="btn btn-primary" ng-bind="i18n.clubs.cover.send"></button>
+                        <button class="btn btn-primary" data-ng-click="toggleInvite()" ng-bind="i18n.clubs.cover.cancel"></button>    
+                     <div class="login-error text-red text-center display-block-inline" data-ng-show="InviteUserError" ng-bind="inviteuserErrorMsg"></div>
+                     <div class="login-error text-success text-center display-block-inline" ng-bind="Message"></div>                       
+                    </li>
+                </ul>
+           </form>
+            </div>
+            
+            <div class="friends-list-container">
+            <div class="friend-list-content" style="float:left" data-ng-show="showMember">
+            <div class="friend-cont-listing">
+                <a class="button-default marB16" ng-bind="i18n.clubs.cover.members_listing"></a>
+                <div  data-ng-class="msgClass" class="login-error text-success text-center display-block-inline" ng-bind="memberMessage"></div>  
+            <ul>
+                <li data-ng-repeat="item in listMember">
+                    <div class="friend-listing-img">
+              <a ng-if="item.profile_image_thumb == ''" href="#/viewfriend/{{item.id}}" style="background-image:url(app/assets/images/prof-pic.jpg);" title="{{item.first_name}} {{item.last_name}}"></a>
+              <a ng-if="item.profile_image_thumb != ''" href="#/viewfriend/{{item.id}}" style="background-image:url({{item.profile_image_thumb}});" title="{{item.first_name}} {{item.last_name}}"></a>
+              </div>
+              <div class="friend-listing-desc">
+                <div class="friend-listing-desc-title">
+                  <a href="#/viewfriend/{{item.id}}" ng-bind="item.first_name+' '+item.last_name"></a>
+                </div>
+               <a class="button-default" data-ng-if="groupDetail.owner_id == currentUser.id && groupDetail.owner_id != item.id" data-ng-click='confirmClick() && deleteMember($index)' confirm-click-member ng-bind="i18n.clubs.delete_button"></a>
+              </div>
+
+                </li>
+               </ul>
+           </div>
+           </div>
+       </div>
+              <!-- <div class="group-details" ng-if ="aboutclub ==false && showRole == false && showInvite == false">
+                    <div class="details-left">
+                        <h2>{{i18n.clubs.cover.describe}}</h2>
+                        <p>{{groupDetail.description}}</p>
+                    </div>
+                    <div class="details-right">
+                        <h2>{{i18n.clubs.cover.administer}}</h2>
+                        <p data-ng-if="groupDetail.owner_info.first_name == ''">{{groupDetail.owner_info.email}}</p>
+                        <p data-ng-if="groupDetail.owner_info.first_name != ''">{{groupDetail.owner_info.first_name}} {{groupDetail.owner_info.last_name}}</p>
+                    </div>
+                </div> -->
+                <!-- <div>
+                    <a class="btn btn-primary fr" style="margin-bottom:16px;" data-ng-href="#/club">{{i18n.clubs.cover.bk_club_list}}</a>
+                </div> -->
+                <div class="full-club-name" ng-if="clubCoverActive == 'about'" data-ng-bind="groupDetail.title"></div>
+               <div class="group-details club-boundary" ng-if="clubCoverActive == 'about'">
+                    <div class="details-left club-desc">
+                        <h2 ng-bind="i18n.clubs.cover.describe"></h2>
+                        <p ng-bind="groupDetail.description"></p>
+                    </div>
+
+                    <div class="details-right club-admin">
+                        <h2 ng-bind="i18n.clubs.cover.administer"></h2>
+                        <p data-ng-if="groupDetail.owner_info.first_name == ''" ng-bind="groupDetail.owner_info.email"></p>
+                        <p data-ng-if="groupDetail.owner_info.first_name != ''" ng-bind="groupDetail.owner_info.first_name+' '+groupDetail.owner_info.last_name"></p> 
+                        <div class="member-count"><img src="app/assets/images/member-icon.png"><span ng-bind="allMemberTotal"></span>
+                        </div>
+                        <!-- <a data-ng-if="groupDetail.is_member == 0 && groupDetail.is_sent != 1"  id="groupjoing{{groupDetail.id}}" href="javascript:void(0);" data-ng-click="joinPublicGroups(groupDetail.id)" class="join-group-btn">{{i18n.clubs.cover.join}}</a> -->
+                    </div>
+                </div>
+            </div>
+            <!-- Edit Group form start from here -->
+            <article class="social-project" ng-show="editGroupStatus" >
+                <form name="clubEditForm" class="create-group" ng-hide="createGroupToggleTag" data-ng-submit="updateGroup(clubEditForm.$valid)" novalidate>
+                    <ul>
+                        <li>
+                        <div class="createclub-label">
+                        <span ng-bind="i18n.clubs.cover.club_name"></span>
+                        </div>
+                        <div class="createclub-input">
+                        <input id="editclubname" name="editclubname" type="text" data-ng-model="editGroupObject.title" class="form-control bg-gray" ng-class="{ 'has-error' : (clubEditForm.editclubname.$dirty&&clubEditForm.editclubname.$invalid&&clubEditForm.editclubname.$error.required ) || (clubEditSUbmitted && !editGroupObject.title)}" required />
+                        <div ng-show="(clubEditForm.editclubname.$dirty&&clubEditForm.editclubname.$invalid&&clubEditForm.editclubname.$error.required ) || (clubEditSUbmitted && !editGroupObject.title)" class="text-red" data-ng-bind="i18n.validation.enter_clubname"></div>
+                        </div>
+                        </li>
+                        <li>
+                        <div class="createclub-label">
+                        <span ng-bind="i18n.clubs.cover.club_status"></span>
+                        </div>
+                        <div class="createclub-input">
+                        <select id="editclubstatus" name="editclubstatus" class="form-control bg-gray" ng-model="editGroupObject.groupTypeID" ng-options="groupType.groupTypeID as groupType.groupTypeTitle for groupType in groupTypes" ng-class="{ 'has-error' : (clubEditForm.editclubstatus.$dirty&&clubEditForm.editclubstatus.$invalid&&clubEditForm.editclubstatus.$error.required ) || (clubEditSUbmitted && !editGroupObject.groupTypeID)}" required>
+                        </select>
+                        <div ng-show="(clubEditForm.editclubstatus.$dirty&&clubEditForm.editclubstatus.$invalid&&clubEditForm.editclubstatus.$error.required ) || (clubEditSUbmitted && !editGroupObject.groupTypeID)" class="text-red" data-ng-bind="i18n.validation.enter_clubstatus"></div>
+                        </div>
+                        </li>
+                        <li>
+                        <div class="createclub-label">
+                        <span ng-bind="i18n.clubs.cover.club_desc"></span>
+                        </div>
+                        <div class="createclub-input">
+                        <textarea id="editclubdesc" name="editclubdesc" class="form-control bg-gray" data-ng-model="editGroupObject.description" ng-class="{ 'has-error' : (clubEditForm.editclubdesc.$dirty&&clubEditForm.editclubdesc.$invalid&&clubEditForm.editclubdesc.$error.required ) || (clubEditSUbmitted && !editGroupObject.description)}" required ></textarea>
+                        <div ng-show="(clubEditForm.editclubdesc.$dirty&&clubEditForm.editclubdesc.$invalid&&clubEditForm.editclubdesc.$error.required ) || (clubEditSUbmitted && !editGroupObject.description)" class="text-red" data-ng-bind="i18n.validation.enter_clubdesc"></div>
+                        </div>
+                        </li>
+                        <li>
+                        <div data-ng-show="createGroupStart" style="text-align: center;">
+                            <img src="app/assets/images/proceed.gif" alt="loading..." />
+                        </div>
+                        <button type="submit" ng-hide="createGroupStart" class="btn btn-primary" ng-bind="i18n.clubs.cover.update_club"><i class="fa fa-fw fa-plus"></i></button>
+                        <button ng-hide="createGroupStart" class="btn btn-primary" data-ng-click="editGroup()" ng-bind="i18n.clubs.cover.cancel"><i class="fa fa-fw fa-times"></i></button>
+                        <div class="login-error text-red text-center display-block-inline" data-ng-show="createGroupError" ng-bind="createGroupErrorMsg"></div>
+                        </li>
+                    </ul>
+                </form>
+            </article>
+<script type="text/javascript">
+    $('#navbar').click(function() {
+        $('.navbar-header button').addClass('collapsed');
+        $('#navbar').removeClass('in').css('height', '0');
+    });
+</script>            

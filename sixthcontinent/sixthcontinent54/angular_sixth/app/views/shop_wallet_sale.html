@@ -1,0 +1,87 @@
+<!--view Content start -->
+
+<div ng-show="loadShopWallet" class="loader-container">
+  <show-progress></show-progress>
+</div>
+<div ng-hide="loadShopWallet" class="shopwallet-sale">
+  <div class="wallet-payment-details clearfix">
+    <div class="left-content ng-hide">
+      <p data-ng-bind="i18n.store.wallet.sale.pending_payment">: </p>
+      <span class="value">&euro;39,90</span><span class="show-link" data-ng-bind="i18n.store.wallet.sale.show_detail"></span></div>
+    <div class="right-content ng-hide"> <a  ng-href="{{storePendingPaymentUrl}}"  data-ng-bind="i18n.store.wallet.sale.paynow_link" > </a></div>
+  </div>
+  <div class="wallet-tab-content"> 
+    
+    <!--view Content Start -->
+    <div class="view-wallet-details">
+      <ul>
+        <li>
+          <ul>
+            <li><span class="wall-label" data-ng-bind="i18n.store.wallet.sale.turnover"></span><span class="value" ng-bind="turnOver | currency:'&euro;'"></span></li>
+            <li><span class="wall-label"></span><span class="value"></span></li>
+          </ul>
+        </li>
+        <li>
+          <ul>
+            <li><span class="wall-label" data-ng-bind="i18n.store.wallet.sale.total_premium_credit"></span><span class="value" data-ng-bind="discountCredit | currency:'&euro;'"></span></li>
+            <li><span class="wall-label" data-ng-bind="i18n.store.wallet.sale.balance_premium_credit"></span><span class="value" data-ng-bind="discountBalance | currency:'&euro;'"></span></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <!--view Content ends --> 
+  </div>
+  <div class="wallet-coupon">
+    <div class="heading" data-ng-bind="i18n.store.wallet.sale.premium_history"></div>
+  </div>
+  <div class="trans-detail table-wallet wallettable-responsive">
+    <table width="100%" border="1" data-ng-if="positionHistory.length > 0">
+      <thead>
+        <tr>
+          <th scope="col" data-ng-bind="i18n.store.wallet.sale.open_date"></th>
+          <th scope="col" data-ng-bind="i18n.store.wallet.sale.premium_amount"></th>
+          <th scope="col" data-ng-bind="i18n.store.wallet.sale.no_of_customer"></th>
+          <th scope="col" data-ng-bind="i18n.store.wallet.sale.close_date"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr data-ng-repeat="position in positionHistory | orderBy:'-end_date'| paginationFilter: currentPage*itemsPerPage | limitTo: itemsPerPage">
+          <td data-title="{{i18n.store.wallet.sale.open_date}}"><label data-ng-bind="position.start_date| dateFormat" ></label></td>
+          <td data-title="{{i18n.store.wallet.sale.premium_amount}}"><a href data-ng-bind="position.credit + '&euro;'"></a></td>
+          <td data-title="{{i18n.store.wallet.sale.no_of_customer}}"><a href data-ng-bind="position.transactions_count"></a></td>
+          <td data-title="{{i18n.store.wallet.sale.close_date}}"><label data-ng-bind="position.end_date| dateFormat"></label></td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ng-if="positionHistory.length == 0">
+        <span class="span.listing-mess wallet-noresult" data-ng-bind="i18n.profile.edit_profile.No_Record"></span>
+    </div>
+    <div ng-show="loadShopPrenium" class="shop-loader">
+      <show-progress></show-progress>
+    </div>
+  </div>
+  <div class="club-pagi-section3">
+    <div class="pagination " data-ng-if="pagination === true ">
+        <ul class="pagination mb10 ">
+          <li class="prev nav-arrow" ng-class="prevPageDisabled()">
+            <a href ng-click="prevPage('sale')">«</a>
+          </li>
+         <!--  <li ng-class="{active: 0 == currentPage}">
+            <a href ng-click="setPage(0);loadMoreSale(0);" >1</a>
+          </li> -->
+         <li data-ng-show="n==0 || n==(range.length-1) || (n <= currentPage+2 && n >= currentPage-2)"data-ng-repeat="n in range" ng-class="{active: n == currentPage }" class="num-index">
+            <a href ng-click="setPage(n);" >{{n+1}}</a>
+          </li>
+          <!-- <li ng-repeat="n in range()" ng-class="{active: n == currentPage}">
+            <a href ng-click="setPage(n);loadMoreSale(n+1);" >{{n+1}}</a>
+          </li> -->
+          <!-- <li ng-class="{active: totalPage == currentPage}">
+            <a href ng-click="setPage(totalPage);loadMoreSale(totalPage+1);" >{{totalPage+1}}</a>
+          </li> -->
+          <li class="next nav-arrow" ng-class="nextPageDisabled()">
+          <a href ng-click="nextPage('sale')">»</a>
+          </li>
+        </ul>
+    </div>
+  </div>
+</div>

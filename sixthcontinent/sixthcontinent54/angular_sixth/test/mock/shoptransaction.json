@@ -1,0 +1,19 @@
+var shopTransaction = {
+	"transactionListReq": 
+	{"user_id":60366,
+	"sort_type":0, //0:Distance 1:Rating 2:Credit Availabl
+	"store_type":2,  //2 user owned store 1 for all
+	"limits":{"limit_start":0,"limit_size":15}
+	},
+	"transactionObjReq":
+	{"shop_id":"50084",
+	"search_key":"",
+	"shop_status":"PENDING","citizen_status":"",
+	"limit_start":"0","limit_size":"10"
+	},
+	"transactionDetailReq":{"reqObj":
+	{
+	"transaction_id":"364"
+	}
+	}
+};

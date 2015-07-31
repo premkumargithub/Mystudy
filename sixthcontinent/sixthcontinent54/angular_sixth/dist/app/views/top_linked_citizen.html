@@ -1,0 +1,39 @@
+<div class="container-fluid">	
+    <div class="register-sixth-continent-form-section">
+        <div class="inner-container" style="margin-top: 51px">
+            <!-- <user-Cover-Profile-Panel></user-Cover-Profile-Panel> -->
+               <div class="friends-list-container">
+                <div class="friend-list-top clearfix">
+                <div class="friend-list-title">
+                    <span><img  src="app/assets/images/album.png" alt="" titile=""/></span> 
+                    <span data-ng-bind="i18n.profile.right_panel.top_linked_citizen"></span>
+                </div>
+            </div>
+            <div class="friend-list-content">
+                <div class="friend-cont-listing">
+                    <ul class="clearfix" ng-show="topLinkedCitizen.length">
+                        <li data-ng-repeat="item in topLinkedCitizen">
+                          <div class="friend-listing-img">
+                          <a ng-if="item.user_info.profile_image_thumb == ''" style="background-image:url(app/assets/images/prof-pic.jpg);" title="{{item.user_info.first_name}} {{item.user_info.last_name}}"></a>
+                          <a ng-if="item.user_info.profile_image_thumb != ''" style="background-image:url({{item.user_info.profile_image_thumb}});" title="{{item.user_info.first_name}} {{item.user_info.last_name}}"></a>
+                          </div>
+                          <div class="friend-listing-desc">
+                            <div class="friend-listing-desc-title">
+                              <!-- <div>{{i18n.profile.right_panel.position_number}} : {{ $index + 1}} </div> -->
+                              <div data-ng-bind="item.user_info.first_name + ' ' + item.user_info.last_name"></div>
+                              <div data-ng-bind="i18n.profile.right_panel.number_affiliation + ' ' + item.affiliation_count | formatNum"></div>
+                              <div data-ng-bind="i18n.profile.right_panel.country + ' ' + item.user_info.country"></div>
+                            </div>
+                          </div>
+                        </li>
+                    </ul>
+                  <div class="loader-container" data-ng-show="citizenTopLinkLoader">
+                    <img src="app/assets/images/ajax-loader.gif" alt="{{i18n.friends.loading}}..." />
+                  </div>
+                  <div class="clearfix" ng-show="resultNotFound" data-ng-bind="i18n.friends.no_result_for"></div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>

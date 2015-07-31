@@ -1,0 +1,70 @@
+<style>
+	.modal-img-inner{
+		padding: 0px;
+	}
+
+	.modal-head{
+		padding: 0 10px;
+		border-color: #077eba;
+		background-color: #077eba;
+		text-align: center;
+		-webkit-border-radius: 5px 5px 0 0;
+		-moz-border-radius: 5px 5px 0 0;
+		border-radius: 5px 5px 0 0;
+		font-size: 16px;
+		line-height: 39px;
+		height: 39px;
+		font-weight: 700;
+		color: #fff;
+	}
+
+	.modal-container-box{
+		padding: 20px 15px 15px;
+	}
+
+	.error-mess{
+		color: red;
+		margin: 0 0 15px;
+		padding: 0 0 15px;
+		border-bottom: 1px solid #efefef;
+	}
+
+	.res-link{
+		text-align: right;
+	}
+
+	.res-link a{
+		background: #077eba;
+		border-color: #077eba;
+		color: #fff;
+		display: inline-block;
+		margin-bottom: 0;
+		font-weight: 600;
+		text-align: center;
+		vertical-align: middle;
+		cursor: pointer;
+		background-image: none;
+		border: 1px solid transparent;
+		white-space: nowrap;
+		padding: 6px 12px;
+		font-size: 14px;
+		line-height: 1.42857143;
+		border-radius: 4px;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+</style>
+
+
+<div class="modal-img-inner">
+	<div class="modal-head">Account Activation Message</div>
+	<div class="modal-container-box">
+		<div class="error-mess">Your Trail Period has been expired. This is because you haven't verify your e-mail yet. Please press the below button to get new verification mail and verify your e-mail as soon as possible for using Sixthcontinent Services.</div>
+		<div class="res-link">
+			<a href="#/resendlink" data-ng-click="closeModal()">Resend Activation Link</a>
+		</div>
+	</div>
+</div>
+<div class="modal-popup-close" data-ng-click="closeModal()"></div>

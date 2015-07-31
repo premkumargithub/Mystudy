@@ -1,0 +1,161 @@
+<div ng-hide="isLoggedIn" class="container-fluid register-sixth-container login-page-new login-page-ui" data-ng-controller="UserController" id="UserController">
+<div class="register-page-top-container login-page-container">
+    <div class="register-sixth-continent clearfix">
+        <div class="register-sixth-continent-form-section">
+            <!--register left panel-->
+            <div class="login-page-sixth-continent-form">
+			<div class="login-tagline"> <span ng-bind="i18n.home.hometextlogin"></span></div>
+            <div class="register-sixth-continent-form">
+                <div class="login-form-top-links">
+                    <div class="button-section" style="display:none;margin-bottom: 10px;
+                    padding: 0 10px;">
+                        <span class="yes">
+                            <a href="javascript:void(0)" class="button-default" ng-click="fbyes()" data-ng-bind="i18n.store.yes"></a>
+                        </span>
+                        <span class="No">
+                            <a class="button-default" href="javascript:void(0)" ng-click="fbno();" data-ng-bind="i18n.store.no"></a>
+                        </span>
+                    </div>
+                    <div class="fblogin">
+                    <script>
+                    // Load the SDK asynchronously
+                    (function(d, s, id) {
+                    var js, fjs = d.getElementsByTagName(s)[0];
+                    if (d.getElementById(id)) return;
+                    js = d.createElement(s); js.id = id;
+                    js.src = "https://connect.facebook.net/en_US/sdk.js";
+                    fjs.parentNode.insertBefore(js, fjs);
+                    }(document, 'script', 'facebook-jssdk'));
+                    </script>
+                    <div class="facebook-button" style="float:left;">
+                    <div class="login-form-top-links facebook-register" style="margin:0">
+                      <a class="fblogin-home" href="javascript:void(0)" onclick="checkLoginState();" style="padding:8px 18px" data-ng-bind="i18n.home.fbloginlabel"></a>
+                    </div>
+                </div>
+                    </div>
+                    <a class="right-Link btn btn-primary" href="#/registration" title="{{i18n.home.registration}}" data-ng-bind="i18n.home.registration"></a>
+                    <div class="clr"></div>
+                </div>
+                <form name="user" method="POST" data-ng-submit="getLogin(user.$valid)" novalidate>
+                <div class="register-login-section-form">
+                <ul class="register-sixth-form">
+                <li>
+                <div class="register-sixth-full">
+                <input id="loginEmail" ng-blur="visited = true" type="email" value="{{user.userName}}" name="email" placeholder="{{i18n.home.email}}" data-ng-model="user.userName" title="{{i18n.home.enter_email}}" ng-class="{ 'has-error' : (user.email.$dirty&&user.email.$invalid&&user.email.$error.required ) || (loginFormSubmitted && !user.userName)}" ng-pattern="/^[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/" autofocus required/>
+                <div ng-show="((user.email.$dirty && user.email.$invalid&&user.email.$error.required) || (loginFormSubmitted && !user.userName) || user.email.$error.pattern && visited)" class="text-red" data-ng-bind="i18n.register.enter_valid_email">
+                </div>
+                </li>
+                <li>
+                <div class="register-sixth-full">
+                <input id="loginPassword" type="password"  value="{{user.password}}" placeholder="{{i18n.home.password}}" name="loginPassword" data-ng-model="user.password" data-ng-maxlength="20" title="{{i18n.home.enter_password}}" ng-class="{ 'has-error' : (user.loginPassword.$dirty&&user.loginPassword.$invalid&&user.loginPassword.$error.required ) || (loginFormSubmitted && !user.password)}" required/>
+                <div ng-show="(user.loginPassword.$dirty && user.loginPassword.$invalid&&user.loginPassword.$error.required) || (loginFormSubmitted && !user.password)" class="text-red" data-ng-bind="i18n.register.enter_valid_password">
+                </div>
+                </div>
+                </li>
+                <li>
+                <div class="register-sixth-full login-page-submit">
+                    <div class="register-sixth-select-terms">
+                        <input type="checkbox" ng-model="user.remember" data-ng-checked="user.remember" >
+                        <span data-ng-bind="i18n.home.remember"></span>
+                    </div>
+                    <div class="register-sixth-full register-sixth-register">
+                    <input data-ng-hide="loginStart" type="submit" title="{{i18n.home.login}}" value="{{i18n.home.login}}" />
+                    <img class="login-img" data-ng-show="loginStart" src="app/assets/images/ajax-loader.gif" alt="{{i18n.home.loading}}..." />
+                    </div>
+                </div>
+                </li>
+                <li class="forgot-passowrd-text">
+                    <a href="#/password/forgot" title="Forgot password" data-ng-bind="i18n.home.forgot_password"></a>
+                </li>
+                <li>
+                <div class="login-error text-red" data-ng-show="loginError" data-ng-bind="loginErrorMsg"></div>
+                <div class="fbmsg text-red" data-ng-bind="fbloginmessage"></div>
+                </li>
+                </ul>
+                </div>
+                </form> 
+                <!-- hide form starts-->
+                <form style="display:none" ng-init="rememberMe()">
+                    <ul class="register-sixth-form">
+                        <li>
+                            <div class="register-sixth-full">
+                                <input type="email" id="emailReg" value="" placeholder="{{i18n.home.email}}" title="{{i18n.home.email}}" required/>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="register-sixth-full">
+                                <input type="password" value="" placeholder="{{i18n.home.password}}" data-ng-minlength="6" title="{{i18n.home.password}}" required/>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="register-sixth-one-half">
+                                <input type="text" id="fname" value="" placeholder="{{i18n.home.first_name}}" title="{{i18n.home.first_name}}" required/>
+                            </div>
+                            <div class="register-sixth-two-half">
+                                <input type="text" id="lname" value="" placeholder="{{i18n.home.last_name}}" title="{{i18n.home.last_name}}" required/>
+                            </div>
+                        </li>
+                        </li>
+                         <input type="hidden" id="fbId" value="" data-ng-model="user.fbId"/>
+                        <input type="hidden" id="fbUserId" value="" data-ng-model="user.fbUserId"/>
+                    </ul>
+
+                </form>
+                 <!-- hide form ends-->
+               
+                <div class="affilate-btn">
+                <a class="right-Link button" href="#/shop_affiliation/20451/5" title="{{i18n.home.create_store_btn}}" data-ng-bind="i18n.home.create_store_btn"></a>
+                <div class="clr"></div>
+                </div> <div class="login-page-video-block">
+                <div class="login-video-container">
+                    <a class="video-fancybox fancybox.iframe" ng-if="currentLanguage == 'en'" href="https://www.youtube.com/embed/f-9i7CheGZs?fs=1&amp;autoplay=1"><img src="app/assets/images/video-play-icon.png"></a>
+                    <a class="video-fancybox fancybox.iframe" ng-if="currentLanguage == 'it'" href="https://www.youtube.com/embed/rkFQ0H_gTRY?fs=1&amp;autoplay=1"><img src="app/assets/images/video-play-icon.png"></a>
+                </div>
+                <div class="clr"></div>
+                </div>
+            </div>  </div>  
+            <div class="clr"></div>
+            <div class="login-bottom-tagline">
+                <div class="divTop">
+                    <span ng-bind="i18n.login_page.sixthContinent_connects"></span>
+                    <span>
+                        <span class="uppercase" ng-bind="i18n.login_page.people"></span>,
+                    </span>
+                    <span ng-bind="i18n.login_page.professionals"></span>
+                    <span>
+                        <span class="uppercase" ng-bind="i18n.login_page.shops"></span>
+                    </span>
+                    <span ng-bind="i18n.login_page.first_detail"></span>
+                    <span >
+                        <span class="uppercase" ng-bind="i18n.login_page.first_detail_middle"></span>
+                    </span>
+                    <span ng-bind="i18n.login_page.first_detail_last"></span>
+                    <span>
+                        <span class="uppercase" ng-bind="i18n.login_page.profits"></span>
+                    </span>
+                    <span ng-bind="i18n.login_page.sec_detail"></span>
+                </div>
+                <div class="divBottom"><span ng-bind="i18n.login_page.third_detail"></span></div>
+			</div>
+        </div>  
+    </div>
+</div>
+
+<div class="total-economy-container">
+    <div class="total-economy-inner">
+        <div class="row top50-block">
+            <h2 class="text-center">
+                <strong data-ng-bind="i18n.mission.top50"></strong>
+                <span class="normal-font" data-ng-bind="i18n.mission.users"></span>
+            </h2>
+            <home-Top-Link></home-Top-Link>
+        </div>
+    </div>
+</div>
+<footer-logout></footer-logout>
+<div ng-include="app/views/footer.html"></div>
+
+
+
+</div>
+

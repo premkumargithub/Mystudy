@@ -1,0 +1,24 @@
+<div class="col-3-layout">
+    <div id="content">
+        <div class="innerAll">
+            <div class="row">
+                <div class="col-lg-8 col-md-8">
+                    <div class="inner-container">
+                        <div class="store-details-section postlogged">
+							<div ng-show="storePostLoading" class="loader-container">
+							<img src="app/assets/images/proceed.gif" alt="loading..." />
+							</div>
+                            <div ng-hide="storePostLoading">
+                                <store-post-list></store-post-list>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				<div class="col-lg-4 col-md-4">
+					<profile-Right-Panel></profile-Right-Panel>
+				</div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <a href="#/shop/23910/post/54eafdeb6afe1d321c98594d"> Open Post</a> -->

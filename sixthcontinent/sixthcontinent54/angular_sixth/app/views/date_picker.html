@@ -1,0 +1,31 @@
+<div class="quantity-details date-picker">
+	<span class="coupon-quanitiy">
+		<span class="date-label" data-ng-bind="startDate"></span>
+		<p class="input-group">
+			<input type="text" readonly="readonly" class="form-control" datepicker-popup="{{format}}" ng-model="dt" is-open="opened1" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions"  ng-required="true" close-text="Close" placeholder="dd-mm-yy" id="dt" ng-click="open($event ,1)" data-ng-change="compareDateStart()"/>
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event ,1)">
+                	<i class="glyphicon glyphicon-calendar"></i>
+                </button>
+            </span>
+        </p>
+<div ng-show="(formSubmitted && !dt)" class="text-red error-copoun"><span data-ng-bind="i18n.Campaign_work.select_sdate"></span></div>
+         <div ng-show="dateDiff" class="text-red error-copoun text-center"><span data-ng-bind="i18n.Campaign_work.valid_date"></span></div>
+         <div ng-show="todayDiff" class="text-red error-copoun text-center"><span data-ng-bind="i18n.coupon.today_date"></span></div>
+	</span>
+</div>
+<!-- second calandar -->
+<div class="quantity-details date-picker">
+	<span class="coupon-quanitiy">
+		<span class="date-label" data-ng-bind="endDate"></span>
+		<p class="input-group">
+			<input type="text" readonly ng-click="open($event ,2)" class="form-control" datepicker-popup="{{format}}" ng-model="dtt" is-open="opened2" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions"  ng-required="true" close-text="Close" placeholder="dd-mm-yy" id="dtt" data-ng-change="compareDate()"/>
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event ,2)"><i class="glyphicon glyphicon-calendar"></i>
+                </button>
+            </span>
+        </p>
+        <div ng-show="(formSubmitted && !dtt)" class="text-red error-copoun"><span data-ng-bind="i18n.Campaign_work.select_edate"></span></div>
+        
+	</span>
+</div>

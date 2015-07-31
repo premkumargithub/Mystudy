@@ -1,0 +1,94 @@
+<div class="wallet-shopping-card wallet-tab-content shopwallet-shopping">
+  <div class="wallet-loader ng-hide" ng-show="walletloader" style="text-align:center"><img src="app/assets/images/proceed.gif"/></div>
+  <div class="shopping-cart-container" ng-show="walletcontainer">
+  <form ng-submit="searchCardByCti()">
+    <div class="wallet-search-block">
+      <div class="search-box">
+        <input id="searchtext" type="text" placeholder="{{i18n.store.wallet.search}}" data-ng-model="citizenName"/>
+        <button><i class="fa fa-search"></i></button>
+      </div>
+      <div class="date-from from">
+        <label>{{i18n.store.wallet.from}}</label>
+        <date-pickers date="date.startDate"></date-pickers>
+      </div>
+      <div class="date-from to">
+        <label>{{i18n.store.wallet.to}}</label>
+        <date-pickers date="date.endDate"></date-pickers>
+      </div>
+      <div class="search-box-buttons">
+      <button type="submit" class="submit-coupon" title="Search"><i class="fa fa-check"></i></button>
+      <a href="javascript:void(o)" title="Clear" ng-click="clearSearch()"><i class="fa fa-times"></i></a>
+     </div>
+      </div>
+    </div>
+  </form>
+  <div class="wallet-shopping-results">
+    <div class="heading">{{i18n.store.wallet.shopping100}} <span class="value">({{shopwalletupto100count}})</span></div>
+    <div class="result-list">
+      <ul class="clearfix">
+        <li data-ng-repeat="itemh in shopwalletupto100">
+          <div class="card-type"><img ng-if="itemh.credit == 30"  src="app/assets/images/shopping-card30.jpg" alt="" titile=""/><img ng-if="itemh.credit == 100"  src="app/assets/images/shopping-card100.jpg" alt="" titile=""/><img ng-if="itemh.credit == 50" src="app/assets/images/shopping-card50.jpg" alt="" titile=""/><img ng-if="itemh.credit == 10" src="app/assets/images/shopping-card30.jpg" alt="" titile=""/><img ng-if="itemh.credit == 20" src="app/assets/images/shopping-card20.jpg" alt="" titile=""/></div>
+          <div class="result-details">
+            <div class="details-name"><a href="#/viewfriend/{{itemh.citizen_id._id}}" data-ng-bind="itemh.citizen_id.name"></a></div>
+            <div class="code">{{i18n.store.wallet.code}} <span>{{itemh.card_no}}</span></div>
+            <div class="sale">{{i18n.store.wallet.balance}} <span>{{itemh.balance | number:2}}<span>&euro;</span></span></div>
+            <div class="dead-line">{{i18n.store.wallet.expiry}} <span>{{itemh.to_date | date:'dd-MM-yyyy'}}</span></div>
+          </div>
+        </li>
+      </ul>
+      <div ng-if="shopwalletupto100.length < 1" data-ng-bind="i18n.store.result_not_found" class="wallet-noresult"></div>
+    </div>
+    <div class="page-loader ng-hide" ng-show="pageloader100" style="text-align:center"><img src="app/assets/images/proceed.gif"/></div>
+    <div class="club-pagi-section3">
+    <div class="pagination" ng-if="shopwalletupto100count > 6">
+          <ul class="pagination mb10 store-paginate">
+          <li ng-class="prevPageDisabledCardHundred()" class="nav-arrow nav-arrow-left">
+          <a href ng-click="prevPageCardHundred()"></a>
+          </li>
+          <li ng-repeat="n in rangeCardHundred"
+          ng-class="{active: n == currentPageCardHundred, 'seeview': $index+1 == currentPageCardHundred+1 || $index+1 == currentPageCardHundred+2 || $index+1 == currentPageCardHundred-1 || $index+1 == currentPageCardHundred-2 || $index+1 == currentPageCardHundred || $last}">
+          <a href ng-click="changePageMoreCardHundred(n)">{{n}}</a>
+          </li>
+          <li ng-class="nextPageDisabledCardHundred()" class="nav-arrow nav-arrow-right">
+          <a href ng-click="nextPageCardHundred()"></a>
+          </li>
+          </ul>
+    </div>
+  </div>
+  </div>
+  <div class="wallet-shopping-results last">
+    <div class="heading">{{i18n.store.wallet.shopping50}} <span class="value">({{shopwalletupto50count}})</span></div>
+    <div class="result-list">
+      <ul class="clearfix">
+        <li data-ng-repeat="itemf in shopwalletupto50">
+          <div class="card-type"><img ng-if="itemf.credit == 10" src="app/assets/images/shop-card30.jpg" alt="" titile=""/><img ng-if="itemf.credit == 20" src="app/assets/images/shop-card20.jpg" alt="" titile=""/><img ng-if="itemf.credit == 30" src="app/assets/images/shop-card30.jpg" alt="" titile=""/><img ng-if="itemf.credit == 50" src="app/assets/images/shop-card50.jpg" alt="" titile=""/><img ng-if="itemf.credit == 100" src="app/assets/images/shop-card100.jpg" alt="" titile=""/></div>
+          <div class="result-details">
+            <div class="details-name"><a href="#/viewfriend/{{itemf.citizen_id._id}}" data-ng-bind="itemf.citizen_id.name"></a></div>
+            <div class="code">{{i18n.store.wallet.code}} <span>{{itemf.card_no}}</span></div>
+            <div class="sale">{{i18n.store.wallet.balance}} <span>{{itemf.balance | number:2}}<span>&euro;</span></span></div>
+            <div class="dead-line">{{i18n.store.wallet.expiry}} <span>{{itemf.to_date | date:'dd-MM-yyyy'}}</span></div>
+          </div>
+        </li>
+      </ul>
+      <div ng-if="shopwalletupto50.length < 1" data-ng-bind="i18n.store.result_not_found" class="wallet-noresult"></div>
+    </div>
+    <div class="page-loader ng-hide" ng-show="pageloader50" style="text-align:center"><img src="app/assets/images/proceed.gif"/></div>
+    <div class="club-pagi-section3">
+    <div class="pagination" ng-if="shopwalletupto50count > 6">
+        <ul class="pagination mb10 store-paginate">
+          <li ng-class="prevPageDisabledCardFifty()" class="nav-arrow nav-arrow-left">
+          <a href ng-click="prevPageCardFifty()"></a>
+          </li>
+          <li ng-repeat="n in rangeCardFifty"
+          ng-class="{active: n == currentPageCardFifty, 'seeview': $index+1 == currentPageCardFifty+1 || $index+1 == currentPageCardFifty+2 || $index+1 == currentPageCardFifty-1 || $index+1 == currentPageCardFifty-2 || $index+1 == currentPageCardFifty || $last}">
+          <a href ng-click="changePageMoreCardFifty(n)">{{n}}</a>
+          </li>
+          <li ng-class="nextPageDisabledCardFifty()" class="nav-arrow nav-arrow-right">
+          <a href ng-click="nextPageCardFifty()"></a>
+          </li>
+          </ul>
+    </div>
+  </div>
+  </div>
+</div>
+</div>

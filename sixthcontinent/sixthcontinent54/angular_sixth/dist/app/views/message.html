@@ -1,0 +1,290 @@
+<div class="col-3-layout" ng-init="messageInbox()">
+<!-- Main Sidebar Menu -->
+<div id="menu" class="hidden-print sidebar-default sidebar-brand-primary message-container">
+	<div id="sidebar-social-wrapper">
+		<!--message section-->
+		<div class="message-fluid-left">
+            <!--message fluid inbox other and more option-->
+			
+			<div class="message-box-ancor">
+				<div class="message-box-index-first">
+					<input id="searchuser" type="text" value="{{i18n.message.search}}" placeholder="{{i18n.message.search}}" ng-model="nameSearch" /></div>
+			</div>
+			<!--message fluid inbox other and more option-->
+			<div class="ng-isolate-scope scrollablecontent" id="" loading-method="loadMore(listmessage[0].thread_id)" scroller="" >
+				<!--search input -->
+				<div class="message-left-loader">
+				<img src="app/assets/images/proceed.gif" data-ng-show="loadUserMessage" />
+				</div>
+				<div class="scroll-loader mess-content-block">
+					<div class="mess-results" ng-show="noResult">
+						<span data-ng-bind="i18n.group.details.no_result">
+						</span>
+					</div>
+					<ul class="scrollable-block">
+						<!--scrollable li section-->
+						<li class="mess-block" data-ng-repeat="item in response | orderBy:'last_message.created_at.date':true" id="list-{{item.thread_id}}" ng-class="{bold: item.last_message.is_read == 0}">
+							<div class="" ng-click="listGroupMessages(item.thread_id, item.thread_members, item.recipient);" >
+								<div class="mess-block-top" >
+									<span class="mess-sender-pic">
+									<div ng-if="!item.thread_members.length">
+										<img data-ng-if="item.thread_members.profile_image_thumb != '' " data-ng-src="{{item.thread_members.profile_image_thumb}}" alt="" title="">
+										<img data-ng-if="item.thread_members.profile_image_thumb == '' " src="app/assets/images/profile.jpg" alt="noImage" titile="">
+
+									</div>
+									<div ng-if="!item.thread_members">
+										<img data-ng-if="item.user_detail.profile_image_thumb != '' " data-ng-src="{{item.user_detail.profile_image_thumb}}" alt="" title="">
+										<img data-ng-if="item.user_detail.profile_image_thumb == '' " src="app/assets/images/profile.jpg" alt="noImage" titile="">
+									</div>
+									<div ng-if="item.thread_members.length">
+									<div ng-if="item.thread_members.length == 1">
+										<img data-ng-if="item.thread_members[0].profile_image_thumb != '' " data-ng-src="{{item.thread_members[0].profile_image_thumb}}" alt="" title="">
+										<img data-ng-if="item.thread_members[0].profile_image_thumb == '' " src="app/assets/images/profile.jpg" alt="noImage" titile="">
+
+									</div>
+									<ul class="messpro-three-image clearfix" ng-if="item.thread_members.length > 3">
+										<li ng-repeat="imgd in item.thread_members | limitTo: 1">
+											<a ng-if="imgd.profile_image_thumb == ''" href="javascript:void(0)" style="background-image:url('app/assets/images/profile.jpg');">
+											</a> 
+											<a ng-if="imgd.profile_image_thumb != ''" href="javascript:void(0)" style="background-image:url('{{imgd.profile_image_thumb}}');">
+											</a> 
+										</li>
+										<li class="two-img">
+											<span ng-repeat="imgd in item.thread_members | limitTo: 3" ng-show="$index > 0">
+											<a ng-if="imgd.profile_image_thumb == ''" href="javascript:void(0)" style="background-image:url('app/assets/images/profile.jpg');">
+											</a> 
+											<a ng-if="imgd.profile_image_thumb != ''" href="javascript:void(0)" style="background-image:url('{{imgd.profile_image_thumb}}');">
+											</a>
+											<span>
+										</li>
+									</ul>
+									<ul class="messpro-two-image clearfix" ng-if="(item.thread_members.length < 3 || item.thread_members.length == 3 )  && item.thread_members.length > 1">
+										<li ng-repeat="imgd in item.thread_members | limitTo: 2" >
+											<a ng-if="imgd.profile_image_thumb == ''" href="javascript:void(0)" style="background-image:url('app/assets/images/profile.jpg');">
+											</a>
+											<a ng-if="imgd.profile_image_thumb != ''" href="javascript:void(0)" style="background-image:url('{{imgd.profile_image_thumb}}');">
+											</a> 
+										</li>
+									</ul>
+									</div>
+								</span>
+								<span class="mess-detials">
+							<span class="mess-time" ng-bind="item.last_message.created_at.date.substring(0,10)"></span>
+							<span class="mess-sender">
+								<h3 ng-if="!item.thread_members.length">
+									<b ng-bind="item.user_detail.first_name + ' ' + item.user_detail.last_name"> </b></h3>
+								<h3 ng-if="item.thread_members.length == 1"><b ng-bind="item.thread_members[0].first_name + ' ' + item.thread_members[0].last_name"> </b></h3>
+									<h3 ng-if="item.thread_members.length > 1"><span ng-repeat="mem in item.thread_members | limitTo: 1" >{{mem.first_name}} {{mem.last_name}} {{i18n.message.and_other}} {{item.thread_members.length - 1}} {{i18n.message.person}} </span></h3></span>
+						</span>
+								</div>
+							
+								<div class="mess-block-bottom"  ng-bind="item.last_message.body.substring(0,26)">
+								</div>
+						</div>
+						</li>
+						<!--scrollable li section-->	
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!--message section-->
+	</div>
+</div>
+<!-- // Main Sidebar Menu END -->
+
+<!-- Content START -->
+<div id="content">
+	<!-- <div class="layout-app">  -->
+	<div class="innerAll">
+		<div class="row">
+			<div class="col-lg-8 col-md-8">
+				<div class="inner-container">
+					<!--middler section-->
+					<div class="scrollareawrap">
+						<div class="scrollareawrap-container message-content-contianer">
+							<div class="scrollareawrap-online" data-ng-hide="custom">
+							</div>
+							<div class="message-header">
+							<span class="mess-inbox" ng-click="messageInbox();" ng-bind="i18n.message.inbox + '(' + totalUnreadMsg + ')'">
+								
+							</span>
+							<span data-ng-hide="custom" class="new-mess-block"><a href data-ng-click="newMessageShow()" ng-bind="i18n.message.new_messsage"></a></span>
+							<span data-ng-show="custom && !noMsg" class="new-mess-block">
+								<a class="list-msg" href data-ng-click="MessageHide()" ng-bind="i18n.message.list_message"></a>
+							</span>
+							<span class="more-btn" data-ng-show!="showSetting">
+							<i class="fa fa-fw fa-gear"></i><ul>
+									<li><a href="javascript:void(0);" data-ng-click="addUserGroup(storeThread);" ng-bind="i18n.message.frnd_conversation">
+										</a></li>
+									<li><a href="javascript:void(0);" data-ng-click="openSearchBox()" ng-bind="i18n.message.look_at_msg"></a></li>
+								</ul>
+							</span>
+							<span class="more-btn" data-ng-show="showSetting">
+							<i class="fa fa-fw fa-gear"></i><ul>
+									<li><a href="javascript:void(0);" data-ng-click="addUserGroup(storeThread);" ng-bind="i18n.message.frnd_conversation">
+										</a></li>
+									<li><a href="javascript:void(0);" data-ng-click="removeGroupUsers(storeThread);" ng-bind="i18n.message.delete_msg"></a></li>
+									<li><a href="javascript:void(0);" data-ng-click="openSearchBox()" ng-bind="i18n.message.look_at_msg"></a></li>
+								</ul>
+								
+							</span>
+							<div class="clr"></div>
+						</div>
+							
+						</div>
+						<!--online status sectio-->
+						<div class="message-big-loader"><img src="app/assets/images/proceed.gif" data-ng-show="loadMessage" /></div>
+						<div data-ng-hide="custom" class="message-content-block">
+							<div class="total-mess-members">
+								<span ng-show="memberName"><!-- {{receiverName}} -->
+									<!--  {{(receiverName).length>70?((receiverName) | limitTo: 67)+'...':(receiverName)}}  -->
+									 <span data ng-repeat ="recve in storeReceiverName | limitTo:2">
+										{{recve}}{{$last ? '' : ', '}} 
+								    </span>	
+								    <span data-ng-if="storeReceiverName.length > 2">..</span> 	
+								</span>
+								<span ng-show="expandButton" ng-bind="receiverName">
+									
+								</span>
+								<div class="tot-members" ng-if="storeReceiverName.length > 2" ng-show="collapseButton" ng-bind="i18n.message.and_other + ' ' + (storeReceiverName.length-2) + ' ' + i18n.message.person "> </div>
+								<span ng-show="expandButton" ng-click="hideFirstButton()" class="expand-btn"><img src="app/assets/images/arrow-down.png" alt=""></span>
+								<span ng-show="collapseButton" ng-click="hideSecondButton()" ng-if="storeReceiverName.length > 2" class="expand-btn"><img src="app/assets/images/arrow-up-grey.png" alt=""></span>
+							</div>
+							<div class="total-mess-members" data-ng-show="showMsgSearch">
+								<input id="searchMsg" type="text" value="{{i18n.message.search}}" placeholder="{{i18n.message.search}}" ng-model="resultMsg" />
+								<span data-ng-click="cancelSearch()" class="btn btn-primary" ng-bind="i18n.search.cancel"></span>
+								<div class="message-search-loader" data-ng-show="loadSearch"><img src="app/assets/images/proceed.gif" /></div>
+								<div class="message-search-results" data-ng-show="noSearch" data-ng-if="nouserSearch == 0">
+								<span data-ng-bind="i18n.group.details.no_result">
+								</div>
+                            </div>
+							 <div class="load-more-onscroll mess-list messages-onscroll" infinite-scrolls="loadMore(storeThread)"  can-load="canLoad" threshold="100">
+								
+								<ul class="scrollareawrap-message-section">
+									<!--message section reply-->
+									<div class="scrollareawrap-online load-more" data-ng-show="loadMoreMessage"><img src="app/assets/images/ajax-loader.gif"  />
+										<span ng-bind="i18n.message.load_more"></span>...
+							</div>
+									<li data-ng-repeat="item in listmessage | orderBy:'created_at.date':false" ng-class="{adminMess: item.sender_user.id == currentUser.id}" >
+										<div  class="scrollareawrap-message-pic sender-pic" data-ng-if="item.message_type != 'N'"><a herf="javascript:void(0)"><img data-ng-if="item.sender_user.profile_image_thumb != '' " data-ng-src="{{item.sender_user.profile_image_thumb}}"  alt="noImage" titile="">
+										<img data-ng-if="item.sender_user.profile_image_thumb == '' " src="app/assets/images/profile.jpg" alt="noImage" title="">
+										</a></div>
+
+										<div class="scrollareawrap-message-right sender-list">
+											<div class="scrollareawrap-message-left-one" data-ng-if="item.message_type != 'N'" >
+												<span class="sender-name"><a href="#/viewfriend/{{item.sender_user.id}}" ng-bind="item.sender_user.first_name + ' ' + item.sender_user.last_name"> </a></span>
+									
+												<div class="scroolareawrap-message-btn-with-time">
+													<a style="display:none" class="edit-btn-message" href data-ng-click="edit= !edit;assignUpdate(item.body);">
+														<i class="fa fa-fw fa-edit" data-ng-if="item.sender_user.id === userid"></i>
+													</a>
+													<a class="delete-btn-message" href data-ng-click="deleteMessage(item.message_id,storeThread);">
+														<i data-ng-if="item.sender_user.id != currentUser.id" class="fa fa-fw fa-times"></i>
+													</a>
+												</div>
+											</div>
+											<div class="scrollareawrap-message-left-two sender-mess" data-ng-show="edit" ng-bind="item.body" data-ng-if="item.message_type != 'N'">
+											</div>
+											<div data-ng-if="item.message_type == 'N'" class="scrollareawrap-message-left-two sender-mess add-group-member" data-ng-show="edit" ng-bind="item.body"> </div>
+											<div class="scrollareawrap-message-left-two" data-ng-hide="edit">
+												<input type="text" ng-model="model.updateBody" />
+												<input type="button" value="{{i18n.message.update}}" data-ng-click="updateMessage(item.message_id,storeThread)"/>
+											</div>
+											<div data-ng-if="item.media_thumb_path" class="scroolarawrap-message-left-mess-img">
+											<a  href="{{item.media_original_path}}" class="fancybox" style="background-image:url('{{item.media_thumb_path}}');"></a>
+											</div>
+
+										</div>
+									</li>
+										
+									<!--message section reply-->					
+								</ul>					
+							</div>
+						</div>		
+						<div>
+							<div class="message-write-search-section">
+								<div class="message-write-overlay" data-ng-show="custom">
+									<div class="message-write-to-panel">
+										<div class="message-write-to">To:</div>
+										<div class='tags'><span ng-repeat="(idx, tag) in tags">{{tag.recipient}}
+											<a  ng-if="tag.user_id != currentUser.id" href="javascript:void(0)" data-ng-click="remove(idx)">x</a></span>
+										<input type="text" id="searchfrnd" data-ng-model="recipientAddress"></div>				  
+									</div>
+									<div class="header-top-search-field-outer">
+									<ul class=" header-top-search-field">
+										<li data-ng-repeat="name in names">
+											<label  data-ng-click="selectFriend(name)" data-ng-model="selected">
+												<div class="search-field-img">
+									                <img data-ng-if="name.user_info.profile_image == ''" src="app/assets/images/dummy32X32.jpg" alt="Profile" class="img-circle">
+									                <img data-ng-if="name.user_info.profile_image != ''" data-ng-src="{{name.user_info.profile_image_thumb}}" width="40" height="40">
+									            </div>
+								                <div class="search-filed-text-section">
+									                <div class="search-field-name" ng-bind="name.user_info.first_name + ' ' + name.user_info.last_name"> 
+							                    	</div> 
+						                    	</div>
+											</label>
+										</li>
+										<li data-ng-show="WaitFriendList">
+											<img src="app/assets/images/proceed.gif" />
+										</li>
+									</ul>
+								</div>
+									<ul class="header-top-search-no-result" ng-show="noData">
+										<li style="cursor:default" ng-bind="i18n.group.details.no_result"></li>
+									</ul>
+								</div>
+								<div class="message-write-a-reply-section">
+								<!--write-text a panel white-->
+									<div class="message-write-a-panel">
+										<!--write message reply textarea-->
+										<div class="write-a-message-reply">
+											<textarea id ="myTextarea" name="reply" data-ng-model="body" value="{{i18n.message.write_message}}" placeholder="{{i18n.message.write_message}}">
+											</textarea>
+											
+										</div>
+										<!--write message reply textarea-->
+										<div class="write-attach-panel">
+											<div class="attach-panel-section-left">
+												<!--add photo file -->
+												<div class="photo-panel-file">
+													<a href="javascript:void(0);">
+														<img src="app/assets/images/add-photo.png" alt="" title="" />
+														<span class="photo-span-file" ng-bind="i18n.message.add_photo"></span>
+													</a>
+													<div class="photo-panel-add-file">
+														<input type="file" ng-file-select="onFileSelect($files)" required/> 
+														<!-- <input type="file" file-model="myFile" id="replyImage"  required/> -->
+														</div>
+												</div>
+												<!--add photo file -->
+												<div ng-show="imageSrc" class="preview-image-list tabmsg">
+													<img ng-show="imageSrc" ng-src="{{imageSrc}}" width="60" height="60"/>
+													<i style="cursor:pointer" data-ng-show="deleteImage" data-ng-click="removeImage()" class="fa fa-fw fa-times" title="{{i18n.message.remove}}"></i>
+												</div>
+											</div>
+
+											<div class="write-reply-press-panel">
+												<div class="write-replay-press-button" data-ng-show="emptyMessageError"><p  class="text-red text-center" ng-bind="createMessageerror"></p></div>
+												<div class="write-replay-press-button ng-hide" data-ng-show="msgUploadError"><font  color="red"  ng-bind="uploadfileerror"></font></div>
+												<div class="write-replay-press-button"><img src="app/assets/images/ajax-loader.gif" data-ng-show="createMessageshow" />
+													<button data-ng-hide="createMessageshow" type="button" class="btn btn-primary" href="javascript:void(0);" data-ng-click="createMessage()" ng-bind="i18n.message.reply"></button>
+													</div>
+											</div>
+										</div>
+									</div>
+									<!--write-text a panel white-->
+								</div>
+							</div>
+						</div>
+					</div>			
+					<!--middler section-->
+				</div>
+			</div>
+			<div class="col-md-4 col-lg-4">
+				<profile-right-panel></profile-right-panel>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="clearfix"></div>

@@ -1,0 +1,18 @@
+<div class="group-list-cont">
+    <div class="group-list storecoverid{{store.id}}" data-ng-repeat="store in topCitizenPerIncome" >
+    <div class="list-image">
+        <a data-ng-if="store.user_info.profile_image_thumb != '' " style="background-image:url('{{store.user_info.profile_image_thumb}}');" title="{{store.name}}">
+        </a>
+        <a data-ng-if="store.user_info.profile_image_thumb == '' " style="background-image:url('app/assets/images/prof-pic.jpg');" title="{{store.name}}">
+        </a>
+    </div>
+        <div class="list-text">
+            <div class="list-text-head" ng-bind="store.user_info.first_name+ ' '+ store.user_info.last_name"> 
+            </div>
+            <div class="list-text-head">{{store.totalone | currency:"&euro;"}} 
+            </div>
+            <div class="list-text-head" ng-bind="store.user_info.country"> 
+            </div>
+            </div>
+    </div>
+</div>

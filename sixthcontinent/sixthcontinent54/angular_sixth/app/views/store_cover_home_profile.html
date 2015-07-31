@@ -1,0 +1,16 @@
+<div class="store-dp-section">
+                                <div class="store-dp-section-img">
+                                    <a data-ng-if="storeDetail.profile_image_original == '' "  style="background-image:url('app/assets/images/store-credit.png')">
+                                    </a> 
+                                    <a class="fancybox" data-ng-if="storeDetail.profile_image_original != '' " href="{{storeDetail.profile_image_original}}" ng-style="{'background-image':'url('+storeDetail.cover_image_path+')'}">
+                                    </a>
+                                </div>
+<div class="profile-dp-section shope_page_title_name dp-top-border">
+                                  <h3><a href="javascript:void(0)" class="club_name" data-ng-bind="storeDetail.name"></a></h3>
+                                    <ul class="store-invitations">
+                                        <li ng-class="{active: $route.current.activetab == 'view'}"><a href="#/blshop/info/{{storeMainId}}" title="" data-ng-bind="i18n.store.wall"></a></li>
+                                        <li ng-class="{active: $route.current.activetab == 'about'}"><a href="#/shop/home/about/{{storeMainId}}" title="" data-ng-bind="i18n.store.about"></a></li>
+                                        <li ng-class="{active: $route.current.activetab == 'photo'}"><a href="#/shop/home/album/{{storeMainId}}" data-ng-bind="i18n.store.photos"></a></li>
+                                    </ul>	
+                                </div>
+      </div>

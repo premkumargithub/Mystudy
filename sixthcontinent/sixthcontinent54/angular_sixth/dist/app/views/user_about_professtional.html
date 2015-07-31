@@ -1,0 +1,52 @@
+<div class="innerAll" >
+  <div class="profile-view-section">
+    <div class="heading" ng-bind="i18n.profile.professional_detail"> </div>
+    <div class="edit-detail-btn" ng-if="currentUser.basicProfile.citizen_profile == 1"><a class="btn btn-primary" href="#/edit/citizen/1" ng-bind="i18n.profile.edit_professional_detail"> </a></div>
+  </div>
+  <div data-ng-hide="citizenProfileLoader">
+    <div data-ng-controller="UserController">
+      <div class="profile-work-experience clearfix">
+        <div class="profile-work-left">
+          <div class="work-left-top"> <span class="profile-icons work-icon"></span> <span class="profile-view-title" ng-bind="i18n.friends.work_expe"></span> </div>
+          <!-- for personal-->
+          <div class="work-left-bottom">
+            <div class="work-left-content" ng-repeat="job in fullCitizenProfile.baisc_profile_info.jobDetails | orderBy:'-end_date.date' " data-ng-if="job.visibility_type === 2 || job.visibility_type === 3">
+              <div class="work-title1" ng-bind="job.company"></div>
+              <div class="work-title2" ng-bind="job.title"></div>
+              <div class="work-title3">
+              <span data-ng-if="(job.start_date.date.substring(5,7)-1) >= 09" data-ng-bind="months[job.start_date.date.substring(5,7)-1].name + ' '+ job.start_date.date.substring(0,4)"></span>
+              <span data-ng-if="(job.start_date.date.substring(5,7)-1) < 09" data-ng-bind="months[job.start_date.date.substring(6,7)-1].name + ' '+ job.start_date.date.substring(0,4)"></span>
+              <span ng-if="job.currently_working == true"> - <span ng-bind="i18n.profile.edit_profile.till_present"></span></span>
+              <span ng-if="job.currently_working == false && (job.end_date.date.substring(5,7)-1) >= 09" data-ng-bind="'-' + months[job.end_date.date.substring(5,7)-1].name + ' '+ job.end_date.date.substring(0,4)"> </span>
+              <span ng-if="job.currently_working == false  && (job.end_date.date.substring(5,7)-1) < 09" data-ng-bind="'-' + months[job.end_date.date.substring(6,7)-1].name + ' '+ job.end_date.date.substring(0,4)"> </span>
+              </div>
+              <div class="work-title3" ng-bind="job.description"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="profile-work-experience clearfix">
+        <div class="profile-work-left" >
+          <div class="work-right-top"> <span class="profile-icons studio-icon"></span> <span class="profile-view-title" ng-bind="i18n.friends.study"></span> </div>
+          <div class="work-right-bottom" >
+            <div class="work-right-content" ng-repeat="edu in fullCitizenProfile.baisc_profile_info.educationDetail | orderBy : '-end_date'" data-ng-if="edu.visibility_type === 2 || edu.visibility_type === 3">
+              <div class="work-title1" ng-bind="edu.school"></div>
+              <div class="work-title2" ng-bind="edu.degree + ', ('+ edu.grade + ')'"></div>
+              <div class="work-title2" ng-bind="edu.field_of_study"></div>
+              <div class="work-title3"> <span  ng-bind="edu.start_date.substring(0,4)"></span> <span ng-if="edu.currently_attending == true"> - <span ng-bind="i18n.profile.edit_profile.till_present"></span></span> <span ng-if="edu.currently_attending == false"> - <span ng-bind="edu.end_date.substring(0,4)"></span></span></div>
+              <div class="work-title2" ng-bind="edu.activities"></div>
+              <div class="work-title3" ng-bind="edu.description"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div ng-controller="SkillController">
+        <div class="profile-aboutme profile-skills"  data-ng-if="storeSkills.length > 0">
+          <div class="aboutme-top"><span class="profile-icons skill-icon"></span> <span class="profile-view-title" ng-bind="i18n.profile.edit_profile.skills"></span> </div>
+          <div class="aboutme-content"><span ng-repeat="skill in storeSkills track by $index" ng-bind="skill"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div  data-ng-show="citizenProfileLoader"> <img src="app/assets/images/proceed.gif" > </div>
+</div>

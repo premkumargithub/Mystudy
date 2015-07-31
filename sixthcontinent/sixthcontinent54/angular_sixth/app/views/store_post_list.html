@@ -1,0 +1,387 @@
+<!-- Widget -->
+<div id="postlist" infinite-scroll="{{loadMoreFunc}}">
+<div class="widget gridalicious-item not-responsive profile-post-wrapper" data-ng-repeat="(postIndx, post) in posts" >
+	<div class="text-center" data-ng-class="deleteErrCls[postIndx]" data-ng-bind="deleteErrMsg[postIndx]"></div>
+     <div class="post-upper-section">
+		<div class="post-heading clearfix" >
+			<div class="media clearfix"> <a ng-href="#/viewfriend/{{post.user_profile.id}}" class="pull-left">
+				<img data-ng-if="post.user_profile.profile_image_thumb == ''" src="app/assets/images/dummy60X60.jpg" width="55" height="55" class="media-object">
+				<img data-ng-if="post.user_profile.profile_image_thumb != ''" data-ng-src="{{post.user_profile.profile_image_thumb}}" width="55" height="55" class="media-object">
+			</a>
+			<div class="media-body innerTB half clearfix">
+				<ul class="actions-store-dp" data-ng-if = "(post.user_profile.id == currentUser.id || store.owner_id == currentUser.id) && isSinglePostView == false;" data-ng-hide="activeEdit[postIndx]">
+					<li>
+						<a data-ng-click="toggleEdit($event)"><span class="edit-dele"></span></a>
+						<ul class="actions-drop-action">
+							<li class="check" data-ng-if="post.link_type != 1 && post.user_profile.id == currentUser.id"> 
+								<a href="javascript:void(0);"  data-ng-click="updatePost(postIndx)" data-ng-bind="i18n.group.modify"></a> 
+							</li>
+							<li> 
+								<a href="javascript:void(0);" data-ng-click= "confirmClick() && deletePost(postIndx)" data-ng-bind="i18n.group.eliminate" confirm-click></a> 
+							</li>
+							<li data-ng-if="post.tagged_friends_info.length > 0"> <a href="javascript:void(0);" data-ng-click= "showAllFriend(post.post_id,post.user_profile,post.tagged_friends_info)" confirm-click ng-bind="i18n.profile_post.Show_tagged_friend"></a> </li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="actions-store-dp" data-ng-if="post.tagged_friends_info.length > 0 && post.user_id != currentUser.id && checkTagUser(post.tagged_friends_info) == true">
+					<li>
+						<a><span class="edit-dele"></span></a>
+						<ul class="actions-drop-action">
+							<li data-ng-if="post.tagged_friends_info.length > 0"> <a ` href="javascript:void(0);" data-ng-click= "showAllFriend(post.post_id,post.user_profile,post.tagged_friends_info)" confirm-click ng-bind="i18n.profile_post.Show_tagged_friend"></a> </li>
+						</ul>
+					</li>
+				</ul>
+				<div class="post-head-title">
+					<a ng-href="#/viewfriend/{{post.user_profile.id}}" data-ng-if="post.user_info.first_name == '' && post.user_profile.id !== currentUser.id" class="strong" data-ng-bind="post.user_profile.email"></a>
+
+					<a ng-href="#/profiles" data-ng-if="post.user_info.first_name == '' && post.user_profile.id === currentUser.id" class="strong" data-ng-bind="post.user_profile.email"></a>
+
+					<a ng-href="#/viewfriend/{{post.user_profile.id}}" data-ng-if="post.user_info.first_name != '' && post.user_profile.id !== currentUser.id" class="strong" data-ng-bind="post.user_profile.first_name + ' ' + post.user_profile.last_name"></a>
+
+					<a ng-href="#/profiles" data-ng-if="post.user_info.first_name != ''  && post.user_profile.id === currentUser.id" class="strong" data-ng-bind="post.user_profile.first_name + ' ' + post.user_profile.last_name"></a> 
+					<span ng-if="post.share_type == ''"  ><span data-ng-if="post.tagged_friends_info.length > 0"> <span ng-bind="i18n.dashboard.postcomment.with"></span> <span data-ng-repeat="taggedFriend in post.tagged_friends_info | limitTo :2"><a ng-href="#/viewfriend/{{taggedFriend.id}}"  ng-bind="taggedFriend.first_name + ' '+ taggedFriend.last_name"> </a><span data-ng-if="post.tagged_friends_info.length > 1 && ($index) <= 0">, </span></span><span data-ng-if="post.tagged_friends_info.length > 2" > <span ng-bind="i18n.dashboard.postcomment.and"></span> <span ng-bind="i18n.dashboard.postcomment.others"></span>
+						   <a href data-ng-click="showAllFriend(post.post_id, post.user_profile, post.tagged_friends_info)"> <span ng-if="currentLanguage === 'en'" ng-bind="post.tagged_friends_info.length - 2"> </span> <span ng-if="currentLanguage === 'it'" ng-bind="post.tagged_friends_info.length - 2"> </span><span ng-bind="' '+i18n.dashboard.postcomment.friends"></span></a></span></span>
+						   </span>
+					<span>
+						<i class="fa fa-star"></i>
+						<span data-ng-bind="post.store_post_created.date | postDateFormat"></span>
+					</span> 
+					<span data-ng-if="post.media_info.length == 1" data-ng-bind="i18n.store.added + ' ' + post.media_info.length + ' ' + i18n.store.new_photo" class="photo-added"></span> 
+					<span data-ng-if="post.media_info.length > 1" data-ng-bind="i18n.store.added + ' ' + post.media_info.length + ' ' + i18n.store.new_photos" class="photo-added"></span>  
+					<!-- social share button start-->
+					<div class="share-wrapper" >
+			        <!--<a href="javascript:void(0);">{{i18n.dashboard.postcomment.share}}</a>-->
+			        <ul>
+			        	<li class="share-fb" facebook class="facebookShare" dataurl='{{baseUrl}}unouth/post/shop/{{storeId}}/{{post.post_id}}' datades="{{post.store_post_desc }}" dataimg="{{post.media_info[0].media_path}}"></li>
+			           <li class="share-tw">
+			           		<a href="javascript:void(0);" twitter-custom datahref='{{baseUrl}}unouth/post/shop/{{storeId}}/{{post.post_id}}' datades="{{post.store_post_desc}}"></a>
+			   			</li>
+			            <li class="share-gplus">
+			            	<a href="javascript:void(0);" gplus-custom data-annotation="none" datahref='{{baseUrl}}unouth/post/shop/{{storeId}}/{{post.post_id}}' data-action='share'></a>
+			            </li>
+			       </ul>
+			        </div>
+				<!-- social share button end-->
+				</div>
+			</div>
+		</div>
+
+		<div class="media-body shop-post-heading innerTB half clearfix" ng-if="post.share_type == 'TXN'">
+		<ul class="actions-store-dp" data-ng-if = "(post.user_profile.id == currentUser.id || store.owner_id == currentUser.id) && isSinglePostView == false;" data-ng-hide="activeEdit[postIndx]">
+			<li>
+				<a data-ng-click="toggleEdit($event)"><span class="edit-dele"></span></a>
+				<ul class="actions-drop-action">
+					<li class="check" data-ng-if="post.link_type != 1 && post.user_profile.id == currentUser.id"> 
+						<a href="javascript:void(0);"  data-ng-click="updatePost(postIndx)" data-ng-bind="i18n.group.modify"></a> 
+					</li>
+					<li> 
+						<a href="javascript:void(0);" data-ng-click= "confirmClick() && deletePost(postIndx)" data-ng-bind="i18n.group.eliminate" confirm-click></a> 
+					</li>
+					<li data-ng-if="post.tagged_friends_info.length > 0"> <a href="javascript:void(0);" data-ng-click= "showAllFriend(post.post_id,post.user_profile,post.tagged_friends_info)" confirm-click ng-bind="i18n.profile_post.Show_tagged_friend"></a> </li>
+				</ul>
+			</li>
+		</ul>
+		<ul class="actions-store-dp" data-ng-if="post.tagged_friends_info.length > 0 && post.user_id != currentUser.id && checkTagUser(post.tagged_friends_info) == true">
+			<li>
+				<a><span class="edit-dele"></span></a>
+				<ul class="actions-drop-action">
+					<li data-ng-if="post.tagged_friends_info.length > 0"> <a ` href="javascript:void(0);" data-ng-click= "showAllFriend(post.post_id,post.user_profile,post.tagged_friends_info)" confirm-click ng-bind="i18n.profile_post.Show_tagged_friend"></a> </li>
+				</ul>
+			</li>
+		</ul>
+		<div class="post-head-title">
+			<a ng-href="#/viewfriend/{{post.user_profile.id}}" data-ng-if="post.user_info.first_name == '' && post.user_profile.id !== currentUser.id" class="strong" data-ng-bind="post.user_profile.email"></a>
+
+			<a ng-href="#/profiles" data-ng-if="post.user_info.first_name == '' && post.user_profile.id === currentUser.id" class="strong" data-ng-bind="post.user_profile.email"></a>
+
+			<a ng-href="#/viewfriend/{{post.user_profile.id}}" data-ng-if="post.user_info.first_name != '' && post.user_profile.id !== currentUser.id" class="strong" data-ng-bind="post.user_profile.first_name + ' ' + post.user_profile.last_name"></a>
+
+			<a ng-href="#/profiles" data-ng-if="post.user_info.first_name != ''  && post.user_profile.id === currentUser.id" class="strong" data-ng-bind="post.user_profile.first_name + ' ' + post.user_profile.last_name"></a> 
+			<span ng-if="post.share_type == 'TXN'" ng-bind="i18n.dashboard.postcomment.has_been"></span>
+			<a ng-if="post.share_type == 'TXN'" ng-href="#/shop/view/{{post.store_info.id}}"  ng-bind="post.store_info.name"> </a>
+			
+			<span data-ng-if="post.tagged_friends_info.length > 0" > <span ng-bind="i18n.dashboard.postcomment.with"></span> <span data-ng-repeat="taggedFriend in post.tagged_friends_info | limitTo :2"><a ng-href="#/viewfriend/{{taggedFriend.id}}"  ng-bind="taggedFriend.first_name + ' '+ taggedFriend.last_name"> </a><span data-ng-if="post.tagged_friends_info.length > 1 && ($index) <= 0">, </span></span><span data-ng-if="post.tagged_friends_info.length > 2" > <span ng-bind="i18n.dashboard.postcomment.and"></span> <span ng-bind="i18n.dashboard.postcomment.others"></span>
+		   <a href data-ng-click="showAllFriend(post.post_id, post.user_profile, post.tagged_friends_info)"> <span ng-if="currentLanguage === 'en'" ng-bind="post.tagged_friends_info.length - 2"> </span> <span ng-if="currentLanguage === 'it'" ng-bind="post.tagged_friends_info.length - 2"> </span><span ng-bind="' '+i18n.dashboard.postcomment.friends"></span></a></span></span>
+			 		 
+		<!-- social share button end-->
+		</div>
+	</div>
+		
+	</div>
+	<!-- Content -->
+	<div class="post-desc">
+		<div class="postedit store-transaction-ratings">
+			<!-- <p data-ng-hide="activeEdit[postIndx]" ng-repeat="line in (post.store_post_desc | truncate:textLimit:post.link_type:i18n.dashboard.postcomment.show_more | newlines) track by $index" ng-bind-html="line | unsafe"  fullText="{{post.store_post_desc}}">
+				{{post.store_post_desc}}
+			</p> -->
+			<div class="ratesection clearfix" ng-if="post.share_type == 'TXN'">
+				<div class="rate-left">
+					<div class="ratesec-title">{{i18n.store.my_frnd}}</div>
+					<ul class="cover-ratings">
+		            <li ng-class="{active: (post.customer_voting | number:1) >=0.6, half: ((post.customer_voting | number:1) <= 0.5) && ((post.customer_voting | number:1) > 0)}"></li>
+		            <li ng-class="{active: (post.customer_voting | number:1) >= 1.6,half: ((post.customer_voting | number:1) <= 1.5) && ((post.customer_voting | number:1) > 1.0)}"></li>
+		            <li ng-class="{active: (post.customer_voting | number:1) >= 2.6, half: ((post.customer_voting | number:1) <= 2.5) && ((post.customer_voting | number:1) > 2.0)}"></li>
+		            <li ng-class="{active: (post.customer_voting | number:1) >= 3.6, half: ((post.customer_voting | number:1) <= 3.5) && ((post.customer_voting | number:1) > 3.0)}"></li>
+		            <li ng-class="{active: (post.customer_voting | number:1) >= 4.6, half: ((post.customer_voting | number:1) <= 4.5) && ((post.customer_voting | number:1) > 4.0)}"></li>
+		        	</ul>		
+	        	</div>
+	        	<div class="rate-right">
+	        		<div class="ratesec-title">{{i18n.store.store_rating}}</div>
+					<ul class="cover-ratings">
+		            <li ng-class="{active: (post.store_voting_avg | number:1) >=0.6, half: ((post.store_voting_avg | number:1) <= 0.5) && ((post.store_voting_avg | number:1) > 0)}"></li>
+		            <li ng-class="{active: (post.store_voting_avg | number:1) >= 1.6,half: ((post.store_voting_avg | number:1) <= 1.5) && ((post.store_voting_avg | number:1) > 1.0)}"></li>
+		            <li ng-class="{active: (post.store_voting_avg | number:1) >= 2.6, half: ((post.store_voting_avg | number:1) <= 2.5) && ((post.store_voting_avg | number:1) > 2.0)}"></li>
+		            <li ng-class="{active: (post.store_voting_avg | number:1) >= 3.6, half: ((post.store_voting_avg | number:1) <= 3.5) && ((post.store_voting_avg | number:1) > 3.0)}"></li>
+		            <li ng-class="{active: (post.store_voting_avg | number:1) >= 4.6, half: ((post.store_voting_avg | number:1) <= 4.5) && ((post.store_voting_avg | number:1) > 4.0)}"></li>
+		        	</ul>
+		        	<div class="store-rating-title">{{post.store_voting_count}} {{i18n.store.store_vote}}</div>	
+	        	</div>
+			</div>
+			<p id="post_{{post.post_id}}"  data-ng-hide="activeEdit[postIndx]" ng-bind-html="post.store_post_desc | newlines:textLimit:post.link_type:i18n.dashboard.postcomment.show_more:post.post_id | unsafe " fullText="{{post.store_post_desc}}"></p>
+			<!-- code for update post-->
+			<div class="testata-right-section testata-textarea" data-ng-show="activeEdit[postIndx]">
+				<form name="edit-post">
+					<div class="text-center" data-ng-class="editPostErrorCls[postIndx]" data-ng-bind="editPostErrorMsg[postIndx]"></div>
+					<textarea id="editpost_{{post.post_id}}"  class="editpostbox fl" placeholder="{{i18n.group.unpost}}" ng-model="updateBody[postIndx]"></textarea>
+					<div class="tag-modification-post"><div class="tag-friends-name-block" data-ng-show="showTagLoading[postIndx]" data-ng-click="postListFocusShop(postIndx)"><div class="tag-list"><span class="tag-friends" data-ng-repeat="tags in postTaggedFriend[postIndx]"><span  ng-bind="tags.first_name + ' ' + tags.last_name"></span> <span class="remove-tag-btn" data-ng-click="removePostTagFriend($index, postIndx)"><img titile="" alt="" src="app/assets/images/grey-close-icon.png"></span></span></div><div class="post-tag-friends-block"><input type="text" id="shopPostList{{postIndx}}" placeholder="Add friends" class="addMoreTagFriend{{postIndx}}" ng-keypress="addMoreFriend($event, postIndx)" ng-keydown="searchNevigateControl($event,postIndx)"  data-ng-blur="lostFocus(postIndx)"/><div class="post-tag-friend-list" data-ng-show="showSearchFriendList[postIndx]"><ul><li data-ng-repeat="friend in friends[postIndx]" data-ng-click="taggedSelectFriend(friend,postIndx)" ng-mouseover="$parent.friendTagIndex[postIndx]=$index" ng-class="{active : friendTagIndex[postIndx]===$index}"><a href><img alt="" data-ng-src="{{friend.user_info.profile_image_thumb}}" data-ng-if="friend.user_info.profile_image_thumb != null  && friend.user_info.profile_image_thumb != ''" width="" height=""/><img src="app/assets/images/dummy32X32.jpg" data-ng-if="friend.user_info.profile_image_thumb == null || friend.user_info.profile_image_thumb == ''"><span ng-bind="friend.user_info.first_name + ' ' + friend.user_info.last_name"> </span></a></li></ul><span ng-show="showSearchFriendLoader[postIndx]" class="ng-hide"><img titile="" alt="" src="app/assets/images/proceed.gif"></span></div></div></div></div>
+						<div class="pull-right btn-container" data-ng-hide="updatePostInProcess[postIndx]">
+							<a class="button" href= "javascript:void(0);" data-ng-click="saveUpdatePost(postIndx)" data-ng-bind="i18n.group.finish_editing"></a>
+							<a class="button" href= "javascript:void(0);" data-ng-click="cancelPost(postIndx)" data-ng-bind="i18n.group.cancel"></a>
+						</div>
+						<div class="clearfix"></div>
+					</form>
+					<div data-ng-show="updatePostInProcess[postIndx]" style="text-align: center;">
+						<img src="app/assets/images/proceed.gif" alt="{{i18n.group.sending}}..." />
+					</div>
+				</div>
+				<div ng-switch="post.media_info.length" data-ng-if="post.media_info.length > 0">
+					<div class="post-img" ng-switch-when="1">
+						<!--switch case start for single image on image type-->
+						<div ng-switch="post.media_info[0].image_type">
+							<a ng-switch-when="3" href class="imgModal imgautoadjust" rel="storepost-{{post.id}}" ng-click="createModal(0, post.media_info,1,post.id,'shop_post',post.user_info)" all-img-modal>
+								<img ng-src="{{post.media_info[0].media_path}}" style-parent/>
+							</a> 
+							<a ng-switch-when="2" href class="imgModal img-height-fix" rel="storepost-{{post.id}}" ng-click="createModal(0, post.media_info,1,post.id,'shop_post',post.user_info)" all-img-modal>
+								<img ng-src="{{post.media_info[0].media_path}}" style-parent/>
+							</a> 
+							<a ng-switch-when="1" href class="imgModal image-height-fix" rel="storepost-{{post.id}}" ng-click="createModal(0, post.media_info,1,post.id,'shop_post',post.user_info)" all-img-modal>
+								<img ng-src="{{post.media_info[0].media_path}}" style-parent/>
+							</a>  
+							<a ng-switch-when="null" href class="imgModal" rel="storepost-{{post.id}}" ng-click="createModal(0, post.media_info,1,post.id,'shop_post',post.user_info)" all-img-modal>
+								<img ng-src="{{post.media_info[0].media_thumb_path}}" style-parent/>
+							</a>  
+							<a ng-switch-default href class="imgModal backgorund-auto-adjust" rel="storepost-{{post.id}}" ng-click="createModal(0, post.media_info,1,post.id,'shop_post',post.user_info)" all-img-modal >
+								<img ng-src="{{post.media_info[0].media_path}}" style-parent/>
+							</a> 
+						</div>
+						<!--switch case end for single image on image type-->
+					</div>
+					<!-- for two image-->
+					<div class="post-img" ng-switch-when="2">
+						<ul class="post-two-image clearfix">
+							<li>
+
+								<a href rel="storepost-{{post.id}}" class="imgModal" ng-style="{'background-image':'url('+post.media_info[0].media_thumb_path+')'}" ng-click="createModal(0, post.media_info,2,post.id,'shop_post',post.user_info)" all-img-modal>
+								</a> 
+							</li>
+							<li class="post-img-last">
+								<a href rel="storepost-{{post.id}}" class="imgModal" ng-style="{'background-image':'url('+post.media_info[1].media_thumb_path+')'}" ng-click="createModal(1, post.media_info,2,post.id,'shop_post',post.user_info)" all-img-modal>
+								</a> 
+							</li>
+						</ul>
+					</div>
+					<!-- for three image-->
+					<div class="post-img" ng-switch-when="3">
+						<ul class="post-three-image clearfix">
+							<li>
+								<a href class="imgModal" rel="storepost-{{post.id}}" ng-style="{'background-image':'url('+post.media_info[0].media_thumb_path+')'}" ng-click="createModal(0, post.media_info,3,post.id,'shop_post',post.user_info)" all-img-modal>
+								</a> 
+							</li>
+							<li class="two-img">
+								<a href class="imgModal three-img-first" rel="storepost-{{post.id}}" ng-style="{'background-image':'url('+post.media_info[1].media_thumb_path+')'}" ng-click="createModal(1, post.media_info,3,post.id,'shop_post',post.user_info)" all-img-modal>
+								</a> 
+								<a href class="imgModal" rel="storepost-{{post.id}}" ng-style="{'background-image':'url('+post.media_info[2].media_thumb_path+')'}" ng-click="createModal(2, post.media_info,3,post.id,'shop_post',post.user_info)" all-img-modal>
+								</a> 
+							</li>
+						</ul>
+					</div>
+					<!-- for four image-->
+					<div class="post-img" ng-switch-when="4">
+						<ul class="post-four-image clearfix">
+							<li>
+
+								<a href="" rel="storepost-{{post.id}}"class="imgModal"  ng-style="{'background-image':'url('+post.media_info[0].media_thumb_path+')'}" ng-click="createModal(0, post.media_info,4,post.id,'shop_post',post.user_info)" all-img-modal>
+								</a> 
+							</li>
+							<li class="three-img">
+								<a href="" rel="storepost-{{post.id}}" class="first-img"  ng-style="{'background-image':'url('+post.media_info[1].media_thumb_path+')'}" ng-click="createModal(1, post.media_info,4,post.id,'shop_post',post.user_info)" all-img-modal>
+								</a>
+								<a href="" rel="storepost-{{post.id}}" class="second-img" ng-style="{'background-image':'url('+post.media_info[2].media_thumb_path+')'}" ng-click="createModal(2, post.media_info,4,post.id,'shop_post',post.user_info)" all-img-modal>
+								</a>
+								<a href="" rel="storepost-{{post.id}}" class="third-img" ng-style="{'background-image':'url('+post.media_info[3].media_thumb_path+')'}" ng-click="createModal(3, post.media_info,4,post.id,'shop_post',post.user_info)" all-img-modal>
+								</a> 
+							</li>
+						</ul>
+					</div>
+					<!-- for five image-->
+					<div class="post-img" ng-switch-when="5">
+						<ul class="post-five-image">
+							<li>
+
+								<a href rel="storepost-{{post.id}}" class="imgModal" ng-style="{'background-image':'url('+post.media_info[0].media_thumb_path+')'}" ng-click="createModal(0, post.media_info,5,post.id,'shop_post',post.user_info)" all-img-modal>
+								</a>
+							</li>
+							<li class="four-img">
+								<a href rel="storepost-{{post.id}}" class="" ng-style="{'background-image':'url('+post.media_info[1].media_thumb_path+')'}" ng-click="createModal(1, post.media_info,5,post.id,'shop_post',post.user_info)" all-img-modal>
+								</a>
+								<a href rel="storepost-{{post.id}}" class="" ng-style="{'background-image':'url('+post.media_info[2].media_thumb_path+')'}" ng-click="createModal(2, post.media_info,5,post.id,'shop_post',post.user_info)" all-img-modal>
+								</a>
+								<a href rel="storepost-{{post.id}}" class="" ng-style="{'background-image':'url('+post.media_info[3].media_thumb_path+')'}" ng-click="createModal(3, post.media_info,5,post.id,'shop_post',post.user_info)" all-img-modal>
+								</a>
+								<a href rel="storepost-{{post.id}}" class="fourth-img" ng-style="{'background-image':'url('+post.media_info[4].media_thumb_path+')'}" ng-click="createModal(4, post.media_info,5,post.id,'shop_post',post.user_info)" all-img-modal>
+
+								</a>
+							</li>
+						</ul> 
+					</div>
+					<!-- for more than five image-->
+					<div class="post-img" ng-switch-default>
+						<ul class="post-five-image">
+							<li>
+
+								<a href rel="storepost-{{post.id}}" class="imgModal" ng-style="{'background-image':'url('+post.media_info[0].media_thumb_path+')'}" ng-click="createModal(0, post.media_info,post.media_info.length,post.id,'shop_post',post.user_info)" all-img-modal>
+								</a>
+							</li>
+							<li class="four-img">
+								<a href rel="storepost-{{post.id}}" class  ng-style="{'background-image':'url('+post.media_info[1].media_thumb_path+')'}" ng-click="createModal(1, post.media_info,post.media_info.length,post.id,'shop_post',post.user_info)" all-img-modal>
+								</a>
+								<a href rel="storepost-{{post.id}}" class  ng-style="{'background-image':'url('+post.media_info[2].media_thumb_path+')'}" ng-click="createModal(2, post.media_info,post.media_info.length,post.id,'shop_post',post.user_info)" all-img-modal>
+								</a>
+								<a href rel="storepost-{{post.id}}" class  ng-style="{'background-image':'url('+post.media_info[3].media_thumb_path+')'}" ng-click="createModal(3, post.media_info,post.media_info.length,post.id,'shop_post',post.user_info)" all-img-modal>
+								</a>
+								<a href rel="storepost-{{post.id}}" class="fourth-img"  ng-style="{'background-image':'url('+post.media_info[4].media_thumb_path+')'}" ng-click="createModal(4, post.media_info,post.media_info.length,post.id,'shop_post',post.user_info)" all-img-modal>
+								</a>
+								<span data-ng-repeat="(mindx, media) in post.media_info" data-ng-if="mindx>=5">
+									<a ng-href="{{media.media_path}}" class="fourth-img" rel="storepost-{{post.id}}" ng-style="{'background-image':'url('+media.media_thumb_path+')','display':'none'}" ng-click="createModal(mindx, post.media_info,post.media_info.length,post.id,'shop_post',post.user_info)" all-img-modal>
+
+									</a>	
+								</span>
+							</li>
+						</ul> 
+					</div>
+				</div>
+				<!-- stop post image listing-->
+				<div class="ratings-section-outer">	  
+					<rate-common-store-post></rate-common-store-post>
+				</div>
+			</div> 
+		</div> 
+		<!-- Comment -->
+		<div class="view-comments clearfix" ng-init="post.fixcount=post.comment_count">
+			<img src="app/assets/images/comment-icon.png" data-ng-if="post.fixcount > 4" data-ng-hide="showComments[postIndx]">
+			<a class="text-primary" href="javascript:void(0);" data-ng-click="showAllComments(postIndx)" data-ng-if="post.fixcount > 4" data-ng-hide="showComments[postIndx]" data-ng-bind="i18n.group.view_all_comments"></a>
+			<span data-ng-show="allCommentLoad[postIndx]"><show-progress></show-progress></span>
+			<span class="pull-right" data-ng-if="post.comment_count" data-ng-bind="post.comment_count + ' ' + i18n.group.comments"></span>
+		</div>
+		</div>
+		<!-- First Comment -->
+		<div data-ng-show="commentLoading[postIndx]" style="text-align: center;">
+			<img src="app/assets/images/proceed.gif" alt="{{i18n.group.sending}}sending..." />
+		</div>
+		<div data-ng-hide="commentLoading[postIndx]">
+			<div class="media border-bottom margin-none comments-listing" data-ng-repeat="(indx, comment) in post.comments"> 
+				<div class="text-center" data-ng-class="delCommentErrCls[comment.id]" data-ng-if="delCommentErrMsg[comment.id] != ''" data-ng-bind="delCommentErrMsg[comment.id]"></div>
+				<div>
+					<a href="#/viewfriend/{{comment.comment_user_info.id}}" class="pull-left">
+						<img data-ng-if="comment.comment_user_info.profile_image_thumb == ''" src="app/assets/images/dummy60X60.jpg" width="38" height="38" class="media-object">
+						<img data-ng-if="comment.comment_user_info.profile_image_thumb != ''" data-ng-src="{{comment.comment_user_info.profile_image_thumb}}" width="38" height="38" class="media-object">
+					</a>
+					<div class="media-body">
+						<span class="pull-right" data-ng-if= "(post.store_post_author == currentUser.id || comment.comment_user_info.id == currentUser.id  || store.owner_id == currentUser.id ) && activeCommentEdit[postIndx] != comment.id ">
+							<i title="{{i18n.dashboard.delete_lbl}}" class="fa fa-fw fa-times" data-ng-if="post.store_post_author == currentUser.id && comment.comment_user_info.id != currentUser.id"
+							data-ng-click="confirmClick() && deleteComment(postIndx,indx)" confirm-click>
+						</i>
+							<i title="{{i18n.dashboard.delete_lbl}}" class="fa fa-fw fa-times" data-ng-if="comment.comment_user_info.id == currentUser.id" data-ng-click="confirmClick() && deleteComment(postIndx,indx)" confirm-click>
+						</i>
+							<i title="{{i18n.dashboard.modify_lbl}}" class="fa fa-pencil-square-o" data-ng-if="comment.comment_user_info.id == currentUser.id" data-ng-click="updateComment(postIndx,indx)"></i>
+						</span>
+
+						<a ng-href="#/viewfriend/{{comment.comment_user_info.id}}" data-ng-if="comment.comment_user_info.first_name == '' && comment.comment_user_info.id !== currentUser.id" class="strong" data-ng-bind="comment.comment_user_info.email"></a>
+
+						<a ng-href="#/profiles" data-ng-if="comment.comment_user_info.first_name == '' && comment.comment_user_info.id === currentUser.id" class="strong" data-ng-bind="comment.comment_user_info.email"></a>
+
+						<a ng-href="#/viewfriend/{{comment.comment_user_info.id}}" data-ng-if="comment.comment_user_info.first_name != '' && comment.comment_user_info.id !== currentUser.id" class="strong" data-ng-bind="comment.comment_user_info.first_name + ' ' + comment.comment_user_info.last_name"></a>
+
+						<a ng-href="#/profiles" data-ng-if="comment.comment_user_info.first_name != ''  && comment.comment_user_info.id === currentUser.id" class="strong" data-ng-bind="comment.comment_user_info.first_name + ' ' + comment.comment_user_info.last_name"></a>
+						<span class="post-date" data-ng-bind="comment.comment_created_at.date | postDateFormat"></span>
+						<p ng-bind-html="comment.comment_text | unsafe " data-ng-if="activeCommentEdit[postIndx] != comment.id"></p>
+						<!--edit comment start-->
+						<div class="input-group comment-edit" data-ng-if="activeCommentEdit[postIndx] == comment.id">
+							<div class="text-center" data-ng-class="commentErrorCls[postIndx]" data-ng-bind="commentErrorMsg[postIndx]"></div>
+							<div class="comment-input">
+								<!-- <input type="text" class="form-control" ng-model="editCommentText[postIndx]"  placeholder="{{i18n.group.your_comment}}..."> -->
+								<div contenteditable type="text" class="form-control editcommentbox" ng-model="editCommentText[postIndx]"  placeholder="{{i18n.group.your_comment}}..."> </div>
+								<div ng-init="privacy=3;clubId=0;clubType=0" data-ng:model="editCommentText[postIndx]" class="tagging-item-list" search-edit-tagging ng-mouseleave="clearSearchedTagg()"></div>
+								<input type="hidden" ng-model="taggedObject" value="{{taggedObject}}" class="taggedObject{{postIndx}}" />
+								<div class="pull-right btn-container" data-ng-hide="isEditComment[postIndx]"  >
+									<a class="button" href= "javascript:void(0);" data-ng-click="editComment(postIndx, indx)" data-ng-bind="i18n.group.finish_editing"></a>
+									<a class="button" href= "javascript:void(0);" data-ng-click="cancelEditComment(postIndx, indx)" data-ng-bind="i18n.group.cancel"></a>
+								</div>
+								<div data-ng-show="isEditComment[postIndx]" style="text-align: center;">
+									<img src="app/assets/images/proceed.gif" alt="{{i18n.group.loading}}loading..." />
+								</div>
+							</div>
+						</div>
+						<!-- update comment form end -->
+						<ul class="post-comment-munti" data-ng-if="comment.comment_media_info.length == 1">
+							<li>
+								<div ng-switch="comment.comment_media_info[0].image_type">
+									<a ng-switch-when="3" href="{{comment.comment_media_info[0].media_path}}" class="fancybox imgautoadjust" rel="profilecomnt-{{comment.id}}">
+									<img ng-src="{{comment.comment_media_info[0].media_path}}" /></a> 
+									<a ng-switch-when="2" href="{{comment.comment_media_info[0].media_path}}" class="fancybox img-height-fix" rel="profilecomnt-{{comment.id}}">
+										<img ng-src="{{comment.comment_media_info[0].media_path}}" />
+									</a> 
+									<a ng-switch-when="1" href="{{comment.comment_media_info[0].media_path}}" class="fancybox image-height-fix" rel="profilecomnt-{{comment.id}}">
+										<img ng-src="{{comment.comment_media_info[0].media_path}}" />
+									</a>  
+									<a ng-switch-when="null" href class="imgModal fancybox" rel="profilecomnt-{{comment.id}}">
+										<img ng-src="{{comment.comment_media_info[0].media_thumb_path}}" />
+									</a>  
+									<a ng-switch-default href="{{comment.comment_media_info[0].media_path}}" class="fancybox backgorund-auto-adjust" rel="profilecomnt-{{comment.id}}">
+										<img ng-src="{{comment.comment_media_info[0].media_path}}" />
+									</a>
+								</div>
+							</li>
+						</ul>
+						<ul class="post-comment-munti" data-ng-if="comment.comment_media_info.length > 1">
+							<li data-ng-repeat="media in comment.comment_media_info">
+								<a data-ng-href="{{media.media_path}}" class="fancybox" ng-style="{'background-image':'url('+media.media_path+')'}">
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div data-ng-if="comment.id == deleteCommentIndx" style="text-align: center;">
+						<img src="app/assets/images/proceed.gif" alt="{{i18n.group.deleting}}deleting..." />
+					</div>
+				</div>
+                <rate-shop-comment></rate-shop-comment>
+				</div>
+			<store-comment-form id="commentBoxId-{{postIndx}}" post-id="{{post.post_id}}" post-indx ="{{postIndx}}" load-comment="showLimitedComment(postIndx)"></store-comment-form>
+            <div data-ng-show="isDeletePost[postIndx]">
+				<show-progress></show-progress>
+			</div>
+		</div>
+	</div>
+	<div data-ng-if="isSmallScreen == true">
+		<div style="text-align: center;" data-ng-if="totalSize > posts.length" data-ng-hide="isLoading">
+			<a class="load-more" href="javascript:void(0);" ng-click="loadMore();" ng-bind="i18n.dashboard.postcomment.load_more"></a>
+		</div>
+	</div>
+	<div class="album-option-container" data-role="tile" ng-show="noContent">
+		<strong data-ng-bind="i18n.group.noresults + '...'"></strong>
+	</div>
+	<div data-ng-show="isLoading" style="text-align: center;">
+		<show-progress></show-progress>
+	</div>
+	
+</div>

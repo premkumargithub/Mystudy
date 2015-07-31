@@ -1,0 +1,9 @@
+var editProfileObj = {
+	"searchReq" : {
+		"user_id":60310,"friend_name":"abhi","limit_start":0,"limit_size":12
+	},
+	"hobbyReq" :{"session_id":60310,"name":"a","type":"hobby"}
+};
+
+var hobbylist = [ {"name": "music", "type" : "hobby"},{"name": "painting", "type" : "hobby"}];
+var hobbySuggestion = [{"name": "music"}];

@@ -1,0 +1,84 @@
+<div ng-show="checkingloader" class="landing-page-container">
+<section>
+<div class="landing-loader">
+<img src="app/assets/images/proceed.gif" alt="" />
+</div>
+</section>
+</div>
+<div ng-hide="checkingloader" class="landing-page-container">
+<section ng-if="!validInvitedUser">
+<div class="invalid-request">
+Invalid url
+</div>
+</section>
+<section ng-if="validInvitedUser">
+   <div  class="container-fluid register-sixth-container login-page-ui">
+<div class="register-page-top-container affiliate-shop-container">
+    <div class="register-sixth-continent clearfix">
+        <div class="register-sixth-continent-form-section">
+            <!--register left panel-->
+            <!--<div class="register-sixth-continent-left-section">
+            <div class="login-tagline" ng-bind="i18n.home.hometext3"><span class="get-text" ng-bind="i18n.home.hometext4"></span><span class="pay-text" ng-bind="i18n.home.hometext5"></span></div>
+            <div class="login-home-image login-shop-landing">
+                <span class="loginimage isection1" ng-bind="i18n.home.shop_img1"></span>
+                <span class="loginimage isection2" ng-bind="i18n.home.shop_img2"></span>
+                <span class="loginimage isection3" ng-bind="i18n.home.shop_img3"></span>
+                <span class="loginimage isection4" ng-bind="i18n.home.shop_img4"></span>
+                <span class="loginimage isection5" ng-bind="i18n.home.shop_img5"></span>
+                <span class="loginimage isection6" ng-bind="i18n.home.shop_img6"></span>
+                <span class="loginimage isection7" ng-bind="i18n.home.shop_img7"></span>
+            </div>
+            </div>-->
+            <!--register left panel-->
+            <div class="login-page-sixth-continent-form">
+            <div class="register-sixth-continent-form">
+                <div class="affiliate-business clearfix">
+                    <div class="affiliate-img"><img src="app/assets/images/affiliate-img.png" alt="" /></div>
+                    <div class="affiliate-content">
+                    <div class="affiliate-heading" ng-bind="i18n.home.read_more"></div>
+                    <div class="affiliate-subheading" ng-bind="i18n.home.affiliate_your_business"></div>
+                    </div>
+                    <div class="login-form-top-links clearfix">
+                    <a ng-if="profile_type == 1" href="#/" class="right-Link btn btn-primary" ng-bind="i18n.home.proceed"></a> 
+                    <a ng-if="profile_type == 2 || profile_type == 3 || profile_type == 5 || profile_type == 4" href="#/shop/landing2/{{profile_type}}" class="right-Link btn btn-primary" ng-bind="i18n.home.proceed"></a>
+                    </div>
+                </div>
+                <div class="login-page-video-block">
+                <div class="login-video-container">
+                    <a ng-if="currentLanguage == 'en'" class="video-fancybox fancybox.iframe" href="https://www.youtube.com/embed/XvuNQEKDwVs?fs=1&amp;autoplay=1"><img src="app/assets/images/video-play-icon.png"></a>
+                    <a ng-if="currentLanguage == 'it'" class="video-fancybox fancybox.iframe" href="https://www.youtube.com/embed/Y_6qNKi6508?fs=1&amp;autoplay=1"><img src="app/assets/images/video-play-icon.png"></a>
+                </div>
+                <div class="clr"></div><!--<div class="video-tagline" ng-bind="i18n.mission.how_it_works_shop"><span ng-bind="i18n.mission.watch_video"></span></div>--></div>
+               </div>  </div>  
+               <div class="clr"></div>
+            <div class="login-bottom-tagline">
+                <div class="divTop">
+                    <span data-ng-bind="i18n.store.SixthContinent_conn"></span> 
+                    <span data-ng-bind="i18n.store.People" class="uppercase"></span>, <span data-ng-bind="i18n.store.Professionals"></span>, <span class="uppercase" data-ng-bind="i18n.store.store_shop"></span> <span data-ng-bind="i18n.store.shop_buss"></span>,
+                    <span data-ng-bind="i18n.store.produce_citizen"></span> 
+					<span class="uppercase" data-ng-bind="i18n.store.affi_income"></span>
+					<span data-ng-bind="i18n.store.affi_citizen"></span>
+                    <span class="uppercase" data-ng-bind="i18n.store.store_prod"></span>
+                    <span data-ng-bind="i18n.store.store_prof"></span>.</div>
+               <div class="divBottom">
+                <span data-ng-bind="i18n.store.algo"></span>,
+            <span data-ng-bind="i18n.store.economy"></span></div></div>
+        </div>  
+    </div>
+</div>
+</div>
+
+<div class="total-economy-container">
+    <div class="total-economy-inner">
+        <div class="row top50-block">
+            <h2 class="text-center"><strong ng-bind="i18n.mission.top50"></strong>
+            <span class="normal-font" ng-bind="i18n.mission.users"></span>
+            </h2>
+            <home-Top-Link></home-Top-Link>
+        </div>
+    </div>
+</div>
+<footer-logout></footer-logout>
+<div ng-include="app/views/footer.html"></div>
+</section>
+</div>

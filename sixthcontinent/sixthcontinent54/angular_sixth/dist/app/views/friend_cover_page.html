@@ -1,0 +1,128 @@
+<div class="store-dp-section profile-cover friends-cover-profile">
+	<div class="store-dp-section-img">
+	<a ng-if="friendProfile.user_info.cover_image_thumb == ''" style="background-image:url('app/assets/images/profile-cover-default-c.jpg')">
+	</a> 
+	<a class="fancybox" ng-if="friendProfile.user_info.cover_image_thumb != ''  && mobileView == false" href="{{friendProfile.user_info.cover_image}}" style="background-image:url({{friendProfile.user_info.cover_image_thumb}});background-position: {{('-' + friendProfile.user_info.x_cord + 'px' )}} {{('-' + friendProfile.user_info.y_cord + 'px' )}}">
+	</a>
+	 <a class="fancybox" ng-if="friendProfile.user_info.cover_image_thumb != '' && mobileView == true" href="{{friendProfile.user_info.cover_image_thumb}}" style="background-image:url({{friendProfile.user_info.cover_image_thumb}}); background-position: {{( '-' +  friendMobileX_Cord + 'px')}} {{('-' + friendMobileY_Cord + 'px')}};">
+	 </a>
+	<div class="profile-dp">
+		<a ng-if="friendProfile.user_info.profile_image_thumb == ''" style="background-image:url('app/assets/images/prof-pic.jpg')">
+		</a> 
+		<a class="fancybox" ng-if="friendProfile.user_info.profile_image_thumb != ''" href="{{friendProfile.user_info.profile_image}}" ng-style="{'background-image':'url('+friendProfile.user_info.profile_image_thumb+')'}">
+		</a>
+		
+	</div>
+	<div class="cover-links-outer">
+				<div class="cover-links diff-Cover clearfix">
+	<div class="friends-income">
+		<div class="income-received-title" data-ng-bind="i18n.friends.income_friend"></div>
+			<div class="profile-user-credit">
+				<span data-ng-if="creditAndIncome.totalIncome != ''" title=" {{creditAndIncome.totalIncome | currency:'&euro;'}}" data-ng-bind="(creditAndIncome.totalIncome | currency:'&euro;')"></span>
+            <span  data-ng-hide="creditAndIncome.totalIncome" title="{{0.00  | currency:'&euro;'}}" data-ng-bind="(0.00  | currency:'&euro;')"></span>
+        </div>	
+	</div>
+	<div class="mobile-links" data-ng-click="toogleImage()"><i class="fa fa-plus"></i></div>
+	<div class="follow-friends" data-ng-show="showButton">
+	<div class="first" data-ng-show="showRequestButton">
+		
+		
+		<!-- <a class="" href="javascript:void(0)" ng-if="friendProfile.user_info.friend_type < 3 && (friendProfile.user_info.personal_pending == 1 || friendProfile.user_info.professional_pending == 1) && friendProfile.user_id != currentUser.id && friendProfile.is_friend != 2" title="{{i18n.friends.request_already_send}}">{{i18n.friends.pending_request}}</a> -->
+		<!-- Add personal -->
+		<div class="add-personal-request">
+			<a data-ng-show="addFriend_personal" class="profile-add-friend " href="javascript:void(0)" data-ng-click="addFriend(1)"><span data-ng-bind="i18n.friends.personal_friend"></span></a>
+
+			<a data-ng-show="requestSent_personal" class="profile-add-friend" href="javascript:void(0)"><span data-ng-bind="i18n.friends.personal_sent"></span></a>
+
+			<a data-ng-show="IsFriend_personal" class="" href="javascript:void(0)" data-ng-click="removeFriend(friendProfile,1)"><span data-ng-bind="i18n.friends.remove_personal_friend"></span></a>
+
+			<a data-ng-show="respond_personal" href id="RespontToRequest_personal">
+		    <span data-ng-bind="i18n.friends.respond_to_request"></span></a>
+			<div data-ng-show="respond_personal" class="request-links-personal" ng-init="RespontToRequest_personal()">
+				<a class="profile-add-friend" href="javascript:void(0)" ng-click="AcceptRequest(1)"><span data-ng-bind="i18n.friends.confirm_request"></span></a>
+			
+				<a class="profile-add-friend" href="javascript:void(0)" ng-click="RejectRequest(1)"><span data-ng-bind="i18n.friends.delete_request"></span>
+				</a>
+			</div>
+			
+			<img class="sent-requestloading-first" data-ng-show="sendPersonalRequestLoader" src="app/assets/images/proceed.gif" alt="{{i18n.friends.loading}}..." />
+		</div>
+		<!-- Add professional  -->
+		<div class="add-professional-request">
+			<a data-ng-show="addFriend_professional" class="profile-add-friend " href="javascript:void(0)" data-ng-click="addFriend(2)"><span data-ng-bind="i18n.friends.professional_friend"></span></a>
+
+			<a data-ng-show="requestSent_professional" class="profile-add-friend" href="javascript:void(0)"><span data-ng-bind="i18n.friends.professioanl_sent"></span></a>
+
+			<a data-ng-show="IsFriend_professional" href="javascript:void(0)" data-ng-click="removeFriend(friendProfile,2)"><span data-ng-bind="i18n.friends.remove_professional_friend"></span></a>
+
+			<a data-ng-show="respond_professional" href id="RespontToRequest_professional">
+			<span data-ng-bind="i18n.friends.respond_to_request"></span></a>
+			<div data-ng-show="respond_professional" class="request-links-professional" ng-init="RespontToRequest_professional()">
+				<a class="profile-add-friend" href="javascript:void(0)" ng-click="AcceptRequest(2)"><span data-ng-bind="i18n.friends.confirm_request"></span>
+				</a>
+			    <a class="profile-add-friend" href="javascript:void(0)" ng-click="RejectRequest(2)"><span data-ng-bind="i18n.friends.delete_request"></span>
+			    </a>
+			</div>
+
+			<img class="sent-requestloading" data-ng-show="sendProfessionalRequestLoader" src="app/assets/images/proceed.gif" alt="{{i18n.friends.loading}}..." />
+		</div>
+	</div>
+	<div class="second">
+		<a ng-show="friendProfile.is_follow == 0" class="" href="javascript:void(0)" ng-click="followFriend(friendProfile.user_id)" data-ng-bind="i18n.followers.follow"></a>
+		<a ng-show="friendProfile.is_follow == 1" class="" href="javascript:void(0)" ng-click="unFollowFriend(friendProfile.user_id)" data-ng-bind="i18n.followers.un_follow"></a>
+		<img class="sent-requestloading" data-ng-show="followRequestLoader" src="app/assets/images/proceed.gif" alt="{{i18n.friends.loading}}..." />
+	</div>
+	</div></div></div>
+	</div>
+		<!--store profile section-->
+	<div class="profile-dp-section">
+		<h3>
+			<a title="{{friendProfile.user_info.first_name +' '+friendProfile.user_info.last_name}}" data-ng-href="#/viewfriend/{{friendProfile.user_info.id}}/about" my-refresh data-ng-bind ="(friendProfile.user_info.first_name+' '+friendProfile.user_info.last_name).length>19?((friendProfile.user_info.first_name+' '+friendProfile.user_info.last_name) | limitTo: 16)+'...':(friendProfile.user_info.first_name+' '+friendProfile.user_info.last_name)">
+			</a> 
+        </h3>
+		<div class="profile-nav clearfix">
+		<div class="navbar-header">
+            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+           <a href="#" class="navbar-brand">Menu</a>
+        </div>
+		<div class="navbar-collapse collapse" id="navbar">
+		<ul class="store-invitations">
+                    
+		 <li ng-class="{ 'dp-active': friendlineActive == 'timeline' }">
+		<a href="#/viewfriend/{{friendProfile.user_info.id}}" data-ng-bind="i18n.friends.wall"></a>
+		</li> 
+		<li ng-class="{ 'dp-active': friendlineActive == 'about' }">
+		<a href="#/viewfriend/{{friendProfile.user_info.id}}/about" data-ng-bind="i18n.friends.about"></a>
+		</li>
+		<li ng-class="{ 'dp-active': friendlineActive == 'friends' }">
+		<a href="#/{{friendProfile.user_info.id}}/friends" my-refresh data-ng-bind="i18n.friends.friends"><span class="invitations-number"> </span></a>
+		</li>
+                <!--
+		<li ng-class="{ 'dp-active': friendlineActive == 'album' }">
+		<a href="#/album">{{i18n.friends.pictures}}</a>
+		</li>
+                -->
+		<!--<li ng-class="{ 'dp-active': friendlineActive == 'shope' }">
+		<a href="#/{{friendProfile.user_info.id}}/shops">{{i18n.friends.shops}}</a>
+		</li> -->
+                
+        <li ng-class="{ 'dp-active': friendlineActive == 'pictures' }">
+		<a href="#/{{friendProfile.user_info.id}}/pictures" my-refresh data-ng-bind="i18n.friends.albums"><span class="invitations-number"> </span></a>
+		</li>
+                
+        <li ng-class="{ 'dp-active': friendlineActive == 'club' }">
+		<a href="#/{{friendProfile.user_info.id}}/clubs" data-ng-bind="i18n.friends.clubs"><span class="invitations-number"></span></a>
+		</li>
+		<li ng-class="{ 'dp-active': friendlineActive == 'message' }" ng-if="friendProfile.user_info.friend_type > 0">
+		<a href="" data-ng-click="storeFriendDate(friendProfile)" data-ng-bind="i18n.dashboard.send_message"><span class="invitations-number"></span></a>
+		</li>
+		</ul>
+		</div>
+		</div>
+	</div>
+</div>

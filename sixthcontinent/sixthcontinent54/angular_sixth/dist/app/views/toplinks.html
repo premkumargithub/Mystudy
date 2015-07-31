@@ -1,0 +1,85 @@
+<div id="InviteAffiliationController" class="top-citizen-section inviteAffiliate" ng-controller="InviteAffiliationController">
+	<!-- <div ng-if="currentUser.basicProfile.store_profile == 1 && currentUser.basicProfile.app_url.length != 0" ng-bind-html="currentUser.basicProfile.app_url[0] | unsafe" ng-class="{active : active.basicProfile == true}" ng-click="activeThem('basicProfile')"></div> -->
+	<business-app></business-app>
+	<a  href="#/tutorial" ng-class="{active : active.citizen_tutorial == true || isActive('/tutorial')}" ng-click="activeThem('citizen_tutorial')">
+	<span data-ng-bind="i18n.citizen_tutorial.headline"></span>
+	</a> 
+	<a  href="#/shoptutorial" ng-class="{active : active.shop_tutorial == true || isActive('/shoptutorial')}" ng-click="activeThem('shop_tutorial')">
+	<span data-ng-bind="i18n.shop_tutorial.headline"></span>
+	</a> 
+	<a ng-if="currentUser.citizen_profile == 1 || currentUser.store_profile == 1" href="#/invite/1" ng-class="{active : active.invite_citizen == true}" ng-click="activeThem('invite_citizen')">
+	<span data-ng-bind="i18n.invite.invite_citizen"></span>
+	</a>
+    <!-- 	<a ng-if="currentUser.broker_profile_active == 1" href="#/invite/2">
+	<span>{{i18n.invite.invite_broker}}</span>
+	</a> -->
+	<a ng-if="currentUser.citizen_profile == 1 || currentUser.store_profile == 1" href="#/invite/3" ng-class="{'last': currentUser.citizen_profile == 1, active : active.invite_shop == true}" ng-click="activeThem('invite_shop')">
+	<span data-ng-bind="i18n.invite.invite_shop"></span>
+	</a>
+	<!--  -->
+</div>
+<!-- citizen per income section start-->
+<div class="top-citizen-section">
+	<div class="citizen-head">
+		<a href="#/top/citizen/perincome" title="{{i18n.store.view_all}}" data-ng-bind="i18n.profile.right_panel.top_income_citizen"></a>
+	</div>
+	<ul>
+	<div class="loader-container" data-ng-show="topCitizenPerincomeLoader">
+		<img src="app/assets/images/proceed.gif" alt="loading..." />
+	</div>
+	<div data-ng-hide="topCitizenPerincomeLoader">
+		<li data-ng-repeat="item in topCitizenPerIncome|limitTo:9">
+			<a href="#/viewfriend/{{item.user_info.id}}" title="{{item.user_info.first_name}} {{item.user_info.last_name}} : {{item.totalone | currency:'&euro;'}}">
+				<img style="width:88px; height=88px;" ng-if="item.user_info.profile_image_thumb != ''" data-ng-src="{{item.user_info.profile_image_thumb}}" alt="" />
+				<img style="width:88px; height=88px;" ng-if="item.user_info.profile_image_thumb == ''" src="app/assets/images/prof-pic.jpg" alt="" />
+			</a>
+		</li>
+	</div> 
+	</ul>
+</div>
+<!-- citizen per income section end-->
+<!-- top 50 shop section start-->
+<div class="top-citizen-section">
+	<div class="citizen-head">
+		<a href="#/top/shop/perrevenue" title="{{i18n.store.view_all}}" data-ng-bind="i18n.profile.right_panel.top_revenue_shop"></a>
+	</div>
+	<ul>
+	<div class="loader-container" data-ng-show="topShopPerRevenueLoader">
+		<img src="app/assets/images/proceed.gif" alt="loading..." />
+	</div>
+	<div data-ng-hide="topShopPerRevenueLoader">
+            <li data-ng-repeat="item in topShopPerRevenue|limitTo:9">          	
+                <a ng-if="item.shop_status == true" href="#/shop/about/{{item.id}}" title="{{item.name}} : {{item.revenue | currency:'&euro;'}}">
+                    <img style="width:88px; height=88px;" ng-if="item.profile_image_thumb != ''" data-ng-src="{{item.profile_image_thumb}}" alt="" />
+                    <img style="width:88px; height=88px;" ng-if="item.profile_image_thumb == ''" src="app/assets/images/citizen3.jpg" alt="" />
+                </a>
+                <a ng-if="item.shop_status == false" title="{{item.name}}{{i18n.profile.right_panel.shop_not_active}}">
+                    <img style="width:88px; height=88px;" ng-if="item.profile_image_thumb != ''" data-ng-src="{{item.profile_image_thumb}}" alt="" />
+                    <img style="width:88px; height=88px;" ng-if="item.profile_image_thumb == ''" src="app/assets/images/citizen3.jpg" alt="" />
+                </a>
+            </li>
+        </div>
+    </ul>
+</div>
+<!-- top 50 shop section end-->
+<!-- top 50 citizen section start-->
+<div class="top-citizen-section">
+	<div class="citizen-head">
+		<a href="#/top/citizen" title="{{i18n.store.view_all}}" data-ng-bind="i18n.profile.right_panel.top_linked_citizen"></a>
+	</div>
+	<ul>
+	<div class="loader-container" data-ng-show="citizenTopLinkLoader">
+		<img src="app/assets/images/proceed.gif" alt="loading..." />
+	</div>
+	<div data-ng-hide="citizenTopLinkLoader">
+		<li data-ng-repeat="item in topLinkedCitizen|limitTo:9">
+			<a href="#/viewfriend/{{item.user_info.id}}" title="{{item.user_info.first_name}} {{item.user_info.last_name}} : {{item.affiliation_count | formatNum}}">
+				<img style="width:88px; height=88px;" ng-if="item.user_info.profile_image_thumb != ''" data-ng-src="{{item.user_info.profile_image_thumb}}" alt="" />
+				<img style="width:88px; height=88px;" ng-if="item.user_info.profile_image_thumb == ''" src="app/assets/images/prof-pic.jpg" alt="" />
+			</a>
+		</li>
+<!-- 		<div class="see-all"><a href="#/top/citizen">{{i18n.profile.right_panel.see_all}}</a></div> -->
+	</div> 
+	</ul>
+</div>
+<!-- top 50 citizen section end-->

@@ -1,0 +1,80 @@
+<div class="col-3-layout">
+  <!-- Main Sidebar Menu -->
+  <left-panel></left-panel>
+  <!-- // Main Sidebar Menu END -->
+  
+  <!-- Content START -->
+  <div id="content">
+    <!-- <div class="layout-app">  -->
+    <div class="innerAll">
+      <div class="row">
+        <div class="col-lg-8 col-md-8">
+          <div class="inner-container">
+          <div class="timeline-cover">
+            <div class="widget">
+              <div class="widget-body padding-none margin-none">
+                <div class="innerAll"> <i class="fa fa-quote-left text-muted pull-left fa-fw"></i>
+                  <p class="lead margin-none" ng-bind="i18n.broker.create_profile.profile_create"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-container">
+            <div class="msg" style="color:red" ng-bind="brokerMsg"></div>
+            <div class="msgError" style="color:red" ng-bind="brokerMsgerror"></div>
+            <span class="ng-hide" ng-show="brokerloader"><img titile="" alt="" src="app/assets/images/ajax-loader.gif"></span>
+			<form action="javascript:void(0)" ng-submit="createBroker();">
+				<ul>
+					<li>
+						<span ng-bind="i18n.broker.create_profile.profile_phone"></span>
+						<input type="number" value="" class="form-control bg-gray" ng-model="user.phone" required />
+					</li>
+					<li>
+						<span ng-bind="i18n.broker.create_profile.profile_vat_number"></span>
+						<input type="text" class="form-control bg-gray" ng-model="user.vat"/>
+					</li>
+					<li>
+						<span ng-bind="i18n.broker.create_profile.fiscal_code"></span>
+						<input type="text" class="form-control bg-gray" ng-model="user.fiscal" required/>
+					</li>
+					<li>
+						<span ng-bind="i18n.broker.create_profile.profile_iban"></span>
+						<input type="text" class="form-control bg-gray" ng-model="user.iban" required/>
+					</li>
+          <li>
+            <span ng-bind="i18n.broker.create_profile.profile_referral_id"></span>
+            <input type="text" class="form-control bg-gray" ng-model="user.referral_id" />
+          </li>
+          <li>
+            <span ng-bind="i18n.broker.create_profile.profile_map"></span>
+                <input type="text" class="form-control bg-gray" id="mapplace" ng-model="user.place" required readonly/>
+          </li>
+          <li style="display:none;">
+              <span ng-bind="i18n.broker.create_profile.profile_latitude"></span>
+                <input type="text" class="form-control bg-gray" id="lat" ng-model="user.lat" required readonly/>
+          </li>
+          <li style="display:none;">
+              <span ng-bind="i18n.broker.create_profile.profile_longitude"></span>
+                <input type="text" class="form-control bg-gray" id="lon" ng-model="user.lon" required readonly/>
+          </li>
+          <li>
+            <!-- <map></map> -->
+            <autocomplete-map></autocomplete-map>
+          </li>
+					<li>
+						<button type="submit" class="btn btn-primary broker-sub-btn" ng-bind="i18n.broker.create_profile.create_broker_profile"><i class="fa fa-fw fa-plus"></i></button>
+						<button type="reset" class="btn btn-primary" ng-bind="i18n.broker.create_profile.reset"><i class="fa fa-fw fa-times"></i></button>
+					</li>
+				</ul>
+			</form>
+          </div>
+        </div>
+      </div>
+        <div class="col-md-4 col-lg-4">
+            <profile-right-panel></profile-right-panel>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- // Content END -->
+</div>

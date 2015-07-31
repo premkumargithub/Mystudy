@@ -1,0 +1,117 @@
+<store-Left-Panel></store-Left-Panel>
+<store-Cover-Profile-menu></store-cover-profile-menu>
+<!-- Content START -->
+<div id="content" data-ng-controller="CreateChildStore">
+<div class="innerAll">
+  <div class="row">
+    <div class="col-lg-8 col-md-8">
+    <div class="inner-container">
+      <div class="timeline-cover">
+        <div class="widget">
+          <div class="widget-body padding-none margin-none">
+            <div class="innerAll"> <i class="fa fa-quote-left text-muted pull-left fa-fw"></i>
+              <p class="lead margin-none">Create Child Shop</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-container">
+    <form method="POST" action="" data-ng-submit="createChildStore()">
+    <div class="login-error" style="text-align: center; color: red;" data-ng-show="createGroupError" ng-bind="createStoreErrorMgs"></div>
+      <ul>
+        <li>
+            <span>Business Name</span>
+            <input type="text" class="form-control bg-gray" ng-model="store.business_name" required/>
+        </li>
+        <li>
+            <span>Legal Status</span>
+            <input type="text" class="form-control bg-gray" ng-model="store.legal_status" required/>
+        </li>
+        <li>
+            <span>Business Type</span>
+            <input type="text" class="form-control bg-gray" ng-model="store.business_type" required/>
+        </li>
+        <li>
+            <span>Phone</span>
+            <input type="number" class="form-control bg-gray" ng-model="store.phone" required/>
+        </li>
+        <li>
+            <span>Email</span>
+            <input type="email" class="form-control bg-gray" ng-model="store.email" required/>
+        </li>
+        <li>
+            <span>Business Country</span>
+            <select data-ng-model="store.business_country" data-ng-options="key as value for (key,value) in countryList">
+                <option value="{{key}}" ng-bind="value"></option>
+            </select>
+        </li>
+        <li>
+            <span>Business Region</span>
+            <input type="text" class="form-control bg-gray" ng-model="store.business_region" required/>
+        </li>
+        <li>
+            <span>Business City</span>
+            <input type="text" class="form-control bg-gray" ng-model="store.business_city" required/>
+        </li>
+        <li>
+            <span>Business Address</span>
+            <input type="text" class="form-control bg-gray" ng-model="store.business_address" required/>
+        </li>
+        <li>
+            <span>Zip</span>
+            <input type="number" class="form-control bg-gray" ng-model="store.zip" required/>
+        </li>
+        <li>
+            <span>Province</span>
+            <input type="text" class="form-control bg-gray" ng-model="store.province" required/>
+        </li>
+        <li>
+            <span>Vat Number</span>
+            <input type="text" class="form-control bg-gray" ng-model="store.vat_number" required/>
+        </li>
+        <li>
+            <span>Iban</span>
+            <input type="text" class="form-control bg-gray" ng-model="store.iban" required/>
+        </li>
+        <li>
+            <span>Description</span>
+            <textarea class="form-control bg-gray" ng-model="store.description" required></textarea>
+        </li>
+        <li>
+            <span>Map location</span>
+            <input id="mapplace" type="text" class="form-control bg-gray" ng-model="store.map_place" required readonly/>
+        </li>
+        <li>
+            <span>Latitutde</span>
+            <input type="text" class="form-control bg-gray" value="" id="latitude" ng-model="store.latitude" required readonly/>
+        </li>
+        <li>
+            <span>Longitude</span>
+            <input type="text" class="form-control bg-gray" value="" id="longitude" ng-model="store.longitude" required readonly/>
+        </li>
+        <li>
+            <!-- <map></map> -->
+            <autocomplete-map></autocomplete-map>
+        </li>
+        <li>
+        <div data-ng-show="createStoreLoader" style="text-align: center;">
+            <img src="app/assets/images/ajax-loader.gif" alt="loading..." />
+        </div>
+        <div class="reset-child">
+          <input data-ng-hide="createStoreLoader" type="submit" class="btn btn-primary" value="Create Child Shop"> <i class="fa fa-fw fa-plus"></i>
+      </div>
+          <div class="reset-child">
+          <input type="button" data-ng-hide="createStoreLoader" class="btn btn-primary" ng-click="resetStoreObject()" value="Reset"> <i class="fa fa-fw fa-times"></i>
+          <div>
+        </li>
+      </ul>
+    </form>
+      </div>
+    </div>
+    </div>
+    <profile-Right-Panel></profile-Right-Panel>
+  </div>
+</div>
+</div>
+<!-- // Content END -->
+<div class="clearfix"></div>

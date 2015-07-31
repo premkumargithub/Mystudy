@@ -1,0 +1,236 @@
+<div class="col-3-layout">
+    <left-Panel></left-Panel>
+    <div id="content">
+        <div class="innerAll">
+            <div class="row">
+                <div class="col-lg-8 col-md-8">
+                    <div class="inner-container">
+                        <div class="editProfileLoader"> 
+                            <img src="app/assets/images/proceed.gif" data-ng-show="loadEditProfile" />
+                        </div>
+                        <div class="tab-content" data-ng-hide="loadEditProfile">
+                            <div class="profile-tab-container">
+                                <!-- Tabs Heading -->
+                                <div class="tabsbar tabsbar-2">
+                                    <ul class="row row-merge">
+                                        <li class="col-md-3 glyphicons circle_info">'<a href data-ng-click="showTab('edit');" data-ng-bind="i18n.profile.edit_profile.title"></a></li>
+                                        <li class="col-md-3 glyphicons cart_in"><a href data-ng-click="showTab('brokerprofile');" data-ng-bind ="i18n.profile.edit_profile.edit_broker_profile"></a></li> 
+                                    </ul>
+                                </div>
+
+                                <!-- Tab content -->
+                                <div class="tab-pane1"  data-ng-show="edit">
+                                    <div class="timeline-cover">
+                                        <div class="widget">
+                                            <div class="widget-body padding-none margin-none">
+                                                <div class="innerAll"> <i class="fa fa-quote-left text-muted pull-left fa-fw"></i>
+                                                <p class="lead margin-none" data-ng-bind="i18n.profile.edit_profile.edit"></p>
+                                                <span data-ng-bind="editMessage"></span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-container">
+                                        <form name="editUser" data-ng-submit="editProfile(1)">
+                                            <ul>
+                                                <li>
+                                                    <span data-ng-bind="i18n.profile.edit_profile.first_name"></span>
+                                                    <input type="text" data-ng-model="editUser.firstName"class="form-control bg-gray" required/>
+                                                </li>
+                                                <li>
+                                                    <span data-ng-bind="i18n.profile.edit_profile.last_name"></span>
+                                                    <input type="text" class="form-control bg-gray" data-ng-model="editUser.lastName" required/>
+                                                </li>
+                                                <li>
+                                                    <span data-ng-bind="i18n.profile.edit_profile.birthday"></span>
+                                                    <div class="register-sixth-one-half">
+                                                        <div class="register-sixth-select-month">
+                                                            <select data-ng-model="editUser.month" data-ng-options="month.name for month in months" ng-change="monthChange();" required>
+                                                                <option value="" data-ng-bind="i18n.profile.edit_profile.month"></option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="register-sixth-select-month register-sixth-day">
+                                                            <select data-ng-model="editUser.day" data-ng-options="day for day in days" required>
+                                                                <option value="" data-ng-bind="i18n.profile.edit_profile.day"></option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="register-sixth-select-month register-sixth-year">
+                                                            <select data-ng-model="editUser.year" data-ng-options="year for year in years" required>
+                                                                <option value="" data-ng-bind="i18n.profile.edit_profile.year"></option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                </li>
+                                                <li>
+                                                    <span data-ng-bind="i18n.profile.edit_profile.gender.title"></span>
+                                                    <div class="register-sixth-two-half">   
+                                                        <div class="register-sixth-one-radio">
+                                                            <div class="shipping_input_radio">
+                                                                <input type="radio" name="gender" value="m" id="register_male" class="register-sixth-radio" data-ng-model="editUser.gender" required >
+                                                                <label for="register_male"><span data-ng-bind="i18n.profile.edit_profile.gender.male"></span></label>
+                                                            </div>
+                                                            <label for="register_male" data-ng-bind="i18n.profile.edit_profile.male"><label>
+                                                                </label></label></div>
+
+                                                        <div class="register-sixth-two-radio">
+                                                            <div class="shipping_input_radio">
+                                                                <input type="radio" name="gender" value="f" id="register_female" class="register-sixth-radio" data-ng-model="editUser.gender" required>
+                                                                <label for="register_female"><span data-ng-bind="i18n.profile.edit_profile.gender.female"></span></label>
+                                                            </div>
+                                                            <label for="register_female" data-ng-bind= "i18n.profile.edit_profile.female"></label>
+                                                        </div>
+
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <span data-ng-bind= "i18n.citizenregister.citizen_referral">
+                                                    </span>
+                                                    <input type="text" class="form-control bg-gray" data-ng-model="editUser.referral_id" readonly/>
+                                                    
+                                                </li>
+                                                <li>
+                                                    <span data-ng-bind= "i18n.profile.edit_profile.region"></span>
+                                                    <select class="form-control bg-gray"  data-ng-model="editUser.country" data-ng-options="country.country for country in countries" required>
+                                                        <option value="" data-ng-bind="i18n.profile.edit_profile.country" ></option>
+                                                    </select>
+                                                </li>
+                                                <li>
+                                                    <span data-ng-bind="i18n.profile.edit_profile.zip"></span>
+                                                    <input type="number" class="form-control bg-gray" data-ng-model="editUser.zip" required/>
+                                                </li>
+                                                <li>
+                                                    <span data-ng-bind="i18n.profile.edit_profile.city"></span>
+                                                    <input type="text" class="form-control bg-gray" data-ng-model="editUser.city" required/>
+                                                </li>
+                                                <li>
+                                                    <span data-ng-bind="i18n.profile.edit_profile.address"></span>
+                                                    <textarea class="form-control bg-gray" data-ng-model="editUser.address" required></textarea>
+                                                </li>
+                                                <li>
+                                                    <span data-ng-bind="i18n.profile.edit_profile.place"></span>
+                                                    <input type="text" id="mapplace" class="form-control bg-gray" data-ng-model="editUser.place" readonly required>
+                                                </li>
+                                                <li style="display:none;" >
+                                                    <span data-ng-bind="i18n.profile.edit_profile.latitude"></span>
+                                                    <input type="text" id="lat" value=""class="form-control bg-gray" data-ng-model="editUser.latitude" readonly />
+                                                </li>
+                                                <li style="display:none;">
+                                                    <span data-ng-bind="i18n.profile.edit_profile.longitude" ></span>
+                                                    <input type="text" id="lon" value=""  class="form-control bg-gray" data-ng-model="editUser.longitude" readonly/>
+                                                </li>
+
+                                                <li><!-- <map><map> -->
+                                                <autocomplete-map></autocomplete-map></li>
+                                                <li><img src="app/assets/images/ajax-loader.gif" class="ng-hide" data-ng-show="showloading">
+                                                    <button type="submit" class="btn btn-primary" data-ng-bind="i18n.profile.edit_profile.save" ></button>
+
+                                                </li>
+                                            </ul>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- // Tab content END -->
+
+                                <!-- Tab content -->
+                                <div class="tab-pane1"  data-ng-show="brokerprofile">
+                                    <div class="timeline-cover">
+                                        <div class="widget">
+                                            <div class="widget-body padding-none margin-none">
+                                                <div class="innerAll"> <i class="fa fa-quote-left text-muted pull-left fa-fw"></i>
+                                                    <p class="lead margin-none" data-ng-bind="i18n.broker.edit_broker_profile.title"></p>
+                                                    <span style="color: red" data-ng-bind="editMessage"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                  </div>
+                                    <div class="form-container">
+                                        <form name="editUser" data-ng-submit="editProfile(2)">
+                                            <ul>
+                                                <li>
+                                                    <span data-ng-bind="i18n.broker.edit_broker_profile.phone"></span>
+                                                    <input type="number" class="form-control bg-gray " data-ng-model="editUser.phone" required/>
+                                                </li>
+                                                <li>
+                                                    <span data-ng-bind="i18n.broker.edit_broker_profile.vat_number"></span>
+                                                    <input type="text" class="form-control bg-gray" data-ng-model="editUser.vatnumber"/>
+                                                </li>
+                                                <li>
+                                                    <span data-ng-bind="i18n.broker.edit_broker_profile.fiscal_code"></span>
+                                                    <input type="text" class="form-control bg-gray" data-ng-model="editUser.fiscalcode" required/>
+                                                </li>
+                                                <li>
+                                                    <span data-ng-bind="i18n.broker.edit_broker_profile.iban"></span>
+                                                    <input type="text" class="form-control bg-gray" data-ng-model="editUser.iban" required/>
+                                                </li>
+                                                <li>
+                                                    <span data-ng-bind="i18n.broker.edit_broker_profile.upload_id_card"></span>
+                                                    <input type="file" name="idcard" class="form-control bg-gray" ng-id-card-file=""/>
+                                                    <div data-ng-show="idCardFilePre">
+                                                        <img data-ng-src="{{idCardFilePre}}" width="200" height="200"/>
+                                                        <a href="javascript:void(0);" data-ng-click="removePreviewIdCard()" data-ng-bind="i18n.broker.edit_broker_profile.remove_id_card">
+                                                        </a>
+                                                    </div>
+                                                    <div data-ng-hide="idCardFilePre" data-ng-if="editUser.idcard != ''">
+                                                        <img data-ng-src="{{editUser.idcard}}" width="200" height="200"/>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <span data-ng-bind="i18n.broker.edit_broker_profile.social_security_number"></span>
+                                                    <input type="file" name="ssn" class="form-control bg-gray" ng-ssn-file-select="" />
+                                                    <div data-ng-show="ssnFilePre">
+                                                        <img data-ng-src="{{ssnFilePre}}" width="200" height="200"/>
+                                                        <a href="javascript:void(0);" data-ng-click="removePreviewSSN()" data-ng-bind="i18n.broker.edit_broker_profile.remove_ssn">
+                                                        </a>
+                                                    </div>
+                                                    <div data-ng-hide="ssnFilePre" data-ng-if="editUser.ssn != ''">
+                                                        <img data-ng-src="{{editUser.ssn}}" width="200" height="200"/>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <span data-ng-bind="i18n.citizenregister.broker_referral"></span>
+                                                    <input type="text" class="form-control bg-gray" data-ng-model="editUser.brokerreferral_id" readonly/>
+                                                </li>
+                                                <li>
+                                                    <span data-ng-bind="i18n.broker.edit_broker_profile.place"></span>
+                                                    <input type="text" id="mapplace1" class="form-control bg-gray" data-ng-model="editUser.brokerplace" />
+                                                </li>
+                                                <li style="display:none;">
+                                                    <span data-ng-bind="i18n.broker.edit_broker_profile.latitutde"></span>
+                                                    <input type="text" id="lat1" value=""class="form-control bg-gray" data-ng-model="editUser.brokerlatitude" readonly/>
+                                                </li>
+                                                <li style="display:none;">
+                                                    <span data-ng-bind="i18n.broker.edit_broker_profile.longitude"></span>
+                                                    <input type="text" id="lon1" value=""  class="form-control bg-gray" data-ng-model="editUser.brokerlongitude" readonly/>
+                                                </li>
+                                                <li><!-- <map></map> -->
+                                                    <input id="pac-input" class="controls" type="text"
+                                                           placeholder="Enter a location">
+                                                    <div id="type-selector" class="controls">
+                                                        <input type="radio" name="type" id="changetype-all" checked="checked">
+                                                        <!-- <label for="changetype-all">All</label>
+                                                        -->
+                                                        <!-- <input type="radio" name="type" id="changetype-establishment">
+                                                        <label for="changetype-establishment">Establishments</label>
+                                                    
+                                                        <input type="radio" name="type" id="changetype-geocode">
+                                                        <label for="changetype-geocode">Geocodes</label> -->
+                                                    </div>
+                                                    <div id="map-canvas-second" style="width:100%;height:300px;"></div></li>
+                                                <li><img src="app/assets/images/ajax-loader.gif" class="ng-hide" data-ng-show="showloading">
+                                                    <button class="btn btn-primary" data-ng-bind="i18n.broker.edit_broker_profile.save"></button>
+
+                                                </li>
+                                            </ul>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div></div>
+                <div class="col-md-4 col-lg-4">
+                    <profile-Right-Panel></profile-Right-Panel>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

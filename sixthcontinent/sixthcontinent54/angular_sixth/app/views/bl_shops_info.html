@@ -1,0 +1,50 @@
+<div class="container-fluid register-sixth-contain">	
+    <div class="register-sixth-continent-form-section">
+        <div class="innerAll">
+            <div class="row">
+                <div class="inner-container" style="margin-top: 51px">
+                    <div class="inner-container">
+                        <!--store details section-->
+                        <div class="store-details-section">
+                            <storeprofilehome></storeprofilehome> 
+                            <div ng-show="storeLoading" class="loader-container">
+                            <img src="app/assets/images/proceed.gif" alt="loading..." />
+                            </div>
+                            <div ng-hide="storeLoading" class="store-album-section" ng-controller="BLDetailAlbumShopsController">			
+                                <div class="store-dp-album">
+                                    <span data-ng-bind="i18n.store.album_title"></span>
+                                    <span class="ng-hide" ng-show="albloader">
+                                        <img titile="" alt="" src="app/assets/images/proceed.gif">
+                                    </span>
+                                </div>
+                                <ul class="store-dp-album-option" ng-if="listAlbum.length">
+                                    <li data-ng-repeat="item in listAlbum| limitTo:3">
+                                        <a href="javascript:void(0)">
+                                            <div ng-if="item.album_featured_image" ng-click="redirectUrl(item.id, item.album_name)" class="store-dp-album-option-div">
+                                                <img data-ng-src="{{item.album_featured_image}}" width="246" height="150" alt="" titile="" />
+                                                <span class="albname" data-ng-bind="item.album_name"></span>
+                                            </div>
+                                            <div ng-if="!item.album_featured_image" ng-click="redirectUrl(item.id, item.album_name)" class="store-dp-album-option-div">
+                                                <img src="app/assets/images/album-empty.jpg" alt="" titile="" width="246" height="150" />
+                                                <span class="albname" data-ng-bind="item.album_name"></span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="album-option-container">
+                                    <ul class="store-dp-album-option ng-hide" ng-if="!listAlbum.length" ng-show="noAlbums">
+                                        <li class="store-dp-album-option" data-ng-bind="i18n.friends.no_album"></li>
+                                    </ul>
+                                </div>      
+                            </div>
+                            <div data-ng-controller="BLDetailPostShopsController" >
+                                <store-post-home-list></store-post-home-list>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>

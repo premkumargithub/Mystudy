@@ -1,0 +1,52 @@
+<div class="store-album-section">
+	<div class="text-center" data-ng-class="postErrCls" data-ng-bind="postErrMsg"></div>
+	<div class="store-dp-album-post">
+		<ul class="store-post-photos">
+			<li ng-class="isImage ? '' : 'post-active' " class="status-post"><a href="javascript:void(0)" data-ng-click="addPost()" data-ng-bind="i18n.group_post.status"></a></li>
+			<li ng-class="isImage?'post-active' : '' " class="video-post" ><a href="javascript:void(0)" data-ng-click="addImage()" data-ng-bind="i18n.group_post.photos"></a></li>
+		</ul>
+	</div>
+	<form>
+	<div class="store-dp-post-textarea" ng-init="setPlaceholder()">
+		<!-- <textarea name="createPost" placeholder="You can upload pics, and share your posts here" data-ng-model="postText" data-ng-hide="uploadBox"></textarea> -->
+		<div class="linkPreview" id="lp1"></div>
+			<div class="postimgup" data-ng-show="imgUpload">
+					<div ng-repeat="item in uploader.queue track by $index" class="preview-image-list">
+						<div class="progress-color">
+							<div class="progress" style="margin-bottom: 0;">
+								<div class="progress-bar" role="progressbar" ng-style="{'width': item.progress + '%' }"></div>
+							</div>
+						</div>
+						<div data-ng-show="imageSrc[$index].media_thumb_link != ''" class="img-preview">
+							<!-- <img ng-src="{{imagePrvSrc[$index].media_thumb_link}}" width="80" height="80" /> -->
+							<div class="imgbkground">
+								<a style="background-image:url('{{imageSrc[$index].media_thumb_link}}');">
+								</a> 
+								<i data-ng-click="removeImage($index)" class="fa fa-fw fa-times" title="{{i18n.group_post.remove}}"></i> 
+							</div>
+						</div>
+						<div data-ng-show="postImgLoader[$index] && item.progress == 0" class="progress-img" ng-hide="item.progress == 100">
+							<show-progress></show-progress>
+						</div>
+					</div>
+					<div class="file-upload-btn btn">
+		            	<input type="file" class="upload" nv-file-select="" uploader="uploader" multiple />
+		         	</div>
+			</div>
+			
+		
+         <ul class="store-dp-video-capture" data-ng-show="uploadBox">
+			<li><div class="store-upload-photo-video" data-ng-bind="i18n.dashboard.postcomment.upload_photos"></div> 
+				<input type="file" nv-file-select="" uploader="uploader"  multiple/>
+			</li>
+			<!-- <li class="last"><div class="store-upload-photo-video">Create Photo Album</div><input type="file" name="Create Photo Album" value="Create Photo Album"></li> -->
+		</ul>
+		<div class="postcom" data-ng-hide="uploadBox">
+			<div class="post-list-bottom-right" id="postbtn_lp1">
+				<a data-ng-hide="postContentStart" class="btn btn-primary" href="javascript:void(0)" ng-click="createPost()" data-ng-bind="i18n.dashboard.postcomment.post_it" ></a>
+			</div>
+            <show-progress data-ng-show="postContentLoader"></show-progress>
+        </div>
+	</div>
+	</form>
+</div>

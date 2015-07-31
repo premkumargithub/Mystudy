@@ -1,0 +1,99 @@
+<div class="col-2-layout">
+	<div id="content" class="container-right-fluid-page">
+		<div class="innerAll" >
+			<div class="row">
+				<div class="col-lg-8 col-md-8">
+					<div data-ng-show="postPageLoader" class="loader-container">
+						<img src="app/assets/images/proceed.gif" alt="loading..." />
+					</div>
+					<div data-ng-hide="postPageLoader">
+						<div class="inner-container" data-ng-show="postPageNotFound">
+							<h3 data-ng-bind="i18n.public.page_not_available"></h2>
+							<h4 data-ng-bind="i18n.public.page_removed"></h3>
+						</div>
+						<div class="inner-container" data-ng-hide="postPageNotFound">
+							<div class="single-media-page">
+							<div class="notification-list-header">
+								<a href="#/viewfriend/{{data.user_info.id}}" data-ng-bind="(data.user_info.first_name+' '+data.user_info.last_name)"></a>
+								<span data-ng-bind="' '+mediaType+' '+i18n.public.album_type"></span>
+							</div>
+								<div class="single-media-wrapper">
+								<div class="single-media-img">
+								<img data-ng-src="{{data.media_info.media_link}}" alt="" />
+								</div>
+								<div class="media-rating-wrapper">
+								<div class="media-rating">
+								 	<div class="rating-section">
+									<div class="disable-rating" data-ng-show="waitRateResponse"></div>
+									<rating value="data.current_user_rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value, media_index)" on-leave="overStar" changes="ratePicture(value, media_id, media_index)" class="ratings-block"></rating>				
+								    <span class="rate-post" ng-if="data.current_user_rate == 0" ng-bind="i18n.profile_post.rate_picture"></span><span class="rate-post" ng-if="data.current_user_rate > 0" data-ng-click="removeRating(media_id,media_index)"><a href ng-bind="i18n.profile_post.remove_rating"></a> </span>
+								</div>
+								<div class="average-ratings" >
+			                        <span class="total-votes" > <span ng-bind="data.no_of_votes"></span> <a href data-ng-click="findPeopleRate(media_id,data.no_of_votes)" ><span ng-bind="i18n.profile_post.votes"  class="image-popup-close"></span>  </a></span>
+			                        <span class="votes-star">
+			                            <ul>
+			                                <li data-ng-repeat="avgRate in averageRating(data.avg_rate) track by $index">
+			                                    <span ng-class="data.avg_rate % 1 == 0 ? 'votes-avg' : ($last ? (data.avg_rate % 1 > 0.5 ? 'votes-avg' : 'half-avg' ):'votes-avg')"></span>
+			                                </li>
+			                                <li ng-repeat="blank in blankStar(data.avg_rate) track by $index">
+			                                	<span class="votes-blank"/>
+			                                </li>
+			                            </ul>
+			                        </span>
+			                    </div>
+								<div class="clr"></div>
+								</div>
+								<div class="media-tagg">
+								
+								<div class="user-comments-description" data-ng-if="parent_type == 'user_profile_album_photo'">
+								<span><span ng-if="data.tagged_friends_info.length > 0 ">-- <span ng-bind="i18n.dashboard.postcomment.with"></span></span></span> 
+								<a ng-repeat="tags in data.tagged_friends_info" href="/viewfriend/{{tags.id}}" data-ng-click="closeModal()">{{tags.first_name}} {{tags.last_name}}<span ng-if="!$last && tags.first_name">, </span></a>
+								</div>
+								<div class="img-tagging" ng-click="Tagtoggle()" data-ng-if="parent_type == 'user_profile_album_photo'" data-ng-show="data.user_info.id == currentUser.id" data-ng-bind="i18n.album.album_tag"></div>
+								<span class="sideloader" data-ng-show="TagLoader">
+					   				<img title="" alt="" src="app/assets/images/proceed.gif">
+					   			</span>
+					
+								<span class="modal-img-tag img-update" data-ng-if="UpdateTag">
+					   				<a href data-ng-click="taggService()" data-ng-bind="i18n.shop_affiliation.update"></a>
+					   			</span>
+								<div ng-if="UpdateTag" class="modal-img-tag-desc modal-img-inner" ng-click="putFocus()">
+								<span class="tag-list-block">
+								<span class="tag-friends" data-ng-repeat="tags in data.tagged_friends_info">{{tags.first_name}} {{tags.last_name}}
+								<span data-ng-if="UpdateTag" class="remove-tag-btn" data-ng-click="removeTagFriend($index)">
+								<b class="fa fa-times cross"></b>
+								</span>
+								</span>
+								</span>
+								<span class="modal-tag-frnds-input">
+								<input id="searchTagFriend" data-ng-show="UpdateTag" type="text" data-ng-model="friendName" ng-keyup="tagFriendSuggestion($event, friendName)" data-ng-blur="lostFocus()"/>
+								<div class="post-tag-friend-list" data-ng-show="showFriendList">
+								<ul>
+								<li data-ng-repeat="friend in friends" data-ng-click="selectFriend(friend)" ng-mouseover="$parent.friendTagIndex=$index" ng-class="{active : friendTagIndex===$index}">
+								<a href>
+								<img alt="" data-ng-if="friend.user_info.profile_image_thumb" data-ng-src="{{friend.user_info.profile_image_thumb}}" width="" height=""/>
+								<img alt="" data-ng-if="!friend.user_info.profile_image_thumb" src= "app/assets/images/dummy32X32.jpg" width="" height=""/>
+								<span data-ng-bind="friend.user_info.first_name + ' ' + friend.user_info.last_name"></span>
+								</a>
+								</li>
+								</ul>
+								<span ng-show="showSearchLoader" class="ng-hide loading-icon">
+								<img titile="" alt="" src="app/assets/images/proceed.gif">
+								</span>
+								</div>
+								</span>
+								</div>
+								</div>
+								</div>
+								</div>
+							</div> 
+						</div>
+					</div>
+				</div>     
+				<div class="col-md-4 col-lg-4">
+					<profile-Right-Panel></profile-Right-Panel>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

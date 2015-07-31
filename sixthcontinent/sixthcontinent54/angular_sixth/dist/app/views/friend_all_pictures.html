@@ -1,0 +1,70 @@
+<div class="col-2-layout">
+    <!-- Content START -->
+    <div id="content" class="container-right-fluid-page">
+        <!-- <div class="layout-app">  -->
+        <div class="innerAll">
+            <div class="row">
+                <div class="col-lg-8 col-md-8">
+                    <div class="inner-container">
+                        <friend-Cover-Profile-Panel></friend-Cover-Profile-Panel>
+                           <div class="friends-list-container" ng-controller="FriendViewController">
+                            <div class="friend-list-top clearfix">
+                                <div class="friend-list-title">
+                                <span data-ng-bind="i18n.album.title + ': ' + albumname "><img  src="app/assets/images/album.png" alt="" title=""/></span> 
+
+                                </div>
+
+                                <div style="float:right" class="button-container">
+                                    <a class="btn btn-primary" href="#/{{friendId}}/pictures" data-ng-bind="i18n.album.album_back"></a>
+                                </div>
+                            </div>
+                                <div class="album-sec-top" data-ng-if="albumDetails">
+                                    <div class="album-sec-left">
+                                        <div class="album-left-top"><span class="albumHeading"><img title="" alt="" src="app/assets/images/album-heading-img.png"/><!-- <span ng-bind="i18n.album.FotoProfile"></span> --><span data-ng-bind="i18n.friends.photo_profilo"></span> </span> <span class="albumSettings"><!-- <a href=""><img title="" alt="" src="app/assets/images/settings-album.png"/></a> --></span><!-- <span class="album-last-update">Ultimo aggiornamento: 10 ore fa</span> --></div>
+                                        <!-- <div class="album-desc">Descrizione dell’album</div> -->
+                                    </div>
+                                    <rate-album-dir> </rate-album-dir>
+                                        <div class="clr"></div>
+                                </div>
+                              <div class="album-option-container album-section" infinite-scroll="loadMoreImage()" infinite-scroll-distance="3">
+                                <div  style="text-align:center" ng-show="albloader"><img titile="" alt="" src="app/assets/images/ajax-loader.gif"></div>
+                                 <ul class="album-option" ng-if="viewalbum.length" >
+                                    <!--album container-->
+                                      <li data-ng-repeat="item in viewalbum">
+                                        <a class="view-album-img" href style="background-image:url('{{item.thumb_path}}');" rel="maingallery" ng-click="OpenModal($index, viewalbum, viewalbum.length,albumId,'user','friend_album', friendId)" img-modal-new></a>
+                                        <div class="album-imgae-ratings">
+                                        <div class="album-imgage-ratings-inner" ng-controller="rateAlbum">
+
+                                            <span class="album-image-votes">{{item.no_of_votes}} <a href  data-ng-click="findPeopleRate(item.id,'user_profile_album_photo', item.no_of_votes)"> 
+                                            <span data-ng-if="item.no_of_votes > 1" data-ng-bind="i18n.profile_post.votes"></span><span data-ng-if="item.no_of_votes <= 1" data-ng-bind="i18n.profile_post.vote"></span> 
+                                            </a></span>
+                                            <ul class="ratingsAlbum">
+                                                <li data-ng-repeat="rating in averageRating(item.avg_rate) track by $index">
+                                                    <span ng-class="item.avg_rate % 1 == 0 ? 'votes-avg' : ($last ? (item.avg_rate % 1 > 0.5 ? 'votes-avg' : 'half-avg' ):'votes-avg')"></span>
+                                                </li>
+                                                <li ng-repeat="blank in blankStar(item.avg_rate) track by $index">
+                                                    <span class="votes-blank"/>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                      </li>
+                                    <!--album container-->
+                                  </ul>
+                                  <div class="ng-hide" style="text-align:center" ng-show="listload"><img titile="" alt="" src="app/assets/images/ajax-loader.gif"></div>
+                                <div class="" ng-if="!viewalbum.length && noPhotos == true"
+                                data-ng-bind="i18n.album.no_images">
+                                </div>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4">
+                    <profile-Right-Panel></profile-Right-Panel>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>

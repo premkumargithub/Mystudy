@@ -1,0 +1,56 @@
+<!--Transaction History Detail Start-->
+<div class="transaction-wrapper transaction-history-detail">
+  <div class="transaction-main-heading" ng-bind="i18n.shop_transaction.txn_history_detail_lbl"></div>
+  <div class="transaction-content">
+    <div class="transaction-listing">
+      <ul class="clearfix">
+        <li>
+          <div class="history-detail-left">Total Importo:</div>
+          <div class="history-detail-right">2,00 &euro;</div>
+        </li>
+        <li>
+          <div class="history-detail-left">Totale Credito:</div>
+          <div class="history-detail-right">0,00 &euro;</div>
+        </li>
+        <li>
+          <div class="history-detail-left">Totale Residui:</div>
+          <div class="history-detail-right">2,00 &euro;</div>
+        </li>
+      </ul>
+      <ul class="clearfix">
+        <li>
+          <div class="history-detail-left" ng-bind="i18n.shop_transaction.registration_date"></div>
+          <div class="history-detail-right">
+            <span class="history-time" ng-bind="transactionObject.date | historyListDate"></span>
+          </div>
+        </li>
+        <li>
+          <div class="history-detail-left" ng-bind="i18n.shop_transaction.citizen_code"></div>
+          <div class="history-detail-right" ng-bind="transactionObject.citizen_id._id"></div>
+        </li>
+        <li>
+          <div class="history-detail-left" ng-bind="i18n.shop_transaction.citizen"></div>
+          <div class="history-detail-right" ng-bind="transactionObject.citizen_id.name"></div>
+        </li>
+        <!-- <li>
+          <div class="history-detail-left" ng-bind="i18n.shop_transaction.random"></div>
+          <div class="history-detail-right" ng-bind="transactionObject.citizen_id.name"></div>
+        </li> -->
+        <li>
+          <div class="history-detail-left" ng-bind="i18n.shop_transaction.amount"></div>
+          <div class="history-detail-right"><span ng-bind="transactionObject.transaction_value || 0"></span> &euro;</div>
+        </li>
+        <li>
+          <div class="history-detail-left" ng-bind="i18n.shop_transaction.credit_citizen"></div>
+          <div class="history-detail-right"><span ng-bind="transactionObject.dp_value + transactionObject.coupon_value || 0"></span> &euro;</div>
+        </li>
+        <li>
+          <div class="history-detail-left" ng-bind="i18n.shop_transaction.residual"></div>
+          <div class="history-detail-right"><span ng-bind="transaction.transaction_value-(transactionObject.dp_value + transactionObject.coupon_value) || 0"></span> &euro;</div>
+        </li>
+      </ul>
+    </div>
+    <div class="transaction-buttons"><a href="javascript:void()"  ng-bind="i18n.shop_transaction.close" ng-click="getHistoryList();"></a></div>
+  </div>
+</div>
+<!--Transaction History Detail End-->

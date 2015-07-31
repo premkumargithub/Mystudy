@@ -1,0 +1,79 @@
+<div class="wallet-tab-content shopwallet-historicalsale">
+    <div class="wallet-search-block" ng-hide="requestSending">
+      <div class="search-box">
+        <label data-ng-bind="i18n.store_wallet.salehistory.sale_history_lbl"></label>
+        <div class="search-main-wrap">
+          <input id="cName" type="text" placeholder="{{i18n.store.wallet.couponTab.search}}" 
+          data-ng-model="citizenName" submit-enter="applyFilter(date, 'getSaleHistory', citizenName)">
+          <button><i class="fa fa-search"></i></button>
+        </div>
+      </div>
+      <div class="date-from">
+        <label data-ng-bind="i18n.store.wallet.couponTab.from"></label>
+        <!-- working -->
+        <td><date-pickers date="date.startDate"></date-pickers></td>
+        
+      </div>
+      <div class="date-from">
+        <label data-ng-bind="i18n.store.wallet.couponTab.to"></label>
+        <td><date-pickers date="date.endDate"></date-pickers></td>
+      </div>
+        <div class="search-box-buttons">
+          <a href data-ng-click="applyFilter(date, 'getSaleHistory', citizenName)"><i class="fa fa-check"></i></a>
+          <a href data-ng-click="clearFilter()"><i class="fa fa-times"></i></a>
+        </div>
+    </div>
+    <div class="trans-detail table-wallet wallettable-responsive" ng-hide="requestSending">
+      <table width="100%" border="1">
+        <thead>
+          <tr>
+            <th scope="col" data-ng-bind="i18n.store_wallet.salehistory.date_lbl"></th>
+            <th scope="col" data-ng-bind="i18n.store_wallet.salehistory.total_txn"></th>
+            <th scope="col" class="tLeft" data-ng-bind="i18n.store_wallet.salehistory.shopping_card_used"></th>
+            <th scope="col" data-ng-bind="i18n.store_wallet.salehistory.discount"></th>
+            <th scope="col" data-ng-bind="i18n.store_wallet.salehistory.cash"></th>
+            <th scope="col" data-ng-bind="i18n.store_wallet.salehistory.card_id"></th>
+            <th scope="col" data-ng-bind="i18n.store_wallet.salehistory.citizen_id"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-ng-repeat="record in transactionHistoryObjectList">
+            <td data-title="Data"><label data-ng-bind="record.date | date:'dd-MM-yyyy'"></label></td>
+            <td data-title="Totale Transazione"><a href data-ng-bind="record.transaction_value || 0 | currency:'&euro;'"></a></td>
+            <td data-title="Shopping Card utilizzate"><label data-ng-bind="record.total_cardvalue_used || 0 | currency:'&euro;'"></label></td>
+            <td data-title="Sconto"><label data-ng-bind="record.total_discountvalue_used || 0 | currency:'&euro;'"></label></td>
+            <td data-title="Importo Incassato"><label class="acntColor" data-ng-bind="record.payble_value || 0 | currency:'&euro;'"></label></td>
+            <td data-title="ID Carta">
+              <label class="table-wrap"> 
+                <span ng-repeat="card in (record.discount_details)">{{card.card_id.card_no}}</span>
+            </label>
+          </td>
+            <td data-title="ID Cittadino"><label data-ng-bind="record.citizen_id._id"></label></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="wallet-downld-tool" ng-hide="requestSending">
+      <button class="download-cust" data-ng-click="downloaShopdHistorySaleCsvFile(transactionHistoryObjectList)"><span  ng-bind="i18n.store_wallet.salehistory.export_exl"></span><i class="fa fa-download"></i></button>
+    </div>
+    <div class="club-pagi-section3" ng-hide="requestSending">
+    <div ng-show="isLoadMore" class="saleloading"><show-progress></show-progress></div>
+    <div class="pagination " data-ng-if="pagination === true ">
+      <ul class="pagination mb10 ">
+        <li class="prev nav-arrow" ng-class="prevPageDisabled()">
+          <a href ng-click="prevPage('salehistory')">«</a>
+        </li>
+        <li data-ng-show="n==0 || n==(range.length-1) || (n <= currentPage+2 && n >= currentPage-2)"data-ng-repeat="n in range" ng-class="{active: n == currentPage }" class="num-index">
+          <a href ng-click="setPage(n);loadMoreSaleHistory(n+1);" >{{n+1}}</a>
+        </li>
+        <li class="next nav-arrow" ng-class="nextPageDisabled()">
+        <a href ng-click="nextPage('salehistory')">»</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div ng-show="requestSending" class="saleloading"><show-progress></show-progress></div>
+</div>
+                    
+  
+

@@ -1,0 +1,52 @@
+<div class="col-2-layout">
+<div id="content" class="container-right-fluid-page">
+<div class="innerAll">
+    <div class="row">
+        <div class="col-lg-8 col-md-8">
+        <div class="inner-container">
+            <user-Cover-Profile-Panel></user-Cover-Profile-Panel>
+            <div class="friends-list-container">
+              <div class="friend-list-top clearfix">
+                <div class="friend-list-title">
+                <span><img  src="app/assets/images/album.png" alt="" titile=""/></span> 
+                <span data-ng-bind="i18n.affiliate.shoptitle"></span> 
+                </div>
+                <!-- <span>&nbsp;&nbsp; ({{totalSize}})</span> -->
+              </div>
+        <div class="friend-list-content">
+            <div class="friend-cont-listing">
+                <ul class="clearfix" ng-show="shopAffiliate.length" infinite-scroll="loadMore()" infinite-scroll-distance="3">
+                    <li data-ng-repeat="item in shopAffiliate">
+                      <div class="friend-listing-img">
+                          <a ng-if="item.profile_image_thumb != ''" href="#/shop/view/{{item.id}}" style="background-image:url({{item.profile_image_thumb}});"  title="{{item.business_name}}"></a>
+                          <a ng-if="item.profile_image_thumb == ''" href="#/shop/view/{{item.id}}" style="background-image:url(app/assets/images/default_group.jpg);"   title="{{item.business_name}}"></a>
+                      </div>
+                      <div class="friend-listing-desc">
+                        <div class="friend-listing-desc-title">
+                          <span data-ng-bind="i18n.followers.shop_name"></span>
+                          <a href="#/shop/view/{{item.id}}">{{item.name}}</a><br>
+                          <span data-ng-bind="i18n.followers.business_name"></span>
+                          <a href="#/shop/view/{{item.id}}">{{item.business_name}}</a>
+                        </div>
+                      </div>
+                    </li>
+                </ul>
+              <div class="loader-container" data-ng-show="followersLoader">
+                <img src="app/assets/images/ajax-loader.gif" alt="loading..." />
+              </div>
+              <div class="clearfix" ng-show="!shopAffiliate.length && resultNotFound" data-ng-bind="i18n.followers.no_result">
+              </div>
+            </div>
+        </div>
+        </div>
+        </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4">
+            <profile-Right-Panel></profile-Right-Panel>
+        </div>
+    </div>
+</div>
+</div>
+<div class="clearfix"></div>
+</div>

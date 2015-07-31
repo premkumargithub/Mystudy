@@ -1,0 +1,182 @@
+
+<div class="container-fluid register-sixth-container"> 
+
+
+	<!--register sixth continent-->
+
+	<div class="map-img-cont shop-step-two">
+	<div class="register-sixth-one-step">
+		<div class="register-sixth-continent-form-section">
+			<!--register left panel-->
+			<div class="register-sixth-one-step-section">
+			<!-- <div class="register-one-step-change-world">{{i18n.register.title}}</div> -->
+				<!-- <div class="titleCouter">
+					<div style="margin-left:0px;text-shadow:0 1px 1px #969696" class="blueFont"> {{i18n.mission.total_economy}} </div>
+					<div class="contatore">
+					   <div ng-repeat="item in totalEconomyShifted track by $index" class="digitCounter">{{item}}
+					   </div> -->
+					<!-- <div style="background-position: 0px -0px; " class="digitCounter"></div>
+					<div style="background-position: 0px -0px; " class="digitCounter"></div>
+					<div style="background-position: 0px -0px;  margin-right:5px; " class="digitCounter"></div>
+					<div style="background-position: 0px -0px; " class="digitCounter"></div>
+					<div style="background-position: 0px -75px; " class="digitCounter"></div>
+					<div style="background-position: 0px -151px;  margin-right:5px; " class="digitCounter"></div>
+					<div style="background-position: 0px -227px; " class="digitCounter"></div>
+					<div style="background-position: 0px -303px; " class="digitCounter"></div>
+					<div style="background-position: 0px -454px;  margin-right:5px; " class="digitCounter"></div> -->
+					<!-- <div class="symbolEuro">$</div>
+					<br>
+					<br>
+					</div>
+				</div> -->
+				<!--ticker-->
+				
+				<div class="register-one-step-change-dei" data-ng-bind="i18n.register.step_one"></div>
+				
+			</div>
+			<!--register left panel-->
+			
+			<div class="register-sixth-continent-one-step">
+			
+				<div class="register-sixth-one-step-num register-sixth-one-step-active">
+					<ul>
+						<li><span>1</span> <p data-ng-bind="i18n.store.step_is_active"></p></li>
+						<li class="active-one-step"><span>2</span> <p data-ng-bind="i18n.store.step_is_active"></p></li>
+					</ul>
+				</div>
+				
+				<form name="user" data-ng-submit="registerMultiProfile()">
+					<ul class="register-sixth-one-step-field">
+						<li>
+							<input type="text" value="" data-ng-model="user.name" placeholder="{{i18n.store.name}}" style="width:100%" required/>
+						</li> 
+						<li>
+							<div class="register-sixth-one-step-half">
+								<input type="text" value="" data-ng-model="user.business_name" placeholder="{{i18n.store.business_name}}" required/>
+							</div>
+							
+							<div class="register-sixth-two-step-half">
+								<input type="text" data-ng-model="user.business_type" value="" placeholder="{{i18n.store.business_type}}" required/>
+							</div>
+						</li>
+						
+						<li>
+							<div class="register-sixth-one-step-half">
+								<input type="text" value="" data-ng-model="user.legal_status"placeholder="{{i18n.store.legal_status}}" required/>
+							</div>
+							
+							<div class="register-sixth-two-step-half">
+								<input type="number" value="" data-ng-model="user.phone" placeholder="{{i18n.store.phone}}" required />
+							</div>
+						</li>
+						
+						<li>
+							<div class="register-sixth-one-step-half">
+								<input type="email" value="" data-ng-model="user.email" placeholder="{{i18n.store.email}}" required />
+							</div>
+							
+							<div class="register-sixth-two-step-half">
+								<div class="register-sixth-two-step-select-bussiness">
+								<select ng-model="user.country" ng-options="country.country for country in countries" required>
+								 <option value="">{{i18n.store.business_country}}</option>
+								</select>
+								</div>
+							</div>
+						</li>
+						
+						<li>
+							<div class="register-sixth-one-step-half">
+								<input type="text" value="" data-ng-model="user.business_region" placeholder="{{i18n.store.business_region}}" required/>
+							</div>
+							
+							<div class="register-sixth-two-step-half">
+								<input type="text" value="" data-ng-model="user.business_city" placeholder="{{i18n.store.business_city}}" required/>
+							</div>
+						</li>
+						
+						<li>
+							<div class="register-sixth-one-step-half">
+								<input type="text" value="" data-ng-model="user.business_address" placeholder="{{i18n.store.business_address}}" required/>
+							</div>
+							
+							<div class="register-sixth-two-step-half">
+								<input type="text" value="" data-ng-model="user.zip" placeholder="{{i18n.store.zip}}"  required />
+							</div>
+						</li>
+						
+						<li>
+							<div class="register-sixth-one-step-half">
+								<input type="text" value="" data-ng-model="user.province" placeholder="{{i18n.store.province}}" maxlength ="2" data-ng-maxlength="2" data-ng-minlength="2" required />
+							</div>
+							
+							<div class="register-sixth-two-step-half">
+								<input type="text" value="" data-ng-model="user.vat_number" placeholder="{{i18n.store.vat_number}}" required/>
+							</div>
+						</li>
+						
+						<li>
+							<div class="register-sixth-one-step-half">
+								<input type="text" data-ng-model="user.iban"value="" placeholder="{{i18n.store.iban}}" required/>
+							</div>
+							
+							<div class="register-sixth-two-step-half">
+								<input type="text" value="" data-ng-model="user.description" placeholder="{{i18n.store.description}}" required/>
+							</div>
+						</li>
+						
+						<li style="display:none;">
+							<div class="register-sixth-one-step-half">
+								<input type="text" value="43.524643"  id="lat" data-ng-model="user.lat" placeholder="{{i18n.store.latitude}}" required readonly/>
+							</div>
+							
+							<div class="register-sixth-two-step-half">
+								<input type="text" value="12.160473" id="lon" data-ng-model="user.lon" placeholder="{{i18n.store.longitude}}" required readonly/>
+							</div>
+						</li>
+						<li>
+							<input type="hidden" value="" data-ng-model="user.broker_id" placeholder="{{i18n.store.broker_id}}" style="width:100%" ng-update-hidden />
+						</li>
+						<li >
+
+							<input type="text" id="mapplace" value="Italy" data-ng-model="user.place" placeholder="{{i18n.store.map_place}}" style="width:100%" readonly />
+						</li>
+					</ul>
+					
+					<div class="location-map">
+					<autocomplete-map></autocomplete-map>
+					</div>
+					<!-- <div class="register-sixth-full">
+						<div class="register-sixth-select-terms">
+							<input type="checkbox" ng-model="user.terms" style="width:100%" required />{{i18n.store.terms_condition}}
+						</div>
+					</div> -->
+					
+					<div class="register-sixth-one-step-button">
+						<div class="resigter-one-step-button-right">
+							<img data-ng-show="brokerloader" src="app/assets/images/ajax-loader.gif" gi>
+							<input data-ng-hide="brokerloader" type="submit"  name="" value="{{i18n.store.submit}}" /></div>
+					</div>
+					<p ng-class="regisMessageClass" data-ng-bind="brokerMsg"></p>
+				</form>
+				
+			</div>		
+		</div>	
+	</div>
+	</div>
+	<!--register sixth continent-->	
+	
+	<!--footer-->
+	<footer-logout></footer-logout>
+<!--footer-->
+
+ <!-- Footer -->
+  <div id="footer" class="hidden-print"> 
+    
+    <!--  Copyright Line -->
+    <div class="copy">&copy; 2012 - 2014 - <a href="http://www.mosaicpro.biz">{{i18n.footer.MosaicPro}}</a>{{i18n.footer.all_rights}}<a href="http://themeforest.net/?ref=mosaicpro" target="_blank">{{i18n.footer.social_admin_template}}</a>{{i18n.footer.social_current_version}}<a target="_blank" href="../assets/../../CHANGELOG.txt?v=v2.0.0-rc8">{{i18n.footer.change_log}}</a>
+	</div>
+    <!--  End Copyright Line -->  
+  </div>
+  <!-- // Footer END --> 
+  
+</div>

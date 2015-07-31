@@ -1,0 +1,72 @@
+<div class="group-list-cont">
+	<div class="group-list storecoverid{{store.id}}" data-ng-repeat="store in storeListObject" >
+		<div class="list-image">
+			<a data-ng-href="#/shop/view/{{store.id}}" class="see-more" data-ng-if="store.profile_image_thumb != '' " style="background-image:url('{{store.profile_image_thumb}}');">
+			</a>
+			<a data-ng-href="#/shop/view/{{store.id}}" data-ng-if="store.profile_image_thumb == '' " style="background-image:url('app/assets/images/sidebarlist.jpg');">
+            </a>
+		</div>
+		<div class="list-text">
+			<div class="list-text1">
+			<div class="list-text1-left">
+				<div class="list-text-head"><a data-ng-href="#/shop/view/{{store.id}}" >{{store.name}} </a>
+				</div>
+				<ul>
+					<li class="store-rs">
+					{{store.mapPlace}}
+					</li>
+					<li class="store-rs" data-ng-if="store.businessCity">
+						<strong data-ng-bind="i18n.profile.edit_profile.city"></strong> : {{store.businessCity}}
+					</li>
+					<!--<li class="member-section"><span title="{{store.user_info.username}}">
+						{{(store.user_info.username).length>21 ? ((store.user_info.username)| limitTo: 18)+'...':(store.user_info.username)}}</span></li>-->
+				</ul>
+				<div class="shop-category">
+					<strong ng-if="store.shop_category" data-ng-bind="store.shop_category"></strong>
+			</div>
+			<div class="shop-favcount">
+			<div class="shop-friend-count">
+                    <img ng-if="store.friend_count && (store.friend_count != 0)" src="app/assets/images/shop-friends.png" alt="Total Friends" />
+                    <div ng-if="store.friend_count && (store.friend_count != 0)" class="f-count" data-ng-bind="store.friend_count"></div>
+            </div>
+            <div class="favorite">
+				<a id="makestorefav-{{store.id}}" class="" ng-class="{active: store.is_fav == 1}" href="javascript:void(0)" ng-click="favouritestores(store.id, $event)">fav</a>
+				<span id="storefav{{store.id}}" style="display:none; text-align:center"><img src="app/assets/images/ajax-loader.gif" alt="loading..." /></span>
+			</div>
+        	</div>
+			</div>
+			<div class="list-text1-right">
+				<div class="vote-count shop-stars-section">
+					<ul>
+                        <li ng-class="{active: (store.shopRating | number:1) >=0.6, half: ((store.shopRating | number:1) <= 0.5) && ((store.shopRating | number:1) > 0)}"></li>
+                        <li ng-class="{active: (store.shopRating | number:1) >= 1.6,half: ((store.shopRating | number:1) <= 1.5) && ((store.shopRating | number:1) > 1.0)}"></li>
+                        <li ng-class="{active: (store.shopRating | number:1) >= 2.6, half: ((store.shopRating | number:1) <= 2.5) && ((store.shopRating | number:1) > 2.0)}"></li>
+                        <li ng-class="{active: (store.shopRating | number:1) >= 3.6, half: ((store.shopRating | number:1) <= 3.5) && ((store.shopRating | number:1) > 3.0)}"></li>
+                        <li ng-class="{active: (store.shopRating | number:1) >= 4.6, half: ((store.shopRating | number:1) <= 4.5) && ((store.shopRating | number:1) > 4.0)}"></li>
+                    </ul>
+					<div class="vote-number" data-ng-bind="store.vote_count+' '+i18n.store.store_vote"></div>
+				</div>
+				<!--<div class="credit-count">
+					<div class="credit-title">Credito</div>
+					<div class="credit-number">0 €</div>	
+				</div>-->
+				<div class="shop-credit">
+					<div class="shop-credit" data-ng-bind="i18n.store.order_credit"></div>
+					<div class="credit-available">{{store.credit_available | currency:'&euro;'}}</div>
+				</div>
+			</div>
+			</div>
+			<div class="list-text2">
+				<p>{{( store.description).length>135 ? (( store.description)| limitTo: 132)+'...':( store.description)}}</p>
+			</div>
+			<div class="list-text3">
+				<span >
+				<a id="store{{store.id}}" ng-if="store.user_info.id == currentUser.id" href="javascript:void(0)" title="{{i18n.store.delete_shop}}" ng-click="confirmClick() && deleteStore(store.id, store.parentStoreId, $index)" confirm-click>{{i18n.store.delete_btn}}</a>
+				</span>
+				<a data-ng-href="#/shop/view/{{store.id}}" class="see-more" title="{{i18n.store.view_shop}}" data-ng-bind="i18n.store.view_shop"></a>
+				<span id="storedelete{{store.id}}" style="display:none; text-align:center"><img src="app/assets/images/ajax-loader.gif" alt="loading..." /></span>
+				
+			</div>
+		</div>
+	</div>
+</div>

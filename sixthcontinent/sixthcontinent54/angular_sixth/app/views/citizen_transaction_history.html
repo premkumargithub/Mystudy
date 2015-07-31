@@ -1,0 +1,97 @@
+<div class="trans-history citizenwallet-history">
+  <div data-ng-show="historyLoader" class="loader-container">
+    <show-progress></show-progress>
+  </div>
+  <div class="heading" data-ng-hide="historyLoader"><span ng-bind="i18n.citizen_wallet.transaction_history"></span></div>
+  <div class="till-date" data-ng-hide="historyLoader">
+    <div class="clearfix">
+      <label class="pull-left" ng-bind="i18n.citizen_wallet.balance_at"></label>
+      <label class="pull-right text-right" ng-bind="i18n.citizen_wallet.credit_aval" ></label>
+    </div>
+    <div class="tilldate-sumry clearfix">
+      <div class="pull-left"><a href data-ng-bind="currentDate | date:'dd-MM-yyyy'"></a></div>
+      <div class="pull-right text-right"><a href ng-if="citizenAvailableBalance" ng-bind=" '+'+ '€' +(citizenAvailableBalance | truncateNum)"></a><a ng-if="!citizenAvailableBalance" href>&euro;0.00</a></div>
+    </div> 
+  </div>
+  <div class="table-waller-wrapper" data-ng-hide="historyLoader">       
+  <div class="trans-detail table-wallet">
+    <div class="clearfix heading-accord-wrapper">
+      <span class="heading-accord">
+        <span ng-bind="i18n.citizen_wallet.date"></span>
+        <i class="fa fa-caret-down" ng-if="sort.date == 'desc'" ></i>
+        <i class="fa fa-caret-up" ng-if="sort.date == 'asc'"></i>
+      </span>
+      <span class="heading-accord">
+        <span ng-bind="i18n.citizen_wallet.credit_rec"></span>
+        <i class="fa fa-caret-down" ng-if="sort.recevied == 'desc'"></i>
+        <i class="fa fa-caret-up" ng-if="sort.recevied == 'asc'"></i>
+      </span>
+      <span class="heading-accord">
+        <span ng-bind="i18n.citizen_wallet.credit_used"></span>
+        <i class="fa fa-caret-down" ng-if="sort.used == 'desc'"></i>
+        <i class="fa fa-caret-up" ng-if="sort.used == 'asc'"></i>
+      </span>
+      <span class="heading-accord" class="tLeft">
+        <span ng-bind="i18n.citizen_wallet.type_of_credit"></span>
+        <i class="fa fa-caret-down" ng-if="sort.creditType == 'desc'"></i>
+        <i class="fa fa-caret-up" ng-if="sort.creditType == 'asc'"></i>
+      </span>
+      <span class="heading-accord">&nbsp;</span>
+    </div>
+      <div>
+        <accordion close-others="oneAtATime">
+          <accordion-group ng-repeat="history in citizenHistory | orderBy:'-date' " ng-click="openContnetDetail()" class="accordian-his" is-open="isopen">
+          <accordion-heading>
+            <span ng-bind="history.date | date:'dd-MM-yyyy'"></span>
+            <span data-ng-if="history.record_from != 'Transaction'" ng-bind="'+ &euro;'+(history.credit | truncateNum)" class="wallet-credit"></span>
+            <span data-ng-if="history.record_from == 'Transaction'" ng-bind="'&euro;'+ '0.00'" class="wallet-credit"></span>
+            <span ng-bind="'- '+((history.transaction_value | truncateNum) | currency:'&euro;')" class="wallet-credit"></span>
+
+            <!--condition of record from different value -->
+            <span class="tLeft" data-ng-if="history.record_from == 'Wallet'">
+                <label data-ng-if="history.group_column == 'Shopping Card Upto 50%'" ng-bind="history.record_from +'-' + history.group_column"></label>
+                <label data-ng-if="history.group_column == 'Shopping Card Upto 100%'" ng-bind="history.record_from +'-'+ history.group_column"></label>
+                <label data-ng-if="history.group_column == 'Dp'" ng-bind="i18n.citizen_wallet.dp"></label>
+                <label data-ng-if="history.group_column == 'Shot'" ng-bind="i18n.citizen_wallet.shot"></label>
+                <label data-ng-if="history.group_column != 'Shopping Card Upto 100%' && history.group_column != 'Shopping Card Upto 50%' && history.group_column != 'Dp' && history.group_column != 'Shot'" ng-bind="history.record_from"></label>
+            </span>
+            <span class="tLeft" data-ng-if="history.record_from == 'Transaction'">
+                <label ng-bind="i18n.citizen_wallet.purchase + history.shop_id.name"></label>
+            </span>
+            <span class="tLeft" data-ng-if="history.record_from == 'CI'">
+                <label ng-bind="i18n.citizen_wallet.ci"></label>
+            </span>
+            <span class="tLeft" data-ng-if="history.record_from != 'CI' && history.record_from != 'Transaction' && history.record_from != 'Wallet'">
+                <label ng-bind="history.record_from"></label>
+            </span>
+
+            <!-- end condition of record from diffrent value -->
+            <span class="last-cell"><a href="#" class="dropdown-click"><div class="details" ng-bind="i18n.citizen_wallet.show_details"></div><i class="fa fa-caret-right" ng-class="{'fa-caret-down': isopen, 'fa-caret-right':!isopen}"></i></a></span>
+          </accordion-heading>
+          Coming soon
+          </accordion-group>
+        </accordion>
+        <div ng-if="citizenHistory.length < 1" data-ng-bind="i18n.store.result_not_found" class="wallet-noresult"></div>
+      </div>
+  </div>
+  </div>
+  <div data-ng-show="paginationLoader" class="loader-container"> 
+    <show-progress></show-progress>
+  </div>
+  <div class="club-pagi-section3" style="text-align: center;">
+    <div class="pagination " data-ng-if="pagination === true ">
+      <ul class="pagination mb10 " >
+        <li class="prev nav-arrow" ng-class="prevPageDisabled()">
+          <a href ng-click="prevPage()">«</a>
+        </li>
+        <li data-ng-show="n==0 || n==(range.length-1) || (n <= currentPage+2 && n >= currentPage-2)"data-ng-repeat="n in range" ng-class="{active: n == currentPage }" class="num-index">
+          <a href ng-click="setPage(n);loadMoreHistory(n+1);" >{{n+1}}</a>
+        </li>
+        <li class="next nav-arrow" ng-class="nextPageDisabled()">
+        <a href ng-click="nextPage()">»</a>
+        </li>
+      </ul>
+    </div>
+  </div>  
+         
+</div>
