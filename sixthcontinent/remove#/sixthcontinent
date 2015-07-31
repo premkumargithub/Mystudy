@@ -1,0 +1,19 @@
+<VirtualHost *:80>
+    ServerAdmin admin@sixthcontinentlocal.com
+    ServerName sixthcontinentlocal.com
+    ServerAlias www.sixthcontinentlocal.com
+
+    DocumentRoot /var/www/sixthcontinent54/sixthcontinent_angular
+
+    <Directory /var/www/sixthcontinent54/sixthcontinent_angular>
+        RewriteEngine on
+
+        # Don't rewrite files or directories
+        RewriteCond %{REQUEST_FILENAME} -f [OR]
+        RewriteCond %{REQUEST_FILENAME} -d
+        RewriteRule ^ - [L]
+
+        # Rewrite everything else to index.html to allow html5 state links
+        RewriteRule ^ index.html [L]
+    </Directory>
+</VirtualHost>

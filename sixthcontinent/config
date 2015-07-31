@@ -1,0 +1,138 @@
+[1:18:21 AM] Liju Jose: sudo ssh -i sixthcontinent_angular_serverkey.pem centos@52.17.106.221
+[1:18:35 AM] nidhi gupta: cd /mnt/scdat
+
+APP.fbId = '787737347958504';
+45 filzilla
+45.33.28.108
+user sixthweb
+passwd v4XV"$b3
+port21
+
+paolo.salari1988@libero.it
+123456
+
+
+Final updated all notification list 
+
+RockOn4321
+
+Cloud Sponge 
+Alessandro Guarino: alessandro.guarino@sixthcontinent.org
+Password:  budopassnake91
+
+
+
+Sixthcontinent:
+CloudSponge Domain Key:
+d93affadf4cd364d77884c9ecd8e11edb93143ca
+
+Facebook:
+APPID:  824296950969517
+APP Secrete: a2a12064852fe16820d6009cf3da7e41
+
+Gmail: 
+APPID: 49563448806-gqq8v2l7gio1uaam1keqcn81j7q5ok15.apps.googleusercontent.com
+Client Secrete: O69g17X68JRcG9ExkokBuuCD
+
+
+FIllzilla for our server 
+Host: 54.83.205.169
+username: joomteam
+password: joom2daffo
+
+Yahoo:
+username: liju_daffodil																																																																																					
+Password: hrhk@1234
+
+
+username: prem_daffodil
+password: hrhk@1234
+
+
+Skype Account: 
+
+skype id-liju_daffodil
+password-liju337496jose
+
+
+Bitbucket
+username: liju_jose
+password: hrhk@1234
+
+Live account:
+
+Email: alessandro.guarino1@gmail.com
+Password: budopassnake91
+
+Angular Js Modularization
+https://blog.safaribooksonline.com/2014/03/27/13-step-guide-angularjs-modularization/
+
+Slider:
+http://www.nganimate.org/angularjs/ng-switch/slider-css3-transition-animation
+
+http://jsfiddle.net/bnyJ6/1/
+
+
+Nidhi Mam suggested links :
+
+http://gtmetrix.com/
+
+http://cleanjscode.appspot.com/
+
+http://jsbeautifier.org/
+
+
+Git Commands:
+
+git branch -> List of all the branches in the repository
+
+git branch <branch name> -> Creates new branch 
+
+
+Credti card detail:
+card no: 5255999999999992
+exp date : 12/2015
+cvv: 123
+
+
+
+rating.html
+<ul class="rating">
+	<li ng-repeat="star in stars" ng-class="star" ng-click="toggle($index)">
+	<i class="fa fa-star-o"></i>
+	</li>
+</ul>
+
+
+html 
+<div ng-init="rating = star.rating + 1"></div>
+
+<div class="star-rating" star-rating rating-value="rating"
+
+ data-max="5" on-rating-selected="rateFunction(rating)"></div> 
+
+
+
+app.directive('starRating', function() {
+return {
+restrict : 'A',
+templateUrl : 'app/views/rating.html',
+scope : {
+ ratingValue : '=',
+ max : '=',
+ onRatingSelected : '&'
+},
+link : function(scope, elem, attrs) {
+ var updateStars = function() {
+  scope.stars = [];
+  for ( var i = 0; i < scope.max; i++) {
+   scope.stars.push({
+    filled : i < scope.ratingValue
+   });
+  }
+ };
+
+
+[1:16:16 AM] nidhi gupta: ssh -i sixthcontinent_angular_serverkey.pem root@52.17.106.221
+[1:18:21 AM] Liju Jose: ssh -i sixthcontinent_angular_serverkey.pem centos@52.17.106.221
+[1:18:35 AM] nidhi gupta: cd /mnt/scdata

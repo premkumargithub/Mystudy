@@ -1,0 +1,27 @@
+To remove # URL from angular You need to follow 5 steps 
+
+1. Add base url in the index.html file 
+=> <base href="/" />
+Note: Add this line in the idex.html file below meta tag
+
+2. Do on html5 mode in angular URL rewriting, Add the one line of code in app.config module
+=> $locationProvider.html5Mode(true);
+
+3. Add/Edit the sixthcontinent.conf in the sites-avalaible folder under your apache 
+
+4. Enable the sixthcontinent.conf your vitual host files here (In ubuntu > sudo a2ensite example.com.conf)
+
+5. Check your server mode rewrite is on for html5 mode (Enabe in ubuntu > sudo a2enmod rewrite)
+
+6. Restart the server 
+
+
+Note : For point 3, You have to place the sixthcontinent.conf file I sent this is the attachment.
+
+Two reference URL 
+
+1. https://www.digitalocean.com/community/tutorials/how-to-set-up-apache-virtual-hosts-on-ubuntu-14-04-lts
+
+URL for Adding the URl rewriting with different server 
+
+2. https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions#how-to-configure-your-server-to-work-with-html5mode
