@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<Request version="1.0">
+  <Header>
+    <Security sender="31HA07BC8124AD82A9E96D9A35FAFD2A"/>
+  </Header>
+  <Query entity="31HA07BC8124AD82A9E96D9A35FAFD2A" level="MERCHANT" mode="CONNECTOR_TEST" type="STANDARD">
+    <User login="31ha07bc8124ad82a9e96d486d19edaa" pwd="password"/>
+    <Period from="2014-01-31" to="2014-01-31"/>
+    <Methods>
+      <Method code="DD"/>
+    </Methods>
+    <Types>
+      <Type code="DB"/>
+    </Types>
+  </Query>
+</Request>
